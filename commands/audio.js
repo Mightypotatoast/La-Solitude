@@ -1,8 +1,11 @@
  exports.run = async (bot, message, args, Discord,channel, ops, overwatch, ffmpeg) => {
     prefix = '!';
-    var args = message.content.slice(prefix.length).split(' ');
-    var cmd = args[1].toLowerCase();
-    switch (cmd){
+
+    try{
+    
+      var cmdAudio = args.shift(1).toLowerCase()
+    
+    switch (cmdAudio){
 
         case "trepuec":              
         
@@ -10,7 +13,7 @@
               channel.join()
                 .then(connection => {
                   console.log(`\n Connected on channel ${channel.name}!`);
-                  const dispatcher = connection.playFile('./commands/audio/EWEN.wav');
+                  const dispatcher = connection.playFile('./commands/fAudio/EWEN.wav');
                   dispatcher.on("end", end => {
                     channel.leave()
                     console.log(`\n Disconnected on channel ${channel.name} sur !`);      
@@ -35,7 +38,7 @@
               channel.join()
                 .then(connection => {
                   console.log(`\n Connected on channel ${channel.name}!`);
-                  const dispatcher = connection.playFile('./audio/daniel.mp3');
+                  const dispatcher = connection.playFile('./commands/fAudio/daniel.mp3');
                   dispatcher.on("end", end => {
                     channel.leave()
                     console.log(`\n Disconnected on channel ${channel.name}!`);      
@@ -59,7 +62,7 @@
               channel.join()
                 .then(connection => {
                   console.log(`\n Connected on channel ${channel.name}!`);
-                  const dispatcher = connection.playFile('./audio/puelamerde.mp3');
+                  const dispatcher = connection.playFile('./commands/fAudio/puelamerde.mp3');
                   dispatcher.on("end", end => {
                     channel.leave()
                     console.log(`\n Disconnected on channel ${channel.name}!`);      
@@ -84,7 +87,7 @@
               channel.join()
                 .then(connection => {
                   console.log(`\n Connected on channel ${channel.name}!`);
-                  const dispatcher = connection.playFile('./audio/silence.mp3');
+                  const dispatcher = connection.playFile('./commands/fAudio/silence.mp3');
                   dispatcher.on("end", end => {
                     channel.leave()
                     console.log(`\n Disconnected on channel ${channel.name}!`);      
@@ -106,7 +109,18 @@
             
             message.channel.send({embed :{
               color : 0xff0000 ,
-              description : ` ${message.member} \n **Erreur**: \n Audio invalide.`
+              description : ` ${message.member} \n **Erreur**: \n Audio inexistant. \n\n **Audio valide :**\n **\`\`trepuec\`\`** \n **\`\`daniel\`\`** \n **\`\`silence\`\`** \n **\`\`puelamerde\`\`** `
             }});
             break;
-}}
+    }
+
+  }
+    
+  catch(e){
+    message.channel.send({embed :{
+      color : 0xff0000 ,
+      description : ` ${message.member} \n **Erreur**: \n Aucun audio séléctionnée. \n\n **Audio valide :**\n **\`\`trepuec\`\`** \n **\`\`daniel\`\`** \n **\`\`silence\`\`** \n **\`\`puelamerde\`\`** `
+    }});
+  }
+
+}
