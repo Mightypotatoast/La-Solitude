@@ -1,10 +1,6 @@
 
  - [Check] mettre une image lors de la commande " !audio trepuec "
 
- - !rules :
-	3 kick => 1 ban
-
-	spam -> 1 kick
 
 
  - !help :
@@ -13,7 +9,7 @@
 		!leave
 		!ping
 		!zap
-		!logo
+		!logo   <----------------- à changer par une description du serveur 
 		!audio [ - trepuec    ]
 		       [ - daniel     ]
 		       [ - puelamerde ]
@@ -27,7 +23,21 @@
 		!queue
 		
 
- - !profil
+ - ![jeu] : stats des jeux
+
+
+ - !convert : 	- binaire --> decimal
+				- decimal --> binaire
+				- etc...
+
+ - !ip : étude d'une adresse ip
+
+ - 
+
+
+ - role par emote en fontion des jeux jouée
+
+
  
  - ajouter des logs
 

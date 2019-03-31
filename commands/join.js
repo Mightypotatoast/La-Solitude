@@ -1,6 +1,6 @@
  
 exports.run = async (bot, message, args, Discord,channel,ops) => {
-    
+    bot.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
     if (channel){
         channel.join()
           .then(connection => console.log(`\n Connected on channel ${channel.name}!`))

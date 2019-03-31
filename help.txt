@@ -1,10 +1,13 @@
-#Général
-!join : Le BOT rejoint le channel vocal où se situe l'utilisateur.
+#Divers
+!join : Le BOT rejoint le channel vocal oï¿½ se situe l'utilisateur.
 
-!leave : Le BOT quitte le channel vocal où se situe l'utilisateur.
+!leave : Le BOT quitte le channel vocal oï¿½ se situe l'utilisateur.
 
 !ping : Le bot dit "Pong!" et affiche la latence
 
 !zap
 
 !logo
+
+!audio 
+#Musique
