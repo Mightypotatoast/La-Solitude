@@ -1,5 +1,4 @@
 
- - [Check] mettre une image lors de la commande " !audio trepuec "
 
 
 
