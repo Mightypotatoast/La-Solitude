@@ -1,8 +1,8 @@
 const BotClient = require("./structures/BotClient");
 require('dotenv').config();
 
-let bot = new BotClient({
+let client = new BotClient({
     prefix: process.env.PREFIX
 });
 
-bot.login(process.env.DISCORD_TOKEN)
+client.login(process.env.DISCORD_TOKEN)

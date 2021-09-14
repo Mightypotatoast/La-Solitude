@@ -16,7 +16,7 @@ module.exports = class BotClient extends AkairoClient {
                     activities: [
                         {
                             name: "se code gentillement ...",
-                            type:"CUSTOM"
+                            type:"PLAYING"
                             
                         }
                     ]
