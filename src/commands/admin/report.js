@@ -23,14 +23,15 @@ class ReportCommand extends Command {
 
 
       let rreason = args.reason;
-
+      let messageDate = message.createdAt
+      
       let reportEmbed = new Discord.MessageEmbed()
               .setTitle(":satellite: Signalement Détecté :satellite:")
               .setColor("#000000")
               .addField("Membre signalé : ", `${rUser} avec comme ID : ${rUser.id}`)
               .addField("Signalé par : ", `${message.author} avec comme ID : ${message.author.id}`)
               .addField("Dans le salon : ", message.channel.name)
-              .addField("Date : ", `${message.createdAt}`)
+              .addField("Date : ", `${messageDate.getDate()}/${messageDate.getMonth()+1}/${messageDate.getFullYear()} à ${messageDate.getHours()}h${messageDate.getMinutes()}min${messageDate.getSeconds()}s`)
               .addField("Raison : ", `${rreason}`);
 
       let reportschannel = message.guild.channels.cache.find(channel => channel.name === 'reports');
