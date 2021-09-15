@@ -1,4 +1,5 @@
 const { Command } = require('discord-akairo');
+const Discord = require('discord.js')
 
 class LogoCommand extends Command {
     constructor() {
@@ -8,17 +9,20 @@ class LogoCommand extends Command {
     }
 
     async exec(message) {
-      var Kwey = this.client.users.get("232110364186247168")
+      var Kwey = this.client.users.cache.get("232110364186247168")
 
-      var logoembed = new Discord.MessageEmbed()
+      const logoImg = new Discord.MessageAttachment('./src/util/img/Sensokami.png', 'Sensokami.png');
+
+      let logoembed = new Discord.MessageEmbed()
          .setTitle("Le Logo de SensÔkami")
          .setAuthor(this.client.user.username, this.client.user.avatarURL)
          .setColor(0xFF6800)
-         .setFooter('© Designed by Kweyy', Kwey.avatarURL )
-         .setImage('./src/util/img/Sensokami.png')
+         .setImage('attachment://Sensokami.png')
+
+         .setFooter('© Designed by Kweyy', Kwey.displayAvatarURL() )
          .setTimestamp();
 
-      message.channel.send({embeds : [logoembed]});   
+      message.channel.send({ embeds : [logoembed], files : [logoImg] });  
     }
 }
 

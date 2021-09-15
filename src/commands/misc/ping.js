@@ -16,7 +16,7 @@ class PingCommand extends Command {
        }]}).then( (resultMessage) => {
             const ping = resultMessage.createdTimestamp - message.createdTimestamp
 
-            resultMessage.edit({embeds:[{description : `Bot latency : ${ping}, API Latency : ${this.client.ws.ping}`}]})
+           resultMessage.edit({embeds:[{description : `Bot latency : ${ping} ms , API Latency : ${this.client.ws.ping}  ms`}]})
        });
 
 

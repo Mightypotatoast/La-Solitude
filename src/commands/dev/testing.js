@@ -1,10 +1,11 @@
 const { Command } = require('discord-akairo');
 
+
 class TestingCommand extends Command {
     constructor() {
         super('testing', {
            aliases: ['testing'],
-           ownerOnly: false
+           ownerOnly: true
            
         });
     }
