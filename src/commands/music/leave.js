@@ -1,47 +1,40 @@
-const Discord = require("discord.js");
-
-module.exports.run = async (bot, message, args,channel,prefix) => {
-
-}
-
-module.exports.help = {
-
-  name : "leave"
-
-}
-
-
 const { Command } = require('discord-akairo');
+const { getVoiceConnection } = require('@discordjs/voice');
 
-class JoinCommand extends Command {
+
+class LeaveCommand extends Command {
     constructor() {
-        super('join', {
-           aliases: ['join'] 
+        super('leave', {
+           aliases: ['leave'] 
         });
     }
 
     async exec(message) {
 
-      if (!message.member.voiceChannel) return message.channel.send({embed :{
+      if (!message.member.voice.channel) return message.channel.send({embeds :[{
           color : 0xff0000 ,
-          description : ` ${message.member} \n **Erreur**: \n Vous devez d'abord rejoindre un salon vocal (où le BOT se trouve de préférence).`
-      }});
+          title: `**Erreur**:`,
+          description : ` ${message.member} \n Vous devez d'abord rejoindre le salon vocal où le BOT se trouve de préférence.`
+      }]});
       
-      if (!message.guild.me.voiceChannel) return  message.channel.send({embed :{
+      if (!message.guild.me.voice.channel) return  message.channel.send({embeds :[{
           
           color : 0xff0000 ,
-          description : ` ${message.member} \n **Erreur**: \n Le bot n'est pas connecter dans un salon vocal`
+          title: `**Erreur**:`,
+          description : ` ${message.member} \n Le bot n'est pas connecter dans un salon vocal`
 
-      }})
+      }]})
 
-      if (message.guild.me.voiceChannelID !== message.member.voiceChannelID) return  message.channel.send({embed :{
+      if (message.guild.me.voice.channel.id !== message.member.voice.channel.id) return  message.channel.send({embeds :[{
           color : 0xff0000 ,
-          description : ` ${message.member} \n **Erreur**: \n Vous n'êtes pas dans le même salon que le bot.`
-      }})
+          title: `**Erreur**:`,
+          description : ` ${message.member} \n Vous n'êtes pas dans le même salon que le bot.`
+      }]})
 
-      message.guild.me.voiceChannel.leave();
+      var connection = getVoiceConnection(message.guild.id)
+      connection.destroy();
 
     }
 }
 
-module.exports = JoinCommand;
+module.exports = LeaveCommand;

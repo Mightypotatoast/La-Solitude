@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Ayrox/La-Solitude#readme",
   "dependencies": {
+    "@discordjs/voice": "^0.6.0",
     "canvas": "^2.8.0",
     "discord-akairo": "github:SkyBlockDev/discord-akairo",
     "discord.js": "^13.1.0",
