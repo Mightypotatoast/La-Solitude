@@ -49,10 +49,10 @@ class GuildMemberAddListener extends Listener {
         ctx.font = '80px FV Almelo'
         ctx.fillStyle = '#ffffff';
         var TextWidth1 = ctx.measureText(text1).width
-            ctx.fillText(text1, (canvas.width/2) - (TextWidth1/2), canvas.height / 1.25);
+            ctx.fillText(text1, (canvas.width/2) - (TextWidth1/2), canvas.height / 1.3);
 
             
-        ctx.font = applyText(canvas, `${member.displayName}`);
+        ctx.font = '54px FV Almelo'//applyText(canvas, `${member.displayName}`);
         var memberTextWidth = ctx.measureText(member.displayName).width
         ctx.fillStyle = '#ffffff';
         ctx.fillText(`${member.displayName}`, (canvas.width/2) - (memberTextWidth/2), canvas.height / 1.05);
@@ -69,7 +69,7 @@ class GuildMemberAddListener extends Listener {
         ctx.closePath();
         ctx.clip();
 
-        const { body: buffer } = await snekfetch.get(member.user.displayAvatarURL());
+        const { body: buffer } = await snekfetch.get(member.user.displayAvatarURL({format: "png"}));
 
 
         const avatar = await Canvas.loadImage(buffer);
@@ -90,8 +90,10 @@ class GuildMemberAddListener extends Listener {
         member.guild.channels.cache.get(channel.id).send({ files: [CanvasAttachment] });
 
         try {
+            
             var rol = member.guild.roles.cache.find(role => role.name === "Les Louveteaux");
             member.roles.add(rol);
+
         }
         catch(e) {
             

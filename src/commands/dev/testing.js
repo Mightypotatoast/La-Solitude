@@ -3,13 +3,15 @@ const { Command } = require('discord-akairo');
 class TestingCommand extends Command {
     constructor() {
         super('testing', {
-           aliases: ['testing'] 
+           aliases: ['testing'],
+           ownerOnly: false
+           
         });
     }
 
     exec(message) {
 
-        this.emit("GuildMemberAdd", message.member)
+        this.client.emit("guildMemberAdd", message.member)
 
     }
 }

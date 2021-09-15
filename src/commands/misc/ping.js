@@ -7,8 +7,19 @@ class PingCommand extends Command {
         });
     }
 
-    exec(message) {
-        return message.reply('Pong!');
+    async exec(message) {
+       var pingMessage = await message.reply({embeds: [{
+
+            color : 0xFF6800,
+            description : "Calculating ping ..."
+
+       }]}).then( (resultMessage) => {
+            const ping = resultMessage.createdTimestamp - message.createdTimestamp
+
+            resultMessage.edit({embeds:[{description : `Bot latency : ${ping}, API Latency : ${this.client.ws.ping}`}]})
+       });
+
+
     }
 }
 
