@@ -46,7 +46,7 @@ class ReportCommand extends Command {
         reportschannel.send({ embeds : [reportEmbed] })
       };
 
-  
+      message.delete()
 
 
 

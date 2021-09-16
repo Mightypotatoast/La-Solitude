@@ -13,7 +13,7 @@ class ServerInfoCommand extends Command {
         let CreatedDate = message.guild.createdAt;
         let Joindate = message.member.joinedAt;
 
-        let icon = message.guild.iconURL;
+        let icon = message.guild.iconURL();
 
         let servemb = new Discord.MessageEmbed()
             .setTitle(":clipboard: INFORMATION SUR LE SERVEUR :clipboard:")
