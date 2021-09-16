@@ -13,6 +13,7 @@ class TestingCommand extends Command {
     exec(message) {
 
         this.client.emit("guildMemberAdd", message.member)
+        this.client.emit("guildMemberRemove", message.member)
 
     }
 }
