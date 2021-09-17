@@ -34,7 +34,7 @@ class ReportCommand extends Command {
               .addField("Membre signalé : ", `${rUser} avec comme ID : ${rUser.id}`)
               .addField("Signalé par : ", `${message.author} avec comme ID : ${message.author.id}`)
               .addField("Dans le salon : ", message.channel.name)
-              .addField("Date : ", `${messageDate.getDate()}/${messageDate.getMonth()+1}/${messageDate.getFullYear()} à ${messageDate.getHours()}h${messageDate.getMinutes()}min${messageDate.getSeconds()}s`)
+              .addField("Date : ", `${messageDate.getDate()}/${messageDate.getMonth()+1}/${messageDate.getFullYear()} à ${messageDate.getHours()}h${String(messageDate.getMinutes()).padStart(2, '0')}min${String(messageDate.getSeconds()).padStart(2, '0')}s`)
               .addField("Raison : ", `${rreason}`);
 
       let reportschannel = message.guild.channels.cache.find(channel => channel.name === 'reports');
