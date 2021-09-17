@@ -10,37 +10,49 @@ class PokemonCommand extends Command {
     super("pokemon", {
       aliases: ["pokemon"],
       args: [
-        { id: "pokemon", type: "string" },
-        { id: "limit", type: "int" },
+        {
+          id: "pokemon",
+          type: null,
+        },
+        // { id: "limit", type: "int" },
       ],
     });
   }
 
   async exec(message, args) {
-    P.getPokemonByName(args.pokemon) // with Promise
-      .then(function (response) {
-        // console.log(response.name);
-        message.channel.send(response.name);
-        message.channel.send(response.sprites.front_default);
-      });
+    if (args.pokemon <= 898 && args.pokemon >= 1) {
+      P.getPokemonByName(args.pokemon) // with Promise
+        .then(function (response) {
+          // console.log(response.name);
+          message.channel.send(response.name);
+          message.channel.send(response.sprites.front_default);
+        });
+    } else if (args.pokemon > 898 || args.pokemon < 1) {
+      message.channel.send(
+        "Il n'exsite que 898 pokemon à ce jour, choisis un pokemon existant !"
+      );
+    }
 
-    // var interval = {
-    //   limit: args.limit,
-    //   offset: 34,
-    // };
+    // if (!isNaN(parseInt(args.pokemon))) {
 
-    // P.getPokemonsList(interval).then(function (response) {
-    //   let name = response.results;
-    //   name.forEach((element) => {
-    //     // console.log(element.name);
-    //     P.getPokemonByName(element.name) // with Promise
-    //       .then(function (response) {
-    //         // console.log(response.name);
-    //         message.channel.send(response.name);
-    //         message.channel.send(response.sprites.front_default);
-    //       });
+    //   var interval = {
+    //     limit: args.pokemon,
+    //     offset: 34,
+    //   };
+
+    //   P.getPokemonsList(interval).then(function (response) {
+    //     let name = response.results;
+    //     name.forEach((element) => {
+    //       // console.log(element.name);
+    //       P.getPokemonByName(element.name) // with Promise
+    //         .then(function (response) {
+    //           // console.log(response.name);
+    //           message.channel.send(response.name);
+    //           message.channel.send(response.sprites.front_default);
+    //         });
+    //     });
     //   });
-    // });
+    // }
 
     // let pokemonArg = args.pokemon;
     // let response = await axios.get(
