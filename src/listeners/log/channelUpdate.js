@@ -14,8 +14,10 @@ class ChannelUpdateListener extends Listener {
         
         const channelEmbed = new MessageEmbed()
             .setTitle("Un channel a été modifié")
+            .addField("Nom Actuel",newChannel.name)
             .setColor("#3CE7E7")
             .setTimestamp()
+
             .setDescription("")
 
         if (oldChannel.name != newChannel.name) {
@@ -24,9 +26,9 @@ class ChannelUpdateListener extends Listener {
             
         }
         
-        if (oldChannel.permissionOverwrites != newChannel.permissionOverwrites) {
+        else if (oldChannel.permissionOverwrites.cache !== newChannel.permissionOverwrites.cache) {
 
-           channelEmbed.addField("Changement de **permissions**", "une ou plusieurs permissions ont été changés")
+           channelEmbed.addField("Changement de **permissions**", "une ou plusieurs permissions ont été changées")
             
         }
         

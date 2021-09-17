@@ -18,8 +18,8 @@ class ChannelCreateListener extends Listener {
             .setTitle("Un channel a été créé")
             .setColor("#3CE73C")
             .setDescription('**Date** : '+`${channelDate.getDate()}/${channelDate.getMonth()+1}/${channelDate.getFullYear()} à ${channelDate.getHours()}:${String(channelDate.getMinutes()).padStart(2, '0')}` )
-            .addField('Nom', `:${channel.name}:`, true)
-            .addField('Type', channel.type)
+            .addField('Nom', `${channel.name}`, true)
+            .addField('Type', channel.type,true)
             .addField('ID', channel.id)
             .setTimestamp()
 
@@ -27,7 +27,7 @@ class ChannelCreateListener extends Listener {
 
         channel.guild.channels.cache.get(config.channel.logID).send({ embeds : [channelEmbed] });
 
-        
+
     
     }
 }
