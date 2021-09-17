@@ -23,7 +23,7 @@
     "discord-akairo": "github:SkyBlockDev/discord-akairo",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
-    "node-fetch": "^3.0.0",
+    "pokedex-promise-v2": "^3.3.2",
     "snekfetch": "^4.0.4"
   }
 }
