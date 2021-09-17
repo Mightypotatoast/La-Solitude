@@ -14,7 +14,10 @@ class ReportCommand extends Command {
 
     async exec(message,args) {
        
+
       let rUser = args.member;
+
+      console.log(rUser)
 
       if(!rUser) return message.channel.send({ embeds :[{
         color : 0xff0000 ,
