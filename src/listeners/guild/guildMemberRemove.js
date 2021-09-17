@@ -2,10 +2,6 @@ const { Listener } = require('discord-akairo');
 const { MessageEmbed } = require('discord.js');
 
 
-
-
-
-
 class GuildMemberRemoveListener extends Listener {
     constructor() {
         super('guildMemberRemove', {

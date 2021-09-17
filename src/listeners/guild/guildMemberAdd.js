@@ -85,7 +85,6 @@ class GuildMemberAddListener extends Listener {
             .setDescription(`Bonjour ${member} et bienvenue sur le serveur **${member.guild.name}**. Nous sommes maintenant **${member.guild.memberCount}** sur ce serveur.`)
             
 
-
         member.guild.channels.cache.get(channel.id).send({ embeds : [Addembed] });
         member.guild.channels.cache.get(channel.id).send({ files: [CanvasAttachment] });
 
