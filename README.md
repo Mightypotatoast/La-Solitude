@@ -25,6 +25,18 @@ Depuis la disparition de Rythm et de Groovy, j'ai décidé de créer mon propre 
 | :-- | :------- | :-------------------- | :------------------- |
 | `!` | `report` | **Required**. `@USER` | **Optional** `reason`|
 
+#### Call a pokemon
+
+| Prefix | Command     | Argument 1      | 
+| :-- | :------- | :-------------------- | 
+| `!` | `pokemon` | **Required**. `name or id` |
+
+#### Call a pokemon list (10 pokemon max for now)
+
+| Prefix | Command     | Argument 1      | 
+| :-- | :------- | :-------------------- | 
+| `!` | `pokemonlist` | **Required**. `number` |
+
 #### Ping of the bot
 
 | Prefix | Command     | 
