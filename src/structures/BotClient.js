@@ -1,5 +1,6 @@
 const { AkairoClient, CommandHandler, ListenerHandler, InhibitorHandler} = require('discord-akairo');
 const { Presence } = require('discord.js');
+const functions = require("../util/function")
 
 module.exports = class BotClient extends AkairoClient {
     constructor(config = {}) {
@@ -37,7 +38,9 @@ module.exports = class BotClient extends AkairoClient {
         this.listenerHandler = new ListenerHandler(this, {
             directory: './src/listeners/'
         });
-
+        this.functions =  {
+            all : functions
+        }
 
 
         this.commandHandler.loadAll();

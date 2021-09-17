@@ -17,7 +17,7 @@ class EmojiCreateListener extends Listener {
         const emojiEmbed = new MessageEmbed()
             .setTitle("Un émoji a été créé")
             .setThumbnail(emoji.url)
-            .setColor("#F4D03F")
+            .setColor("#3CE73C")
             .setDescription('**Date** : '+`${emojiDate.getDate()}/${emojiDate.getMonth()+1}/${emojiDate.getFullYear()} à ${emojiDate.getHours()}:${String(emojiDate.getMinutes()).padStart(2, '0')}` )
             .addField('Nom', `:${emoji.name}:`, true)
             .addField('Animé ?', (emoji.animated) ? "Oui":"Non")

@@ -12,6 +12,23 @@ class ChannelDeleteListener extends Listener {
 
     exec(channel) {
         
+        let channelDate = channel.createdAt
+        let channelDeleteDate = new Date()
+
+        const channelEmbed = new MessageEmbed()
+            .setTitle("Un channel a été supprimé")
+            .setColor("#3CE73C")
+            .setDescription('**Date de création** : '+`${channelDate.getDate()}/${channelDate.getMonth()+1}/${channelDate.getFullYear()} à ${channelDate.getHours()}:${String(channelDate.getMinutes()).padStart(2, '0')}` )
+            .addField('Nom', `:${channel.name}:`, true)
+            .addField('Type', channel.type)
+            .addField('ID', channel.id)
+            .addField('Supprimé le : ', `${channelDeleteDate.getDate()}/${channelDeleteDate.getMonth()+1}/${channelDeleteDate.getFullYear()} à ${channelDeleteDate.getHours()}:${String(channelDeleteDate.getMinutes()).padStart(2, '0')}`)
+            .setTimestamp()
+
+        
+
+        channel.guild.channels.cache.get(config.channel.logID).send({ embeds : [channelEmbed] });
+
     
     }
 }
