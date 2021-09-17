@@ -1,6 +1,6 @@
 # La Solitude Discord Bot
 
-Depuis la disparition de Rythm et de Groovy, Ayrox à décidé de creer son propre bot discord afin de répondre au besoin du serveur discord Sensokami
+Depuis la disparition de Rythm et de Groovy, j'ai décidé de créer mon propre bot discord afin de répondre au besoin du serveur discord Sensokami
 
 
 ## Commands
