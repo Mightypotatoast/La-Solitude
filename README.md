@@ -2,7 +2,7 @@
 
 Depuis la disparition de Rythm et de Groovy, j'ai décidé de créer mon propre bot discord afin de répondre au besoin du serveur mon serveur. 
 
-/!\ /!\ /!\ il n'y a, pour l'instant, aucune commande qui réfère à la musique /!\ /!\ /!\ 
+**/!\ /!\ /!\ il n'y a, pour l'instant, aucune commande qui réfère à la musique /!\ /!\ /!\**
 
 
 ## Commands
