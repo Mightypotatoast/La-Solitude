@@ -11,37 +11,37 @@ Depuis la disparition de Rythm et de Groovy, j'ai décidé de créer mon propre 
 
 | Prefix | Command |
 | :-- | :------- |
-| `/` | `join` | 
+| `!` | `join` | 
 
 #### Bot leave vocal
 
 | Prefix | Command |
 | :-- | :------- |
-| `/` | `leave` | 
+| `!` | `leave` | 
 
 #### Report a user
 
 | Prefix | Command     | Argument 1      | Argument 2           |
 | :-- | :------- | :-------------------- | :------------------- |
-| `/` | `report` | **Required**. `@USER` | **Optional** `reason`|
+| `!` | `report` | **Required**. `@USER` | **Optional** `reason`|
 
 #### Ping of the bot
 
 | Prefix | Command     | 
 | :-------- | :------- |
-| `/` | `ping` |
+| `!` | `ping` |
 
 #### Server Information
 
 | Prefix | Command |
 | :-- | :------- |
-| `/` | `serverinfo` |
+| `!` | `serverinfo` |
 
 #### Trepuec Information
 
 | Prefix | Command |
 | :-- | :------- |
-| `/` | `trepuecinfo` | 
+| `!` | `trepuecinfo` | 
 
 ## Authors
 
