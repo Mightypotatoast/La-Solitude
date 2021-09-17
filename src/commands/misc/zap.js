@@ -8,7 +8,7 @@ class ZapCommand extends Command {
         });
     }
 
-    async exec(message) {
+    exec(message) {
       var Kwey = this.client.users.cache.get("232110364186247168")
       
       message.channel.send({embeds :[{

@@ -40,7 +40,6 @@ module.exports = class BotClient extends AkairoClient {
 
 
 
-
         this.commandHandler.loadAll();
 
         this.commandHandler.useListenerHandler(this.listenerHandler);
