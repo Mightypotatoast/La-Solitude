@@ -1,5 +1,6 @@
 const { Listener } = require('discord-akairo');
 const { MessageEmbed } = require('discord.js');
+const config = require('../../config.json')
 
 
 class GuildMemberRemoveListener extends Listener {
@@ -17,10 +18,10 @@ class GuildMemberRemoveListener extends Listener {
 	        .setTimestamp();
 
 
-        var channel = member.guild.channels.cache.find(ch => ch.name === 'au_revoir')
+        
         
         if (channel) {
-            member.guild.channels.cache.get(channel.id).send({embeds : [exampleEmbed]})
+            member.guild.channels.cache.get(config.channel.au_revoirID).send({embeds : [exampleEmbed]})
         } else {console.log("pas trouvé le channel 'bienvenue'");}
     }
 }

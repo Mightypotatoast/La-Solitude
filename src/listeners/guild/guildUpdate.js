@@ -11,9 +11,7 @@ class guildUpdateListener extends Listener {
 
     exec(oldGuild,newGuild) {
         
-    client.on('ready', () => {
-        console.log(null);
-    });
+    
     }
 }
 

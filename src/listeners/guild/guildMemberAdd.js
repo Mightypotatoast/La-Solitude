@@ -2,6 +2,8 @@ const  Canvas  = require('canvas');
 const  { Listener } = require('discord-akairo');
 const Discord = require('discord.js');
 const snekfetch = require('snekfetch');
+const config = require('../../config.json')
+
 
 const applyText = (canvas, text) => {
     const ctx = canvas.getContext('2d');
@@ -30,8 +32,7 @@ class GuildMemberAddListener extends Listener {
 
 
     async exec(member) {
-        const channel = member.guild.channels.cache.find(ch => ch.name === 'bienvenue');
-
+        
         if (!channel) return;
 
         const canvas = Canvas.createCanvas(700, 300);
@@ -85,8 +86,8 @@ class GuildMemberAddListener extends Listener {
             .setDescription(`Bonjour ${member} et bienvenue sur le serveur **${member.guild.name}**. Nous sommes maintenant **${member.guild.memberCount}** sur ce serveur.`)
             
 
-        member.guild.channels.cache.get(channel.id).send({ embeds : [Addembed] });
-        member.guild.channels.cache.get(channel.id).send({ files: [CanvasAttachment] });
+        member.guild.channels.cache.get(config.channel.bienvenueID).send({ embeds : [Addembed] });
+        member.guild.channels.cache.get(config.channel.bienvenueID).send({ files: [CanvasAttachment] });
 
         try {
             
