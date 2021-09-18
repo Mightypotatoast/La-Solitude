@@ -15,8 +15,6 @@ class MessageUpdateListener extends Listener {
         if (newMessage.channel.id === config.channel.logID) return;
         if (oldMessage.content === newMessage.content) return;
         
-        console.log(oldMessage.content)
-        console.log(newMessage.content)
 
         const messageEmbed = new MessageEmbed()
             .setTitle("Un message a été modifié !")
