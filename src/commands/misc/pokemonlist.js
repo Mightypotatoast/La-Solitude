@@ -20,13 +20,13 @@ class PokemonlistCommand extends Command {
     var interval = {
       limit: args.limit,
       offset: 34,
-    };
+    }; 
 
     if (!isNaN(parseInt(args.limit))) {
       if (args.limit >= 1 && args.limit <= 10) {
         P.getPokemonsList(interval).then(function (response) {
           let name = response.results;
-          name.forEach((element) => {
+          name.forEach((element) => { 
             // console.log(element.name);
             P.getPokemonByName(element.name) // with Promise
               .then(function (response) {
