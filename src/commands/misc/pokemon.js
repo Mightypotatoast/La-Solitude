@@ -55,8 +55,6 @@ class PokemonCommand extends Command {
     } else {
       if (isNaN(pokemon)) {
         if (pokemonNames.includes(pokemon.toLowerCase())) {
-          if (condition) {
-          }
           sendPokemon(pokemon.toLowerCase());
         } else if (pokemon.toLowerCase() === "trepuec") {
           message.channel.send(
