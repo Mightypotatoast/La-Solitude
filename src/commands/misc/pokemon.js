@@ -58,6 +58,18 @@ class PokemonCommand extends Command {
           if (condition) {
           }
           sendPokemon(pokemon.toLowerCase());
+        } else if (pokemon.toLowerCase() === "trepuec") {
+          message.channel.send(
+            "La centrale à la fin, je vous le dis tout de suite, Mr Leclerc il vas arriver ça vas faire wow wow wow wow"
+          );
+          message.channel.send(
+            "https://cdn.discordapp.com/attachments/492828685217431553/888620797449617438/oie_185124SSdPVhk7.gif"
+          );
+        } else if (pokemon.toLowerCase() === "ewen") {
+          message.channel.send("ewen");
+          message.channel.send(
+            "https://cdn.discordapp.com/attachments/492828685217431553/888622310880325682/unknown.png"
+          );
         } else {
           message.channel.send("Ce pokemon n'existe pas.");
         }
