@@ -18,7 +18,7 @@ class EmojiDeleteListener extends Listener {
     
 
         const emojiEmbed = new MessageEmbed()
-            .setTitle("Un émoji a été supprimé")
+            .setTitle("Un émoji a été supprimé !")
             .setThumbnail(emoji.url)
             .setColor("#E73C3C")
             .setDescription( '**Date de création** : ' + `${emojiDate.getDate()}/${emojiDate.getMonth()+1}/${emojiDate.getFullYear()} à ${emojiDate.getHours()}:${String(emojiDate.getMinutes()).padStart(2, '0')}` )

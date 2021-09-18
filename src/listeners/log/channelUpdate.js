@@ -13,7 +13,7 @@ class ChannelUpdateListener extends Listener {
     exec(oldChannel, newChannel) {
         
         const channelEmbed = new MessageEmbed()
-            .setTitle("Un channel a été modifié")
+            .setTitle("Un channel a été modifié !")
             .addField("Nom Actuel",newChannel.name)
             .setColor("#3CE7E7")
             .setTimestamp()

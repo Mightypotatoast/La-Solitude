@@ -16,7 +16,7 @@ class ChannelDeleteListener extends Listener {
         let channelDeleteDate = new Date()
 
         const channelEmbed = new MessageEmbed()
-            .setTitle("Un channel a été supprimé")
+            .setTitle("Un channel a été supprimé !")
             .setColor("#E73C3C")
             .setDescription('**Date de création** : '+`${channelDate.getDate()}/${channelDate.getMonth()+1}/${channelDate.getFullYear()} à ${channelDate.getHours()}:${String(channelDate.getMinutes()).padStart(2, '0')}` )
             .addField('Nom', `${channel.name}`, true)
