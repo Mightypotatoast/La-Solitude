@@ -1,8 +1,8 @@
-const BotClient = require("./structures/BotClient");
 require('dotenv').config();
+const Discord = require("discord.js");
+const client = new Discord.Client({ intents: 32767 });
 
-let client = new BotClient({
-    prefix: process.env.PREFIX
-});
+require("./Structures/Events")(client);
+
 
 client.login(process.env.DISCORD_TOKEN)
