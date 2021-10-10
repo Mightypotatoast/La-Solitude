@@ -16,7 +16,7 @@ class InviteDeleteListener extends Listener {
         let inviteExpireDate = invite.expiresAt
 
         const inviteEmbed = new MessageEmbed()
-            .setTitle("Une invitation a été suprimée/expirée !")
+            .setTitle("**Une invitation a été suprimée/expirée !**")
             .setColor("#E73C3C")
             .addField('Channel visé : ', invite.channel.name)
             .addField("Nombre d'utilisation : ", (invite.uses == null) ? "0" : `${invite.uses}`)
