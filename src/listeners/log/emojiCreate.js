@@ -15,7 +15,7 @@ class EmojiCreateListener extends Listener {
         let emojiDate = emoji.createdAt
 
         const emojiEmbed = new MessageEmbed()
-            .setTitle("Un émoji a été créé !")
+            .setTitle("**Un émoji a été créé !**")
             .setThumbnail(emoji.url)
             .setColor("#3CE73C")
             .setDescription('**Date** : '+`${emojiDate.getDate()}/${emojiDate.getMonth()+1}/${emojiDate.getFullYear()} à ${emojiDate.getHours()}:${String(emojiDate.getMinutes()).padStart(2, '0')}` )

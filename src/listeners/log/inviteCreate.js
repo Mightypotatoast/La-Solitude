@@ -27,7 +27,7 @@ class InviteCreateListener extends Listener {
         }
 
         const inviteEmbed = new MessageEmbed()
-            .setTitle("Une invitation a été créée !")
+            .setTitle("**Une invitation a été créée !**")
             .setColor("#3CE73C")
             .setDescription('**Crée le :** '+`${inviteDate.getDate()}/${inviteDate.getMonth()+1}/${inviteDate.getFullYear()} à ${inviteDate.getHours()}:${String(inviteDate.getMinutes()).padStart(2, '0')}` )
             .addField('Par', `${invite.inviter}`, true)
