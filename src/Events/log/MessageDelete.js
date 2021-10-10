@@ -7,7 +7,7 @@ module.exports = {
     name: 'messageDelete',
     once: false,
 
-    execute(message) {
+    async execute(message) {
 
         if (message.channel.id === config.channel.logID) return;
 

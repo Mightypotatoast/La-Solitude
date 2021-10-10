@@ -1,14 +1,14 @@
-const { Command } = require('discord-akairo');
 const Discord = require('discord.js')
 
-class LogoCommand extends Command {
-    constructor() {
-        super('logo', {
-           aliases: ['logo'] 
-        });
-    }
+module.exports = {
+          
+    name: "logo",
+    description: "Display the logo of SensÔkami",
+    permission: "VIEW_CHANNEL",
+    aliases: ['logo'], 
+   
 
-    async exec(message) {
+    async execute(message) {
       var Kwey = this.client.users.cache.get("232110364186247168")
 
       const logoImg = new Discord.MessageAttachment('./src/util/img/Sensokami.png', 'Sensokami.png');
@@ -26,4 +26,3 @@ class LogoCommand extends Command {
     }
 }
 
-module.exports = LogoCommand;

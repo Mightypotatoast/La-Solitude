@@ -1,5 +1,3 @@
-const { Command } = require('discord-akairo');
-
 const clean = text => {
   if (typeof (text) === "string")
     return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
@@ -7,22 +5,24 @@ const clean = text => {
     return text;
 }
 
-module.exports = class EvalCommand extends Command {
-  constructor() {
-    super('eval', {
-      aliases: ['eval'],
-      category: 'dev',
-      ownerOnly: true,
-      args: [
-        {
-          id: 'code',
-          match: 'content',
-        },
-      ],
-    });
-  }
+module.exports = {
+  name: "eval",
+  description: "eval",
+  permission: "ADMINISTRATOR",
+  aliases: ['eval'],
+  category: 'dev',
+  ownerOnly: true,
+  
+  args: [
+    {
+      id: 'code',
+      match: 'content',
+    },
+  ],
 
-  async exec(message, { code }) {
+
+
+  async execute(message, { code }) {
     try {
       let evaled = eval(code);
 
@@ -34,4 +34,5 @@ module.exports = class EvalCommand extends Command {
       message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
     }
   }
-};
+}
+;

@@ -1,22 +1,24 @@
-const { Command } = require("discord-akairo");
 const Discord = require("discord.js");
 // const https = require("https");
 // const axios = require("axios");
 var Pokedex = require("pokedex-promise-v2");
 var P = new Pokedex();
 
-class PokemonlistCommand extends Command {
-  constructor() {
-    super("pokemonlist", {
-      aliases: ["pokemonlist"],
-      args: [
-        { id: "limit", type: null },
-        // { id: "limit", type: "int" },
-      ],
-    });
-  }
+module.exports = {
+  
+  name: "pokemonlist",
+  description: "display 1 to 10 random pokemon",
+  permission: "VIEW_CHANNEL",
 
-  async exec(message, args) {
+  aliases: ["pokemonlist"],
+  args: [
+    { id: "limit", type: null },
+    // { id: "limit", type: "int" },
+  ],
+
+
+
+  async execute(message, args) {
     var interval = {
       limit: args.limit,
       offset: 34,
@@ -60,4 +62,3 @@ class PokemonlistCommand extends Command {
   }
 }
 
-module.exports = PokemonlistCommand;

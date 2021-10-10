@@ -1,20 +1,22 @@
-const { Command } = require('discord-akairo');
 const Discord = require('discord.js')
 
-class ReportCommand extends Command {
-    constructor() {
-        super('report', {
-           aliases: ['report'],
-           args: [
-             { id: 'member', type : 'member' },
-             { id: 'reason', match: 'rest' , default: "Aucune raison n'a été indiqué"}
-           ]
-        });
-    }
 
-    async exec(message,args) {
-       
+module.exports = {
 
+  name: "report",
+  aliases: ['report', 'rep'],
+  description: "Use for report an annoying guy",
+  category: "admin",
+  permission:"ADMINISTRATOR",
+  cooldown: 5,
+  args: [
+    { id: 'member', type : 'member' },
+    { id: 'reason', match: 'rest' , default: "Aucune raison n'a été indiqué"}
+  ],
+
+
+  async execute(message, args) {
+    
       let rUser = args.member;
 
       console.log(rUser)
@@ -51,9 +53,5 @@ class ReportCommand extends Command {
 
       message.delete()
 
-
-
-    }
-}
-
-module.exports = ReportCommand;
+  },
+};

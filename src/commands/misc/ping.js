@@ -1,13 +1,14 @@
-const { Command } = require('discord-akairo');
 
-class PingCommand extends Command {
-    constructor() {
-        super('ping', {
-           aliases: ['ping'] 
-        });
-    }
 
-    async exec(message) {
+module.exports = {
+    
+    name: "ping",
+    description: "Reply the bot ping",
+    permission: "VIEW_CHANNEL",
+    aliases: ['ping'],
+
+
+    async execute(message) {
        var pingMessage = await message.reply({embeds: [{
 
             color : 0xFF6800,
@@ -22,5 +23,3 @@ class PingCommand extends Command {
 
     }
 }
-
-module.exports = PingCommand;

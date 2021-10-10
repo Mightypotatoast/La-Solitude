@@ -1,4 +1,3 @@
-const { Command } = require("discord-akairo");
 const Discord = require("discord.js");
 // const https = require("https");
 // const axios = require("axios");
@@ -6,20 +5,22 @@ const config = require("../../config.json");
 var Pokedex = require("pokedex-promise-v2");
 var P = new Pokedex();
 
-class PokemonCommand extends Command {
-  constructor() {
-    super("pokemon", {
-      aliases: ["pokemon"],
-      args: [
-        {
-          id: "pokemon",
-          type: null,
-        },
-      ],
-    });
-  }
+module.exports = {
+  
+  name: "pokemon",
+  description: "Choice your Pokemon",
+  permission: "VIEW_CHANNEL",
 
-  async exec(message, args) {
+  aliases: ["pokemon"],
+  args: [
+    {
+      id: "pokemon",
+      type: null,
+    },
+  ],
+
+  
+  async execute(message, args) {
     let pokemon = args.pokemon;
 
     const sendPokemon = (pokemon) => {
@@ -86,4 +87,3 @@ class PokemonCommand extends Command {
   }
 }
 
-module.exports = PokemonCommand;

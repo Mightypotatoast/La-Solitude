@@ -1,15 +1,14 @@
-const { Command } = require('discord-akairo');
 const { getVoiceConnection } = require('@discordjs/voice');
 
 
-class LeaveCommand extends Command {
-    constructor() {
-        super('leave', {
-           aliases: ['leave'] 
-        });
-    }
+module.exports = {
+    name: "leave",
+    description: "Leave your voice Channel",
+    permission: "CONNECT",
+    aliases: ['leave'],
 
-    async exec(message) {
+
+    async execute(message) {
 
       if (!message.member.voice.channel) return message.channel.send({embeds :[{
           color : 0xff0000 ,
@@ -37,4 +36,3 @@ class LeaveCommand extends Command {
     }
 }
 
-module.exports = LeaveCommand;

@@ -1,35 +1,32 @@
-const { Command } = require('discord-akairo');
-const { joinVoiceChannel} = require('@discordjs/voice');
+const { joinVoiceChannel } = require('@discordjs/voice');
 
-class JoinCommand extends Command {
-    constructor() {
-        super('join', {
-           aliases: ['join'] 
-        });
-    }
+module.exports = {
 
-    async exec(message) {
-      var channel = message.member.voice.channel;
-      //bot.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
-      if (channel){
+  name: "join",
+  description: "Join your voice Channel",
+  permission: "CONNECT",
+    aliases: ['join'],
 
-        joinVoiceChannel({
-          channelId: channel.id,
-          guildId: message.guild.id,
-          adapterCreator: message.guild.voiceAdapterCreator
-        })
+  async execute(message) {
+    var channel = message.member.voice.channel;
+    //bot.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
+    if (channel){
 
-      }
-  
-      else{
-        message.channel.send({embeds :[{
-          color : 0xff0000 ,
-          description : ` ${message.member} \n **Erreur**: \n Vous devez d'abord rejoindre un salon vocal`
-        }]});
-      }
-
+      joinVoiceChannel({
+        channelId: channel.id,
+        guildId: message.guild.id,
+        adapterCreator: message.guild.voiceAdapterCreator
+      })
 
     }
+
+    else{
+      message.channel.send({embeds :[{
+        color : 0xff0000 ,
+        description : ` ${message.member} \n **Erreur**: \n Vous devez d'abord rejoindre un salon vocal`
+      }]});
+    }
+
+
+  }
 }
-
-module.exports = JoinCommand;

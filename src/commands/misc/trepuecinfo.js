@@ -1,14 +1,13 @@
-const { Command } = require('discord-akairo');
 const Discord = require('discord.js')
 
-class TrepuecInfoCommand extends Command {
-    constructor() {
-        super('trepuecinfo', {
-           aliases: ['trepuecinfo'] 
-        });
-    }
+module.exports = {
 
-    exec(message) {
+    name: "trepuecinfo",
+    description: "Some informations of Mr François Le Trepuec",
+    permission: "VIEW_CHANNEL",
+    aliases: ['trepuecinfo'],
+
+    execute(message) {
 
         const trepuecAttach = new Discord.MessageAttachment('./src/util/img/trepuec.jpg')
 
@@ -23,5 +22,3 @@ class TrepuecInfoCommand extends Command {
 
     }
 }
-
-module.exports = TrepuecInfoCommand;
