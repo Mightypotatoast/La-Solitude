@@ -7,37 +7,34 @@ var P = new Pokedex();
 module.exports = {
   
   name: "pokemonlist",
-  description: "display 1 to 10 random pokemon",
+  description: "Affiche 1 à 10 pokemon random",
   permission: "ADMINISTRATOR",
 
   options: [
     {
       name: "limit",
-      description: "Choose 1-10 random pokemon",
+      description: "Choisis une limite de pokemon entre 1 et 10 à afficher",
       type: "STRING",
       required : true,
     },
-    // { name: "limit", type: "int" },
   ],
 
-
-
   async execute(message) {
+
+    let limit = message.options.getString("limit");
+    
     var interval = {
       limit: message.options.getString("limit"),
-      offset: 34,
-    }; 
+      offset: Math.random() * 100 * limit,
+    };
 
-    if (!isNaN(parseInt(message.options.getString("limit")))) {
-      if (message.options.getString("limit") >= 1 && message.options.getString("limit") <= 10) {
+    if (!isNaN(interval.limit)) {
+      if (interval.limit >= 1 && interval.limit <= 10) {
         P.getPokemonsList(interval).then(function (response) {
-          let name = response.results;
-          message.reply(`La liste de ${message.options.getString("limit")} Pokémon`);
-          name.forEach((element) => { 
-            // console.log(element.name);
-            P.getPokemonByName(element.name) // with Promise
+          message.reply(`La liste de ${interval.limit} Pokémon`);
+          response.results.forEach((pokemon) => { 
+            P.getPokemonByName(pokemon.name)
               .then(function (response) {
-                // console.log(response.name);
                 message.channel.send(response.name);
                 message.channel.send(response.sprites.front_default);
               });
