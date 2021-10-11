@@ -4,8 +4,7 @@ module.exports = {
 
     name: "serverinfo",
     description: "Some informations of the server",
-    permission: "VIEW_CHANNEL",
-    aliases: ['serverinfo'],
+    permission: "ADMINISTRATOR",
 
 
     async execute(message) {
@@ -26,7 +25,7 @@ module.exports = {
             .addField("Total des membres :", `${message.guild.memberCount} `)
             
     
-        return message.channel.send({embeds : [servemb]})
+        return message.reply({embeds : [servemb]})
 
     }
 }

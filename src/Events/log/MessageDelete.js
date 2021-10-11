@@ -9,7 +9,12 @@ module.exports = {
 
     async execute(message) {
 
-        if (message.channel.id === config.channel.logID) return;
+        
+
+        for(const [key, value] of Object.entries(config.channel)){
+            if (message.channel.id === value) return;
+        };
+
 
         let logs = await message.guild.fetchAuditLogs({
             limit : 1,
@@ -29,7 +34,7 @@ module.exports = {
             //.addField("Auteur", (entry.target.id === message.author.id && entry.target.id !== null) ? entry.target.tag || message.author.tag : "None", true)
             //.addField('Supprimé par', (entry.target.id === message.author.id && entry.target.id !== null) ? entry.executor.tag  : "None", true)
             .addField('Channel', "#" + message.channel.name)
-            .addField('Message', (message.content == null) ? "`None`" : message.content)
+            .addField('Message', (message.embeds.length > 0) ? "`Embed Message`" : (message.content === null || message.content.length == 0) ? "`None`" : message.content)
             .addField('Attachment', (message.attachments.size == 0) ? "`None`" : (message.attachments.size > 1) ? "plusieurs" : "1",)
             //            .addField('Threaded ?', (message.hasThread) ? "Oui" : "Non", true)
             //            .addField("Raison", entry.reason || "Non spécifié")

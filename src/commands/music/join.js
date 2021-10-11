@@ -4,8 +4,8 @@ module.exports = {
 
   name: "join",
   description: "Join your voice Channel",
-  permission: "CONNECT",
-    aliases: ['join'],
+  permission: "ADMINISTRATOR",
+
 
   async execute(message) {
     var channel = message.member.voice.channel;
@@ -18,13 +18,33 @@ module.exports = {
         adapterCreator: message.guild.voiceAdapterCreator
       })
 
+      if (joinVoiceChannel) {
+        message.reply({
+
+          ephemeral: true,
+          embeds: [{
+
+              color: 0x25E325 ,
+              description: "✅ **Connected**",
+
+          }]
+
+        })
+      }
+
     }
 
     else{
-      message.channel.send({embeds :[{
-        color : 0xff0000 ,
-        description : ` ${message.member} \n **Erreur**: \n Vous devez d'abord rejoindre un salon vocal`
-      }]});
+      message.reply({
+        ephemeral: true,
+        embeds: [{
+
+          color: 0xff0000,
+          title: "**Erreur**:",
+          description: `Vous devez d'abord rejoindre un salon vocal`
+          
+        }]
+      });
     }
 
 

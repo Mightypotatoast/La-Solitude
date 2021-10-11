@@ -2,11 +2,8 @@
 module.exports = {
 
     name: "testing",
-    description: "testing",
+    description: "Testing",
     permission: "ADMINISTRATOR",
-    aliases: ['testing'],
-    category: 'dev',
-    ownerOnly: true,
            
     execute(message) {
     

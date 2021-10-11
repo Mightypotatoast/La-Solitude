@@ -8,26 +8,31 @@ module.exports = {
   
   name: "pokemonlist",
   description: "display 1 to 10 random pokemon",
-  permission: "VIEW_CHANNEL",
+  permission: "ADMINISTRATOR",
 
-  aliases: ["pokemonlist"],
-  args: [
-    { id: "limit", type: null },
-    // { id: "limit", type: "int" },
+  options: [
+    {
+      name: "limit",
+      description: "Choose 1-10 random pokemon",
+      type: "STRING",
+      required : true,
+    },
+    // { name: "limit", type: "int" },
   ],
 
 
 
-  async execute(message, args) {
+  async execute(message) {
     var interval = {
-      limit: args.limit,
+      limit: message.options.getString("limit"),
       offset: 34,
     }; 
 
-    if (!isNaN(parseInt(args.limit))) {
-      if (args.limit >= 1 && args.limit <= 10) {
+    if (!isNaN(parseInt(message.options.getString("limit")))) {
+      if (message.options.getString("limit") >= 1 && message.options.getString("limit") <= 10) {
         P.getPokemonsList(interval).then(function (response) {
           let name = response.results;
+          message.reply(`La liste de ${message.options.getString("limit")} Pokémon`);
           name.forEach((element) => { 
             // console.log(element.name);
             P.getPokemonByName(element.name) // with Promise
@@ -39,10 +44,10 @@ module.exports = {
           });
         });
       } else {
-        message.channel.send("Choisis un nombre entre 1 et 10 !");
+        message.reply("Choisis un nombre entre 1 et 10 !");
       }
     } else {
-      message.channel.send("not a number !");
+      message.reply("not a number !");
     }
 
     // let pokemonArg = args.pokemon;

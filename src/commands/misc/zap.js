@@ -4,14 +4,13 @@ module.exports = {
 
   name: "zap",
   description: "Euuuuh....",
-  permission: "VIEW_CHANNEL",
-  aliases: ['zap'],
+  permission: "ADMINISTRATOR",
 
 
-  execute(message) {
-    var Kwey = this.client.users.cache.get("232110364186247168")
+  execute(message,client) {
+    var Kwey = client.users.cache.get("232110364186247168")
     
-    message.channel.send({embeds :[{
+    message.reply({embeds :[{
           color : 0xFF6800 ,
           title :'**Chignon = Pneu**',
           description : "",

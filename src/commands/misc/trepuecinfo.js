@@ -4,10 +4,9 @@ module.exports = {
 
     name: "trepuecinfo",
     description: "Some informations of Mr François Le Trepuec",
-    permission: "VIEW_CHANNEL",
-    aliases: ['trepuecinfo'],
+    permission: "ADMINISTRATOR",
 
-    execute(message) {
+    async execute(message) {
 
         const trepuecAttach = new Discord.MessageAttachment('./src/util/img/trepuec.jpg')
 
@@ -18,7 +17,12 @@ module.exports = {
             .setImage("attachment://trepuec.jpg")
             .setTimestamp();
 
-        message.channel.send({embeds : [trepuecembed], files : [trepuecAttach]});
+        await message.deferReply()
+
+        await message.editReply({embeds : [{description : "Loading Image ...", color:0xFF6800}]})
+            .then(async (resultMessage) => {
+                resultMessage.edit({ embeds: [trepuecembed], files: [trepuecAttach] })
+            });
 
     }
 }

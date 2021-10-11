@@ -9,20 +9,22 @@ module.exports = {
   name: "eval",
   description: "eval",
   permission: "ADMINISTRATOR",
-  aliases: ['eval'],
-  category: 'dev',
-  ownerOnly: true,
   
-  args: [
+  options: [
     {
-      id: 'code',
-      match: 'content',
+      name: 'code',
+      description: "Code",
+      type: "STRING",
+      required : true
     },
   ],
 
 
 
-  async execute(message, { code }) {
+  async execute(message) {
+
+    let code = message.options.getString("code")
+    
     try {
       let evaled = eval(code);
 

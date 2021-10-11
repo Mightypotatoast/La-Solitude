@@ -4,21 +4,28 @@ module.exports = {
     
     name: "ping",
     description: "Reply the bot ping",
-    permission: "VIEW_CHANNEL",
-    aliases: ['ping'],
+    permission: "ADMINISTRATOR",
 
 
-    async execute(message) {
-       var pingMessage = await message.reply({embeds: [{
+    async execute(message, client) {
 
-            color : 0xFF6800,
+        const messagePing = await message.reply({embeds: [{
+
+            color : 0xFFFFFF,
             description : "Calculating ping ..."
 
-       }]}).then( (resultMessage) => {
-            const ping = resultMessage.createdTimestamp - message.createdTimestamp
+       }]})
 
-           resultMessage.edit({embeds:[{description : `Bot latency : ${ping} ms , API Latency : ${this.client.ws.ping}  ms`}]})
-       });
+       const ping = Date.now() - message.createdTimestamp
+
+        await message.editReply({
+
+            embeds: [{
+                description: `Bot latency : ${ping} ms , API Latency : ${client.ws.ping}  ms`
+            }]
+
+        })
+       
 
 
     }
