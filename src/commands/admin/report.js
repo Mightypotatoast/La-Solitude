@@ -38,17 +38,15 @@ module.exports = {
 
     let rreason = message.options.getString('reason');
     if (!rreason) {rreason = "Aucune raison n'a été indiqué"}
-    
-      let messageDate = message.createdAt
-      
+         
         
       let reportEmbed = new MessageEmbed()
               .setTitle(":satellite: Signalement Détecté :satellite:")
               .setColor("#000000")
-              .addField("Membre signalé : ", `${rUser} avec comme ID : ${rUser.id}`)
-              .addField("Signalé par : ", `${message.user.username} avec comme ID : ${message.user.id}`)
-              .addField("Dans le salon : ", message.channel.name)
-              .addField("Date : ", `${messageDate.getDate()}/${messageDate.getMonth()+1}/${messageDate.getFullYear()} à ${messageDate.getHours()}h${String(messageDate.getMinutes()).padStart(2, '0')}min${String(messageDate.getSeconds()).padStart(2, '0')}s`)
+              .addField("Membre signalé : ", `${rUser}`, true)
+              .addField("Signalé par : ", `${message.user.tag}`, true)
+              .addField("Dans le salon : ", message.channel.name, true)
+              .addField("Date : ", `<t:${parseInt(message.createdAt / 1000)}:R>`, true)
               .addField("Raison : ", `${rreason}`);
 
       let reportschannel = message.guild.channels.cache.find(channel => channel.id === config.channel.reportID);
