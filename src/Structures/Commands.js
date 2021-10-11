@@ -14,11 +14,11 @@ module.exports = async (client) => {
 
     (await PG(`${process.cwd()}/src/Commands/*/*.js`)).map(async (file) => {
         const command = require(file);
-
+        
         if (!command.name)
             return Table.addRow(file.split("/")[7], "🔴 FAILED", "Missing a name.");
         
-        if (!command.description)
+        if (command.type !== "USER" && !command.description)
             return Table.addRow(command.name, "🔴 FAILED", "Missing a description.");
 
         if (!command.permission) {
@@ -27,6 +27,8 @@ module.exports = async (client) => {
             else
                 return Table.addRow(command.name, "🔴 FAILED", "Permission is invalid.");
         }
+
+        
         
         client.commands.set(command.name, command);
         CommandsArray.push(command);
