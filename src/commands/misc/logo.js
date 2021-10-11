@@ -1,29 +1,33 @@
-const { Command } = require('discord-akairo');
-const Discord = require('discord.js')
+const { MessageAttachment, MessageEmbed } = require('discord.js')
 
-class LogoCommand extends Command {
-    constructor() {
-        super('logo', {
-           aliases: ['logo'] 
-        });
-    }
+module.exports = {
+          
+    name: "logo",
+    description: "Display the logo of SensÔkami",
+    permission: "ADMINISTRATOR",
+   
+   
+    async execute(message,client) {
+      var Kwey = client.users.cache.get("232110364186247168")
 
-    async exec(message) {
-      var Kwey = this.client.users.cache.get("232110364186247168")
+      const logoImg = new MessageAttachment('./src/util/img/Sensokami.png', 'Sensokami.png');
 
-      const logoImg = new Discord.MessageAttachment('./src/util/img/Sensokami.png', 'Sensokami.png');
-
-      let logoembed = new Discord.MessageEmbed()
+      let logoembed = new MessageEmbed()
          .setTitle("Le Logo de SensÔkami")
-         .setAuthor(this.client.user.username, this.client.user.avatarURL)
+         //.setAuthor(client.user.username, client.user.avatarURL)
          .setColor(0xFF6800)
          .setImage('attachment://Sensokami.png')
 
          .setFooter('© Designed by Kweyy', Kwey.displayAvatarURL() )
          .setTimestamp();
 
-      message.channel.send({ embeds : [logoembed], files : [logoImg] });  
+      await message.deferReply()
+
+      await message.editReply({embeds : [{description : "Loading Image ...", color:0xFF6800}]})
+          .then(async (resultMessage) => {
+              resultMessage.edit({ embeds: [logoembed], files: [logoImg] })
+      });
+      
     }
 }
 
-module.exports = LogoCommand;

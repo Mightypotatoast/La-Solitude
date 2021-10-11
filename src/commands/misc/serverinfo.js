@@ -1,14 +1,13 @@
-const { Command } = require('discord-akairo');
 const Discord = require('discord.js')
 
-class ServerInfoCommand extends Command {
-    constructor() {
-        super('serverinfo', {
-           aliases: ['serverinfo'] 
-        });
-    }
+module.exports = {
 
-    async exec(message) {
+    name: "serverinfo",
+    description: "Some informations of the server",
+    permission: "ADMINISTRATOR",
+
+
+    async execute(message) {
 
         let CreatedDate = message.guild.createdAt;
         let Joindate = message.member.joinedAt;
@@ -26,9 +25,7 @@ class ServerInfoCommand extends Command {
             .addField("Total des membres :", `${message.guild.memberCount} `)
             
     
-        return message.channel.send({embeds : [servemb]})
+        return message.reply({embeds : [servemb]})
 
     }
 }
-
-module.exports = ServerInfoCommand;

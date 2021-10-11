@@ -1,21 +1,14 @@
-const { Command } = require('discord-akairo');
 
+module.exports = {
 
-class TestingCommand extends Command {
-    constructor() {
-        super('testing', {
-           aliases: ['testing'],
-           ownerOnly: true
+    name: "testing",
+    description: "Testing",
+    permission: "ADMINISTRATOR",
            
-        });
-    }
-
-    exec(message) {
-
+    execute(message) {
+    
         //this.client.emit("guildMemberAdd", message.member)
-        this.client.emit("guildMemberRemove", message.member)
-
+        //this.client.emit("guildMemberRemove", message.member)
+    
     }
 }
-
-module.exports = TestingCommand;

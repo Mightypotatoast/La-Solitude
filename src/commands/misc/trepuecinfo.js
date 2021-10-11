@@ -1,14 +1,12 @@
-const { Command } = require('discord-akairo');
 const Discord = require('discord.js')
 
-class TrepuecInfoCommand extends Command {
-    constructor() {
-        super('trepuecinfo', {
-           aliases: ['trepuecinfo'] 
-        });
-    }
+module.exports = {
 
-    exec(message) {
+    name: "trepuecinfo",
+    description: "Some informations of Mr François Le Trepuec",
+    permission: "ADMINISTRATOR",
+
+    async execute(message) {
 
         const trepuecAttach = new Discord.MessageAttachment('./src/util/img/trepuec.jpg')
 
@@ -19,9 +17,12 @@ class TrepuecInfoCommand extends Command {
             .setImage("attachment://trepuec.jpg")
             .setTimestamp();
 
-        message.channel.send({embeds : [trepuecembed], files : [trepuecAttach]});
+        await message.deferReply()
+
+        await message.editReply({embeds : [{description : "Loading Image ...", color:0xFF6800}]})
+            .then(async (resultMessage) => {
+                resultMessage.edit({ embeds: [trepuecembed], files: [trepuecAttach] })
+            });
 
     }
 }
-
-module.exports = TrepuecInfoCommand;
