@@ -9,6 +9,7 @@ module.exports = {
   name: "eval",
   description: "eval",
   permission: "ADMINISTRATOR",
+  active: false,
   
   options: [
     {

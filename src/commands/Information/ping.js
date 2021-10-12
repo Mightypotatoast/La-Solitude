@@ -5,7 +5,7 @@ module.exports = {
     name: "ping",
     description: "Reply the bot ping",
     permission: "ADMINISTRATOR",
-
+    active:true,
 
     async execute(message, client) {
 

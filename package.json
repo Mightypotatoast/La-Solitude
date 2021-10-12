@@ -24,6 +24,7 @@
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "glob": "^7.2.0",
+    "images-scraper": "^6.4.0",
     "pokedex-promise-v2": "^3.3.2",
     "snekfetch": "^4.0.4",
     "util": "^0.12.4"
