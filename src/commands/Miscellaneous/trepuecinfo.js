@@ -20,7 +20,7 @@ module.exports = {
 
         await message.deferReply()
 
-        await message.editReply({embeds : [{description : "Loading Image ...", color:0xFF6800}]})
+        await message.editReply({embeds : [{description : "⏳ Loading Image ...", color:0xFF6800}]})
             .then(async (resultMessage) => {
                 resultMessage.edit({ embeds: [trepuecembed], files: [trepuecAttach] })
             });
