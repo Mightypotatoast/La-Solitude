@@ -18,7 +18,15 @@ module.exports = {
         
         await message.deferReply()
 
-        var rnd = Math.floor(Math.random()*200)
+        let rnd = Math.floor(Math.random() * 200),
+            listNB =  [35]
+        
+        while (listNB.includes(rnd)) {
+         
+            rnd = Math.floor(Math.random() * 200)
+        
+        }
+        
         console.log(rnd)
 
         await message.editReply({embeds : [{description : "⏳ En attente de Google Image ... ", color:0xFF6800}]})
@@ -26,7 +34,7 @@ module.exports = {
                 const img_result = await google.scrape("bald guy", 200)
 
                 const Attach = new MessageAttachment(`${img_result[rnd].url}`,"bald_guy.png")
-
+                //console.log("n°35 : "+ img_result[35].url)
                 let baldEmbed = new MessageEmbed()
                     .setColor(0xEDB987)
                     .setDescription(`**Jérémie n°${rnd}**`)
