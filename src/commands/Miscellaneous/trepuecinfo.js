@@ -5,6 +5,7 @@ module.exports = {
     name: "trepuecinfo",
     description: "Some informations of Mr François Le Trepuec",
     permission: "ADMINISTRATOR",
+    active:true,
 
     async execute(message) {
 

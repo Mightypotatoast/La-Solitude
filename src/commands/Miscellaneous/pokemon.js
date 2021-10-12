@@ -9,7 +9,8 @@ module.exports = {
   name: "pokemon",
   description: "Choisis ton Pokemon",
   permission: "ADMINISTRATOR",
-
+  active: true,
+  
   options: [
     {
       name: "pokemon",

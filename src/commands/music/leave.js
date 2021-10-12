@@ -5,8 +5,7 @@ module.exports = {
     name: "leave",
     description: "Leave your voice Channel",
     permission: "ADMINISTRATOR",
-    aliases: ['leave'],
-
+    active : true,
 
     async execute(message) {
 

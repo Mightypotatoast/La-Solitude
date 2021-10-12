@@ -5,7 +5,7 @@ module.exports = {
     name: "logo",
     description: "Display the logo of SensÔkami",
     permission: "ADMINISTRATOR",
-   
+    active:true,
    
     async execute(message,client) {
       var Kwey = client.users.cache.get("232110364186247168")

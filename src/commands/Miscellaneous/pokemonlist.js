@@ -9,6 +9,7 @@ module.exports = {
   name: "pokemonlist",
   description: "Affiche 1 à 10 pokemon random",
   permission: "ADMINISTRATOR",
+  active:true,
 
   options: [
     {

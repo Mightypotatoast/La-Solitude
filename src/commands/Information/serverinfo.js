@@ -5,7 +5,7 @@ module.exports = {
     name: "serverinfo",
     description: "Some informations of the server",
     permission: "ADMINISTRATOR",
-
+    active:true,
 
     async execute(message) {
 

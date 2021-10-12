@@ -3,14 +3,9 @@ const { ContextMenuInteraction, MessageEmbed } = require("discord.js");
 module.exports = {
 
     name: "userinfo",
-    //description: "Display user's information",
     type: "USER",
     permission: "ADMINISTRATOR",
-
-    /**
-     * 
-     * @param {ContextMenuInteraction} interaction 
-     */
+    active:true,
 
     async execute(interaction) {
         

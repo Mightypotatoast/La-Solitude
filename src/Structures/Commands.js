@@ -28,7 +28,8 @@ module.exports = async (client) => {
                 return Table.addRow(command.name, "🔴 FAILED", "Permission is invalid.");
         }
 
-        
+        if (!command.active)
+            return Table.addRow(command.name, "⚠️  DESACTIVATED");
         
         client.commands.set(command.name, command);
         CommandsArray.push(command);

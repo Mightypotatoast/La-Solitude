@@ -5,7 +5,7 @@ module.exports = {
   name: "join",
   description: "Join your voice Channel",
   permission: "ADMINISTRATOR",
-
+  active : true,
 
   async execute(message) {
     var channel = message.member.voice.channel;

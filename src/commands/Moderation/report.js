@@ -6,7 +6,9 @@ module.exports = {
 
   name: "report",
   description: "Use for report an annoying guy",
-  permission:"ADMINISTRATOR",
+  permission: "ADMINISTRATOR",
+  active:true,
+
   options: [
     {
       name: 'member',
