@@ -5,8 +5,9 @@ module.exports = {
   name: "zap",
   description: "Euuuuh....",
   permission: "ADMINISTRATOR",
-  active:true,
+  active: true,
 
+  
   execute(message,client) {
     var Kwey = client.users.cache.get("232110364186247168")
     
