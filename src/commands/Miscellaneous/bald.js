@@ -18,11 +18,12 @@ module.exports = {
         
         await message.deferReply()
 
-        var rnd = Math.floor(Math.random()*500)
+        var rnd = Math.floor(Math.random()*200)
         console.log(rnd)
+
         await message.editReply({embeds : [{description : "⏳ En attente de Google Image ... ", color:0xFF6800}]})
             .then(async (resultMessage) => {
-                const img_result = await google.scrape("bald guy", 500)
+                const img_result = await google.scrape("bald guy", 200)
 
                 const Attach = new MessageAttachment(`${img_result[rnd].url}`,"bald_guy.png")
 
