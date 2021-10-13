@@ -7,7 +7,7 @@ module.exports = {
 
         console.log(`\t---> ${message.author.username} says "${message.content}" in #${message.channel.name}`)
 
-        if (message.attachments.size > 0) {
+        if (message.attachments.size > 0 && message.author !== message.client.user) {
                 
                 message.react(message.guild.emojis.cache.find(emoji => emoji.name === "upvote"))
                 message.react(message.guild.emojis.cache.find(emoji => emoji.name === "downvote"))
