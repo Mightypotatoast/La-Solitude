@@ -9,8 +9,8 @@ const google = new Scrapper({
 
 module.exports = {
 
-    name: "bald",
-    description: "GROSSE DÉDICACE A TOI JÉRÉMIE <3",
+    name: "jerem",
+    description: "Fait spawn un jérémie sauvage",
     permission: "ADMINISTRATOR",
     active: true,
 
@@ -31,14 +31,14 @@ module.exports = {
 
         await message.editReply({embeds : [{description : "⏳ En attente de Google Image ... ", color:0xFF6800}]})
             .then(async (resultMessage) => {
-                const img_result = await google.scrape("bald guy", 200)
+                const img_result = await google.scrape("chauve barbue", 200) //changer en chauve barbue
 
                 const Attach = new MessageAttachment(`${img_result[rnd].url}`,"bald_guy.png")
                 //console.log("n°35 : "+ img_result[35].url)
                 let baldEmbed = new MessageEmbed()
                     .setColor(0xEDB987)
                     .setDescription(`**Jérémie n°${rnd}**`)
-                    .setImage("attachment://bald_guy.png")      
+                    .setImage("attachment://jerem.png")      
                     .setTimestamp()
 
                 resultMessage.edit({

@@ -33,13 +33,8 @@ module.exports = {
             .then(async (resultMessage) => {
                 const img_result = await google.scrape("chauve barbue", 200) //changer en chauve barbue
 
-<<<<<<< HEAD:src/Commands/Miscellaneous/bald.js
-                const Attach = new MessageAttachment(`${img_result[rnd].url}`,"bald_guy.png")
-                //console.log("n°35 : "+ img_result[35].url)
-=======
                 const Attach = new MessageAttachment(`${img_result[rnd].url}`,"jerem.png")
 
->>>>>>> 702fa61884869cf2e846d4b1011962d2a49e869f:src/Commands/Miscellaneous/jerem.js
                 let baldEmbed = new MessageEmbed()
                     .setColor(0xEDB987)
                     .setDescription(`**Jérémie n°${rnd}**`)
