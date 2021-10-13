@@ -23,7 +23,7 @@ module.exports = {
 
         await message.editReply({embeds : [{description : "⏳ En attente de Google Image ... ", color:0xFF6800}]})
             .then(async (resultMessage) => {
-                const img_result = await google.scrape("bald guy", 200)
+                const img_result = await google.scrape("chauve", 200)
 
                 const Attach = new MessageAttachment(`${img_result[rnd].url}`,"bald_guy.png")
 
