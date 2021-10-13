@@ -30,7 +30,7 @@ module.exports = {
     
       let rUser = message.options.getMember("member");
 
-      console.log(rUser)
+      //console.log(rUser)
 
       if(!rUser) return message.channel.send({ embeds :[{
         color : 0xff0000 ,
