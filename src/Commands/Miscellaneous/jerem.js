@@ -1,0 +1,58 @@
+const { MessageEmbed, MessageAttachment } = require('discord.js')
+const Scrapper = require('images-scraper')
+
+const google = new Scrapper({
+    puppeteer: {
+        headless:true
+    }
+})
+
+module.exports = {
+
+    name: "jerem",
+    description: "Fait spawn un jérémie sauvage",
+    permission: "ADMINISTRATOR",
+    active: true,
+
+    async execute(message) {
+        
+        await message.deferReply()
+
+        let rnd = Math.floor(Math.random() * 200),
+            listNB =  [34,35]
+        
+        while (listNB.includes(rnd)) {
+         
+            rnd = Math.floor(Math.random() * 200)
+        
+        }
+        
+        console.log(rnd)
+
+        await message.editReply({embeds : [{description : "⏳ En attente de Google Image ... ", color:0xFF6800}]})
+            .then(async (resultMessage) => {
+                const img_result = await google.scrape("chauve barbue", 200) //changer en chauve barbue
+
+<<<<<<< HEAD:src/Commands/Miscellaneous/bald.js
+                const Attach = new MessageAttachment(`${img_result[rnd].url}`,"bald_guy.png")
+                //console.log("n°35 : "+ img_result[35].url)
+=======
+                const Attach = new MessageAttachment(`${img_result[rnd].url}`,"jerem.png")
+
+>>>>>>> 702fa61884869cf2e846d4b1011962d2a49e869f:src/Commands/Miscellaneous/jerem.js
+                let baldEmbed = new MessageEmbed()
+                    .setColor(0xEDB987)
+                    .setDescription(`**Jérémie n°${rnd}**`)
+                    .setImage("attachment://jerem.png")      
+                    .setTimestamp()
+
+                resultMessage.edit({
+                    embeds: [baldEmbed],
+                    files:[Attach]
+                })
+            });
+    
+
+    }
+}
+    

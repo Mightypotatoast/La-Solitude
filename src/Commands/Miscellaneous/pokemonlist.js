@@ -9,7 +9,7 @@ module.exports = {
   name: "pokemonlist",
   description: "Affiche 1 à 10 pokemon random",
   permission: "ADMINISTRATOR",
-  active:true,
+  active: true,
 
   options: [
     {
@@ -26,42 +26,63 @@ module.exports = {
     
     var interval = {
       limit: message.options.getString("limit"),
-      offset: Math.random() * 100 * limit,
+      offset: Math.random() * 100 * limit, //randomise l'offset
     };
 
-    if (!isNaN(interval.limit)) {
-      if (interval.limit >= 1 && interval.limit <= 10) {
-        P.getPokemonsList(interval).then(function (response) {
-          message.reply(`La liste de ${interval.limit} Pokémon`);
-          response.results.forEach((pokemon) => { 
-            P.getPokemonByName(pokemon.name)
-              .then(function (response) {
+    //fonction qui envoie les pokemons
+    const sendPokemon = (interval) => {
+
+      P.getPokemonsList(interval)
+      .then(function (response) {
+
+        message.reply(`La liste de ${interval.limit} Pokémon`);
+
+        response.results.forEach((pokemon) => {
+
+          P.getPokemonByName(pokemon.name)
+          .then(function (response) {
+
+              let isAnimated = response.sprites.versions["generation-v"]["black-white"].animated.front_default;
+
+              if (isAnimated != null) { //if animated
+
+                message.channel.send(response.name);
+                message.channel.send(isAnimated);
+
+              } else { //not animated
+
                 message.channel.send(response.name);
                 message.channel.send(response.sprites.front_default);
-              });
-          });
+                
+              }
+              
+            })
+            .catch(function (error) { //catch error
+              console.log("There was an ERROR: ", error);
+              message.reply(error);
+            });
         });
-      } else {
-        message.reply("Choisis un nombre entre 1 et 10 !");
-      }
-    } else {
-      message.reply("not a number !");
-    }
+      })
+      .catch(function (error) { //catch error
+        console.log("There was an ERROR: ", error);
+        message.reply(error);
+      });
+    };
 
-    // let pokemonArg = args.pokemon;
-    // let response = await axios.get(
-    //   "https://pokeapi.co/api/v2/pokemon/" + pokemonArg
-    // );
-    // // console.log(response.data);
-    // let pokemon = response.data;
-    // pokemon.results.forEach((element) => {
-    //   //   console.log(element.name);
-    //   message.channel.send(element.name);
-    //   //   message.channel.send(element.sprites);
-    // });
-    // // console.log(pokemon);
-    // // message.channel.send(pokemon.name);
-    // // message.channel.send(pokemon.sprites.front_default);
+
+    if (interval.limit >= 1 && interval.limit <= 10) { //check si la limite se trouve entre 1 et 10
+
+      sendPokemon(interval); //envoie les pokemons
+
+    } else if (isNaN(interval.limit)) { //check si la limit n'est pas un nombre
+
+      message.reply("Choisis un nombre !");
+      
+    } else {
+      
+      message.reply("Choisis un nombre entre 1 et 10 !");
+
+    }
   }
 }
 
