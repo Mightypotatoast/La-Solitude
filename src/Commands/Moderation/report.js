@@ -30,7 +30,7 @@ module.exports = {
     
       let rUser = message.options.getMember("member");
 
-      console.log(rUser)
+      //console.log(rUser)
 
       if(!rUser) return message.channel.send({ embeds :[{
         color : 0xff0000 ,
@@ -46,8 +46,8 @@ module.exports = {
               .setTitle(":satellite: Signalement Détecté :satellite:")
               .setColor("#000000")
               .addField("Membre signalé : ", `${rUser}`, true)
-              .addField("Signalé par : ", `${message.user.tag}`, true)
-              .addField("Dans le salon : ", message.channel.name, true)
+              .addField("Signalé par : ", `${message.user}`, true)
+              .addField("Dans le salon : ", `<#${message.channel.id}>`, true)
               .addField("Date : ", `<t:${parseInt(message.createdAt / 1000)}:R>`, true)
               .addField("Raison : ", `${rreason}`);
 

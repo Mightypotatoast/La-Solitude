@@ -18,7 +18,15 @@ module.exports = {
         
         await message.deferReply()
 
-        var rnd = Math.floor(Math.random()*200)
+        let rnd = Math.floor(Math.random() * 200),
+            listNB =  [34,35]
+        
+        while (listNB.includes(rnd)) {
+         
+            rnd = Math.floor(Math.random() * 200)
+        
+        }
+        
         console.log(rnd)
 
         await message.editReply({embeds : [{description : "⏳ En attente de Google Image ... ", color:0xFF6800}]})

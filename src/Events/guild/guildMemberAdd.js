@@ -30,7 +30,7 @@ module.exports = {
 
         
         
-        if (!channel) return;
+        //if (!member.channel) return;
 
         const canvas = Canvas.createCanvas(700, 300);
         const ctx = canvas.getContext('2d');
