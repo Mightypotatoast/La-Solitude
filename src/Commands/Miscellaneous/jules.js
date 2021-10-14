@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const {MessageEmbed} = require("discord.js");
 // const https = require("https");
 // const axios = require("axios");
 // const config = require("../../config.json");
@@ -29,7 +29,13 @@ module.exports = {
 
     var random = Math.floor(Math.random()*jules.length);
 
-    message.reply(jules[random]);
+    message.reply({
+      embeds: [
+        new MessageEmbed()
+          .setImage(jules[random])
+          .setColor("#FF00B9")
+      ]
+    });
        
   },
 };
