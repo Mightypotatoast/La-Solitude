@@ -8,7 +8,7 @@ module.exports = {
   name: "jules",
   description: "Spawn un jules random",
   permission: "ADMINISTRATOR",
-  active: true,
+  active: false,
 
 
   async execute(message) {

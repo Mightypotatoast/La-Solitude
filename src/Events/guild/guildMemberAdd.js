@@ -35,6 +35,8 @@ module.exports = {
         const canvas = Canvas.createCanvas(700, 300);
         const ctx = canvas.getContext('2d');
 
+        canvas.registerFont('./src/util/font/fv_almelo-webfont.ttf', { family: 'FV Almelo' })
+
         const background = await Canvas.loadImage('./src/util/img/wallpaper.jpg');
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
