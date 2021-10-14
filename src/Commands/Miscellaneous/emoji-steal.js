@@ -69,7 +69,7 @@ module.exports = {
                     await embedCreate.addField(parsedEmoji.name, `<${(parsedEmoji.animated) ? "a" : ""}:${parsedEmoji.name}:${parsedEmoji.id}>`, true)
                 }
             }
-            await delay("1000")
+            await delay("2000")
             await message.editReply({embeds:[embedCreate]})
         }
         catch (e) {
