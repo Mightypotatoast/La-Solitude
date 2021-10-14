@@ -61,7 +61,7 @@ module.exports = {
             .addField('Question', `\`${question}\``)
             .addField('Réponse', `\`${answers[Math.floor(Math.random() * answers.length)]}\``)
             .setTimestamp()
-            .setColor(message.guild.me.displayHexColor);
+            .setColor("#6f00ff");
         
         message.reply({ embeds: [embed] });
     }
