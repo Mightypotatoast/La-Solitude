@@ -33,6 +33,7 @@
     "pokedex-promise-v2": "^3.3.2",
     "snekfetch": "^4.0.4",
     "tweetnacl": "^1.0.3",
-    "util": "^0.12.4"
+    "util": "^0.12.4",
+    "weather-js": "^2.0.0"
   }
 }

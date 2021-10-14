@@ -39,7 +39,7 @@ module.exports = {
                 .setTitle(data.title)
                 .setURL(data.postLink)
                 .setColor("#00D7FF")
-                .setFooter(data.ups + "Upvotes")
+                .setFooter(data.ups + " Upvotes")
                 .setTimestamp()
                 .setImage(data.url)
             if (i == 0) {

@@ -6,10 +6,10 @@ module.exports = {
     permission: "ADMINISTRATOR",
     active: false,
     
-    execute(message) {
+    execute(message, client) {
     
-        //this.client.emit("guildMemberAdd", message.member)
-        //this.client.emit("guildMemberRemove", message.member)
+        client.emit("guildMemberAdd", message.member)
+        //client.emit("guildMemberRemove", message.member)
     
     }
 }
