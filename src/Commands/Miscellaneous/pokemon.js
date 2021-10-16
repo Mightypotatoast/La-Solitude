@@ -91,7 +91,7 @@ module.exports = {
     
     else { //pokemon by number
 
-      if (pokemon <= 898 && pokemon >= 1) { //in range
+      if (1 <= pokemon <= 898 ) { //in range
 
         sendPokemon(Math.round(pokemon));
 
