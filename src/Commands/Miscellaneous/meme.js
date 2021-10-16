@@ -1,6 +1,9 @@
 const { MessageEmbed } = require("discord.js");
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const delay = require("delay")
+const { errorEmbed } = require("../../util/Embeds")
+
+
 
 const MAX_MEME = 5
 
@@ -22,12 +25,11 @@ module.exports = {
 
     async execute(message) {
         
-        let errorEmbed = new MessageEmbed().setColor("#FF0000").setTitle("⛔ **Erreur**: ⛔")
 
         let memeNumber = (message.options.getNumber("how-many") === null) ? 1 : Math.floor(message.options.getNumber("how-many"));
         
         if (memeNumber > MAX_MEME || memeNumber <= 0)
-            return message.reply({ embeds: [errorEmbed.setDescription(`Choisissez un nombre entre 1 et ${MAX_MEME}`)], ephemeral: true })
+            return message.reply({ embeds: [errorEmbed().setDescription(`Choisissez un nombre entre 1 et ${MAX_MEME}`)], ephemeral: true })
 
         for (let i = 0; i < memeNumber; i++) {
 

@@ -3,6 +3,7 @@ const Discord = require("discord.js");
 // const axios = require("axios");
 var Pokedex = require("pokedex-promise-v2");
 var P = new Pokedex();
+const { errorEmbed } = require("../../util/Embeds")
 
 module.exports = {
   
@@ -59,13 +60,13 @@ module.exports = {
             })
             .catch(function (error) { //catch error
               console.log("There was an ERROR: ", error);
-              message.reply(error);
+              message.reply({ embeds: [errorEmbed().setDescription(error)] });
             });
         });
       })
       .catch(function (error) { //catch error
         console.log("There was an ERROR: ", error);
-        message.reply(error);
+        message.reply({ embeds: [errorEmbed().setDescription(error)] });
       });
     };
 
@@ -76,11 +77,11 @@ module.exports = {
 
     } else if (isNaN(interval.limit)) { //check si la limit n'est pas un nombre
 
-      message.reply("Choisis un nombre !");
+      message.reply({ embeds: [errorEmbed().setDescription("Choisis un nombre !")] });
       
     } else {
       
-      message.reply("Choisis un nombre entre 1 et 10 !");
+      message.reply({ embeds: [errorEmbed().setDescription("Choisis un nombre entre 1 et 10 !")] });
 
     }
   }

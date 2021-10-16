@@ -1,5 +1,7 @@
 const { MessageEmbed, Util } = require('discord.js')
 const delay = require("delay")
+const { errorEmbed } = require("../../util/Embeds")
+
 
 module.exports = {
 
@@ -73,14 +75,7 @@ module.exports = {
             await message.editReply({embeds:[embedCreate]})
         }
         catch (e) {
-
-            let errorEmbed = new MessageEmbed()
-                .setColor("#FF0000")
-                .setTitle("⛔ **Erreur**: ⛔")
-                .setDescription(`${e}`)
-
-
-            message.editReply({embeds:[errorEmbed]})
+            message.editReply({embeds:[errorEmbed().setDescription(`${e}`)]})
         }
         
         
