@@ -19,7 +19,7 @@ module.exports = {
         await message.deferReply()
 
         let rnd = Math.floor(Math.random() * 200),
-            listNB =  [34,35]
+            listNB =  [34,35,143]
         
         while (listNB.includes(rnd)) {
          

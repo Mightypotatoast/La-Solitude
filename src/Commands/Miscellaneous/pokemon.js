@@ -1,10 +1,13 @@
 const Discord = require("discord.js");
 // const https = require("https");
 // const axios = require("axios");
-const config = require("../../util/pokemonNames.json");
+const { pokemonNames } = require("../../util/pokemonNames.json");
 const { errorEmbed, pokemonEmbed, pokemonEasterEggEmbed } = require("../../util/Embeds")
-var Pokedex = require("pokedex-promise-v2");
-var P = new Pokedex();
+const fs = require("fs")
+const { fetchPokemonData } = require("../../util/function")
+const Pokedex = require("pokedex-promise-v2");
+const P = new Pokedex();
+
 
 module.exports = {
   name: "pokemon",
@@ -22,86 +25,209 @@ module.exports = {
   ],
 
   async execute(message) {
-    let pokemon = message.options.getString("pokemon");
-
-    //function that process pokemon and send them
-    const sendPokemon = (pokemon) => {
-      P.getPokemonByName(pokemon)
-        .then(function (response) {
-          
-          let isAnimated = response.sprites.versions["generation-v"]["black-white"].animated.front_default;
-
-          if (isAnimated != null) { //if animated
-            message.reply(response.name);
-            message.channel.send(isAnimated);
-          }
-          else { //not animated
-            message.reply(response.name);
-            message.channel.send(response.sprites.front_default);
-          }
-
-        })
-
-        .catch(function (error) { //catch error
-          console.log("There was an ERROR: ", error);
-          message.reply({ embeds: [errorEmbed().setDescription(error)] });
-        });
-    };
-
-    //import pokemon names
-    let tmp = config.pokemonNames.join("~").toLowerCase();
-    let pokemonNames = tmp.split("~");
-
-    //check if the input contain a number
-    if (isNaN(pokemon)) {
+    /**
+     * 
+     *          A récuperer : 
+     * 
+     *  @color : pokemon-species/
+     *  @nom :  pokemon-species/
+     *  @nombrePokedex  : pokemon-species/
+     *  @description : pokemon-species/
+     *  @région :  pokemon-species/
+     *  @catégorie :  pokemon-species/
+     *  @isLegendary : pokemon-species/
+     *  @isMythical : pokemon-species/
+     *  @Shape : pokemon-species/
+     *  @Evolution : pokemon-species/
+     *  @TauxCapture : pokemon-species/  !!!! 0 -> 255 !!!!
+     *  @taille : pokemon/
+     *  @poids :  pokemon/
+     *  @type : pokemon/
+     *  @image : pokemon/
+     *  @MegaEvolution : pokemon-form/
+     * 
+     *  
+     * 
+     */
+    
+    let color,
+      nom,
+      taille,
+      nombrePokedex,
+      type,
+      description,
+      region,
+      image,
+      categorie,
+      megaEvolution,
+      isLegendary,
+      isMythical,
+      shape,
+      evolution,
+      tauxCapture;
+    
+    let pokemonArgs = message.options.getString("pokemon");
+    
+    let pokemonEN =  pokemonNames[pokemonArgs.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")];
+    console.log()
+    
+    if (isNaN(pokemonArgs)) {
       
-      if (pokemonNames.includes(pokemon.toLowerCase())) { //check if the name exist
-        sendPokemon(pokemon.toLowerCase());
+      if (pokemonEN) {           //check if the name exist
       }
       
-      else if (pokemon.toLowerCase() === "trepuec") { //trepuec
+      else if (pokemonArgs.toLowerCase() === "trepuec") {               //trepuec
 
         return message.reply({
           embeds: [
             pokemonEasterEggEmbed()
-              .setDescription("**François Le Trepuec** \nLa centrale à la fin, je vous le dis tout de suite, Mr Leclerc il vas arriver ça vas faire wow wow wow wow")
+              .setTitle("<:pokeball:898941316451422248> \\_\\_\\_\\_\\_ François Le Trepuec \\_\\_\\_\\_\\_ <:pokeball:898941316451422248>")
+              .setDescription("La centrale à la fin, je vous le dis tout de suite, Mr Leclerc il vas arriver ça vas faire wow wow wow wow")
               .setThumbnail("https://cdn.discordapp.com/attachments/492828685217431553/888620797449617438/oie_185124SSdPVhk7.gif")
           ]
         });
-
       }
       
-      else if (pokemon.toLowerCase() === "ewen") { //ewen
-
+      else if (pokemonArgs.toLowerCase() === "ewen") {                  //ewen
         return message.reply({
           embeds: [
             pokemonEasterEggEmbed()
-              .setDescription("**Ewen Guégan**")
+              .setTitle("<:pokeball:898941316451422248> \\_\\_\\_\\_\\_ Ewen Guégan \\_\\_\\_\\_\\_ <:pokeball:898941316451422248>")
               .setThumbnail("https://cdn.discordapp.com/attachments/492828685217431553/888622310880325682/unknown.png")
           ]
         });
       }
-      
-      else { //does not exist
-
+      else {                                                            //does not exist
         return message.reply({ embeds: [errorEmbed().setDescription("Ce Pokémon n'existe pas.")] });
-
+      }
+    }
+    else {
+      if (!1 <= pokemonArgs <= 898) {                                   //in range
+          pokemonEN = pokemonArgs
+      }
+      else { //not in range
+        return message.reply({ embeds: [errorEmbed().setDescription("Il n'existe que 898 Pokémon à ce jour, choisis un Pokémon existant !")] });
       }
     }
     
-    else { //pokemon by number
+    message.reply({
+      embeds: [
+        pokemonEmbed()
+          .setDescription("⏳ Loading data ...")
+          .setColor(0xFF6800)
+      ]
+    })
+    
+    const pokemonData = await fetchPokemonData(pokemonEN);
 
-      if (1 <= pokemon <= 898 ) { //in range
 
-        sendPokemon(Math.round(pokemon));
+
+
+    let evolv = () => {
+
+      if (!(pokemonData.evolution.length > 0)) return "```Aucune chaine d'évolution```"
+              
+      let str = ""
+
+      for (chain of pokemonData.evolution) {
+
+        for (evolv in chain){
+
+          if (chain[evolv] === pokemonData.nom) {str += " __**`" + `${chain[evolv]}` + "`**__ "}
+          else { str += " `" + `${chain[evolv]}` + "` "}
+
+          if (chain[evolv] !== chain[chain.length - 1]) str += "-->"
+
+        }
+
+        
+
+        str += "\n"
 
       }
-      
-      else { //not in range
 
-        return message.reply({ embeds: [errorEmbed().setDescription("Il n'existe que 898 Pokémon à ce jour, choisis un Pokémon existant !")] });
-
-      }
+      return str
     }
+
+
+
+
+
+    console.log(pokemonData);
+
+    try {
+      message.editReply({
+        embeds: [
+          pokemonEmbed()
+            .setTitle(`<:pokeball:898941316451422248> \\_\\_\\_\\_\\___| #${pokemonData.indexPokedex} ${pokemonData.nom} |__\\_\\_\\_\\_\\_ <:pokeball:898941316451422248>`)
+            .setDescription(`**_${pokemonData.categorie}_**\n_\`\`\`${pokemonData.description}\`\`\`_\n`)
+            .setColor("LUMINOUS_VIVID_PINK")
+            .setColor(pokemonData.color)
+            .setThumbnail(pokemonData.image)
+
+            .addField("__**Type(s) :**__", "```" + `${pokemonData.types}`.replace(",", " | ") + "```")
+            
+            .addField("__**Région :**__", "```" + pokemonData.region.charAt(0).toUpperCase() + pokemonData.region.slice(1) + "```", true)
+            .addField("__**Habitat :**__", (pokemonData.habitat === null) ? "```Non défini```" : "```" + pokemonData.habitat.charAt(0).toUpperCase() + pokemonData.habitat.slice(1) + "```", true)
+            .addField("__**Taille :**__", "```" + pokemonData.taille + " m```", true)
+            
+            .addField("__**Version d'apparition :**__", "```" + pokemonData.version + "```", true)
+            .addField("__**Forme :**__", "```" + pokemonData.shape + "```", true)
+            .addField("__**Poids :**__", "```" + pokemonData.poids + " kg```", true)
+            
+            
+            .addField("__**Légendaire :**__", pokemonData.isLegendary ? "```Oui```" : "```Non```", true)
+            .addField("__**Mythique :**__", pokemonData.isMythical ? "```Oui```" : "```Non```", true)
+            .addField("__**Méga-évolution :**__", pokemonData.isMega ? "```Oui```" : "```Non```", true)
+            
+            .addField("__**Taux de Capture :**__", "```" + Math.round(pokemonData.tauxCapture * 100 / 255, 2) + " % ```", true)
+            .addField("__**Evolution :**__", evolv() , true)
+          
+          
+
+
+          
+        ]
+      })
+    } catch (e) {
+      message.editReply({embeds:[errorEmbed().setDescription(`\`${e}\``)]})
+    }
+
+
+
+
+
+
+    
+    // let pokemonArgs = message.options.getString("pokemon");
+    //               //function that process pokemon and send them
+    // const sendPokemon = (pokemon) => {
+      
+    //   P.getPokemonSpeciesByName(pokemon)
+    //     .then(function (response) {
+          
+    //       let isAnimated = response.sprites.versions["generation-v"]["black-white"].animated.front_default;
+
+    //       if (isAnimated != null) {                                 //if animated
+    //         message.reply(response.names[4].name);
+    //                                                                 //message.channel.send(isAnimated);
+    //       }
+    //       else { //not animated
+    //         message.reply(response.names[4].name);
+    //                                                                 //message.channel.send(response.sprites.front_default);
+    //       }
+
+    //     })
+    //     .catch(function (error) { //catch error
+    //       console.log("There was an ERROR: ", error);
+    //       message.reply({ embeds: [errorEmbed().setDescription(`${error}`)] });
+    //     });
+    // };
+
+    //                                                                 //import pokemon names
+    // let tmp = config.pokemonNames.join("~").toLowerCase();
+    // let pokemonNames = tmp.split("~");
+
+    //                                                                 //check if the input contain a number
   },
 };

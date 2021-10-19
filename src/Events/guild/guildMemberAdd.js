@@ -34,8 +34,8 @@ module.exports = {
 
         const canvas = Canvas.createCanvas(700, 300);
         const ctx = canvas.getContext('2d');
-
-        canvas.registerFont('./src/util/font/fv_almelo-webfont.ttf', { family: 'FV Almelo' })
+        
+        //canvas.registerFont('./src/util/font/fv_almelo-webfont.ttf', { family: 'FV Almelo' })
 
         const background = await Canvas.loadImage('./src/util/img/wallpaper.jpg');
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
@@ -83,10 +83,9 @@ module.exports = {
             .setTitle("BIENVENUE")
             .setColor(0x00ff00)
             .setDescription(`Bonjour ${member} et bienvenue sur le serveur **${member.guild.name}**. Nous sommes maintenant **${member.guild.memberCount}** sur ce serveur.`)
-            
+            .setImage("attachment://welcome-image.png")
 
-        member.guild.channels.cache.get(config.channel.bienvenueID).send({ embeds : [Addembed] });
-        member.guild.channels.cache.get(config.channel.bienvenueID).send({ files: [CanvasAttachment] });
+        member.guild.channels.cache.get(config.channel.bienvenueID).send({ embeds : [Addembed], files: [CanvasAttachment] });
 
         try {
             

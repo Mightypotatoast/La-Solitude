@@ -4,7 +4,7 @@ module.exports = {
     name: "testing",
     description: "Testing",
     permission: "ADMINISTRATOR",
-    active: false,
+    active: true,
     
     execute(message, client) {
     
