@@ -5,7 +5,7 @@ module.exports = {
     name: "play",
     description: "Play a music",
     permission: "ADMINISTRATOR",
-    active: true,
+    active: false,
 
     options: [
         {

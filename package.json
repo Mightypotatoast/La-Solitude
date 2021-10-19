@@ -23,12 +23,18 @@
     "ascii-table": "^0.0.9",
     "canvas": "^2.8.0",
     "delay": "^5.0.0",
+
     "discord.js": "^13.2.0",
-    "distube": "^3.0.0-beta.40",
+    "distube": "^3.0.1",
+
     "dotenv": "^10.0.0",
     "ffmpeg": "^0.0.4",
     "ffmpeg-static": "^4.4.0",
+
     "fluent-ffmpeg": "^2.1.2",
+
+    "fs": "^0.0.1-security",
+
     "glob": "^7.2.0",
     "images-scraper": "^6.4.0",
     "node-fetch": "^3.0.0",

@@ -6,7 +6,7 @@ const { errorEmbed } = require("../../util/Embeds")
 module.exports = {
 
     name: "emoji-steal",
-    description: "Steal a emoji from another server",
+    description: "Steal an emoji from another server",
     permission: "ADMINISTRATOR",
     active: true,
 

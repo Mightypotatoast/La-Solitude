@@ -3,9 +3,9 @@ module.exports = {
     name: 'messageCreate',
     once: false,
 
-    execute(message) {
+    execute(message,client) {
 
-        console.log(`\t---> ${message.author.username} says "${message.content}" in #${message.channel.name}`)
+        if(message.author.id === client.user.id) console.log(`\t---> ${message.author.username} says "${message.content}" in #${message.channel.name}`)
 
         if (message.attachments.size > 0 && message.author !== message.client.user) {
                 
