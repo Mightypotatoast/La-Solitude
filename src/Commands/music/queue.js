@@ -2,49 +2,25 @@ const { MessageActionRow, MessageButton, MessageEmbed, Message} = require('disco
 
 module.exports = {
 
-    name: "play",
-    description: "Play a music",
+    name: "queue",
+    description: "Display the queue",
     permission: "ADMINISTRATOR",
-    active: false,
+    active: true,
 
-    options: [
-        {
-            name: "music",
-            description: `Music name or URL`,
-            type: "STRING",
-            required: true,
-        }
-    ],
-  
     async execute(message, client) {
         
-        channel = message.member.voice.channel
-        
-
-        let errorEmbed = new MessageEmbed().setColor("#FF0000").setTitle("⛔ **Erreur**: ⛔")
-        if (!channel) return message.reply({ embeds: [errorEmbed.setDescription(`Please join a voice channel !`)], ephemeral: true })
-        
-        const music = message.options.getString('music')
-        if (music=="") return
-
-        try {
-            await client.distube.playVoiceChannel(channel, music)
-        } catch (e) {
-            message.reply({ embeds: [errorEmbed.setDescription(`${e}`)], ephemeral: true })
-        }
-
         const queue = client.distube.getQueue(message)
+        if (!queue) return message.reply(`⛔ **Erreur**: ⛔ | There is nothing in the queue right now!`)
         let playingSong = queue.songs[0]
+        const q = queue.songs.map((song, i) => `${i === 0 ? "Playing:" : `${i}.`} ${song.name} - \`${song.formattedDuration}\``).join("\n")
 
         let playingEmbed =  new MessageEmbed()
             .setColor("#FF0000")
             .setTitle(`Playing ${playingSong.name}`)
             .setURL(`${playingSong.url}`)
             .setThumbnail(`${playingSong.thumbnail}`)
-            .setDescription(`**|-----------------------------|**  ${queue.formattedCurrentTime}/${playingSong.formattedDuration}`)
-            .addField(`Requester`, `${message.user}`, true)
-            .addField(`Author`, `u`, true)
-            .addField(`Volume`, `u`, true)
+            .setDescription(`**|---------------${queue.formattedCurrentTime}/${playingSong.formattedDuration}--------------|**  `)
+            .addField(`Queue:`, `${q}`, true)
 
 
         const row = new MessageActionRow()
@@ -72,7 +48,7 @@ module.exports = {
 				new MessageButton()
 					.setCustomId('primary')
 					.setLabel('🔁')
-                    .setCustomId(`repeat_button`)
+                    .setCustomId(`reapeat_button`)
 					.setStyle('SECONDARY'),
                 
 			)
