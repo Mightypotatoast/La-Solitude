@@ -25,47 +25,7 @@ module.exports = {
   ],
 
   async execute(message) {
-    /**
-     * 
-     *          A récuperer : 
-     * 
-     *  @color : pokemon-species/
-     *  @nom :  pokemon-species/
-     *  @nombrePokedex  : pokemon-species/
-     *  @description : pokemon-species/
-     *  @région :  pokemon-species/
-     *  @catégorie :  pokemon-species/
-     *  @isLegendary : pokemon-species/
-     *  @isMythical : pokemon-species/
-     *  @Shape : pokemon-species/
-     *  @Evolution : pokemon-species/
-     *  @TauxCapture : pokemon-species/  !!!! 0 -> 255 !!!!
-     *  @taille : pokemon/
-     *  @poids :  pokemon/
-     *  @type : pokemon/
-     *  @image : pokemon/
-     *  @MegaEvolution : pokemon-form/
-     * 
-     *  
-     * 
-     */
-    
-    let color,
-      nom,
-      taille,
-      nombrePokedex,
-      type,
-      description,
-      region,
-      image,
-      categorie,
-      megaEvolution,
-      isLegendary,
-      isMythical,
-      shape,
-      evolution,
-      tauxCapture;
-    
+        
     let pokemonArgs = message.options.getString("pokemon");
     
     let pokemonEN =  pokemonNames[pokemonArgs.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")];
@@ -120,9 +80,6 @@ module.exports = {
     
     const pokemonData = await fetchPokemonData(pokemonEN);
 
-
-
-
     let evolv = () => {
 
       if (!(pokemonData.evolution.length > 0)) return "```Aucune chaine d'évolution```"
@@ -139,18 +96,11 @@ module.exports = {
           if (chain[evolv] !== chain[chain.length - 1]) str += "-->"
 
         }
-
-        
-
         str += "\n"
-
       }
 
       return str
     }
-
-
-
 
 
     console.log(pokemonData);
@@ -183,20 +133,11 @@ module.exports = {
             .addField("__**Taux de Capture :**__", "```" + Math.round(pokemonData.tauxCapture * 100 / 255, 2) + " % ```", true)
             .addField("__**Evolution :**__", evolv() , true)
           
-          
-
-
-          
         ]
       })
     } catch (e) {
       message.editReply({embeds:[errorEmbed().setDescription(`\`${e}\``)]})
     }
-
-
-
-
-
 
     
     // let pokemonArgs = message.options.getString("pokemon");
