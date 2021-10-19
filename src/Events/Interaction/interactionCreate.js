@@ -21,8 +21,5 @@ module.exports = {
 
             command.execute(interaction,client)
         }
-
-
     }
-
 }
