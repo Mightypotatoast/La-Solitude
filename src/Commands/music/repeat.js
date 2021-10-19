@@ -13,6 +13,12 @@ module.exports = {
             description: `Type of repeat mode (0 is disabled, 1 is repeating a song, 2 is repeating all the queue).`,
             type: "INTEGER",
             required: true,
+            choices: [
+                { name: "Disabled", value: 0, },
+                { name: "Repeating Song", value: 1, },
+                { name: "Repeating Queue", value: 2, },
+                
+            ],
         }
     ],
     async execute(message, client) {
