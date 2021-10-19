@@ -24,6 +24,7 @@ module.exports = {
         return new MessageEmbed()
             .setColor("#FF0000")
             .setAuthor("POKEDEX NATIONAL", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
+            .setFooter("Pokédex National | Made by Syns", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
             .setTimestamp()
 
     },
