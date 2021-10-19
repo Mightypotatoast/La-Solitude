@@ -5,30 +5,27 @@ module.exports = {
 //------------------------ ERROR -------------------------------    
     errorEmbed: () => {
         
-        let errorEmbed = new MessageEmbed()
+        return new MessageEmbed()
             .setColor("#FF0000")
             .setTitle("⛔ **Erreur**: ⛔")
         
-        return errorEmbed;
     },
 
 //---------------------- POKEMON -------------------------------
     pokemonEmbed: () => {
-        let pokemonEmbed = new MessageEmbed()
-            .setColor("#FF0000")
-            .setTitle("<:pokeball:898941316451422248> \_\_\_\_\_ POKEDEX \_\_\_\_\_ <:pokeball:898941316451422248>")
+        return new MessageEmbed()
+            .setAuthor("POKEDEX NATIONAL", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
+            .setFooter("Pokédex National | Made by Syns", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
             .setTimestamp()
         
-        return pokemonEmbed;
     },
 
     pokemonEasterEggEmbed: () => {
-        let pokemonEasterEggEmbed = new MessageEmbed()
+        return new MessageEmbed()
             .setColor("#FF0000")
-            .setTitle("<:pokeball:898941316451422248> \\_\\_\\_\\_\\_ POKEDEX \\_\\_\\_\\_\\_ <:pokeball:898941316451422248>")
+            .setAuthor("POKEDEX NATIONAL", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
             .setTimestamp()
-        
-        return pokemonEasterEggEmbed;
+
     },
 
 

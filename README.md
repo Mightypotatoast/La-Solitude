@@ -1,59 +1,61 @@
 # La Solitude Discord Bot
 
-Depuis la disparition de Rythm et de Groovy, j'ai décidé de créer mon propre bot discord afin de répondre au besoin du serveur mon serveur. 
+Depuis la disparition de Rythm et de Groovy,
+j'ai décidé de créer mon propre bot discord afin de répondre au besoin du serveur mon serveur.
 
-/!\ /!\ /!\ il n'y a, pour l'instant, aucune commande qui réfère à la musique /!\ /!\ /!\
-
+/!\ /!\ /!\ il n'y a,
+pour l'instant,
+aucune commande qui réfère à la musique /!\ /!\ /!\
 
 ## Commands
 
 #### Bot join vocal
 
 | Prefix | Command |
-| :-- | :------- |
-| `!` | `join` | 
+| :----- | :------ |
+| `!`    | `join`  |
 
 #### Bot leave vocal
 
 | Prefix | Command |
-| :-- | :------- |
-| `!` | `leave` | 
+| :----- | :------ |
+| `!`    | `leave` |
 
 #### Report a user
 
-| Prefix | Command     | Argument 1      | Argument 2           |
-| :-- | :------- | :-------------------- | :------------------- |
-| `!` | `report` | **Required**. `@USER` | **Optional** `reason`|
+| Prefix | Command  | Argument 1            | Argument 2            |
+| :----- | :------- | :-------------------- | :-------------------- |
+| `!`    | `report` | **Required**. `@USER` | **Optional** `reason` |
 
 #### Call a pokemon
 
-| Prefix | Command     | Argument 1      | 
-| :-- | :------- | :-------------------- | 
-| `!` | `pokemon` | **Required**. `name or id` |
+| Prefix | Command   | Argument 1                 |
+| :----- | :-------- | :------------------------- |
+| `!`    | `pokemon` | **Required**. `name or id` |
 
 #### Call a pokemon list (10 pokemon max for now)
 
-| Prefix | Command     | Argument 1      | 
-| :-- | :------- | :-------------------- | 
-| `!` | `pokemonlist` | **Required**. `number` |
+| Prefix | Command       | Argument 1             |
+| :----- | :------------ | :--------------------- |
+| `!`    | `pokemonlist` | **Required**. `number` |
 
 #### Ping of the bot
 
-| Prefix | Command     | 
-| :-------- | :------- |
-| `!` | `ping` |
+| Prefix | Command |
+| :----- | :------ |
+| `!`    | `ping`  |
 
 #### Server Information
 
-| Prefix | Command |
-| :-- | :------- |
-| `!` | `serverinfo` |
+| Prefix | Command      |
+| :----- | :----------- |
+| `!`    | `serverinfo` |
 
 #### Trepuec Information
 
-| Prefix | Command |
-| :-- | :------- |
-| `!` | `trepuecinfo` | 
+| Prefix | Command       |
+| :----- | :------------ |
+| `!`    | `trepuecinfo` |
 
 ## Authors
 
