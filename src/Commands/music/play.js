@@ -1,11 +1,11 @@
 const { MessageActionRow, MessageButton, MessageEmbed, Message} = require('discord.js')
-
+const { errorEmbed, musicEmbed } = require("../../util/Embeds")
 module.exports = {
 
     name: "play",
     description: "Play a music",
     permission: "ADMINISTRATOR",
-    active: false,
+    active: true,
 
     options: [
         {
@@ -19,32 +19,26 @@ module.exports = {
     async execute(message, client) {
         
         channel = message.member.voice.channel
-        
 
-        let errorEmbed = new MessageEmbed().setColor("#FF0000").setTitle("⛔ **Erreur**: ⛔")
-        if (!channel) return message.reply({ embeds: [errorEmbed.setDescription(`Please join a voice channel !`)], ephemeral: true })
+        if (!channel) return message.reply({ embeds: [errorEmbed().setDescription(`Please join a voice channel !`)], ephemeral: true })
         
         const music = message.options.getString('music')
         if (music=="") return
 
+        message.reply({
+            embeds: [
+            musicEmbed()
+            .setDescription("⏳ Searching ...")
+            ]
+        })
+
+
         try {
             await client.distube.playVoiceChannel(channel, music)
         } catch (e) {
-            message.reply({ embeds: [errorEmbed.setDescription(`${e}`)], ephemeral: true })
+            message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
         }
 
-        const queue = client.distube.getQueue(message)
-        let playingSong = queue.songs[0]
-
-        let playingEmbed =  new MessageEmbed()
-            .setColor("#FF0000")
-            .setTitle(`Playing ${playingSong.name}`)
-            .setURL(`${playingSong.url}`)
-            .setThumbnail(`${playingSong.thumbnail}`)
-            .setDescription(`**|-----------------------------|**  ${queue.formattedCurrentTime}/${playingSong.formattedDuration}`)
-            .addField(`Requester`, `${message.user}`, true)
-            .addField(`Author`, `u`, true)
-            .addField(`Volume`, `u`, true)
 
 
         const row = new MessageActionRow()
@@ -76,7 +70,26 @@ module.exports = {
 					.setStyle('SECONDARY'),
                 
 			)
-        message.reply({ embeds: [playingEmbed],components: [row] , ephemeral: true })
+
+        try {
+
+        const queue = client.distube.getQueue(message)
+        let playingSong = queue.songs[0]
+
+        message.editReply({ embeds: [musicEmbed()
+                .setTitle(`Playing ${playingSong.name}`)
+                .setURL(`${playingSong.url}`)
+                .setThumbnail(`${playingSong.thumbnail}`)
+                .setDescription(`${queue.formattedCurrentTime} **|-----------------------------|** ${playingSong.formattedDuration}`)
+                .addField(`Requester`, `x`, true)
+                .addField(`Author`, `x`, true)
+                .addField(`Volume`, `x`, true)
+            ],
+            components: [row],
+            ephemeral: true })
+        } catch (e) {
+            message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+        }
         
 
 

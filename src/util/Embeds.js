@@ -11,6 +11,14 @@ module.exports = {
         
     },
 
+//------------------------ Music -------------------------------    
+    musicEmbed: () => {
+        return new MessageEmbed()
+            .setColor("#7F00FF")
+            .setAuthor("Spotifion", "https://www.iconsdb.com/icons/preview/violet/spotify-xxl.png")
+        
+    },
+
 //---------------------- POKEMON -------------------------------
     pokemonEmbed: () => {
         return new MessageEmbed()
