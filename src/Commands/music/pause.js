@@ -12,7 +12,7 @@ module.exports = {
         
         try{
             const queue = client.distube.getQueue(message)
-            if (!queue) return message.editReply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
+            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
             if (queue.paused) {
                 queue.resume()
                 return message.reply({
@@ -30,7 +30,7 @@ module.exports = {
             ]})
 
         } catch (e) {
-            message.reply(`⛔ **Erreur**: ⛔ | ${e}`)
+            message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
         }
     }
 }
