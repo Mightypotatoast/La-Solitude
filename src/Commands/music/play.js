@@ -1,5 +1,5 @@
-const { MessageActionRow, MessageButton, MessageEmbed, Message} = require('discord.js')
-const { errorEmbed, musicEmbed } = require("../../util/Embeds")
+const { Message} = require('discord.js')
+const { errorEmbed, musicEmbed, musicButtonRow } = require("../../util/Embeds")
 module.exports = {
 
     name: "play",
@@ -38,41 +38,7 @@ module.exports = {
         } catch (e) {
             message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
         }
-
-
-
-        const row = new MessageActionRow()
-			.addComponents(
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏮️')
-                    .setCustomId(`previous_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏯️')
-                    .setCustomId(`pause_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏩')
-                    .setCustomId(`next_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('🔀')
-                    .setCustomId(`shuffle_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('🔁')
-                    .setCustomId(`repeat_button`)
-					.setStyle('SECONDARY'),
-                
-			)
-
         try {
-
         const queue = client.distube.getQueue(message)
         let playingSong = queue.songs[0]
 
@@ -85,7 +51,7 @@ module.exports = {
                 .addField(`Author`, `x`, true)
                 .addField(`Volume`, `x`, true)
             ],
-            components: [row],
+            components: [musicButtonRow()],
             ephemeral: true })
         } catch (e) {
             message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })

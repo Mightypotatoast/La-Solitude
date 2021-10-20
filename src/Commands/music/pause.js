@@ -4,7 +4,7 @@ const { errorEmbed, musicEmbed } = require("../../util/Embeds")
 module.exports = {
 
     name: "pause",
-    description: "Pause music",
+    description: "Pause/Resume music",
     permission: "ADMINISTRATOR",
     active: true,
 
