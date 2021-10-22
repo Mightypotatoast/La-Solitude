@@ -27,7 +27,7 @@ module.exports = {
             message.reply({
                 embeds: [
                 musicEmbed()
-                .setDescription(`${message.user}has set volume to ${volume}`)
+                .setDescription(`${message.user} has set volume to ${volume}`)
                 ]
             })
 
