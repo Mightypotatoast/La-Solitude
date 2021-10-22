@@ -75,12 +75,9 @@ module.exports = {
                     .setCustomId(`repeat_button`)
 					.setStyle('SECONDARY'),
                 
-			)
+        )
+        
         message.reply({ embeds: [playingEmbed],components: [row] , ephemeral: true })
-        
-
-
-
-        
+           
     }
 }

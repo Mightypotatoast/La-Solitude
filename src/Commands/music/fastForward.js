@@ -17,6 +17,7 @@ module.exports = {
             required: true,
         }
     ],
+    
     async execute(message, client) {
 
         timeToSkip = message.options.getInteger('time')

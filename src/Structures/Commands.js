@@ -11,6 +11,8 @@ module.exports = async (client) => {
 
     const Table = new Ascii("Command Loaded");
 
+
+    
     CommandsArray = [];
 
     (await PG(`${process.cwd()}/src/Commands/*/*.js`)).map(async (file) => {
@@ -29,10 +31,10 @@ module.exports = async (client) => {
                 return Table.addRow(command.name, "🔴 FAILED", "Permission is invalid.");
         }
 
-        
-
         if (!command.active)
             return Table.addRow(command.name, "⚠️  DESACTIVATED");
+        
+        
         
         client.commands.set(command.name, command);
         CommandsArray.push(command);
@@ -75,6 +77,7 @@ module.exports = async (client) => {
 
                     await MainGuild.commands.permissions.set({ fullPermissions });
                 });
+
             } catch (e){ console.log(element.name + " : Serveur non trouvé"); }
         });
      });
