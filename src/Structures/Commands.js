@@ -3,7 +3,8 @@ const   { Perms } = require("../util/Permissions"),
         { promisify } = require("util"),
         { glob } = require("glob"),
         PG = promisify(glob),
-        Ascii = require("ascii-table")
+        Ascii = require("ascii-table"),
+        config = require("../config")
 
 
 module.exports = async (client) => {
@@ -45,29 +46,36 @@ module.exports = async (client) => {
     /*******************************************/
     //           PERMISSIONS CHECK             //
     /*******************************************/
+
     client.on("ready", async () => {
-        const MainGuild = await client.guilds.cache.get("235816886259023872");
 
-        MainGuild.commands.set(CommandsArray).then(async (command) => {
-            const Roles = (commandName) => {
-                const cmdPerms = CommandsArray.find((c) => c.name === commandName).permission;
-                if (!cmdPerms) return null;
+        config.MainGuilds.forEach(async element => {
+                   
+            try {
+                const MainGuild = await client.guilds.cache.get(element.id);
 
-                return MainGuild.roles.cache.filter((r) => r.permissions.has(cmdPerms));
-            }
+                MainGuild.commands.set(CommandsArray).then(async (command) => {
+                    const Roles = (commandName) => {
+                        const cmdPerms = CommandsArray.find((c) => c.name === commandName).permission;
+                        if (!cmdPerms) return null;
 
-            const fullPermissions = command.reduce((accumulator, r) => {
-                const roles = Roles(r.name);
-                if (!roles) return accumulator;
+                        return MainGuild.roles.cache.filter((r) => r.permissions.has(cmdPerms));
+                    }
 
-                const permissions = roles.reduce((a, r) => {
-                    return [...a, { id: r.id, type: "ROLE", permission: true }]
-                }, []);
+                    const fullPermissions = command.reduce((accumulator, r) => {
+                        const roles = Roles(r.name);
+                        if (!roles) return accumulator;
 
-                return [...accumulator, { id: r.id, permissions }]
-            }, []);
+                        const permissions = roles.reduce((a, r) => {
+                            return [...a, { id: r.id, type: "ROLE", permission: true }]
+                        }, []);
 
-            await MainGuild.commands.permissions.set({ fullPermissions });
+                        return [...accumulator, { id: r.id, permissions }]
+                    }, []);
+
+                    await MainGuild.commands.permissions.set({ fullPermissions });
+                });
+            } catch (e){ console.log(element.name + " : Serveur non trouvé"); }
         });
-    });
+     });
 }

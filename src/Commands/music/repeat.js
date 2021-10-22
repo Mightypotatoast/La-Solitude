@@ -16,6 +16,7 @@ module.exports = {
             type: 4,
             required: true,
             choices: [
+
                 {
                     name: "Disabled",
                     value: 0
@@ -29,6 +30,7 @@ module.exports = {
                     value: 2
                 }
             ]
+
         }
     ],
     async execute(message, client) {

@@ -1,7 +1,7 @@
 const  Canvas  = require('canvas');
 const Discord = require('discord.js');
 const snekfetch = require('snekfetch');
-const config = require('../../config.json')
+const config = require('../../config')
 
 
 const applyText = (canvas, text) => {
