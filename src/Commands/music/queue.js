@@ -15,7 +15,7 @@ module.exports = {
         try {
         const queue = client.distube.getQueue(message)
         if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
-        const q = queue.songs.map((song, i) => `${i === 0 ? "Playing:" : `${i}.`} ${song.name} - \`${song.formattedDuration}\``).join("\n")
+        const q = queue.songs.map((song, i) => `${i === 0 ? "Playing:" : `${i}.`} [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join("\n")
 
         let playingEmbed =  musicEmbed()
             .addField(`Queue:`, `${q}`, true)
