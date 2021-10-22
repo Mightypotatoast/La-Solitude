@@ -1,5 +1,5 @@
-const { MessageActionRow, MessageButton, MessageEmbed, Message} = require('discord.js')
-
+const { Message} = require('discord.js')
+const { errorEmbed, musicEmbed, musicButtonRow } = require("../../util/Embeds")
 module.exports = {
 
     name: "play",
@@ -19,63 +19,47 @@ module.exports = {
     async execute(message, client) {
         
         channel = message.member.voice.channel
-        
 
-        let errorEmbed = new MessageEmbed().setColor("#FF0000").setTitle("⛔ **Erreur**: ⛔")
-        if (!channel) return message.reply({ embeds: [errorEmbed.setDescription(`Please join a voice channel !`)], ephemeral: true })
+        if (!channel) return message.reply({ embeds: [errorEmbed().setDescription(`Please join a voice channel !`)], ephemeral: true })
         
         const music = message.options.getString('music')
         if (music=="") return
 
+        message.reply({
+            embeds: [
+            musicEmbed()
+            .setDescription("⏳ Searching ...")
+            ]
+        })
+
+
         try {
             await client.distube.playVoiceChannel(channel, music)
         } catch (e) {
-            message.reply({ embeds: [errorEmbed.setDescription(`${e}`)], ephemeral: true })
+            message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
         }
-
+        try {
         const queue = client.distube.getQueue(message)
         let playingSong = queue.songs[0]
 
-        let playingEmbed =  new MessageEmbed()
-            .setColor("#FF0000")
-            .setTitle(`Playing ${playingSong.name}`)
-            .setURL(`${playingSong.url}`)
-            .setThumbnail(`${playingSong.thumbnail}`)
-            .setDescription(`**|-----------------------------|**  ${queue.formattedCurrentTime}/${playingSong.formattedDuration}`)
-            .addField(`Requester`, `${message.user}`, true)
-            .addField(`Author`, `u`, true)
-            .addField(`Volume`, `u`, true)
+        message.editReply({ embeds: [musicEmbed()
+                .setTitle(`Playing ${playingSong.name}`)
+                .setURL(`${playingSong.url}`)
+                .setThumbnail(`${playingSong.thumbnail}`)
+                .setDescription(`${queue.formattedCurrentTime} **|-----------------------------|** ${playingSong.formattedDuration}`)
+                .addField(`Requester`, `x`, true)
+                .addField(`Author`, `x`, true)
+                .addField(`Volume`, `x`, true)
+            ],
+            components: [musicButtonRow()],
+            ephemeral: true })
+        } catch (e) {
+            message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+        }
+        
 
 
-        const row = new MessageActionRow()
-			.addComponents(
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏮️')
-                    .setCustomId(`previous_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏯️')
-                    .setCustomId(`pause_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏩')
-                    .setCustomId(`next_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('🔀')
-                    .setCustomId(`shuffle_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('🔁')
-                    .setCustomId(`repeat_button`)
-					.setStyle('SECONDARY'),
-                
-        )
+
         
         message.reply({ embeds: [playingEmbed],components: [row] , ephemeral: true })
            

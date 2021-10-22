@@ -1,4 +1,5 @@
 const { MessageActionRow, MessageButton, MessageEmbed, Message} = require('discord.js')
+const { errorEmbed, musicEmbed, musicButtonRow } = require("../../util/Embeds")
 
 module.exports = {
 
@@ -8,52 +9,21 @@ module.exports = {
     active: true,
 
     async execute(message, client) {
+    
         
+
+        try {
         const queue = client.distube.getQueue(message)
-        if (!queue) return message.reply(`⛔ **Erreur**: ⛔ | There is nothing in the queue right now!`)
-        let playingSong = queue.songs[0]
+        if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
         const q = queue.songs.map((song, i) => `${i === 0 ? "Playing:" : `${i}.`} ${song.name} - \`${song.formattedDuration}\``).join("\n")
 
-        let playingEmbed =  new MessageEmbed()
-            .setColor("#FF0000")
-            .setTitle(`Playing ${playingSong.name}`)
-            .setURL(`${playingSong.url}`)
-            .setThumbnail(`${playingSong.thumbnail}`)
-            .setDescription(`**|---------------${queue.formattedCurrentTime}/${playingSong.formattedDuration}--------------|**  `)
+        let playingEmbed =  musicEmbed()
             .addField(`Queue:`, `${q}`, true)
-
-
-        const row = new MessageActionRow()
-			.addComponents(
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏮️')
-                    .setCustomId(`previous_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏯️')
-                    .setCustomId(`pause_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏩')
-                    .setCustomId(`next_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('🔀')
-                    .setCustomId(`shuffle_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('🔁')
-                    .setCustomId(`reapeat_button`)
-					.setStyle('SECONDARY'),
-                
-			)
-        message.reply({ embeds: [playingEmbed],components: [row] , ephemeral: true })
-        
+    
+        message.reply({ embeds: [playingEmbed],components: [musicButtonRow()] , ephemeral: true })
+        } catch (e) {
+            message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+        }
 
 
 
