@@ -55,5 +55,6 @@ module.exports = {
             console.log(e)
             message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
         }
+
     }
 }
