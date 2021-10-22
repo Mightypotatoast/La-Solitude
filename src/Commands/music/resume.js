@@ -1,21 +1,36 @@
 const { MessageActionRow, MessageButton, MessageEmbed, Message} = require('discord.js')
+const { errorEmbed, musicEmbed } = require("../../util/Embeds")
 
 module.exports = {
 
     name: "resume",
-    description: "Resume music",
+    description: "Resume/Pause music",
     permission: "ADMINISTRATOR",
     active: true,
 
     async execute(message, client) {
         
-        const queue = client.distube.getQueue(message)
-        if (!queue) return message.reply(`⛔ **Erreur**: ⛔ | There is nothing in the queue right now!`)
-        if (queue.paused) {
-            queue.resume()
-            return message.reply("Resumed the song for you :)")
+        try{
+            const queue = client.distube.getQueue(message)
+            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
+            if (queue.paused) {
+                queue.resume()
+                return message.reply({
+                    embeds: [
+                    musicEmbed()
+                    .setDescription(`${message.user} Resumed the song...`)
+                    ]})
+            }
+            queue.pause()
+            
+            message.reply({
+            embeds: [
+            musicEmbed()
+            .setDescription(`${message.user} Paused the song...`)
+            ]})
+
+        } catch (e) {
+            message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
         }
-        queue.pause()
-        message.reply("Paused the song for you :)")
     }
 }

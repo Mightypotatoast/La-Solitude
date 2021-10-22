@@ -18,11 +18,20 @@ module.exports = {
         }
     ],
     async execute(message, client) {
+        try {
+            timeToSkip = message.options.getInteger('time')
+            const queue = client.distube.getQueue(message)
+            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
+            queue.seek(timeToSkip)
+            
+            message.reply({
+                embeds: [
+                musicEmbed()
+                .setDescription(`${message.user} Seeked to ${timeToSkip}!`)
+            ]})
+        } catch (e) {
+            message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+        }
 
-        timeToSkip = message.options.getInteger('time')
-        const queue = client.distube.getQueue(message)
-        if (!queue) return message.reply(`⛔ **Erreur**: ⛔ | There is nothing in the queue right now!`)
-        queue.seek(timeToSkip)
-        message.reply(`Seeked to ${timeToSkip}!`)
     }
 }
