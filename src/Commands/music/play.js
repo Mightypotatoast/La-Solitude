@@ -1,5 +1,6 @@
 const { Message} = require('discord.js')
-const { errorEmbed, musicEmbed, musicButtonRow } = require("../../util/Embeds")
+const { errorEmbed, musicEmbed} = require("../../util/Embeds")
+const { musicButtonRow } = require("../../util/buttonLayout")
 module.exports = {
 
     name: "play",
@@ -24,37 +25,55 @@ module.exports = {
         const music = message.options.getString('music')
         if (music=="") return
 
+
         message.reply({
             embeds: [
             musicEmbed()
             .setDescription("⏳ Searching ...")
             ]
         })
-        YTBsearch = await client.distube.search(music)
+        if (music.startsWith('http')) {
+            try{
+                await client.distube.playVoiceChannel(channel, music, {options: message.user})
+                const queue = client.distube.getQueue(message)
+                numberSongs = queue.songs.length-1
+                addedSong = queue.songs[numberSongs]
 
-        try {
-            await client.distube.playVoiceChannel(channel, YTBsearch[0].url, {options: message.user})
-        } catch (e) {
-            console.log(e)
-            message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+            } catch (e) {
+                console.log(e)
+                message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+            }
+
+
+
+        } else {
+            try {
+                YTBsearch = await client.distube.search(music)
+                addedSong = YTBsearch[0]
+                await client.distube.playVoiceChannel(channel, YTBsearch[0].url, {options: message.user})
+
+                
+            } catch (e) {
+                console.log(e)
+                message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+            }
         }
-        try {
 
-
+        try{
+            message.editReply({ 
+                    embeds: [musicEmbed()
+                        .setTitle(`▶️ | Song added to the queue : `)
+                        .setDescription(`[${addedSong.name}](${addedSong.url})`)
+                        .setThumbnail(`${addedSong.thumbnail}`)
+                        .addField(`Requester`, `${message.user} `, true)
+                        .addField(`Author`, `[${addedSong.uploader.name}](${addedSong.uploader.url})`, true)
+                        .addField(`Duration`, `${addedSong.formattedDuration}`, true)],
+                    components: [musicButtonRow()], ephemeral: true })
+        } catch (e) {
+                console.log(e)
+                message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+        }
         
-        message.editReply({ embeds: [musicEmbed()
-                .setTitle(`▶️ | Song added to the queue : `)
-                .setDescription(`[${YTBsearch[0].name}](${YTBsearch[0].url})`)
-                .setThumbnail(`${YTBsearch[0].thumbnail}`)
-                .addField(`Requester`, `${message.user} `, true)
-                .addField(`Author`, `[${YTBsearch[0].uploader.name}](${YTBsearch[0].uploader.url})`, true)
-                .addField(`Duration`, `${YTBsearch[0].formattedDuration}`, true)
-            ],
-            ephemeral: true })
-        } catch (e) {
-            console.log(e)
-            message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
-        }
 
     }
 }

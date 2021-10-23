@@ -1,13 +1,13 @@
 const { errorEmbed, musicEmbed} = require("../../util/Embeds")
-
+const {musicButtonRow } = require("../../util/buttonLayout")
 module.exports = {
+
     name: "skip",
-    description: "Skip to the next music",
+    description: "Testing",
     permission: "ADMINISTRATOR",
     active: true,
-
-    async execute(message, client) {
-
+    
+    execute(message, client) {
         try { 
             const queue = client.distube.getQueue(message)
             const nextSong = queue.songs[1] 
@@ -21,7 +21,7 @@ module.exports = {
             musicEmbed()
             .setThumbnail(`${nextSong.thumbnail}`)
             .setDescription(` Song skipped by ${message.user}! Now playing:\n [${nextSong.name}](${nextSong.url})`)
-            ]})
+            ],components: [musicButtonRow()]})
         } catch (e) { 
             message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
         }

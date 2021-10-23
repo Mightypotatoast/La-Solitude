@@ -1,5 +1,6 @@
-const { Message} = require('discord.js')
-const { errorEmbed, musicEmbed, musicButtonRow } = require("../../util/Embeds")
+const { errorEmbed, musicEmbed} = require("../../util/Embeds")
+const { musicButtonRow } = require("../../util/buttonLayout")
+
 module.exports = {
 
     name: "nowplaying",

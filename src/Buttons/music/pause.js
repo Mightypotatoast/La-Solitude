@@ -1,14 +1,14 @@
 const { errorEmbed, musicEmbed} = require("../../util/Embeds")
+const {musicButtonRow } = require("../../util/buttonLayout")
 
 module.exports = {
 
-    name: "resume",
-    description: "Resume/Pause music",
+    name: "pause",
+    description: "Testing",
     permission: "ADMINISTRATOR",
     active: true,
-
-    async execute(message, client) {
-        
+    
+    execute(message, client) {
         try{
             const queue = client.distube.getQueue(message)
             if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
@@ -18,7 +18,7 @@ module.exports = {
                     embeds: [
                     musicEmbed()
                     .setDescription(`${message.user} Resumed the song...`)
-                    ]})
+                    ],components: [musicButtonRow()]})
             }
             queue.pause()
             
@@ -26,10 +26,11 @@ module.exports = {
             embeds: [
             musicEmbed()
             .setDescription(`${message.user} Paused the song...`)
-            ]})
+            ],components: [musicButtonRow()]})
 
         } catch (e) {
             message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
         }
+    
     }
 }
