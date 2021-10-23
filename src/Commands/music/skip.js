@@ -5,22 +5,31 @@ module.exports = {
     description: "Skip to the next music",
     permission: "ADMINISTRATOR",
     active: true,
+    options: [
+        {
+            name: "how-many",
+            description: `how many song do you want to skip?`,
+            type: "NUMBER",
+            required: false,
+        }
+    ],
 
     async execute(message, client) {
 
         try { 
+            
+            let skipNumber = (message.options.getNumber("how-many") === null) ? 1 : Math.floor(message.options.getNumber("how-many"));
             const queue = client.distube.getQueue(message)
-            const nextSong = queue.songs[1] 
             if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
-            if (nextSong === undefined) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing next in queue right now !`)], ephemeral: true })
+            if (queue.songs[skipNumber] === undefined) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing next in queue right now !`)], ephemeral: true })
 
-            queue.skip()
+            queue.jump(skipNumber)
 
             message.reply({
             embeds: [
             musicEmbed()
-            .setThumbnail(`${nextSong.thumbnail}`)
-            .setDescription(` Song skipped by ${message.user}! Now playing:\n [${nextSong.name}](${nextSong.url})`)
+            .setThumbnail(`${queue.songs[skipNumber].thumbnail}`)
+            .setDescription(` Song skipped by ${message.user}! Now playing:\n [${queue.songs[skipNumber].name}](${queue.songs[skipNumber].url})`)
             ]})
         } catch (e) { 
             message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
