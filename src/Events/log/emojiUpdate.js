@@ -16,6 +16,10 @@ module.exports = {
             .setTimestamp()
         
         
-        newEmoji.guild.channels.cache.get(config.channel.logID).send({ embeds : [emojiEmbed] });
+        try {       
+            newEmoji.guild.channels.cache.get(config.channel.logID).send({ embeds : [emojiEmbed] });
+        } catch (e) {
+            console.log(e);
+        }
     }
 }

@@ -1,5 +1,5 @@
-const { MessageActionRow, MessageButton, MessageEmbed, Message} = require('discord.js')
-const { errorEmbed, musicEmbed, musicButtonRow } = require("../../util/Embeds")
+const { errorEmbed, musicEmbed} = require("../../util/Embeds")
+const { musicButtonRow } = require("../../util/buttonLayout")
 
 module.exports = {
 
@@ -15,11 +15,12 @@ module.exports = {
         try {
         const queue = client.distube.getQueue(message)
         if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
+        if (queue.songs.length-1 >= 15) return message.reply({ embeds: [errorEmbed().setDescription(`too much song in the queue discord can't handle that`)], ephemeral: true })
         const q = queue.songs.map((song, i) => `${i === 0 ? "Playing:" : `${i}.`} [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join("\n")
-
+        
         let playingEmbed =  musicEmbed()
             .addField(`Queue:`, `${q}`, true)
-    
+
         message.reply({ embeds: [playingEmbed],components: [musicButtonRow()] , ephemeral: true })
         } catch (e) {
             message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })

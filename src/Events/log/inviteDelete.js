@@ -21,8 +21,11 @@ module.exports = {
             .setTimestamp()
                     
 
-        invite.guild.channels.cache.get(config.channel.logID).send({ embeds : [inviteEmbed] });
-    
+        try {       
+            invite.guild.channels.cache.get(config.channel.logID).send({ embeds : [inviteEmbed] });
+        } catch (e) {
+            console.log(e);
+        }
        
     }
 }
