@@ -42,8 +42,11 @@ module.exports = {
             .setImage((message.attachments.size == 0) ? null : `${message.attachments.first().url}`)
             .setTimestamp()
         
-        message.guild.channels.cache.get(config.channel.logID).send({ embeds: [messageEmbed] });
-    
+        try{
+            message.guild.channels.cache.get(config.channel.logID).send({ embeds: [messageEmbed] });
+        } catch (e) {
+            console.log(e);
+        }
         
         // console.log(entry)
         // console.log("\n***************************************************************************************\n")
