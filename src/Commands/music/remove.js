@@ -1,3 +1,5 @@
+const {MessageActionRow, MessageSelectMenu} = require("discord.js");
+const { options } = require("snekfetch");
 const { errorEmbed, musicEmbed} = require("../../util/Embeds")
 
 module.exports = {
@@ -5,37 +7,52 @@ module.exports = {
     //! la commande fonctionne pour des petits nombre mais pas pour les grand (genre 300secondes)
 
     name: "remove",
-    description: "remove a music from the queue",
+    description: "remove a music from the queue :",
     permission: "ADMINISTRATOR",
     active: true,
-    options: [
-        {
-            name: "id",
-            description: `Nuumber of place the song has in the queue`,
-            type: "NUMBER",
-            required: true,
-        }
-    ],
-    
-    async execute(message, client) {
+        
+    async execute(message, client) {        
         try {
-            
-            let removeNumber = message.options.getNumber("id")
             const queue = client.distube.getQueue(message)
-            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
-            if (queue.songs[removeNumber] === undefined) return message.reply({ embeds: [errorEmbed().setDescription(`No song with this id exist !`)], ephemeral: true })
+            if (!queue) return message.editReply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
             
-            message.reply({
+            await message.reply({
+            embeds: [
+            musicEmbed()
+            .setDescription("⏳ Loading ...")
+            ]
+            })
+
+
+            const optionMenu = await queue.songs.map((song, i) => {
+
+                return {
+                    label: song.name,
+                    description: 'No description',
+                    value: i.toString(),
+                };
+            })
+
+            const row = new MessageActionRow()
+			.addComponents(
+				new MessageSelectMenu()
+					.setCustomId('remove')
+                    .setMaxValues(1)
+					.setPlaceholder('Nothing selected')
+					.addOptions(optionMenu))
+
+            message.editReply({
                 embeds: [
                 musicEmbed()
-                .setDescription(`${message.user} removed [${queue.songs[removeNumber].name}](${queue.songs[removeNumber].url}) from the queue!`)
-            ]})
+                .setDescription(`Select the music you want to remove from the queue below ⤵️`)
+            ],components: [row], ephemeral: true})
             
-            queue.songs.splice(removeNumber, 1)
+            //queue.songs.splice(removeNumber, 1)
             
            
         } catch (e) {
-            message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+            console.log(e)
+            message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
         }
 
     }

@@ -1,5 +1,5 @@
-const { Client, CommandInteraction, MessageEmbed } = require('discord.js')
-const { execute } = require('../guild/guildCreate')
+const { MessageEmbed } = require('discord.js')
+const { musicEmbed } = require("../../util/Embeds") //!provisoir, a retirer quand Handler pour Select menu sera présent
 
 module.exports = {
 
@@ -30,7 +30,7 @@ module.exports = {
                         .setDescription("There is no function found for this button")
                 ], ephemeral : true
             })
-
+    
             try {
                 await button.execute(interaction, client)
             } catch (e) {
@@ -44,14 +44,35 @@ module.exports = {
                     ], ephemeral : true
                 })
             }
+        } else if (interaction.isSelectMenu()) {    //! a modifer/mettre en place un handler pour les SelectMenu
+            try {
+
+                if (interaction.customId !== 'remove') return
+                await interaction.deferReply({ ephemeral: false})
+                interaction.message.delete()
+                //interaction.message.resolveComponent(interaction.customId).setDisabled(true) //!wtf pk ca marche pas
+
+                const queue = client.distube.getQueue(interaction)
+                const songId = interaction.values[0]
+                queue.songs.splice(songId, 1)
+                
+                await interaction.followUp({
+                embeds: [
+                musicEmbed()
+                .setDescription(`${interaction.user} has removed [${queue.songs[songId].name}](${queue.songs[songId].name.url}) from the queue`)
+                ]})
+                
+            } catch (e) {
+                console.error(e)
+                interaction.editReply({
+                embeds: [
+                    new MessageEmbed()
+                        .setColor("RED")
+                        .setTitle("⛔⛔ **ERREUR** ⛔⛔")
+                        .setDescription("ALED")
+                    ], ephemeral : true
+                })
+            }
         }
     }
-
-
-
-
-
-
-
-
 }

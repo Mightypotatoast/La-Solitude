@@ -12,7 +12,7 @@ module.exports = async (client) => {
     const Table = new Ascii("Buttons Loaded");
     ButtonsArray = [];
 
-    (await PG(`${process.cwd()}/src/Buttons/*/*.js`)).map(async (file) => {
+    (await PG(`${process.cwd()}/src/Commands/Buttons/*/*.js`)).map(async (file) => {
         const button = require(file);
         
         if (!button.name)
