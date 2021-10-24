@@ -15,7 +15,9 @@ module.exports = {
         try {
             const queue = client.distube.getQueue(message)
             if (!queue) return message.editReply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
-            
+            if (queue.songs.length > 25) return message.reply({ embeds: [errorEmbed().setDescription(`too much song in the queue discord can't handle that`)], ephemeral: true })
+            //numberOfSelectNeeded = math.ceil(queue.songs.length/25) //TODO ajouter plusieurs SelectMenu if queue.songs.length-1 >= 25
+
             await message.reply({
             embeds: [
             musicEmbed()
