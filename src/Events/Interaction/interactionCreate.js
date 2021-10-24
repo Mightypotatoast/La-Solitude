@@ -59,7 +59,7 @@ module.exports = {
                 await interaction.followUp({
                 embeds: [
                 musicEmbed()
-                .setDescription(`${interaction.user} has removed [${queue.songs[songId].name}](${queue.songs[songId].name.url}) from the queue`)
+                .setDescription(`${interaction.user} has removed [${queue.songs[songId].name}](${queue.songs[songId].url}) from the queue`)
                 ]})
                 
             } catch (e) {
