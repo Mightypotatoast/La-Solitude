@@ -49,9 +49,6 @@ module.exports = {
 
                 if (interaction.customId !== 'remove') return
                 await interaction.deferReply({ ephemeral: false})
-                interaction.message.delete()
-                //interaction.message.resolveComponent(interaction.customId).setDisabled(true) //!wtf pk ca marche pas
-
                 const queue = client.distube.getQueue(interaction)
                 const songId = interaction.values[0]
                 queue.songs.splice(songId, 1)
@@ -62,6 +59,8 @@ module.exports = {
                 .setDescription(`${interaction.user} has removed [${queue.songs[songId].name}](${queue.songs[songId].url}) from the queue`)
                 ]})
                 
+                interaction.message.delete()
+                //interaction.message.resolveComponent(interaction.customId).setDisabled(true) //!wtf pk ca marche pas
             } catch (e) {
                 console.error(e)
                 interaction.editReply({
