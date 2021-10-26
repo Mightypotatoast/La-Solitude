@@ -1,11 +1,12 @@
-const { MessageActionRow, MessageButton, MessageEmbed, Message} = require('discord.js')
-
+const { Message} = require('discord.js')
+const { errorEmbed, musicEmbed} = require("../../util/Embeds")
+const { musicButtonRow } = require("../../util/buttonLayout")
 module.exports = {
 
     name: "play",
     description: "Play a music",
     permission: "ADMINISTRATOR",
-    active: false,
+    active: true,
 
     options: [
         {
@@ -19,68 +20,60 @@ module.exports = {
     async execute(message, client) {
         
         channel = message.member.voice.channel
-        
-
-        let errorEmbed = new MessageEmbed().setColor("#FF0000").setTitle("⛔ **Erreur**: ⛔")
-        if (!channel) return message.reply({ embeds: [errorEmbed.setDescription(`Please join a voice channel !`)], ephemeral: true })
+        if (!channel) return message.reply({ embeds: [errorEmbed().setDescription(`Please join a voice channel !`)], ephemeral: true })
         
         const music = message.options.getString('music')
         if (music=="") return
 
-        try {
-            await client.distube.playVoiceChannel(channel, music)
-        } catch (e) {
-            message.reply({ embeds: [errorEmbed.setDescription(`${e}`)], ephemeral: true })
+
+        message.reply({
+            embeds: [
+            musicEmbed()
+            .setDescription("⏳ Searching ...")
+            ]
+        })
+        if (music.startsWith('http')) {
+            try{
+                await client.distube.playVoiceChannel(channel, music, {options: message.user})
+                const queue = client.distube.getQueue(message)
+                numberSongs = queue.songs.length-1
+                addedSong = queue.songs[numberSongs]
+
+            } catch (e) {
+                console.log(e)
+                message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+            }
+
+
+
+        } else {
+            try {
+                YTBsearch = await client.distube.search(music)
+                addedSong = YTBsearch[0]
+                await client.distube.playVoiceChannel(channel, YTBsearch[0].url, {options: message.user})
+
+                
+            } catch (e) {
+                console.log(e)
+                message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+            }
         }
 
-        const queue = client.distube.getQueue(message)
-        let playingSong = queue.songs[0]
-
-        let playingEmbed =  new MessageEmbed()
-            .setColor("#FF0000")
-            .setTitle(`Playing ${playingSong.name}`)
-            .setURL(`${playingSong.url}`)
-            .setThumbnail(`${playingSong.thumbnail}`)
-            .setDescription(`**|-----------------------------|**  ${queue.formattedCurrentTime}/${playingSong.formattedDuration}`)
-            .addField(`Requester`, `${message.user}`, true)
-            .addField(`Author`, `u`, true)
-            .addField(`Volume`, `u`, true)
-
-
-        const row = new MessageActionRow()
-			.addComponents(
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏮️')
-                    .setCustomId(`previous_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏯️')
-                    .setCustomId(`pause_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏩')
-                    .setCustomId(`next_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('🔀')
-                    .setCustomId(`shuffle_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('🔁')
-                    .setCustomId(`repeat_button`)
-					.setStyle('SECONDARY'),
-                
-			)
-        message.reply({ embeds: [playingEmbed],components: [row] , ephemeral: true })
+        try{
+            message.editReply({ 
+                    embeds: [musicEmbed()
+                        .setTitle(`▶️ | Song added to the queue : `)
+                        .setDescription(`[${addedSong.name}](${addedSong.url})`)
+                        .setThumbnail(`${addedSong.thumbnail}`)
+                        .addField(`Requester`, `${message.user} `, true)
+                        .addField(`Author`, `[${addedSong.uploader.name}](${addedSong.uploader.url})`, true)
+                        .addField(`Duration`, `${addedSong.formattedDuration}`, true)],
+                    components: [musicButtonRow()], ephemeral: true })
+        } catch (e) {
+                console.log(e)
+                message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+        }
         
 
-
-
-        
     }
 }

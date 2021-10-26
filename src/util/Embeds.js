@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed,} = require("discord.js");
 
 module.exports = {
     
@@ -7,10 +7,17 @@ module.exports = {
         
         return new MessageEmbed()
             .setColor("#FF0000")
-            .setTitle("⛔ **Erreur**: ⛔")
+            .setTitle("⛔ **Error**: ⛔")
         
     },
 
+//------------------------ Music -------------------------------    
+    musicEmbed: () => {
+        return new MessageEmbed()
+            .setColor("#7F00FF")
+            .setAuthor("Spotifion", "https://www.iconsdb.com/icons/preview/violet/spotify-xxl.png")
+        
+    },
 //---------------------- POKEMON -------------------------------
     pokemonEmbed: () => {
         return new MessageEmbed()
@@ -29,7 +36,8 @@ module.exports = {
 
     },
 
-
-//------------------------------------------------------------------    
+    
+    
+//------------------------------------------------------------------   
     
 }

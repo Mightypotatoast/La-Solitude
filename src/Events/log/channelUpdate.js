@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-const config = require('../../config.json')
+const config = require('../../config')
 
 module.exports = {
     
@@ -31,7 +31,10 @@ module.exports = {
         
 
         
-       newChannel.guild.channels.cache.get(config.channel.logID).send({ embeds : [channelEmbed] });
-    
+        try {       
+            newChannel.guild.channels.cache.get(config.channel.logID).send({ embeds : [channelEmbed] });
+        } catch (e) {
+            console.log(e);
+        }
     }
 }

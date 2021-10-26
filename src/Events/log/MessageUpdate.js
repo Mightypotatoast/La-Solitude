@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-const config = require('../../config.json')
+const config = require('../../config')
 
 
 
@@ -27,9 +27,11 @@ module.exports = {
             .addField('URL', `[Voir le message](${newMessage.url})`)
             .setTimestamp()
           
-                
-        newMessage.guild.channels.cache.get(config.channel.logID).send({ embeds : [messageEmbed] });
-    
+        try {       
+            newMessage.guild.channels.cache.get(config.channel.logID).send({ embeds : [messageEmbed] });
+        } catch (e) {
+            console.log(e);
+        }
        
     }
 }

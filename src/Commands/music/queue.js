@@ -1,4 +1,5 @@
-const { MessageActionRow, MessageButton, MessageEmbed, Message} = require('discord.js')
+const { errorEmbed, musicEmbed} = require("../../util/Embeds")
+const { musicButtonRow } = require("../../util/buttonLayout")
 
 module.exports = {
 
@@ -8,52 +9,25 @@ module.exports = {
     active: true,
 
     async execute(message, client) {
+    
         
+
+        try {
         const queue = client.distube.getQueue(message)
-        if (!queue) return message.reply(`⛔ **Erreur**: ⛔ | There is nothing in the queue right now!`)
-        let playingSong = queue.songs[0]
-        const q = queue.songs.map((song, i) => `${i === 0 ? "Playing:" : `${i}.`} ${song.name} - \`${song.formattedDuration}\``).join("\n")
+        if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
 
-        let playingEmbed =  new MessageEmbed()
-            .setColor("#FF0000")
-            .setTitle(`Playing ${playingSong.name}`)
-            .setURL(`${playingSong.url}`)
-            .setThumbnail(`${playingSong.thumbnail}`)
-            .setDescription(`**|---------------${queue.formattedCurrentTime}/${playingSong.formattedDuration}--------------|**  `)
-            .addField(`Queue:`, `${q}`, true)
-
-
-        const row = new MessageActionRow()
-			.addComponents(
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏮️')
-                    .setCustomId(`previous_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏯️')
-                    .setCustomId(`pause_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏩')
-                    .setCustomId(`next_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('🔀')
-                    .setCustomId(`shuffle_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('🔁')
-                    .setCustomId(`reapeat_button`)
-					.setStyle('SECONDARY'),
-                
-			)
-        message.reply({ embeds: [playingEmbed],components: [row] , ephemeral: true })
+        const tracks = queue.songs.map((song, i) => `**${i}** - [${song.name}](${song.url}) - ${song.formattedDuration}`);
+        const numberSongs = queue.songs.length;
+        const nextSongs = numberSongs > 6 ? `And **${numberSongs - 6}** other song(s)...` : `**${numberSongs}** song(s) in the playlist`;
         
+        let playingEmbed =  musicEmbed()
+            .setDescription(`Current [${queue.songs[0].name}](${queue.songs[0].url})\n\n${tracks.slice(1, 6).join('\n')}\n\n${nextSongs}`)
+            .setThumbnail(queue.songs[0].thumbnail)
+
+        message.reply({ embeds: [playingEmbed],components: [musicButtonRow()] , ephemeral: true })
+        } catch (e) {
+            message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+        }
 
 
 
