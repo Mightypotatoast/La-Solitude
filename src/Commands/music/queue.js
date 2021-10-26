@@ -15,11 +15,14 @@ module.exports = {
         try {
         const queue = client.distube.getQueue(message)
         if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
-        if (queue.songs.length-1 >= 15) return message.reply({ embeds: [errorEmbed().setDescription(`too much song in the queue discord can't handle that`)], ephemeral: true })
-        const q = queue.songs.map((song, i) => `${i === 0 ? "Playing:" : `${i}.`} [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join("\n")
+
+        const tracks = queue.songs.map((song, i) => `**${i}** - [${song.name}](${song.url}) - ${song.formattedDuration}`);
+        const numberSongs = queue.songs.length;
+        const nextSongs = numberSongs > 6 ? `And **${numberSongs - 6}** other song(s)...` : `**${numberSongs}** song(s) in the playlist`;
         
         let playingEmbed =  musicEmbed()
-            .addField(`Queue:`, `${q}`, true)
+            .setDescription(`Current [${queue.songs[0].name}](${queue.songs[0].url})\n\n${tracks.slice(1, 6).join('\n')}\n\n${nextSongs}`)
+            .setThumbnail(queue.songs[0].thumbnail)
 
         message.reply({ embeds: [playingEmbed],components: [musicButtonRow()] , ephemeral: true })
         } catch (e) {

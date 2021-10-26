@@ -22,6 +22,11 @@ module.exports = {
     {
       name : "L'Empereur Patate",
       id : "493383989588000769"
+    },
+
+    {
+      name : "Test Server",
+      id : "813377350385008721"
     }
 
   ]
