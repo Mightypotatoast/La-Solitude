@@ -20,6 +20,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
     "@discordjs/voice": "^0.6.0",
+    "@giphy/js-fetch-api": "^4.1.2",
     "ascii-table": "^0.0.9",
     "canvas": "^2.8.0",
     "delay": "^5.0.0",
@@ -32,6 +33,7 @@
     "fs": "^0.0.1-security",
     "glob": "^7.2.0",
     "images-scraper": "^6.4.0",
+    "isomorphic-fetch": "^3.0.0",
     "node-fetch": "^3.0.0",
     "pokedex-promise-v2": "^3.3.2",
     "puppeteer": "^10.4.0",

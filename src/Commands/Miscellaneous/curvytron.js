@@ -1,6 +1,9 @@
-const { MessageEmbed, MessageAttachment } = require("discord.js");
+const { MessageEmbed, MessageAttachment, MessageButton, MessageActionRow } = require("discord.js");
 const puppeteer = require("puppeteer");
-const fs = require("fs/promises");
+require("isomorphic-fetch");
+import { GiphyFetch } from '@giphy/js-fetch-api'
+const gf = new GiphyFetch('0UTRbFtkMxAplrohufYco5IY74U8hOes')
+// const fs = require("fs/promises");
 
 module.exports = {
   name: "curvytron",
@@ -13,44 +16,56 @@ module.exports = {
     const page = await browser.newPage();
 
     await page.goto("http://www.curvytron.com/#/"); //navigate to curvyton website
-    await new Promise((r) => setTimeout(r, 500));
-
+    await new Promise(r => setTimeout(r, 500));
+    
     await page.click("#submit"); //create room
-    await new Promise((r) => setTimeout(r, 500));
-
+    await new Promise(r => setTimeout(r, 500));
+    
     await page.type("#profile-name", "VFX-BOT"); //set profile name
-    await new Promise((r) => setTimeout(r, 500));
-
-    await page.click(
-      "#profile > div.profile-form.ng-scope > div > div > button"
-    ); //confirm profile
-    await new Promise((r) => setTimeout(r, 500));
+    await new Promise(r => setTimeout(r, 500));
+    
+    await page.click("#profile > div.profile-form.ng-scope > div > div > button"); //confirm profile
+    await new Promise(r => setTimeout(r, 500));
+    
+    await page.click(".icon-params"); //open settings
+    await new Promise(r => setTimeout(r, 500));
+    
+    await page.click("#open"); //set room as private
+    await new Promise(r => setTimeout(r, 500));
 
     const url = await page.url();
-
-    message.reply(url);
+    const password = url.split("=").pop();
 
     console.log(url);
+    console.log(password);
 
-    // await page.screenshot({ path: "test.png", fullPage: true }); //screenshot
+    message.reply("lol");
+    // message.channel.send(url);
+    message.channel.send("Password : "+ password);
 
-    console.log("ready");
-
+    // await page.screenshot({path: 'test.png', fullPage:true}); //screenshot
+    
+    console.log('ready, waiting for players');
+    // message.channel.send("ready, waiting for players");
+    
     while (true) {
-      const playerNumber = await page.$$eval(".player-name", (players) => {
-        return players.length - 1;
-      });
-
-      const ready = await page.$$eval(".ready", (ready) => {
-        return ready.length;
-      });
-
-      if (playerNumber > 1 && playerNumber === ready) {
-        break;
-      }
-
-      console.log(playerNumber + " " + ready);
+        const playerNumber = await page.$$eval(".player-name", (players) => {
+            return players.length - 1;
+        })
+        
+        const ready = await page.$$eval(".ready", (ready) => {
+            return ready.length;
+        })
+        
+        if (playerNumber > 1 && playerNumber === ready) {
+            break
+        }
+        
+        // console.log(playerNumber + " " + ready);
     }
+    
+    console.log("party launch !");
+    // message.channel.send("party launch !");
 
     await browser.close();
 
