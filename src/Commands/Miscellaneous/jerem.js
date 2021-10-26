@@ -3,7 +3,8 @@ const Scrapper = require('images-scraper')
 
 const google = new Scrapper({
     puppeteer: {
-        headless:true
+        headless: true,
+        args: ["--no-sandbox"]
     }
 })
 
@@ -33,17 +34,14 @@ module.exports = {
             .then(async (resultMessage) => {
                 const img_result = await google.scrape("chauve barbue", 200) //changer en chauve barbue
 
-                const Attach = new MessageAttachment(`${img_result[rnd].url}`,"jerem.png")
-
                 let baldEmbed = new MessageEmbed()
                     .setColor(0xEDB987)
                     .setDescription(`**Jérémie n°${rnd}**`)
-                    .setImage("attachment://jerem.png")      
+                    .setImage(img_result[rnd].url)      
                     .setTimestamp()
 
                 resultMessage.edit({
                     embeds: [baldEmbed],
-                    files:[Attach]
                 })
             });
     
