@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+const { MessageEmbed,} = require("discord.js");
 
 module.exports = {
     
@@ -18,37 +18,6 @@ module.exports = {
             .setAuthor("Spotifion", "https://www.iconsdb.com/icons/preview/violet/spotify-xxl.png")
         
     },
-
-    musicButtonRow: () => {
-        return new MessageActionRow()
-			.addComponents(
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏮️')
-                    .setCustomId(`previous_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏯️')
-                    .setCustomId(`pause_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('⏩')
-                    .setCustomId(`next_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('🔀')
-                    .setCustomId(`shuffle_button`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setCustomId('primary')
-					.setLabel('🔁')
-                    .setCustomId(`reapeat_button`)
-					.setStyle('SECONDARY'),  
-			)},
-
 //---------------------- POKEMON -------------------------------
     pokemonEmbed: () => {
         return new MessageEmbed()
