@@ -16,7 +16,11 @@ module.exports = {
 
         
         if (channel) {
-            member.guild.channels.cache.get(config.channel.au_revoirID).send({embeds : [exampleEmbed]})
+            try {
+                member.guild.channels.cache.get(config.channel.au_revoirID).send({embeds : [exampleEmbed]})
+            } catch (e) {
+                console.log("pas trouvé le channel 'au_revoir'")
+            }
         } else { console.log("pas trouvé le channel 'au_revoir'"); }
         
     }
