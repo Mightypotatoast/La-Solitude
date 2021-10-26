@@ -1,19 +1,6 @@
 const { MessageEmbed, MessageAttachment } = require('discord.js')
 const Scrapper = require('images-scraper')
 
-try {
-    const google = new Scrapper({
-        puppeteer: {
-            headless: true,
-            executablePath: '/usr/bin/chromium-browser',
-        }
-    })
-} catch (e) {
-    const google = new Scrapper({
-        puppeteer: {
-            headless: true,
-        }
-    })}
 
 module.exports = {
 
