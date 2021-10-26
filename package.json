@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "bot": "node ./src/index.js"
+    "bot": "nodemon ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -35,6 +35,7 @@
     "images-scraper": "^6.4.0",
     "isomorphic-fetch": "^3.0.0",
     "node-fetch": "^3.0.0",
+    "nodemon": "^2.0.14",
     "pokedex-promise-v2": "^3.3.2",
     "puppeteer": "^10.4.0",
     "snekfetch": "^4.0.4",

@@ -1,9 +1,8 @@
 const { MessageEmbed, MessageAttachment, MessageButton, MessageActionRow } = require("discord.js");
 const puppeteer = require("puppeteer");
 require("isomorphic-fetch");
-import { GiphyFetch } from '@giphy/js-fetch-api'
+const { GiphyFetch } = require('@giphy/js-fetch-api') 
 const gf = new GiphyFetch('0UTRbFtkMxAplrohufYco5IY74U8hOes')
-// const fs = require("fs/promises");
 
 module.exports = {
   name: "curvytron",
@@ -11,74 +10,179 @@ module.exports = {
   permission: "ADMINISTRATOR",
   active: true,
 
-  async execute(message) {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+  async execute(interaction) {
 
-    await page.goto("http://www.curvytron.com/#/"); //navigate to curvyton website
-    await new Promise(r => setTimeout(r, 500));
+        await interaction.deferReply(); //defer reply
     
-    await page.click("#submit"); //create room
-    await new Promise(r => setTimeout(r, 500));
-    
-    await page.type("#profile-name", "VFX-BOT"); //set profile name
-    await new Promise(r => setTimeout(r, 500));
-    
-    await page.click("#profile > div.profile-form.ng-scope > div > div > button"); //confirm profile
-    await new Promise(r => setTimeout(r, 500));
-    
-    await page.click(".icon-params"); //open settings
-    await new Promise(r => setTimeout(r, 500));
-    
-    await page.click("#open"); //set room as private
-    await new Promise(r => setTimeout(r, 500));
-
-    const url = await page.url();
-    const password = url.split("=").pop();
-
-    console.log(url);
-    console.log(password);
-
-    message.reply("lol");
-    // message.channel.send(url);
-    message.channel.send("Password : "+ password);
-
-    // await page.screenshot({path: 'test.png', fullPage:true}); //screenshot
-    
-    console.log('ready, waiting for players');
-    // message.channel.send("ready, waiting for players");
-    
-    while (true) {
-        const playerNumber = await page.$$eval(".player-name", (players) => {
-            return players.length - 1;
-        })
+        const browser = await puppeteer.launch(); //launch chrome
+        const page = await browser.newPage(); //new page
         
-        const ready = await page.$$eval(".ready", (ready) => {
-            return ready.length;
-        })
+        await page.goto("http://www.curvytron.com/#/"); //navigate to curvyton website
+        await new Promise(r => setTimeout(r, 100));
         
-        if (playerNumber > 1 && playerNumber === ready) {
-            break
+        await page.click("#submit"); //create room
+        await new Promise(r => setTimeout(r, 100));
+        
+        await page.type("#profile-name", "VFX-BOT"); //set profile name
+        await new Promise(r => setTimeout(r, 100));
+        
+        await page.click("#profile > div.profile-form.ng-scope > div > div > button"); //confirm profile
+        await new Promise(r => setTimeout(r, 100));
+        
+        await page.click(".icon-params"); //open settings
+        await new Promise(r => setTimeout(r, 100));
+        
+        await page.click("#open"); //set room as private
+        await new Promise(r => setTimeout(r, 100));
+        
+        await page.click(".icon-params"); //close settings
+        await new Promise(r => setTimeout(r, 100));
+        
+        const url = await page.url(); //get url
+        console.log(url);
+        
+        const joinButton = new MessageActionRow() //join game button
+            .addComponents(
+                new MessageButton()
+                .setURL(url)
+                .setLabel('Rejoindre la room')
+                .setStyle('LINK')
+                .setEmoji("🎮")
+            )
+            
+        const spectateButton = new MessageActionRow() //spectate button
+            .addComponents(
+                new MessageButton()
+                .setURL(url)
+                .setLabel('Regarder la game')
+                .setStyle('LINK')
+                .setEmoji("👀")
+                )
+                
+                
+        let gifUrlWait;
+        let gifUrlStart;
+
+        const randGif = (Math.round(Math.random() * 25)) //random gif parmis 25
+        const randOffset = (Math.round(Math.random() * 100)) //random offset
+    
+        const { data: gifsWait } = await gf.search('still waiting', {sort: 'relevant', offset: randOffset , type: 'gifs',}) //gif waiting
+        const { data: gifsStart } = await gf.search('Start', {sort: 'relevant', offset: randOffset , type: 'gifs',}) //gif start game
+        
+        gifUrlWait = gifsWait[randGif].images.original.url
+        gifUrlStart = gifsStart[randGif].images.original.url //url gif start
+
+
+        
+        const embedWait = new MessageEmbed() //embed wait
+                .setColor('BLURPLE')
+                .setTitle('✨ Ready, waiting for players ... ✨')
+                .setURL(url)
+                // .setImage('http://www.curvytron.com/images/tuto/turn.gif')
+                // .setThumbnail('http://www.curvytron.com/images/tuto/turn.gif')
+                .setImage(gifUrlWait) //git url wait
+
+        
+        const embedSart = new MessageEmbed() //embed start
+                .setColor('GOLD')
+                .setTitle('Partie lancée 🥳!')
+                .setURL(url)
+                .setImage(gifUrlStart) //gif url start
+
+        await interaction.editReply({ //edit reply with waiting
+            embeds: [embedWait],
+            components: [joinButton],
+        });
+
+        console.log('Ready, waiting for players ...');
+        
+        let currentTime = 0
+        let launch = false;
+        // let noPlayer = false;
+        let playersolo;
+        
+        while (true) {
+            
+            const playerName = await page.$$eval(".player-name", (players) => { //get players names
+                return players.map((option) => option.textContent)
+            })
+            
+            const playerNumber = await page.$$eval(".player-name", (players) => { //get number of players
+                return players.length - 1;
+            })
+            
+            const ready = await page.$$eval(".ready", (ready) => { //get number of ready players
+                return ready.length;
+            })
+            
+            if (playerNumber > 1 && playerNumber === ready) { //more than 1 player and everyone is ready
+                launch = true;
+                break
+            } else if (currentTime >= 10 && playerNumber === 0) { //after seconds and nobody break
+                break
+            } else if (currentTime === 10 && playerNumber === 1) { //after .. seconds and 1 player notify everyone
+
+                playersolo = playerName.pop() //get the solo player name
+
+                await page.screenshot({path: 'playerSolo.png', clip: {x:250, y:440, width: 550, height: 200}}); //screenshot
+
+                const playerSoloAttachment = new MessageAttachment('playerSolo.png')
+
+                const joinButtonUser = new MessageActionRow() //join @user button
+                .addComponents(
+                    new MessageButton()
+                        .setURL(url)
+                        .setLabel(`Rejoindre @${playersolo}`)
+                        .setStyle('LINK')
+                        .setEmoji("🎮")
+                )
+
+                const embedSoloPlayer = new MessageEmbed() //embed solo player
+                    .setColor('RED')
+                    .setTitle(`@${playersolo} est tout seul dans la partie`)
+                    .setURL(url)
+                    .setImage('attachment://playerSolo.png')
+
+                await interaction.editReply({ //edit reply with solo player embed
+                    embeds: [embedSoloPlayer],
+                    files: [playerSoloAttachment],
+                    components: [joinButtonUser],
+                });
+            }
+            
+            console.log(`player number : ${playerNumber}, readyPlayer : ${ready}, iteration : ${currentTime}, playerNames : ${playerName}`);
+
+            await new Promise(r => setTimeout(r, 1000)); //1 second
+
+            currentTime++
         }
+
+        await browser.close(); //close browser and stop puppeteer bot
         
-        // console.log(playerNumber + " " + ready);
-    }
-    
-    console.log("party launch !");
-    // message.channel.send("party launch !");
+        if (launch) { //if party launch
 
-    await browser.close();
+            console.log("Party launch !");
+            
+            await interaction.editReply({ // edit reply with embed start
+                embeds: [embedSart],
+                components: [spectateButton]
+            });
+            
+            await new Promise(r => setTimeout(r, 300*1000)); //wait 3min before deleting message
 
-    // const photos = await page.$$eval("img", (imgs) => {
-    //     return imgs.map(x => x.src);
-    // })
+            interaction.deleteReply() //delete message
 
-    // console.log(photos);
+        } else { //if found nobody
+            await interaction.editReply({
+                content: "Aucun joueur n'a rejoint la partie 😭",
+                components: [],
+                embeds: [],
+                attachments: []
+            });
 
-    // for(const photo of photos) {
-    //     const imagepage = await page.goto(photo);
-    //     let path = photo.split('?').shift();
-    //     await fs.writeFile(path.split("/").pop(), await imagepage.buffer());
-    // }
+            await new Promise(r => setTimeout(r, 10*1000)); //wait 10 seconds
+
+            interaction.deleteReply() //delete message
+        }
   },
 };
