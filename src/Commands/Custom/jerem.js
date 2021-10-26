@@ -37,7 +37,7 @@ module.exports = {
                         }
                     })
 
-                    img_result = await google.scrape("chauve barbue", 200) //changer en chauve barbue
+                    img_result = await google.scrape("chauve barbue", 200)
 
 
                 } catch (e) {
@@ -49,7 +49,7 @@ module.exports = {
                         }
                     })
                        
-                    img_result = await google.scrape("chauve barbue", 200) //changer en chauve barbue
+                    img_result = await google.scrape("chauve barbue", 200)
                  }
 
 
