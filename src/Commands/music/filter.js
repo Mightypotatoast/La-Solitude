@@ -20,56 +20,64 @@ module.exports = {
                     value: 0
                 },
                 {
-                    name: "Bass Boost",
+                    name: "3d",
                     value: 1
                 },
                 {
-                    name: "Echo",
+                    name: "bassboost",
                     value: 2
                 },
                 {
-                    name: "Karaoke",
+                    name: "echo",
                     value: 3
                 },
                 {
-                    name: "Nightcore",
+                    name: "karaoke",
                     value: 4
                 },
                 {
-                    name: "VaporWave",
+                    name: "Nightcore",
                     value: 5
                 },
                 {
-                    name: "Flanger",
+                    name: "VaporWave",
                     value: 6
                 },
                 {
-                    name: "Gate",
+                    name: "Flanger",
                     value: 7
                 },
                 {
-                    name: "Haas",
+                    name: "Gate",
                     value: 8
                 },
                 {
-                    name: "Reverse",
+                    name: "Haas",
                     value: 9
                 },
                 {
-                    name: "Surround",
+                    name: "Reverse",
                     value: 10
                 },
                 {
-                    name: "Mcompand",
+                    name: "Surround",
                     value: 11
                 },
                 {
-                    name: "Phaser",
+                    name: "Mcompand",
                     value: 12
                 },
                 {
-                    name: "Earwax",
+                    name: "Phaser",
                     value: 13
+                },
+                {
+                    name: "tremolo",
+                    value: 14
+                },
+                {
+                    name: "Earwax",
+                    value: 15
                 },
             ]
 
@@ -77,7 +85,7 @@ module.exports = {
     ],
     async execute(message, client) {
         try {
-            filterList = [false, "bassboost", "echo", "3d", "karaoke", "nightcore", "vaporwave",
+            filterList = [false, "3d", "bassboost", "echo", "karaoke", "nightcore", "vaporwave",
              "flanger", "gate", "haas", "reverse", "surrond", "mcompand", "phaser", "tremolo", "earwax"]
 
             filterNumber = message.options.getInteger('filter')
