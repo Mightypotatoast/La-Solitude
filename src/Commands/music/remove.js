@@ -4,7 +4,6 @@ const { errorEmbed, musicEmbed} = require("../../util/Embeds")
 
 module.exports = {
     
-    //! la commande fonctionne pour des petits nombre mais pas pour les grand (genre 300secondes)
 
     name: "remove",
     description: "remove a music from the queue :",
@@ -32,6 +31,7 @@ module.exports = {
                     value: i.toString(),
                 };
             })
+
             const row = new MessageActionRow()
 			.addComponents(
 				new MessageSelectMenu()
