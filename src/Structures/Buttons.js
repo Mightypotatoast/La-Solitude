@@ -34,7 +34,7 @@ module.exports = async (client) => {
         client.buttons.set(button.name, button);
         ButtonsArray.push(button);
 
-       await Table.addRow(button.name, "🟢 SUCCESSFUL");
+    await Table.addRow(button.name, "🟢 SUCCESSFUL");
     });
 
     console.log(Table.toString());
