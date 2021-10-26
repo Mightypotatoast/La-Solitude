@@ -1,11 +1,6 @@
 const { MessageEmbed, MessageAttachment } = require('discord.js')
 const Scrapper = require('images-scraper')
 
-const google = new Scrapper({
-    puppeteer: {
-        headless:true
-    }
-})
 
 module.exports = {
 
@@ -31,20 +26,44 @@ module.exports = {
 
         await message.editReply({embeds : [{description : "⏳ En attente de Google Image ... ", color:0xFF6800}]})
             .then(async (resultMessage) => {
-                const img_result = await google.scrape("chauve barbue", 200) //changer en chauve barbue
 
-                const Attach = new MessageAttachment(`${img_result[rnd].url}`,"jerem.png")
+                let img_result;
+
+                try {
+                    const google = new Scrapper({
+                        puppeteer: {
+                            headless: true,
+                            executablePath: '/usr/bin/chromium-browser',
+                        }
+                    })
+
+                    img_result = await google.scrape("chauve barbue", 200) //changer en chauve barbue
+
+
+                } catch (e) {
+
+
+                    const google = new Scrapper({
+                        puppeteer: {
+                            headless: true,
+                        }
+                    })
+                       
+                    img_result = await google.scrape("chauve barbue", 200) //changer en chauve barbue
+                 }
+
+
 
                 let baldEmbed = new MessageEmbed()
                     .setColor(0xEDB987)
                     .setDescription(`**Jérémie n°${rnd}**`)
-                    .setImage("attachment://jerem.png")      
+                    .setImage(img_result[rnd].url)      
                     .setTimestamp()
 
                 resultMessage.edit({
                     embeds: [baldEmbed],
-                    files:[Attach]
                 })
+            
             });
     
 
