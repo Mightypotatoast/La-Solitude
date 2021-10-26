@@ -22,15 +22,16 @@ module.exports = {
             const queue = client.distube.getQueue(message)
             if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
             if (queue.songs[skipNumber] === undefined) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing next in queue right now !`)], ephemeral: true })
+            
+            message.reply({
+                embeds: [
+                musicEmbed()
+                .setThumbnail(`${queue.songs[skipNumber].thumbnail}`)
+                .setDescription(` Song skipped by ${message.user}! Now playing:\n [${queue.songs[skipNumber].name}](${queue.songs[skipNumber].url})`)
+                ]})
 
             queue.jump(skipNumber)
 
-            message.reply({
-            embeds: [
-            musicEmbed()
-            .setThumbnail(`${queue.songs[skipNumber].thumbnail}`)
-            .setDescription(` Song skipped by ${message.user}! Now playing:\n [${queue.songs[skipNumber].name}](${queue.songs[skipNumber].url})`)
-            ]})
         } catch (e) { 
             message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
         }
