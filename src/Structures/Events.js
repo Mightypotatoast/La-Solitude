@@ -17,12 +17,15 @@ module.exports = async (client) => {
             return;
         }
 
-        if (event.once) {
-            client.once(event.name, (...args) => event.execute(...args, client));
-        } else {
-            client.on(event.name, (...args) => event.execute(...args, client));
+        try {
+            if (event.once) {
+                client.once(event.name, (...args) => event.execute(...args, client));
+            } else {
+                client.on(event.name, (...args) => event.execute(...args, client));
+            }
+        } catch (e) {
+            console.log(e);
         }
-
         await Table.addRow(event.name, "✔️   SUCCESSFUL");
     });
 
