@@ -5,7 +5,7 @@ module.exports = {
 
     execute(message,client) {
 
-        if(message.author.id === client.user.id) console.log(`\t---> ${message.author.username} says "${message.content}" in #${message.channel.name}`)
+        if(message.author.id !== client.user.id) console.log(`\t---> ${message.author.username} says "${message.content}" in #${message.channel.name}`)
 
         if (message.attachments.size > 0 && message.author !== message.client.user) {
                 
