@@ -86,7 +86,7 @@ module.exports = {
     async execute(message, client) {
         try {
             filterList = [false, "3d", "bassboost", "echo", "karaoke", "nightcore", "vaporwave",
-             "flanger", "gate", "haas", "reverse", "surrond", "mcompand", "phaser", "tremolo", "earwax"]
+             "flanger", "gate", "haas", "reverse", "surround", "mcompand", "phaser", "tremolo", "earwax"]
 
             filterNumber = message.options.getInteger('filter')
             const queue = client.distube.getQueue(message)
