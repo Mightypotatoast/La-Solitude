@@ -2,7 +2,7 @@ const { MessageEmbed,} = require("discord.js");
 
 module.exports = {
     
-//------------------------ ERROR -------------------------------    
+//!------------------------ ERROR -------------------------------    
     errorEmbed: () => {
         
         return new MessageEmbed()
@@ -11,14 +11,14 @@ module.exports = {
         
     },
 
-//------------------------ Music -------------------------------    
+//!------------------------ Music -------------------------------    
     musicEmbed: () => {
         return new MessageEmbed()
             .setColor("#7F00FF")
             .setAuthor("Spotifion", "https://www.iconsdb.com/icons/preview/violet/spotify-xxl.png")
         
     },
-//---------------------- POKEMON -------------------------------
+//!---------------------- POKEMON -------------------------------
     pokemonEmbed: () => {
         return new MessageEmbed()
             .setAuthor("POKEDEX NATIONAL", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
@@ -35,7 +35,13 @@ module.exports = {
             .setTimestamp()
 
     },
-
+//!---------------------- Warning -------------------------------
+    warningEmbed: () => {
+        return new MessageEmbed()
+            .setColor("YELLOW")
+            .setTitle("⚠️ - **WARNING SYSTEM** - ⚠️")
+            .setTimestamp()
+    }
     
     
 //------------------------------------------------------------------   
