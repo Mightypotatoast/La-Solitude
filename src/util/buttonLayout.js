@@ -27,11 +27,11 @@ module.exports = {
 					.setLabel('🔀')
                     .setCustomId(`shuffle`)
 					.setStyle('SECONDARY'),
-				//new MessageButton()
-				//	.setCustomId('primary')
-				//	.setLabel('🔁')
-                //    .setCustomId(`reapeat`)
-				//	.setStyle('SECONDARY'),  
+				new MessageButton()
+					.setCustomId('primary')
+					.setLabel('🔁')
+                   .setCustomId(`repeat`)
+					.setStyle('SECONDARY'),  
 			)},
 
 //----------------------           -------------------------------
