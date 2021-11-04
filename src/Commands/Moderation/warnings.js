@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const db = require('../../Models/WarningDB');
-const { errorEmbed, warningEmbed } = require('../../Util/Embeds');
+const { errorEmbed, warningEmbed } = require('../../util/Embeds');
 
 module.exports = {
     name: 'warnings',
