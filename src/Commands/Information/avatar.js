@@ -17,6 +17,6 @@ module.exports = {
             .setTimestamp()
         
         interaction.reply({embeds : [userMessage], ephemeral : true})
+        
     }
-
 }

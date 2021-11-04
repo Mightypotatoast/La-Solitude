@@ -25,7 +25,7 @@ module.exports = {
             console.log("\nThe client is now connected to the database !\n");
         }).catch((err) => {
             console.log(err);
-        })
+        });
         
     }
 }
