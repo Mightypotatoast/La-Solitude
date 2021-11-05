@@ -24,7 +24,7 @@ module.exports = {
             const embed = new MessageEmbed()
                 .setColor("#FF0000")
                 .setAuthor("Roll your dice", "https://upload.wikimedia.org/wikipedia/commons/5/53/Six_sided_dice.png")
-                .setTitle(`You rolled a ${roll} (0-${dice})`)
+                .setDescription(`${message.user} rolled a ${roll} (0-${dice})`)
 
             message.reply({embeds: [embed]})
         } catch (error) {
