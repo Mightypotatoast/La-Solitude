@@ -32,6 +32,14 @@ module.exports = {
             .setDescription("⏳ Searching ...")
             ]
         })
+
+        var channel = message.member.voice.channel;
+        await joinVoiceChannel({
+          channelId: channel.id,
+          guildId: message.guild.id,
+          adapterCreator: message.guild.voiceAdapterCreator
+        })
+
         if (music.startsWith('http')) {
             try{
                 await client.distube.playVoiceChannel(channel, music, {options: message.user})
@@ -43,8 +51,6 @@ module.exports = {
                 console.log(e)
                 message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
             }
-
-
 
         } else {
             try {
