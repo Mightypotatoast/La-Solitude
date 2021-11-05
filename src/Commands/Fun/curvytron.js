@@ -14,7 +14,15 @@ module.exports = {
 
         await interaction.deferReply(); //defer reply
     
-        const browser = await puppeteer.launch(); //launch chrome
+        try {
+            browser = await puppeteer.launch(); //launch chrome
+        } catch (error) {
+            browser = await puppeteer.launch({
+                headless: true,
+                executablePath: '/bin/chromium-browser',
+                args: ['--no-sandbox', '--disable-setuid-sandbox']
+            }); //launch chrome
+        }
         const page = await browser.newPage(); //new page
         
         await page.goto("http://www.curvytron.com/#/"); //navigate to curvyton website
