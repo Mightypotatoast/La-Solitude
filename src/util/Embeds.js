@@ -41,7 +41,17 @@ module.exports = {
             .setColor("YELLOW")
             .setTitle("⚠️ - **WARNING SYSTEM** - ⚠️")
             .setTimestamp()
-    }
+    },
+
+//!---------------------- Ban -------------------------------
+
+    banEmbed : () => {
+        return new MessageEmbed()
+            .setColor("#FF0000")
+            .setTitle("⛔ **BAN**: ⛔")
+            .setTimestamp()
+    },
+    
     
     
 //------------------------------------------------------------------   

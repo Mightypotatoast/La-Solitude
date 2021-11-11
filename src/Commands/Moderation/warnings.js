@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const db = require('../../Models/WarningDB');
+const db = require('../../Models/infraction');
 const { errorEmbed, warningEmbed } = require('../../util/Embeds');
 
 module.exports = {
