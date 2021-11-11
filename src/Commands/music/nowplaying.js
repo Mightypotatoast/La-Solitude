@@ -1,6 +1,33 @@
 const { errorEmbed, musicEmbed} = require("../../util/Embeds")
 const { musicButtonRow } = require("../../util/buttonLayout")
 
+
+
+function generateProgressBar(currentTime, duration) {
+        
+    //make a ASCII progress bar |------🔴--------|
+        let progressBar = "|"
+        let progressBarLength = 25
+        let progressBarMax = duration
+        let progressBarCurrent = currentTime
+        let progressBarPercent = (progressBarCurrent / progressBarMax) * 100
+        let progressBarPercentRounded = Math.round(progressBarPercent/(100/progressBarLength))
+        for (let i = 0; i < progressBarLength; i++) {
+            if (i < progressBarPercentRounded) {
+                progressBar = progressBar.concat("─")
+            } else  if (i == progressBarPercentRounded) {
+                progressBar = progressBar.concat("🔹")
+            } else {
+                progressBar = progressBar.concat("─")
+            }
+        }
+        progressBar = progressBar.concat("|")
+        return progressBar
+
+}
+
+
+
 module.exports = {
 
     name: "nowplaying",
@@ -19,12 +46,15 @@ module.exports = {
 
         try {
         let playingSong = queue.songs[0]
-        console.log(playingSong.uploader.name);
-        message.reply({ embeds: [musicEmbed()
+
+
+        
+
+        await message.reply({ embeds: [musicEmbed()
                 .setTitle(`Playing ${playingSong.name}`)
                 .setURL(`${playingSong.url}`)
                 .setThumbnail(`${playingSong.thumbnail}`)
-                .setDescription(`${queue.formattedCurrentTime} **|-----------------------------|** ${playingSong.formattedDuration}`)
+                .setDescription(`${queue.formattedCurrentTime} **${generateProgressBar(queue.currentTime, playingSong.duration )}** ${playingSong.formattedDuration}`)
                 .addField(`Requester`, `${playingSong.member}`, true)
                 .addField(`Author`, `[${playingSong.uploader.name}](${playingSong.uploader.url})`, true)
                 .addField(`Volume`, `${queue.volume}%`, true)

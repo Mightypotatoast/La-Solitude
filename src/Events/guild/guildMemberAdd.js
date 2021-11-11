@@ -84,10 +84,12 @@ module.exports = {
             .setColor(0x00ff00)
             .setDescription(`Bonjour ${member} et bienvenue sur le serveur **${member.guild.name}**. Nous sommes maintenant **${member.guild.memberCount}** sur ce serveur.`)
             .setImage("attachment://welcome-image.png")
-
-        member.guild.channels.cache.get(config.channel.bienvenueID).send({ embeds : [Addembed], files: [CanvasAttachment] });
-
+        
         try {
+        
+            member.guild.channels.cache.get(config.channel.bienvenueID).send({ embeds : [Addembed], files: [CanvasAttachment] });
+
+        
             
             var rol = member.guild.roles.cache.find(role => role.name === "Les Louveteaux");
             member.roles.add(rol);
