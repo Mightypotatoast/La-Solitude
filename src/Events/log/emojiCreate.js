@@ -23,7 +23,7 @@ module.exports = {
         
         
         try {       
-            emoji.guild.channels.cache.get(config.channel.logID).send({ embeds : [emojiEmbed] });
+            emoji.guild.channels.cache.get(config(emoji.guild.id).channel.logID).send({ embeds : [emojiEmbed] });
         } catch (e) {
             console.log(e);
         }

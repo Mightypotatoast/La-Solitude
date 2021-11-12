@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-const { musicEmbed } = require("../../util/Embeds") //!provisoir, a retirer quand Handler pour Select menu sera présent
+const { musicEmbed, errorEmbed } = require("../../util/Embeds") //!provisoir, a retirer quand Handler pour Select menu sera présent
 
 module.exports = {
 
@@ -12,9 +12,7 @@ module.exports = {
             const command = client.commands.get(interaction.commandName);
             if (!command) return interaction.reply({
                 embeds: [
-                    new MessageEmbed()
-                        .setColor("RED")
-                        .setTitle("⛔⛔ **ERREUR** ⛔⛔")
+                    errorEmbed()
                         .setDescription("There was an error while executing this command")
                 ], ephemeral : true
             } ) && client.commands.delete(interaction.commandName);
@@ -24,9 +22,7 @@ module.exports = {
             const button = client.buttons.get(interaction.customId)
             if (!button) return interaction.reply({
                 embeds: [
-                    new MessageEmbed()
-                        .setColor("RED")
-                        .setTitle("⛔⛔ **ERREUR** ⛔⛔")
+                    errorEmbed()
                         .setDescription("There is no function found for this button")
                 ], ephemeral : true
             })
@@ -37,9 +33,7 @@ module.exports = {
                 console.error(e)
                 interaction.reply({
                 embeds: [
-                    new MessageEmbed()
-                        .setColor("RED")
-                        .setTitle("⛔⛔ **ERREUR** ⛔⛔")
+                    errorEmbed()
                         .setDescription("There was an error while executing this command")
                     ], ephemeral : true
                 })

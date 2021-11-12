@@ -24,7 +24,7 @@ module.exports = {
         
 
         try {       
-            channel.guild.channels.cache.get(config.channel.logID).send({ embeds : [channelEmbed] });
+            channel.guild.channels.cache.get(config(channel.guild.id).channel.logID).send({ embeds : [channelEmbed] });
         } catch (e) {
             console.log(e);
         }
