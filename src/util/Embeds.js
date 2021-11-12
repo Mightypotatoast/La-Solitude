@@ -52,7 +52,17 @@ module.exports = {
             .setTimestamp()
     },
     
+//!---------------------- Kick -------------------------------
     
+    
+//!---------------------- Set-channel -------------------------------
+    
+    setChannelEmbed: () => {
+        return new MessageEmbed()
+            .setColor("#71CF93")
+            .setTitle("New channel set")
+            .setTimestamp()
+    }
     
 //------------------------------------------------------------------   
     

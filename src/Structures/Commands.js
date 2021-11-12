@@ -51,7 +51,7 @@ module.exports = async (client) => {
 
     client.on("ready", async () => {
 
-        config.MainGuilds.forEach(async element => {
+        config().MainGuilds.forEach(async element => {
                    
             try {
                 const MainGuild = await client.guilds.cache.get(element.id);

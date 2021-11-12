@@ -114,7 +114,7 @@ module.exports = {
                                 GuildID: interaction.guilId,
                                 UserID: Target.id,
                                 UserTag: Target.user.tag,
-                                Content: [
+                                WarnData: [
                                     {
                                         ExecuterID: interaction.user.id,
                                         ExecuterTag: interaction.user.tag,
@@ -127,7 +127,7 @@ module.exports = {
                         }
                         
                         else {
-                            data.Content.push({
+                            data.WarnData.push({
                                 ExecuterID: interaction.user.id,
                                 ExecuterTag: interaction.user.tag,
                                 Reason: Reason,
