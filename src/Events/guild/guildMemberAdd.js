@@ -86,8 +86,8 @@ module.exports = {
             .setImage("attachment://welcome-image.png")
         
         try {
-        
-            member.guild.channels.cache.get(config.channel.bienvenueID).send({ embeds : [Addembed], files: [CanvasAttachment] });
+            
+            (config(member.guild.id).channel.bienvenueID) ? console.log("/!\\ Le channel 'bienvenue' n'est pas initialisé /!\\") : member.guild.channels.cache.get(config(member.guild.id).channel.bienvenueID).send({ embeds : [Addembed], files: [CanvasAttachment] });
 
         
             
