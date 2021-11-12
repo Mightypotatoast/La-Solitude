@@ -8,6 +8,7 @@ module.exports = {
         return new MessageEmbed()
             .setColor("#FF0000")
             .setTitle("⛔ **Error**: ⛔")
+            .setTimestamp()
         
     },
 
@@ -16,7 +17,7 @@ module.exports = {
         return new MessageEmbed()
             .setColor("#7F00FF")
             .setAuthor("Spotifion", "https://www.iconsdb.com/icons/preview/violet/spotify-xxl.png")
-        
+            .setTimestamp()
     },
 //!---------------------- POKEMON -------------------------------
     pokemonEmbed: () => {
