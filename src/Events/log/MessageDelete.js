@@ -10,12 +10,10 @@ module.exports = {
     async execute(message) {
 
         
-        let channel = []
 
-
-
-        if (message.channel.id ) return;
-
+        for(const [key, value] of Object.entries((await config(message.guild.id)).channel)){
+            if (message.channel.id === value) return;
+        };
 
 
         let logs = await message.guild.fetchAuditLogs({
@@ -45,7 +43,7 @@ module.exports = {
             .setTimestamp()
         
         try{
-            message.guild.channels.cache.get(config(message.guild.id).channel.logID).send({ embeds: [messageEmbed] });
+            message.guild.channels.cache.get((await config(message.guild.id)).channel.logID).send({ embeds: [messageEmbed] });
         } catch (e) {
             console.log(e);
         }
