@@ -87,7 +87,7 @@ module.exports = {
         
         try {
             
-            (config(member.guild.id).channel.bienvenueID) ? console.log("/!\\ Le channel 'bienvenue' n'est pas initialisé /!\\") : member.guild.channels.cache.get(config(member.guild.id).channel.bienvenueID).send({ embeds : [Addembed], files: [CanvasAttachment] });
+            (!config(member.guild.id).channel.bienvenueID) ? console.log("/!\\ Le channel 'bienvenue' n'est pas initialisé /!\\") : member.guild.channels.cache.get(config(member.guild.id).channel.bienvenueID).send({ embeds : [Addembed], files: [CanvasAttachment] });
 
         
             

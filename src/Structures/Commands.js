@@ -6,7 +6,10 @@ const   { Perms } = require("../util/Permissions"),
         Ascii = require("ascii-table"),
         config = require("../config")
 
-
+/**
+ * 
+ * @param {Client} client 
+ */
 module.exports = async (client) => {
 
     const Table = new Ascii("Command Loaded");
@@ -34,8 +37,6 @@ module.exports = async (client) => {
         if (!command.active)
             return Table.addRow(command.name, "⚠️  DESACTIVATED");
         
-        
-        
         client.commands.set(command.name, command);
         CommandsArray.push(command);
 
@@ -48,20 +49,24 @@ module.exports = async (client) => {
     /*******************************************/
     //           PERMISSIONS CHECK             //
     /*******************************************/
+    /**
+     * @param {Client} client
+     */
+    client.on("ready", async (client) => {
 
-    client.on("ready", async () => {
+        guild = []
+        
+        client.guilds.cache.map(e => guild.push(e))
 
-        config().MainGuilds.forEach(async element => {
+        guild.forEach(async (guild) => {
                    
             try {
-                const MainGuild = await client.guilds.cache.get(element.id);
-
-                MainGuild.commands.set(CommandsArray).then(async (command) => {
+                guild.commands.set(CommandsArray).then(async (command) => {
                     const Roles = (commandName) => {
                         const cmdPerms = CommandsArray.find((c) => c.name === commandName).permission;
                         if (!cmdPerms) return null;
 
-                        return MainGuild.roles.cache.filter((r) => r.permissions.has(cmdPerms));
+                        return guild.roles.cache.filter((r) => r.permissions.has(cmdPerms));
                     }
 
                     const fullPermissions = command.reduce((accumulator, r) => {
@@ -75,10 +80,10 @@ module.exports = async (client) => {
                         return [...accumulator, { id: r.id, permissions }]
                     }, []);
 
-                    await MainGuild.commands.permissions.set({ fullPermissions });
+                    await guild.commands.permissions.set({ fullPermissions });
                 });
 
-            } catch (e){ console.log(element.name + " : Serveur non trouvé"); }
+            } catch (e) { console.log(element.name + " : Serveur non trouvé"); }
         });
-     });
+    });
 }

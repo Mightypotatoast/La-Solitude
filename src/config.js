@@ -3,30 +3,29 @@ const db = require('./Models/channels')
 
 
 
-module.exports = (guild) => {
+module.exports = (guildID) => {
   
-  let bienvenue, auRevoir, log, report;
+  //fetch channel from database and store in global variable
+  let bienvenue, auRevoir, log, report
   
-  db.findOne({
-    GuildID: guild
-  },
-    (err, data) => {
+  let oui = async() => {
+    await db.findOne({ GuildID: guildID }, (err, data) => {
+    
       if (err) console.log(err)
-      if (data) {
-        bienvenue = LogChannelID
-        auRevoir = ReportChannelID
-        log = WelcomeChannelID
-        report = ByeChannelID
-      }
-      else {
-        bienvenue = null
-        auRevoir = null
-        log = null
-        report = null
-      }
-    }
-  )
 
+      if (data) {
+
+        bienvenue = data.WelcomeChannelID
+        auRevoir = data.ByeChannelID
+        log = data.LogChannelID
+        report = data.ReportChannelID
+      }
+
+    })
+  }
+
+
+  console.log(bienvenue, auRevoir, log, report);
     
   return {
       channel: {
