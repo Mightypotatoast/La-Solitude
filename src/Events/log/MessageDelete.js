@@ -10,10 +10,12 @@ module.exports = {
     async execute(message) {
 
         
+        let channel = []
 
-        for(const [key, value] of Object.entries(config.channel)){
-            if (message.channel.id === value) return;
-        };
+
+
+        if (message.channel.id ) return;
+
 
 
         let logs = await message.guild.fetchAuditLogs({

@@ -14,8 +14,6 @@ module.exports = async (client) => {
 
     const Table = new Ascii("Command Loaded");
 
-
-    
     CommandsArray = [];
 
     (await PG(`${process.cwd()}/src/Commands/*/*.js`)).map(async (file) => {

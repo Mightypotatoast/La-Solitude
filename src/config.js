@@ -3,26 +3,29 @@ const db = require('./Models/channels')
 
 
 
-module.exports = (guildID) => {
+module.exports = async (guildID) => {
   
   //fetch channel from database and store in global variable
   let bienvenue, auRevoir, log, report
   
-  let oui = async() => {
-    await db.findOne({ GuildID: guildID }, (err, data) => {
-    
-      if (err) console.log(err)
+  
+  await db.findOne({ GuildID: guildID }, async (err, data) => {
+  
+    if (err) console.log(err)
 
-      if (data) {
+    if (data) {
 
-        bienvenue = data.WelcomeChannelID
-        auRevoir = data.ByeChannelID
-        log = data.LogChannelID
-        report = data.ReportChannelID
-      }
+      bienvenue = (data.WelcomeChannelID) ? data.WelcomeChannelID : null
+      auRevoir = (data.ByeChannelID) ? data.ByeChannelID : null
+      log = (data.LogChannelID) ? data.LogChannelID : null
+      report = (data.ReportChannelID) ? data.ReportChannelID : null
 
-    })
-  }
+    }
+      
+  }).clone()
+
+  
+  
 
 
   console.log(bienvenue, auRevoir, log, report);
@@ -38,24 +41,6 @@ module.exports = (guildID) => {
         reportID: report
       },
 
-      MainGuilds: [
-        
-        {
-          name: "Sensokami",
-          id: "235816886259023872"
-        },
-
-        {
-          name: "L'Empereur Patate",
-          id: "493383989588000769"
-        },
-
-        {
-          name: "Test Server",
-          id: "813377350385008721"
-        }
-
-      ]
     }
     
 }
