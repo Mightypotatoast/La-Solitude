@@ -3,7 +3,7 @@ const {musicButtonRow } = require("../../util/buttonLayout")
 module.exports = {
 
     name: "repeat",
-    description: "Cylcle throught repeat mode" ,
+    description: "Cycle throught repeat mode" ,
     permission: "ADMINISTRATOR",
     active: true,
     

@@ -29,7 +29,7 @@ module.exports = {
                 }
             });
 
-            message.reply({ embed: [successEmbed().setDescription("All commands have been reloaded!")], ephemeral: true });
+            message.reply({ embeds: [successEmbed().setDescription("All commands have been reloaded!")], ephemeral: true });
         })
     }
 }
