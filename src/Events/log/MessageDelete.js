@@ -9,9 +9,9 @@ module.exports = {
 
     async execute(message) {
 
-        
+        const { channel } = await config(message.guild.id)
 
-        for(const [key, value] of Object.entries((await config(message.guild.id)).channel)){
+        for(const [key, value] of Object.entries(channel)){
             if (message.channel.id === value) return;
         };
 
@@ -43,7 +43,7 @@ module.exports = {
             .setTimestamp()
         
         try{
-            message.guild.channels.cache.get((await config(message.guild.id)).channel.logID).send({ embeds: [messageEmbed] });
+            message.guild.channels.cache.get(channel.logID).send({ embeds: [messageEmbed] });
         } catch (e) {
             console.log(e);
         }

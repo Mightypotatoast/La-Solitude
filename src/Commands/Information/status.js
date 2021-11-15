@@ -15,10 +15,10 @@ module.exports = {
     async execute(message, client) {
         const Response = new MessageEmbed()
             .setColor("#0099ff")
-            .setTitle("🤖 - Bot Status - 🤖")
-            .addField("Client :", `🟢 ONLINE - \`${client.ws.ping}\``)
-            .addField("Database :", `${getStatus(connection.readyState)}`)
-            .addField("Uptime", `<t:${parseInt(client.readyTimestamp)}:R>`)
+            .setTitle("🤖 --- Bot Status --- 🤖")
+            .addField("Client :", `🟢 ONLINE - \`${client.ws.ping} ms\``, true)
+            .addField("Database :", `${getStatus(connection.readyState)}`, true)
+            .addField("Uptime", `<t:${parseInt(client.readyTimestamp / 1000)}:R>`, true)
             .setTimestamp()
         
         message.reply({ embeds: [Response] });
@@ -26,7 +26,7 @@ module.exports = {
 }
 
 function getStatus(val) {
-    const status = ""
+    let status = ""
 
     switch (val) {
         case 0:
