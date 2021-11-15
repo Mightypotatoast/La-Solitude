@@ -65,7 +65,7 @@ module.exports = {
                 .setDescription(`${lyrics}`)
             ]})
         } catch (e) {
-            message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+            message.editReply({ embeds: [errorEmbed().setDescription(`Lyrics not found`)], ephemeral: true })
             console.log(e);
         }
 
