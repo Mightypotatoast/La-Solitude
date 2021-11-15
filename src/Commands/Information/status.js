@@ -4,7 +4,7 @@ const { connection } = require("mongoose");
 module.exports = {
     name: "status",
     description: "Get the status of the bot and the database connection.",
-    permission: "ADMINISTRATEUR",
+    permission: "ADMINISTRATOR",
     active: true,
 
     /**
