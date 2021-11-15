@@ -29,7 +29,7 @@ module.exports = {
 
   async execute(message) {
     
-    if (message.author.id !== "206905331366756353") return message.reply({ embed: [errorEmbed().setDescription("You need to be the owner of this server!")] });
+    if (message.member.id !== "206905331366756353") return message.reply({ embed: [errorEmbed().setDescription("You need to be the owner of this server!")] });
 
     let code = message.options.getString("code")
     

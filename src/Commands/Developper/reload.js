@@ -13,7 +13,7 @@ module.exports = {
      * @param {CommandInteraction} message 
      */
     async execute(message) {
-        if (message.author.id !== "206905331366756353") return message.reply({ embed: [errorEmbed().setDescription("You need to be the owner of this server!")], ephemeral: true });
+        if (message.member.id !== "206905331366756353") return message.reply({ embed: [errorEmbed().setDescription("You don't have the permission to use this command **[BOT OWNER ONLY]**")], ephemeral: true });
         
         glob(`${__dirname}/../**/*.js`, async (err, files) => {
             if (err) return message.reply({ embed: [errorEmbed().setDescription(err)],ephemeral: true });
