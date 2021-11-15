@@ -26,22 +26,37 @@ module.exports = {
             ]
             })
 
-            songName = queue.songs[0].name.replace(/ *\([^)]*\) */g, "")
-            const browser = await puppeteer.launch({headless: true})
+            //open Browser
+            const browser = await puppeteer.launch({headless: false})
             const page = await browser.newPage()
-            await page.setViewport({ width: 1280, height: 720 });
-            url = `https://lyrics.ovh`
-            encodeURI(url)
-            await page.goto(url)
-            await page.type("#search-input", songName, {delay: 25})
-            await sleep(500) 
-            await page.click('#results > li:nth-child(1)');            
+            await page.goto('https://www.google.com/search?q=genius+lyrics+' + queue.songs[0].name.replace(/ /g, '+'))
+            
+            //wait and accept cookies
+            await page.waitForSelector('#L2AGLb')
+            await page.click('#L2AGLb')
             await sleep(500)
-            lyrics = await page.evaluate(() => {
-                
-                let elements = document.querySelector('#thelyrics')
-                return elements.innerHTML.replace(/<br\s*[\/]?>/gi, "\n")
+            
+            //get to the lyrics page
+            await page.waitForSelector('h3.LC20lb', {timeout: 10000});
+            await page.evaluate(() => {
+                let elements = document.querySelectorAll('h3.LC20lb')
+                elements[0].click()
             })
+
+            //wait and accept cookies
+            await sleep(1000)
+            await page.waitForSelector('#onetrust-accept-btn-handler')
+            await page.click('#onetrust-accept-btn-handler')
+            await sleep(500)
+            
+            //scrap the lyrics
+            await page.waitForSelector('#lyrics-root > div:nth-child(1)')
+            lyrics = await page.evaluate(() => {
+                let elements = document.querySelector('#lyrics-root > div:nth-child(1)')
+                return elements.innerText
+            })
+
+            //close browser
             browser.close()
 
             message.editReply({
@@ -50,7 +65,8 @@ module.exports = {
                 .setDescription(`${lyrics}`)
             ]})
         } catch (e) {
-            message.editReply({ embeds: [errorEmbed().setDescription(`No lyrics found for this song`)], ephemeral: true })
+            message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+            console.log(e);
         }
 
     }
