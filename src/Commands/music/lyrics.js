@@ -27,9 +27,10 @@ module.exports = {
             })
 
             //open Browser
-            const browser = await puppeteer.launch({headless: false})
+            const browser = await puppeteer.launch({headless: true})
             const page = await browser.newPage()
-            await page.goto('https://www.google.com/search?q=genius+lyrics+' + queue.songs[0].name.replace(/ /g, '+'))
+            await page.setViewport({ width: 1366, height: 768})
+            await page.goto('https://www.google.com/search?q=genius+lyrics+' + queue.songs[0].name.replace(/ /g, "+"))
             
             //wait and accept cookies
             await page.waitForSelector('#L2AGLb')
@@ -47,12 +48,11 @@ module.exports = {
             await sleep(1000)
             await page.waitForSelector('#onetrust-accept-btn-handler')
             await page.click('#onetrust-accept-btn-handler')
-            await sleep(500)
+            await sleep(1000)
             
             //scrap the lyrics
-            await page.waitForSelector('#lyrics-root > div:nth-child(1)')
             lyrics = await page.evaluate(() => {
-                let elements = document.querySelector('#lyrics-root > div:nth-child(1)')
+                let elements = document.querySelector('body > routable-page > ng-outlet > song-page > div > div > div.song_body.column_layout > div.column_layout-column_span.column_layout-column_span--primary > div > defer-compile:nth-child(2) > lyrics > div > div > section > p')
                 return elements.innerText
             })
 
