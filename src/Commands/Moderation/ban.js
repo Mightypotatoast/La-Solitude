@@ -101,10 +101,10 @@ module.exports = {
         })
 
         interaction.reply({embeds : [banEmbed().setDescription("Banning " + Target + " for " + Reason + " for " + Amount + " days.")]})
-        //Target.ban({ days: Amount, reason: Reason })
-        //    .catch(err => {
-        //        console.log(err)
-        //    })
+        Target.ban({ days: Amount, reason: Reason })
+            .catch(err => {
+                console.log(err)
+            })
         
     }
 }

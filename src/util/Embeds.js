@@ -59,12 +59,17 @@ module.exports = {
     banEmbed : () => {
         return new MessageEmbed()
             .setColor("#FF0000")
-            .setTitle("⛔ **BAN**: ⛔")
+            .setTitle("⛔ - **BAN**: - ⛔")
             .setTimestamp()
     },
     
 //!---------------------- Kick -------------------------------
-    
+    kickEmbed : () => {
+        return new MessageEmbed()
+            .setColor("#FF0000")
+            .setTitle("🦶 - **KICK**: - 🦶")
+            .setTimestamp()
+    },
     
 //!---------------------- Set-channel -------------------------------
     

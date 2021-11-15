@@ -10,7 +10,9 @@ module.exports = {
 
     async execute(oldMessage, newMessage) {
 
-        if (newMessage.channel.id === config.channel.logID) return;
+        let { channel } = await config(newMessage.guild.id)
+
+        if (newMessage.channel.id === channel.logID) return;
         if (oldMessage.content === newMessage.content) return;
 
         let logs = await newMessage.guild.fetchAuditLogs({type: "MESSAGE_UPDATE"});
@@ -28,7 +30,7 @@ module.exports = {
             .setTimestamp()
           
         try {       
-            newMessage.guild.channels.cache.get((await config(newMessage.guild.id)).channel.logID).send({ embeds : [messageEmbed] });
+            newMessage.guild.channels.cache.get(channel.logID).send({ embeds : [messageEmbed] });
         } catch (e) {
             console.log(e);
         }
