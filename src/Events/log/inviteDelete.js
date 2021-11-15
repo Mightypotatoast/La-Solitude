@@ -7,7 +7,7 @@ module.exports = {
     name: 'inviteDelete',
     once: false,
 
-    execute(invite) {
+    async execute(invite) {
         
         let inviteDate = invite.createdAt
         let inviteExpireDate = invite.expiresAt
@@ -22,7 +22,7 @@ module.exports = {
                     
 
         try {       
-            invite.guild.channels.cache.get(config(invite.guild.id).channel.logID).send({ embeds : [inviteEmbed] });
+            invite.guild.channels.cache.get((await config(invite.guild.id)).channel.logID).send({ embeds : [inviteEmbed] });
         } catch (e) {
             console.log(e);
         }

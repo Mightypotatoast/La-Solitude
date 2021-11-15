@@ -6,7 +6,7 @@ module.exports = {
     name: 'channelUpdate',
     once: false,
 
-    execute(oldChannel, newChannel) {
+    async execute(oldChannel, newChannel) {
 
        
         const channelEmbed = new MessageEmbed()
@@ -32,7 +32,7 @@ module.exports = {
 
         
         try {       
-            newChannel.guild.channels.cache.get(config(newChannel.guild.id).channel.logID).send({ embeds : [channelEmbed] });
+            newChannel.guild.channels.cache.get((await config(newChannel.guild.id)).channel.logID).send({ embeds : [channelEmbed] });
         } catch (e) {
             console.log(e);
         }

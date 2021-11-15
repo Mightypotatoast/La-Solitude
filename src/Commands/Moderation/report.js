@@ -53,7 +53,7 @@ module.exports = {
               .addField("Date : ", `<t:${parseInt(message.createdAt / 1000)}:R>`, true)
               .addField("Raison : ", `${rreason}`);
 
-      let reportschannel = (!config.channel.reportID) ? null : message.guild.channels.cache.get(config.channel.reportID);
+      let reportschannel = (!config(message.guild.id).channel.reportID) ? null : message.guild.channels.cache.get(config(message.guild.id).channel.reportID);
 
       console.log(config.channel.reportID);
       console.log(reportschannel);

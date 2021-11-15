@@ -6,7 +6,7 @@ module.exports = {
     name: 'channelDelete',
     once: false,
 
-    execute(channel) {
+    async execute(channel) {
 
         let channelDate = channel.createdAt
         let channelDeleteDate = new Date()
@@ -24,7 +24,7 @@ module.exports = {
         
 
         try {       
-            channel.guild.channels.cache.get(config(channel.guild.id).channel.logID).send({ embeds : [channelEmbed] });
+            channel.guild.channels.cache.get((await config(channel.guild.id)).channel.logID).send({ embeds : [channelEmbed] });
         } catch (e) {
             console.log(e);
         }

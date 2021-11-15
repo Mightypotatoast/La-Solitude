@@ -12,6 +12,16 @@ module.exports = {
         
     },
 
+//!------------------------ SUCCESS -------------------------------
+    successEmbed: () => {
+            
+            return new MessageEmbed()
+                .setColor("#00FF00")
+                .setTitle("✅ **Success**: ✅")
+                .setTimestamp()
+
+    },
+
 //!------------------------ Music -------------------------------    
     musicEmbed: () => {
         return new MessageEmbed()

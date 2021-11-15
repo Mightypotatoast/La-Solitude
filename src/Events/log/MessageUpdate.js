@@ -28,7 +28,7 @@ module.exports = {
             .setTimestamp()
           
         try {       
-            newMessage.guild.channels.cache.get(config(newMessage.guild.id).channel.logID).send({ embeds : [messageEmbed] });
+            newMessage.guild.channels.cache.get((await config(newMessage.guild.id)).channel.logID).send({ embeds : [messageEmbed] });
         } catch (e) {
             console.log(e);
         }

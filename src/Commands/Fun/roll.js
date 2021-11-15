@@ -19,7 +19,7 @@ module.exports = {
         
         try{
             let dice = message.options.getString('dice')
-            if (dice==null) dice = "100";
+            if (dice==null) dice = "6";
             const roll = Math.floor(Math.random() * dice) + 1
             const embed = new MessageEmbed()
                 .setColor("#FF0000")
