@@ -16,8 +16,8 @@ module.exports = {
         const Response = new MessageEmbed()
             .setColor("#0099ff")
             .setTitle("🤖 --- Bot Status --- 🤖")
-            .addField("Client :", `🟢 ONLINE - \`${client.ws.ping} ms\``, true)
-            .addField("Database :", `${getStatus(connection.readyState)}`, true)
+            .addField("Client :", `\`🟢 ONLINE\` - \`${client.ws.ping} ms\``, true)
+            .addField("Database :", `\`${getStatus(connection.readyState)}\``, true)
             .addField("Uptime", `<t:${parseInt(client.readyTimestamp / 1000)}:R>`, true)
             .setTimestamp()
         
@@ -30,16 +30,16 @@ function getStatus(val) {
 
     switch (val) {
         case 0:
-            status = "🔴 DISCONNECTED";
+            status = `🔴 DISCONNECTED`;
             break;
         case 1:
-            status = "🟢 CONNECTED";
+            status = `🟢 CONNECTED`;
             break;
         case 2:
-            status = "🟠 CONNECTING";
+            status = `🟠 CONNECTING`;
             break;
         case 3:
-            status = "🔵 DISCONNECTING";
+            status = `🔵 DISCONNECTING`;
             break;
         
     }

@@ -50,7 +50,7 @@ module.exports = {
     warningEmbed: () => {
         return new MessageEmbed()
             .setColor("YELLOW")
-            .setTitle("⚠️ - **WARNING SYSTEM** - ⚠️")
+            .setTitle("⚠️ --- **WARNING** --- ⚠️")
             .setTimestamp()
     },
 
@@ -59,7 +59,7 @@ module.exports = {
     banEmbed : () => {
         return new MessageEmbed()
             .setColor("#FF0000")
-            .setTitle("⛔ - **BAN**: - ⛔")
+            .setTitle("⛔ --- **BAN**: --- ⛔")
             .setTimestamp()
     },
     
@@ -67,7 +67,14 @@ module.exports = {
     kickEmbed : () => {
         return new MessageEmbed()
             .setColor("#FF0000")
-            .setTitle("🦶 - **KICK**: - 🦶")
+            .setTitle("🦶 --- **KICK**: --- 🦶")
+            .setTimestamp()
+    },
+//!---------------------- Mute -------------------------------
+    muteEmbed: () => {
+        return new MessageEmbed()
+            .setColor("#FF0000")
+            .setTitle("🔇 --- **MUTE**: --- 🔇")
             .setTimestamp()
     },
     

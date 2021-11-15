@@ -45,15 +45,15 @@ module.exports = {
         if (!Reason) return interaction.reply({embeds : [errorEmbed().setDescription("Please provide a valid reason.")]})
         if (!Amount) return interaction.reply({embeds : [errorEmbed().setDescription("Please provide a valid number of days.")]})
 
-        if (Amount > 7 || Amount < 0) return interaction.reply({embeds : [errorEmbed().setDescription("Please provide a valid number of days.")]})
+        if (Amount > 7 || Amount < 0) return interaction.reply({embeds : [errorEmbed().setDescription("Please provide a valid number of days.")], ephemeral: true})
         
-        if (Target.id === member.id) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban yourself.")]})
+        if (Target.id === member.id) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban yourself.")], ephemeral: true})
         
-        if (Target.id === client.user.id) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban me.")]})
-        if (Target.id === guild.ownerID) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban the server owner.")]})
+        if (Target.id === client.user.id) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban me.")], ephemeral: true})
+        if (Target.id === guild.ownerID) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban the server owner.")], ephemeral: true})
 
-        if (Target.roles.highest.position > member.roles.highest.position) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban a user with a higher role than you.")]})
-        if (Target.permissions.has(this.perms)) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban a user who had " + this.permission + " permission")]})
+        if (Target.roles.highest.position > member.roles.highest.position) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban a user with a higher role than you.")], ephemeral: true})
+        if (Target.permissions.has(this.perms)) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban a user who had " + this.permission + " permission")], ephemeral: true})
         
         Target.send({ embeds: [banEmbed().setDescription("You have been banned from **" + guild.name + "** for **" + Reason + "**")] })
         .catch(() => {
