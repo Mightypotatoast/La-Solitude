@@ -81,7 +81,7 @@ module.exports = async (client) => {
                     await guild.commands.permissions.set({ fullPermissions });
                 });
 
-            } catch (e) { console.log(element.name + " : Serveur non trouvé"); }
+            } catch (e) { console.log(e); }
         });
     });
 }

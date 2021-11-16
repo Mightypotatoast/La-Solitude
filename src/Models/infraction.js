@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 module.exports = model('Infractions', new Schema({
+
     GuildID: String,
     GuildName: String,
     UserID: String,
