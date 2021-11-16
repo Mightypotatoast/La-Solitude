@@ -112,6 +112,7 @@ module.exports = {
                         if (!data) {
                             data = new db({
                                 GuildID: interaction.guilId,
+                                GuildName: message.guild.name,
                                 UserID: Target.id,
                                 UserTag: Target.user.tag,
                                 WarnData: [

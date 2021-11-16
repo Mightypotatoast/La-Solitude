@@ -63,7 +63,9 @@ module.exports = {
             if (!data || !data.KickData) {
                 data = new db({
                     GuildID: guild.id,
+                    GuildName: guild.name,
                     UserID: Target.id,
+                    UserTag: Target.user.tag,
                     KickData: {
                         ExecutorID: member.id,
                         ExecutorTag: member.user.tag,

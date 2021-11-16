@@ -70,7 +70,9 @@ module.exports = {
             if (!data || !data.BanData) {
                 data = new db({
                     GuildID: guild.id,
+                    GuildName: guild.name,
                     UserID: Target.id,
+                    UserTag: Target.user.tag,
                     BanData: {
                         ExecutorID: member.id,
                         ExecutorTag: member.user.tag,

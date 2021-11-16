@@ -107,11 +107,12 @@ module.exports = {
         if (Target.id === message.guild.ownerID) return message.reply({ embeds: [errorEmbed().setDescription("I cannot mute the server owner!")], ephemeral: true })
         if (Target.roles.highest.position > message.member.roles.highest.position) return message.reply({ embeds: [errorEmbed().setDescription("You cannot mute a user with a higher role than you!")], ephemeral: true })
         
-        db.findOne({ GuildID: guild.id, UserID: Target.id }, async (err, data) => {
+        db.findOne({ GuildID: message.guild.id, UserID: Target.id }, async (err, data) => {
             if (err) console.log(err)
             if (!data) {
                 data = new db({
                     GuildID: message.guild.id,
+                    GuildName: message.guild.name,
                     UserID: Target.id,
                     MuteData: [
                         {
@@ -120,7 +121,7 @@ module.exports = {
                             TargetID: Target.id,
                             TargetTag: Target.user.tag,
                             Reason: Reason,
-                            Duration: Duration,
+                            Duration: `${Duration} ${DurationType}`,
                             Date: parseInt(message.createdTimestamp / 1000),
                         }
                     ]
