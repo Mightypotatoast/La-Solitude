@@ -10,7 +10,7 @@ const P = new Pokedex();
 
 
 module.exports = {
-  name: "pokemon",
+  name: "pokedex",
   description: "Choisis ton Pokemon",
   permission: "ADMINISTRATOR",
   active: true,
