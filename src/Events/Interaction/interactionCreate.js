@@ -18,7 +18,9 @@ module.exports = {
             } ) && client.commands.delete(interaction.commandName);
 
             command.execute(interaction,client)
-        } else if (interaction.isButton()) {
+        }
+        
+        /*else if (interaction.isButton()) {
             const button = client.buttons.get(interaction.customId)
             if (!button) return interaction.reply({
                 embeds: [
@@ -38,7 +40,7 @@ module.exports = {
                     ], ephemeral : true
                 })
             }
-        } else if (interaction.isSelectMenu()) {    //! a modifer/mettre en place un handler pour les SelectMenu
+        } */else if (interaction.isSelectMenu()) {    //! a modifer/mettre en place un handler pour les SelectMenu
             try {
 
                 if (interaction.customId !== 'remove') return

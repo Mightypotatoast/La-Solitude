@@ -47,9 +47,11 @@ module.exports = async (client) => {
     /*******************************************/
     //           PERMISSIONS CHECK             //
     /*******************************************/
+
     /**
      * @param {Client} client
      */
+    
     client.on("ready", async (client) => {
 
         guild = []
