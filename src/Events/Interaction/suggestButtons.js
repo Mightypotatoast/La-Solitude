@@ -26,7 +26,7 @@ module.exports = {
 
                 switch (customId) {
                     case "suggest-accept": {
-                            Embed.fields[4] = { name: "Status", value: "🟢 Accepted", inline: true };
+                            Embed.fields[4] = { name: "**🔷 Status**", value: "🟢 Accepted", inline: true };
                             message.edit({ embeds: [Embed.setColor("GREEN")], components:[] });
                             data.Details[0].Status = "Accepted";
                             data.save()
@@ -34,7 +34,7 @@ module.exports = {
                         }
                         break;
                     case "suggest-decline": {
-                            Embed.fields[4] = { name: "Status", value: "🔴 Declined", inline: true };
+                            Embed.fields[4] = { name: "**🔷 Status**", value: "🔴 Declined", inline: true };
                             message.edit({ embeds: [Embed.setColor("RED")], components: [] });
                             data.Details[0].Status = "Declined";
                             data.save();

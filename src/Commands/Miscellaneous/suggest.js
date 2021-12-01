@@ -42,14 +42,14 @@ module.exports = {
         const Suggestion = options.getString("suggestion");
 
         const Embed = new MessageEmbed()
-            .setTitle(`${Type} Suggestion`)
+            .setTitle(`🗂️ --- ${Type} Suggestion --- 🗂️`)
             .setColor("NAVY")
             .addFields(
-                { name: "Author", value: `${user.tag} - ||${user.id}||` },
-                { name: "Guild", value: `${message.guild.name} - ||${guildId}||\n\n` },
-                { name: "Suggestion", value: Suggestion},
-                { name: "Type", value: Type, inline: true },
-                { name: "Status", value: "🟠 Pending", inline: true }
+                { name: "**👤 Author :**", value: `${user.tag} - ||${user.id}||` },
+                { name: "**🔰 Guild :**", value: `${message.guild.name} - ||${guildId}||\n\n` },
+                { name: "**⁉️ Suggestion**", value: Suggestion},
+                { name: "**📋 Type**", value: Type, inline: true },
+                { name: "**🔷 Status**", value: "🟠 Pending", inline: true }
             )
             .setTimestamp();
         
