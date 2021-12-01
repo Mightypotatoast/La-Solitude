@@ -2,6 +2,7 @@ const { CommandInteraction, MessageActionRow, MessageSelectMenu } = require("dis
 const { errorEmbed, successEmbed, musicEmbed } = require("../../util/Embeds");
 const db = require("../../Models/commands")
 const glob = require("glob");
+const { SortObjectArray } = require("../../util/function");
 
 
 
@@ -9,7 +10,7 @@ module.exports = {
     name: "command",
     description: "Command toggle and reload",
     permission: "ADMINISTRATOR",
-    active: true,
+    active: false,
 
     options: [
         {
@@ -41,11 +42,11 @@ module.exports = {
         const { options, guild } = message
         
         const Sub = options.getSubcommand(["enable", "disable", "reload"]);
-        if(!message.member.permissions.has("ADMINISTRATOR")) return message.reply({embeds :[errorEmbed().setDescription("You need to be an administrator to use this command.")]})
+        if(!message.member.permissions.has("ADMINISTRATOR")) return message.reply({embeds :[errorEmbed().setDescription("You need to be an administrator to use this command.")], ephemeral: true})
         
         let Commandfiles = [];
 
-        glob(`${__dirname}/../**/*.js`, async (err, files) => {
+        glob(`${__dirname}/../**/*.js`, (err, files) => {
             if (err) return message.editReply({ embed: [errorEmbed().setDescription(err)], ephemeral: true });
             
             files.forEach(file => {
@@ -58,13 +59,16 @@ module.exports = {
             })
        })
 
+       SortObjectArray(Commandfiles, "label")
 
+        
 
         await message.reply({
             embeds: [
             musicEmbed()
             .setDescription("⏳ Loading ...")
-            ]
+            ],
+            ephemeral: true
         })
         
         switch (Sub) {
@@ -89,6 +93,7 @@ module.exports = {
                     i += 25
                     j++
                 }
+
                 while(Commandfiles.length > i)
                 
                     
@@ -126,10 +131,10 @@ module.exports = {
                 if (message.member.id !== "206905331366756353") return message.editReply({ embed: [errorEmbed().setDescription("You don't have the permission to use this command **[BOT OWNER ONLY]**")], ephemeral: true });
         
                 Commandfiles.forEach(file => {
-                    delete require.cache[require.resolve(file)];
+                    delete require.cache[require.resolve(file.value)];
                     
-                    const command = require(file);
-                    console.log(`Reloaded ${file}`);
+                    const command = require(file.value);
+                    console.log(`Reloaded /${file.label}`);
 
                     if(command.name) {
                         message.client.commands.set(command.name, command);
