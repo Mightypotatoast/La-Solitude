@@ -20,27 +20,7 @@ module.exports = {
             command.execute(interaction,client)
         }
         
-        /*else if (interaction.isButton()) {
-            const button = client.buttons.get(interaction.customId)
-            if (!button) return interaction.reply({
-                embeds: [
-                    errorEmbed()
-                        .setDescription("There is no function found for this button")
-                ], ephemeral : true
-            })
-    
-            try {
-                await button.execute(interaction, client)
-            } catch (e) {
-                console.error(e)
-                interaction.reply({
-                embeds: [
-                    errorEmbed()
-                        .setDescription("There was an error while executing this command")
-                    ], ephemeral : true
-                })
-            }
-        } */else if (interaction.isSelectMenu()) {    //! a modifer/mettre en place un handler pour les SelectMenu
+        else if (interaction.isSelectMenu()) {    //! a modifer/mettre en place un handler pour les SelectMenu
             try {
 
                 if (interaction.customId !== 'remove') return
