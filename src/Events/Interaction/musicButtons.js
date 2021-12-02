@@ -15,11 +15,17 @@ module.exports = {
         if (!interaction.isButton()) return;
         //if (!interaction.member.permissions.has("ADMINISTRATOR")) return interaction.reply({ embeds: [errorEmbeds().setDescription("You don't have permission to use this button!")], ephemeral: true });
         
-
+        
+        
         const { guildId, customId, message } = interaction;
+        
+        buttonsID = ["pause", "skip", "shuffle", "previous", "repeat"];
+        if (!buttonsID.includes(customId)) return;
+
+
         const queue = client.distube.getQueue(interaction)
         if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
-
+        
         switch (customId) {
                 
         //! Pause Button

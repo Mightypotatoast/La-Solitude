@@ -11,6 +11,7 @@ module.exports = {
         if (!interaction.isButton()) return;
         if (!interaction.member.permissions.has("ADMINISTRATOR")) return interaction.reply({ embeds: [errorEmbeds().setDescription("You don't have permission to use this command!")], ephemeral: true });
         
+        console.log("oui");
 
         const { guildId, customId, message } = interaction;
 
@@ -18,6 +19,8 @@ module.exports = {
 
         if (!buttonsID.includes(customId)) return;
         
+        console.log("je suis passé");
+
         await db.findOne({ MessageID: message.id }, async (err, data) => {
             
             if (err) throw err;
