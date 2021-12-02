@@ -33,15 +33,17 @@ module.exports = {
                                 embeds: [
                                 musicEmbed()
                                 .setDescription(`${interaction.user} Resumed the song...`)
-                                ],components: [musicButtonRow()]})
+                                ], components: [musicButtonRow()]
+                            })
                         }
                         queue.pause()
                         
                         interaction.reply({
                         embeds: [
-                        musicEmbed()
-                        .setDescription(`${interaction.user} Paused the song...`)
-                        ],components: [musicButtonRow()]})
+                            musicEmbed()
+                                .setDescription(`${interaction.user} Paused the song...`)
+                            ], components: [musicButtonRow()]
+                        })
 
                     } catch (e) {
                         interaction.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
@@ -54,7 +56,8 @@ module.exports = {
             case "previous":
                 {
                     const queue = client.distube.getQueue(interaction)
-                    const previousSong = queue.previousSongs[0]
+                    const previousSong;
+                    try {previousSong = queue.previousSongs[0]} catch (e) {console.log(e)}
                     if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
                     if (previousSong === undefined) return interaction.reply({ embeds: [errorEmbed().setDescription(`Nothing has been played previously in queue right now !`)], ephemeral: true })
                     try {
@@ -77,18 +80,18 @@ module.exports = {
             case "repeat":
                 {
                     try {
-                        const queue = client.distube.getQueue(message)
-                        if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing to play :( !`)], ephemeral: true })
+                        const queue = client.distube.getQueue(interaction)
+                        if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing to play :( !`)], ephemeral: true })
                         mode = queue.setRepeatMode()
                         mode = mode ? mode === 2 ? "Repeat queue" : "Repeat song" : "Off"
 
-                        message.reply({
+                        interaction.reply({
                                 embeds: [
                                 musicEmbed()
-                                .setDescription(`🔁 | ${message.user} has set repeat mode to ${mode}`)
+                                .setDescription(`🔁 | ${interaction.user} has set repeat mode to ${mode}`)
                             ]})
                     } catch (e) {
-                        message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+                        interaction.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
                     }
                 }
                 break;
@@ -97,17 +100,17 @@ module.exports = {
             case "shuffle":
                 {
                     try {
-                        const queue = client.distube.getQueue(message)
-                        if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
+                        const queue = client.distube.getQueue(interaction)
+                        if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
                         queue.shuffle()
 
-                        message.reply({
+                        interaction.reply({
                             embeds: [
                             musicEmbed()
-                            .setDescription(`🔀 | ${message.user} Shuffled the queue !`)
+                            .setDescription(`🔀 | ${interaction.user} Shuffled the queue !`)
                         ],components: [musicButtonRow()]})
                     } catch (e) {
-                        message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+                        interaction.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
                     }
                 }
                 break;
@@ -116,23 +119,23 @@ module.exports = {
             case "skip":
                 {
                     try { 
-                        const queue = client.distube.getQueue(message)
+                        const queue = client.distube.getQueue(interaction)
                         const nextSong = queue.songs[1] 
-                        if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
-                        if (nextSong === undefined) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing next in queue right now !`)], ephemeral: true })
+                        if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
+                        if (nextSong === undefined) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing next in queue right now !`)], ephemeral: true })
 
-                        message.reply({
+                        interaction.reply({
                         embeds: [
-                        musicEmbed()
-                        .setThumbnail(`${nextSong.thumbnail}`)
-                        .setDescription(` Song skipped by ${message.user}! Now playing:\n [${nextSong.name}](${nextSong.url})`)
+                            musicEmbed()
+                                .setThumbnail(`${nextSong.thumbnail}`)
+                                .setDescription(` Song skipped by ${interaction.user}! Now playing:\n [${nextSong.name}](${nextSong.url})`)
                         ],components: [musicButtonRow()]})
 
                         queue.skip()
 
                         
                     } catch (e) { 
-                        message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+                        interaction.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
                     }
                 }
                 break;

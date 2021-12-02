@@ -9,7 +9,6 @@ client.buttons = new Collection()
 
 require("./Structures/Events")(client);
 require("./Structures/Commands")(client);
-require("./Structures/Buttons")(client);
 
 client.distube = new distube.default(client, { searchSongs: 0, emitNewSongOnly: true })
 
