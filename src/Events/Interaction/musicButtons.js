@@ -17,6 +17,8 @@ module.exports = {
         
 
         const { guildId, customId, message } = interaction;
+        const queue = client.distube.getQueue(interaction)
+        if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
 
         switch (customId) {
                 
@@ -25,8 +27,6 @@ module.exports = {
             case "pause":
                 {
                     try{
-                        const queue = client.distube.getQueue(interaction)
-                        if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
                         if (queue.paused) {
                             queue.resume()
                             return interaction.reply({
@@ -55,10 +55,10 @@ module.exports = {
         //! Previous Button
             case "previous":
                 {
-                    const queue = client.distube.getQueue(interaction)
+                    
                     let previousSong;
                     try {previousSong = queue.previousSongs[0]} catch (e) {console.log(e)}
-                    if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
+                
                     if (previousSong === undefined) return interaction.reply({ embeds: [errorEmbed().setDescription(`Nothing has been played previously in queue right now !`)], ephemeral: true })
                     try {
 
@@ -80,7 +80,7 @@ module.exports = {
             case "repeat":
                 {
                     try {
-                        const queue = client.distube.getQueue(interaction)
+                        
                         if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing to play :( !`)], ephemeral: true })
                         mode = queue.setRepeatMode()
                         mode = mode ? mode === 2 ? "Repeat queue" : "Repeat song" : "Off"
@@ -100,8 +100,8 @@ module.exports = {
             case "shuffle":
                 {
                     try {
-                        const queue = client.distube.getQueue(interaction)
-                        if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
+                        
+                    
                         queue.shuffle()
 
                         interaction.reply({
@@ -119,9 +119,9 @@ module.exports = {
             case "skip":
                 {
                     try { 
-                        const queue = client.distube.getQueue(interaction)
+                        
                         const nextSong = queue.songs[1] 
-                        if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
+                    
                         if (nextSong === undefined) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing next in queue right now !`)], ephemeral: true })
 
                         interaction.reply({
