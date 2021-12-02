@@ -56,7 +56,7 @@ module.exports = {
             case "previous":
                 {
                     const queue = client.distube.getQueue(interaction)
-                    const previousSong;
+                    let previousSong;
                     try {previousSong = queue.previousSongs[0]} catch (e) {console.log(e)}
                     if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
                     if (previousSong === undefined) return interaction.reply({ embeds: [errorEmbed().setDescription(`Nothing has been played previously in queue right now !`)], ephemeral: true })
