@@ -4,7 +4,7 @@ const Discord = require("discord.js");
 const { pokemonNames } = require("../../util/pokemonNames.json");
 const { errorEmbed, pokemonEmbed, pokemonEasterEggEmbed } = require("../../util/Embeds")
 const fs = require("fs")
-const { fetchPokemonData } = require("../../util/function")
+const { fetchPokemonData } = require("../../util/functions")
 const Pokedex = require("pokedex-promise-v2");
 const P = new Pokedex();
 

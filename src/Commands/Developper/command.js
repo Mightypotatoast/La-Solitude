@@ -2,7 +2,7 @@ const { CommandInteraction, MessageActionRow, MessageSelectMenu } = require("dis
 const { errorEmbed, successEmbed, musicEmbed } = require("../../util/Embeds");
 const db = require("../../Models/commands")
 const glob = require("glob");
-const { SortObjectArray } = require("../../util/function");
+const { SortObjectArray } = require("../../util/functions");
 
 
 
