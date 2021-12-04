@@ -8,14 +8,18 @@ module.exports = {
     name: 'messageUpdate',
     once: false,
 
-    async execute(oldMessage, newMessage) {
+    async execute(oldMessage, newMessage, client) {
 
-        let { channel } = await config(newMessage.guild.id)
-
+        
+            
+        
+        if (newMessage.author.bot || message.user.id === client.user.id) return;
         if (newMessage.channel.id === channel.logID) return;
         if (oldMessage.content === newMessage.content) return;
-
-        let logs = await newMessage.guild.fetchAuditLogs({type: "MESSAGE_UPDATE"});
+        
+        let { channel } = await config(newMessage.guild.id)
+        
+        let logs = await newMessage.guild.fetchAuditLogs({ type: "MESSAGE_UPDATE" });
         let entry = logs.entries.first(a => Date.now() - a.createdTimestamp < 20000);
 
         const messageEmbed = new MessageEmbed()

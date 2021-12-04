@@ -1,25 +1,17 @@
+const { MessageEmbed, CommandInteraction, GuildMember, MessageActionRow, MessageButton } = require("discord.js");
 const Pokedex = require("pokedex-promise-v2");
+const { errorEmbed } = require("./Embeds");
 const P = new Pokedex();
 
 
 module.exports = {
 
-    attachIsImage : ( url ) => {
 
-        let suffixe = [ "png","jpg","gif","gifv","webp","jpeg","mp4", "webm", "wav", "mp3", "ogg", "flac" ]
-
-            suffixe.forEach( element => {
-
-                if (url.indexOf( "." + element, url.length - ( element.length + 1 ) ) !== -1) {
-                    return true;
-                } else {
-                    return false;
-                }
-
-            });
-
-    },
-
+    /**
+     * 
+     * @param {Integer, String} pokemon 
+     * @returns 
+     */
     fetchPokemonData: async (pokemon) => {
         
         let data = {}
@@ -142,6 +134,14 @@ module.exports = {
     
     },
     
+
+    /**
+     * 
+     * @param {Array} array 
+     * @param {String} key 
+     * @returns 
+     */
+
     SortObjectArray: (array, key) => {
         
         array.sort(function(a, b) {
@@ -149,8 +149,7 @@ module.exports = {
             return ((x < y) ? -1 : ((x > y) ? 1 : 0));
         });
         return array;
-    }
-
+    },
 
 
 }
