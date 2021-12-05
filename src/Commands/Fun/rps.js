@@ -205,28 +205,23 @@ module.exports = {
 
 
                     if (op === auth) {
+                        
                         duelEmbed.fields[1].value = `**DRAW**`
-                        await interaction.editReply({
-                            embeds: [duelEmbed],
-                            components: []
-                        })
+                        
                     } else if (winnerMap[op] === auth) {
                         
                         duelEmbed.fields[1].value = `**${Target} Won !**`
-                        await interaction.editReply({
-                            embeds: [duelEmbed],
-                            components: []
-                        })
+
                     } else {
-                        //auth - won
 
                         duelEmbed.fields[1].value = `**${Executor} Won**`
 
-                        await interaction.editReply({
-                            embeds: [duelEmbed],
-                            components: []
-                        })
                     }
+
+                    await interaction.editReply({
+                        embeds: [duelEmbed],
+                        components: []
+                    })
                 }
             })
 			

@@ -41,13 +41,9 @@ module.exports = {
         let NumberMax = message.options.getNumber('combien')
         let reason = message.options.getString('challenge')
 
-        let errorEmbed = new MessageEmbed()
-            .setColor("#FF0000")
-            .setTitle("⛔ **Erreur**: ⛔")
 
-
-        if (target.bot) return message.reply({ embeds: [errorEmbed.setDescription("Vous ne pouvez pas défier un Bot.")] });
-        if (executor.id === target.id) return message.reply({ embeds: [errorEmbed.setDescription("Vous ne pouvez pas vous auto-défier.")] });
+        if (target.bot) return message.reply({ embeds: [errorEmbed().setDescription("Vous ne pouvez pas défier un Bot.")] });
+        if (executor.id === target.id) return message.reply({ embeds: [errorEmbed().setDescription("Vous ne pouvez pas vous auto-défier.")] });
 
         //console.log();
         message.channel.guild.members.cache.find((member) => member.id === executor.id).send("coucou")
@@ -55,17 +51,15 @@ module.exports = {
         let ChallengeEmbed = new MessageEmbed()
             .setTitle("🔥 **Hot Combien** 🔥")
             .setColor("BLURPLE")
-            .setDescription(`**Challenge** : ${reason}`)
-            .addField(`Executeur`, `${executor}`, true)
-            .addField("Sens", "➡️ Normal ➡️",true)
-            .addField(`Cible`, `${target}`, true)
-            .addField(`*en attente ...*`, `⬛⬛⬛⬛⬛`, true)
-            .addField("Nombre", `${NumberMax}`, true)
-            .addField(`*en attente ...*`, `⬛⬛⬛⬛⬛`, true)
+            .addField(`**Challenge** : ${reason}`)
+
+            .addField("Sens", "",true)
+
+            .addField(`${executor.user.username}`, `⚫*en attente ...*`, true)
+            .addField("➡️ Normal ➡️", `Hot ${NumberMax}`, true)
+            .addField(`${target.user.username}`, `⚫*en attente ...*`, true)
 
         message.reply({embeds : [ChallengeEmbed]})
-
-        let numberTarget,numberExecutor
 
         const filter = msg => {
             return [target.id, executor.id].includes(msg.author.id) && (1 <= parseInt(msg.content) <= NumberMax)
