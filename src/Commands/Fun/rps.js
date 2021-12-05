@@ -254,7 +254,7 @@ module.exports = {
                                 interaction.user.tag,
                                 interaction.user.displayAvatarURL()
                             )
-                            .setColor(options.timeoutEmbedColor || 0xc90000)
+                            .setColor("#C90000")
                             
                             .setDescription(`${Target} has declined your game!`)
                     ],
