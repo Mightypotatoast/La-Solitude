@@ -25,7 +25,7 @@ module.exports = {
      */
     async execute(interaction, client) {
 
-        try { await interaction.deferReply() }catch(e){}
+        try { await interaction.deferReply() }catch(e){console.log(e)}
         let Target = interaction.options.getMember("user")
         let Executor = interaction.member
 
@@ -228,40 +228,40 @@ module.exports = {
 
                     await interaction.editReply({
                         embeds: [duelEmbed],
-                        components: [ReplayRow]
+                        components: []
                     })
 
-                    const replayCollector = m.createMessageComponentCollector({
-                        type: 'BUTTON',
-                        time: 30000
-                    })
+                    // const replayCollector = m.createMessageComponentCollector({
+                    //     type: 'BUTTON',
+                    //     time: 30000
+                    // })
 
-                    replayCollector.on('collect', async (b) => {
-                        if (b.customId === 'replay') {
-                            await b.deferUpdate()
-                            replayCollector.stop()
+                    // replayCollector.on('collect', async (b) => {
+                    //     if (b.customId === 'replay') {
+                    //         await b.deferUpdate()
+                    //         replayCollector.stop()
 
-                            if (b.user.id === Executor.id) {
+                    //         if (b.user.id === Executor.id) {
                                 
-                                this.execute(interaction, client)
+                    //             this.execute(interaction, client)
 
-                            } else if (b.user.id === Target.id) {
-                                interaction.user = Target
-                                Target = Executor
-                                this.execute(interaction, client)
-                            }
+                    //         } else if (b.user.id === Target.id) {
+                    //             interaction.user = Target
+                    //             Target = Executor
+                    //             this.execute(interaction, client)
+                    //         }
                             
                         
-                        }
-                    })
-                    replayCollector.on('end', async (coll, reason) => {
-                        if (reason === 'time') {
-                            await interaction.editReply({
-                                embeds: [duelEmbed],
-                                components: []
-                            })
-                        }
-                    })
+                    //     }
+                    // })
+                    // replayCollector.on('end', async (coll, reason) => {
+                    //     if (reason === 'time') {
+                    //         await interaction.editReply({
+                    //             embeds: [duelEmbed],
+                    //             components: []
+                    //         })
+                    //     }
+                    // })
 
                 }
             })
