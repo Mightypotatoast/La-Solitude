@@ -12,6 +12,16 @@ module.exports = {
         
     },
 
+//!------------------------ SUCCESS -------------------------------
+    successEmbed: () => {
+            
+            return new MessageEmbed()
+                .setColor("#00FF00")
+                .setTitle("✅ **Success**: ✅")
+                .setTimestamp()
+
+    },
+
 //!------------------------ Music -------------------------------    
     musicEmbed: () => {
         return new MessageEmbed()
@@ -40,10 +50,42 @@ module.exports = {
     warningEmbed: () => {
         return new MessageEmbed()
             .setColor("YELLOW")
-            .setTitle("⚠️ - **WARNING SYSTEM** - ⚠️")
+            .setTitle("⚠️ --- **WARNING** --- ⚠️")
+            .setTimestamp()
+    },
+
+//!---------------------- Ban -------------------------------
+
+    banEmbed : () => {
+        return new MessageEmbed()
+            .setColor("#FF0000")
+            .setTitle("⛔ --- **BAN**: --- ⛔")
+            .setTimestamp()
+    },
+    
+//!---------------------- Kick -------------------------------
+    kickEmbed : () => {
+        return new MessageEmbed()
+            .setColor("#FF0000")
+            .setTitle("🦶 --- **KICK**: --- 🦶")
+            .setTimestamp()
+    },
+//!---------------------- Mute -------------------------------
+    muteEmbed: () => {
+        return new MessageEmbed()
+            .setColor("#FF0000")
+            .setTitle("🔇 --- **MUTE**: --- 🔇")
+            .setTimestamp()
+    },
+    
+//!---------------------- Set-channel -------------------------------
+    
+    setChannelEmbed: () => {
+        return new MessageEmbed()
+            .setColor("#71CF93")
+            .setTitle("New channel set")
             .setTimestamp()
     }
-    
     
 //------------------------------------------------------------------   
     

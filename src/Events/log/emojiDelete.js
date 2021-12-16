@@ -6,7 +6,7 @@ module.exports = {
     name: 'emojiDelete',
     once: false,
 
-    execute(emoji) {
+    async execute(emoji) {
 
         let emojiDate = emoji.createdAt
         let emojiDeleteDate = new Date()
@@ -26,7 +26,7 @@ module.exports = {
         
 
         try {       
-            emoji.guild.channels.cache.get(config.channel.logID).send({ embeds : [emojiEmbed] });
+            emoji.guild.channels.cache.get((await config(emoji.guild.id)).channel.logID).send({ embeds : [emojiEmbed] });
         } catch (e) {
             console.log(e);
         }

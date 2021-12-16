@@ -1,5 +1,6 @@
 const { MessageEmbed, CommandInteraction } = require('discord.js')
-const config = require('../../config')
+const conf  = require('../../config');
+const { errorEmbed } = require('../../util/Embeds');
 
 
 module.exports = {
@@ -27,6 +28,7 @@ module.exports = {
 
 
   async execute(message) {
+    let config = await conf(message.guild.id);
     
       let rUser = message.options.getMember("member");
 
@@ -51,16 +53,19 @@ module.exports = {
               .addField("Date : ", `<t:${parseInt(message.createdAt / 1000)}:R>`, true)
               .addField("Raison : ", `${rreason}`);
 
-      let reportschannel = message.guild.channels.cache.find(channel => channel.id === config.channel.reportID);
+      let reportschannel = (!config(message.guild.id).channel.reportID) ? null : message.guild.channels.cache.get(config(message.guild.id).channel.reportID);
 
+      console.log(config.channel.reportID);
+      console.log(reportschannel);
+    
       if(!reportschannel){
-        message.channel.send({ embeds :[{
-          color : 0xff0000 ,
-          description: ` ${message.member} \n **Erreur**: \n le salon "#reports" est introuvable.`
-          
-        }]
+        return message.reply({
+          embeds: [
+            errorEmbed()
+              .setDescription(`le salon de "report" n'est pas initialisé. \n\n _Pour l'initialiser vous pouvez utiliser la commande_ \`/set-channel report\`\n_**ADMIN ONLY**_`)
+          ], ephemeral: true
         })
-        return;
+        
       }
       else{
         reportschannel.send({ embeds : [reportEmbed] })

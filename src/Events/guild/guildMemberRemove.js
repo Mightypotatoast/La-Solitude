@@ -15,13 +15,9 @@ module.exports = {
 	        .setTimestamp();
 
         
-        if (channel) {
-            try {
-                member.guild.channels.cache.get(config.channel.au_revoirID).send({embeds : [exampleEmbed]})
-            } catch (e) {
-                console.log("pas trouvé le channel 'au_revoir'")
-            }
-        } else { console.log("pas trouvé le channel 'au_revoir'"); }
+        
+        (!config(member.guild.id).channel.au_revoirID) ? console.log("/!\\ Le channel 'au_revoir' n'est pas initialisé /!\\") : member.guild.channels.cache.get(config(member.guild.id).channel.au_revoirID).send({embeds : [exampleEmbed]})
+            
         
     }
 }

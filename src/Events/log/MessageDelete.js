@@ -7,11 +7,14 @@ module.exports = {
     name: 'messageDelete',
     once: false,
 
-    async execute(message) {
+    async execute(message, client) {
 
-        
 
-        for(const [key, value] of Object.entries(config.channel)){
+        if (message.author.bot || message.user.id === client.user.id) return;
+
+        const { channel } = await config(message.guild.id)
+
+        for(const [key, value] of Object.entries(channel)){
             if (message.channel.id === value) return;
         };
 
@@ -43,7 +46,7 @@ module.exports = {
             .setTimestamp()
         
         try{
-            message.guild.channels.cache.get(config.channel.logID).send({ embeds: [messageEmbed] });
+            message.guild.channels.cache.get(channel.logID).send({ embeds: [messageEmbed] });
         } catch (e) {
             console.log(e);
         }

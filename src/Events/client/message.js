@@ -13,7 +13,7 @@ module.exports = {
                 message.react(message.guild.emojis.cache.find(emoji => emoji.name === "upvote"))
                 message.react(message.guild.emojis.cache.find(emoji => emoji.name === "downvote"))
             } catch (e) {
-            console.log(e);
+                console.log(e);
             }
           }
         

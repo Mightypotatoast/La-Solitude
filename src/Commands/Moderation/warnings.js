@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const db = require('../../Models/WarningDB');
+const db = require('../../Models/infraction');
 const { errorEmbed, warningEmbed } = require('../../util/Embeds');
 
 module.exports = {
@@ -112,9 +112,10 @@ module.exports = {
                         if (!data) {
                             data = new db({
                                 GuildID: interaction.guilId,
+                                GuildName: message.guild.name,
                                 UserID: Target.id,
                                 UserTag: Target.user.tag,
-                                Content: [
+                                WarnData: [
                                     {
                                         ExecuterID: interaction.user.id,
                                         ExecuterTag: interaction.user.tag,
@@ -127,7 +128,7 @@ module.exports = {
                         }
                         
                         else {
-                            data.Content.push({
+                            data.WarnData.push({
                                 ExecuterID: interaction.user.id,
                                 ExecuterTag: interaction.user.tag,
                                 Reason: Reason,

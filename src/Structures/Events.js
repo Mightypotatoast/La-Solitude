@@ -2,7 +2,12 @@ const   { Events } = require("../util/EventNames"),
         { promisify } = require("util"),
         { glob } = require("glob"),
         PG = promisify(glob),
-        Ascii = require("ascii-table")
+        Ascii = require("ascii-table"),
+        {Client} = require("discord.js")
+/**
+ * 
+ * @param {Client} client 
+ */
 
 module.exports = async (client) => {
 

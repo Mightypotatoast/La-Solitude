@@ -6,7 +6,7 @@ module.exports = {
     name: 'emojiUpdate',
     once: false,
 
-    execute(oldEmoji, newEmoji) {
+    async execute(oldEmoji, newEmoji) {
 
        const emojiEmbed = new MessageEmbed()
             .setTitle("**Un émoji a été modifié !**")
@@ -17,7 +17,7 @@ module.exports = {
         
         
         try {       
-            newEmoji.guild.channels.cache.get(config.channel.logID).send({ embeds : [emojiEmbed] });
+            newEmoji.guild.channels.cache.get((await config(newEmoji.guild.id)).channel.logID).send({ embeds : [emojiEmbed] });
         } catch (e) {
             console.log(e);
         }
