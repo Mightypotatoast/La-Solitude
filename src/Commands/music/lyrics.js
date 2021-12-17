@@ -49,7 +49,6 @@ module.exports = {
             lyrics = await page.evaluate(() => {
                 
                 let elements = document.querySelector('#lyrics-root')
-                //let elements = document.querySelector('body > routable-page > ng-outlet > song-page > div > div > div.song_body.column_layout > div.column_layout-column_span.column_layout-column_span--primary > div > defer-compile:nth-child(2) > lyrics > div > div > section > p')
                 return elements.innerText
             })
             //if lyrics is longer than 2000 characters, send lyrics in multiple embed
