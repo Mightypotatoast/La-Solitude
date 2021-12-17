@@ -53,10 +53,10 @@ module.exports = {
                 return elements.innerText
             })
             //if lyrics is longer than 2000 characters, send lyrics in multiple embed
-            if (lyrics.length > 2000) {
+            if (lyrics.length > 4000) {
                 let lyricsArray = []
-                for (let i = 0; i < lyrics.length; i += 2000) {
-                    lyricsArray.push(lyrics.substring(i, i + 2000))
+                for (let i = 0; i < lyrics.length; i += 4000) {
+                    lyricsArray.push(lyrics.substring(i, i + 4000))
                 }
                 
                 for (let i = 0; i < lyricsArray.length; i++) {
@@ -66,7 +66,7 @@ module.exports = {
                 await sleep(1000)
                 }
             } else {
-                message.reply({ embeds: [musicEmbed()
+                message.followUp({ embeds: [musicEmbed()
                 .setDescription(lyrics)
             ]})
             }
