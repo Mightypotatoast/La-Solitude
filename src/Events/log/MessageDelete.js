@@ -10,7 +10,7 @@ module.exports = {
     async execute(message, client) {
 
 
-        if (message.author.bot || message.user.id === client.user.id) return;
+        if (message.author.bot || message.member.id === client.user.id) return;
 
         const { channel } = await config(message.guild.id)
 
