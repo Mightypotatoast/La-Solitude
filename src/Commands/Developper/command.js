@@ -42,6 +42,7 @@ module.exports = {
         const { options, guild } = message
         
         const Sub = options.getSubcommand(["enable", "disable", "reload"]);
+        
         if(!message.member.permissions.has("ADMINISTRATOR")) return message.reply({embeds :[errorEmbed().setDescription("You need to be an administrator to use this command.")], ephemeral: true})
         
         let Commandfiles = [];
