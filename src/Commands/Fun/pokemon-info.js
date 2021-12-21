@@ -29,7 +29,7 @@ module.exports = {
     let pokemonArgs = message.options.getString("pokemon");
     
     let pokemonEN =  pokemonNames[pokemonArgs.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "")];
-    console.log()
+    
     
     if (isNaN(pokemonArgs)) {
       
@@ -102,9 +102,6 @@ module.exports = {
       return str
     }
 
-
-    console.log(pokemonData);
-
     try {
       message.editReply({
         embeds: [
@@ -159,8 +156,7 @@ module.exports = {
     //       }
 
     //     })
-    //     .catch(function (error) { //catch error
-    //       console.log("There was an ERROR: ", error);
+    //     .catch(function (error) { ERROR: ", error);
     //       message.reply({ embeds: [errorEmbed().setDescription(`${error}`)] });
     //     });
     // };
