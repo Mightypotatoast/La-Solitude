@@ -29,7 +29,7 @@ module.exports = {
             try {
 
                 if (interaction.customId !== 'remove') return
-                await interaction.deferReply({ ephemeral: false})
+                await interaction.deferReply()
                 const queue = client.distube.getQueue(interaction)
                 const songId = interaction.values[0]
                 queue.songs.splice(songId, 1)
