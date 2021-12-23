@@ -98,7 +98,7 @@ module.exports = {
                 {
                     
                     let previousSong;
-                    try {previousSong = queue.previousSongs[0]} catch (e) {console.log(e)}
+                    try {previousSong = queue.previousSongs[queue.previousSongs.length-1]} catch (e) {console.log(e)}
                 
                     if (previousSong === undefined) return interaction.reply({ embeds: [errorEmbed().setDescription(`Nothing has been played previously in queue right now !`)], ephemeral: true })
                     try {
