@@ -36,7 +36,7 @@ module.exports = {
 			.addComponents(
 				new MessageSelectMenu()
 					.setCustomId('remove')
-                    .setMaxValues(1)
+                    .setMaxValues(25)
 					.setPlaceholder('Nothing selected')
 					.addOptions(optionMenu.slice(0,24)))
 

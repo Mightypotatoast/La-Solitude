@@ -47,9 +47,6 @@ module.exports = {
         try {
         let playingSong = queue.songs[0]
 
-
-        
-
         await message.reply({ embeds: [musicEmbed()
                 .setTitle(`Playing ${playingSong.name}`)
                 .setURL(`${playingSong.url}`)
