@@ -24,7 +24,7 @@ module.exports = {
         const nextSongs = `**${previousNumberSongs}** out of **${numberSongs}** song(s) in the playlist`;
         
         let playingEmbed =  musicEmbed()
-            .setDescription(`${previousTracks.slice(-6).join('\n')}\n⤵️\n**${previousNumberSongs} Current [${queue.songs[0].name}](${queue.songs[0].url})**\n⤴️\n${tracks.slice(1, 6).join('\n')}\n\n${nextSongs}`)
+            .setDescription(`${previousTracks.slice(-6).join('\n')}\n⤵️  ⤵️  ⤵️  \n**${previousNumberSongs} Current [${queue.songs[0].name}](${queue.songs[0].url})**\n⤴️  ⤴️  ⤴️  \n${tracks.slice(1, 6).join('\n')}\n\n${nextSongs}`)
             .setThumbnail(queue.songs[0].thumbnail)
 
         message.reply({ embeds: [playingEmbed], ephemeral: true })
