@@ -14,6 +14,7 @@ module.exports = {
         "error",
         "guildBanAdd",
         "guildBanRemove",
+        "playSong",
         "guildCreate",
         "guildDelete",
         "guildIntegrationsUpdate",

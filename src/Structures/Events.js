@@ -23,9 +23,12 @@ module.exports = async (client) => {
         }
 
         try {
-            if (event.once) {
+
+            if (file.includes("distube.")) {
+		        client.distube.on(event.name, (...args) => event.execute(...args, client));
+            } else if (event.once) {
                 client.once(event.name, (...args) => event.execute(...args, client));
-            } else {
+            }  else {
                 client.on(event.name, (...args) => event.execute(...args, client));
             }
         } catch (e) {
