@@ -27,12 +27,7 @@ module.exports = {
         if (music=="") return
 
 
-        message.reply({
-            embeds: [
-            musicEmbed()
-            .setDescription("⏳ Searching ...")
-            ]
-        })
+        message.deferReply({ ephemeral: false })
 
         var channel = message.member.voice.channel;
         await joinVoiceChannel({

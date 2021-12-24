@@ -15,7 +15,7 @@ function generateProgressBar(currentTime, duration) {
             if (i < progressBarPercentRounded) {
                 progressBar = progressBar.concat("─")
             } else  if (i == progressBarPercentRounded) {
-                progressBar = progressBar.concat("🔹")
+                progressBar = progressBar.concat("⏸️")
             } else {
                 progressBar = progressBar.concat("─")
             }
