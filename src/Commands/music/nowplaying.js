@@ -26,7 +26,10 @@ function generateProgressBar(currentTime, duration) {
 
 }
 
-
+function displayProgressBar(message, queue){
+    
+   
+}
 
 module.exports = {
 
@@ -38,28 +41,36 @@ module.exports = {
  
     async execute(message, client) {
         
-        channel = message.member.voice.channel
-
+        const channel = message.member.voice.channel
         if (!channel) return message.reply({ embeds: [errorEmbed().setDescription(`Please join a voice channel !`)], ephemeral: true })
         const queue = client.distube.getQueue(message)
         if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`Nothing is playing right now !`)], ephemeral: true })
 
         try {
-        let playingSong = queue.songs[0]
-
-        await message.reply({ embeds: [musicEmbed()
+            message.deferReply({ ephemeral: false })
+            var refreshTimout = queue.songs[0].duration - queue.songs[0].currentTime
+            var count = 0
+            var refreshMessage = setInterval(() => {
+                count ++
+                if(count > refreshTimout) clearInterval(refreshMessage)
+                let playingSong = queue.songs[0]
+                //console.log(`${queue.formattedCurrentTime} **${generateProgressBar(queue.currentTime, playingSong.duration )}** ${playingSong.formattedDuration}`)
+                message.editReply({ embeds: [musicEmbed()
                 .setTitle(`Playing ${playingSong.name}`)
                 .setURL(`${playingSong.url}`)
                 .setThumbnail(`${playingSong.thumbnail}`)
-                .setDescription(`${queue.formattedCurrentTime} **${generateProgressBar(queue.currentTime, playingSong.duration )}** ${playingSong.formattedDuration}`)
+                .setDescription(`**${queue.formattedCurrentTime} ${generateProgressBar(queue.currentTime, playingSong.duration )} ${playingSong.formattedDuration}**`)
                 .addField(`Requester`, `${playingSong.member}`, true)
                 .addField(`Author`, `[${playingSong.uploader.name}](${playingSong.uploader.url})`, true)
                 .addField(`Volume`, `${queue.volume}%`, true)
-            ],
-            components: [musicButtonRow()],
-            ephemeral: true })
+                ],
+                components: [musicButtonRow()],
+                ephemeral: false })
+            }, 1000)
+            
+
         } catch (e) {
-            message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+            message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
         }
         
 
