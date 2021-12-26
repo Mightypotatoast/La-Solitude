@@ -13,7 +13,7 @@ module.exports = {
         
             
         
-        if (newMessage.author.bot || message.user.id === client.user.id) return;
+        if (newMessage.author.bot || newMessage.user.id === client.user.id) return;
         if (newMessage.channel.id === channel.logID) return;
         if (oldMessage.content === newMessage.content) return;
         

@@ -158,7 +158,7 @@ module.exports = {
 
         //! INITIALISATION DE LA BDD POKEDEX DU USER
 
-        if (Sub === "init") { 
+        if (Sub === "init") {
             //if (message.member.permissions.has("ADMINISTRATOR")) { return message.editReply({ embed: [errorEmbed().setDescription("You need to be an administrator to use this command.")], ephemeral: true }) }
             
             let initEmbed = new MessageEmbed()
@@ -186,10 +186,10 @@ module.exports = {
             let versions = []
             let pokedexs = []
 
-            await P.getVersionGroupsList().then(res => { 
+            await P.getVersionGroupsList().then(res => {
 
                 res.results.forEach(version => {
-                    let versionsBlacklist = ["colosseum","xd"]
+                    let versionsBlacklist = ["colosseum", "xd"]
 
                     if (!versionsBlacklist.includes(version.name)) {
                         versions.push({ label: "Pokemon " + version.name, value: version.name })
@@ -202,11 +202,11 @@ module.exports = {
                 new MessageSelectMenu()
                     .setOptions(versions)
                     .setCustomId("pokedex-version")
-                    .setPlaceholder("Choisissez une version") 
+                    .setPlaceholder("Choisissez une version")
             )
 
             m = await message.editReply({
-                embeds: [ initEmbed ],
+                embeds: [initEmbed],
                 components: [row]
             })
             const versionCollector = m.createMessageComponentCollector({
@@ -214,7 +214,7 @@ module.exports = {
                 time: 60000
             })
 
-            versionCollector.on("collect", async (menu) => { 
+            versionCollector.on("collect", async (menu) => {
                 
                 if (menu.user.id !== member.id) {
                     return menu.reply({
@@ -228,12 +228,12 @@ module.exports = {
                     console.log();
                     tempDB.version = menu.values[0]
 
-                    await P.getVersionGroupByName(menu.values[0]).then(res => { 
+                    await P.getVersionGroupByName(menu.values[0]).then(res => {
 
                         let tempRegions = []
                         
                         if (res.regions.length > 1) {
-                            res.regions.forEach(region => { 
+                            res.regions.forEach(region => {
                                 tempRegions.push(region.name)
                             })
                         } else {
@@ -260,13 +260,13 @@ module.exports = {
                             { name: "Génération", value: `\`${res.generation.name}\``, inline: true }
                         )
                         
-                        let nationalBlacklist = ["lets-go","firered-leafgreen","red-blue","yellow", "gold-silver", "crystal"]
+                        let nationalBlacklist = ["lets-go", "firered-leafgreen", "red-blue", "yellow", "gold-silver", "crystal"]
                         
                         if (!nationalBlacklist.includes(menu.values[0])) {
                             pokedexs.push({ label: "National", value: "national" })
                         }
 
-                        if (res.pokedexes.length > 1) { 
+                        if (res.pokedexes.length > 1) {
                             
                             let pokedexlist = ""
 
@@ -315,7 +315,7 @@ module.exports = {
                         time: 60000
                     })
 
-                    pokedexCollector.on("collect", async (menu) => { 
+                    pokedexCollector.on("collect", async (menu) => {
 
                         if (menu.user.id !== member.id) {
                             return menu.reply({
@@ -370,7 +370,7 @@ module.exports = {
                                         ephemeral: true
                                     })
                                 }
-                                if(menu.customId === "pokedex-init-confirm") {
+                                if (menu.customId === "pokedex-init-confirm") {
                                     if (menu.values[0] === "yes") {
                                         
                                         tempDB.pokemonNotCatch = []
@@ -414,10 +414,18 @@ module.exports = {
                                                 index_max = 898
                                             }
 
-                                            await P.getPokedexByName("national").then(res => { 
+                                            await P.getPokedexByName("national").then(res => {
                                                 res.pokemon_entries.forEach(pokemon => {
                                                     if (pokemon.entry_number <= index_max) {
-                                                        tempDB.pokemonNotCatch.push(Object.keys(pokemonNames).find(key => pokemonNames[key] === pokemon.pokemon_species.name));
+                                                        pokemonFR = Object.keys(pokemonNames).find(key => pokemonNames[key] === pokemon.pokemon_species.name)
+                                                    
+                                                        tempDB.pokemonNotCatch.push(
+                                                            {
+                                                                name: pokemonFR,
+                                                                index: pokemon.entry_number,
+                                                                pokedex: "national"
+                                                            }
+                                                        );
                                                     }
                                                 })
                                             })
@@ -430,15 +438,21 @@ module.exports = {
                                             let pokedexes = tempDB.pokedex.split(",")
                                             console.log(pokedexes);
 
-                                            for(let i = 0; i < pokedexes.length; i++) {
-                                                let pokemonFR 
-                                                await P.getPokedexByName(pokedexes[i]).then(res => { 
+                                            for (let i = 0; i < pokedexes.length; i++) {
+                                                let pokemonFR
+                                                await P.getPokedexByName(pokedexes[i]).then(res => {
 
                                                     res.pokemon_entries.forEach(pokemon => {
 
                                                         pokemonFR = Object.keys(pokemonNames).find(key => pokemonNames[key] === pokemon.pokemon_species.name)
-                                                        console.log(pokemonFR);
-                                                        tempDB.pokemonNotCatch.push(pokemonFR);
+                                                    
+                                                        tempDB.pokemonNotCatch.push(
+                                                            {
+                                                                name: pokemonFR,
+                                                                index: pokemon.entry_number,
+                                                                pokedex: pokedexes[i]
+                                                            }
+                                                        );
                                                     
                                                     })
                                                 
@@ -450,7 +464,15 @@ module.exports = {
                                             console.log("single");
                                             await P.getPokedexByName(tempDB.pokedex).then(res => {
                                                 res.pokemon_entries.forEach(pokemon => {
-                                                    tempDB.pokemonNotCatch.push(Object.keys(pokemonNames).find(key => pokemonNames[key] === pokemon.pokemon_species.name));
+                                                    pokemonFR = Object.keys(pokemonNames).find(key => pokemonNames[key] === pokemon.pokemon_species.name)
+                                                    
+                                                    tempDB.pokemonNotCatch.push(
+                                                        {
+                                                            name: pokemonFR,
+                                                            index: pokemon.entry_number,
+                                                            pokedex: tempDB.pokedex
+                                                        }
+                                                    );
                                                 })
                                             })
                                             
@@ -461,7 +483,7 @@ module.exports = {
                                         
                                         //create line in DB
                                         
-                                        await db.findOne({ UserID: member.id }, (err, data) => { 
+                                        await db.findOne({ UserID: member.id }, (err, data) => {
                                             if (err) throw err;
                                             if (!data) {
                                                 data = new db({
@@ -498,7 +520,7 @@ module.exports = {
                                 }
                             })
 
-                            confirmCollector.on("end", async (collected, reason) => { 
+                            confirmCollector.on("end", async (collected, reason) => {
                                 if (reason === "time") {
                                     return m.edit({ embeds: [errorEmbed().setDescription("Vous n'avez pas comfirmé dans le temps imparti")], components: [], ephemeral: true })
                                 }
@@ -517,11 +539,11 @@ module.exports = {
 
                 }
             })
-            versionCollector.on("end", async (collected, reason) => { 
+            versionCollector.on("end", async (collected, reason) => {
                 if (reason === "time") {
                     return m.edit({ embeds: [errorEmbed().setDescription("Vous n'avez pas choisis de version dans le temps imparti")], components: [], ephemeral: true })
                 }
-            }) 
+            })
 
             
         }
@@ -549,7 +571,7 @@ module.exports = {
                         data.PokedexName.split(",").forEach(pokedex => {
                             pokedexnames += "`" + pokedex + "` "
                         })
-                    } else { 
+                    } else {
                         pokedexnames = "`" + data.PokedexName + "`"
                     }
                     
@@ -601,7 +623,7 @@ module.exports = {
                                 ephemeral: true
                             })
                         }
-                        if(menu.customId === "pokedex-delete-confirm") {
+                        if (menu.customId === "pokedex-delete-confirm") {
                             
                             
                             if (menu.values[0] === "yes") {
@@ -630,7 +652,7 @@ module.exports = {
                         }
                     })
 
-                    confirmCollector.on("end", async (collected, reason) => { 
+                    confirmCollector.on("end", async (collected, reason) => {
                         if (reason === "time") {
                             return m.edit({
                                 embeds: [errorEmbed().setDescription("Vous n'avez pas confirmé dans le temps imparti")],
@@ -643,6 +665,10 @@ module.exports = {
             }).clone()
 
 
+        }
+        
+        else if (Sub === "view") { 
+            
         }
 
     }
