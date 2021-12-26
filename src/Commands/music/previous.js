@@ -10,7 +10,7 @@ module.exports = {
     async execute(message, client) {
         
         const queue = client.distube.getQueue(message)
-        const previousSong = queue.previousSongs[0]
+        const previousSong = queue.previousSongs[queue.previousSongs.length-1]
         if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
         if (previousSong === undefined) return message.reply({ embeds: [errorEmbed().setDescription(`Nothing has been played previously in queue right now !`)], ephemeral: true })
         try {
