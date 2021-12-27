@@ -60,7 +60,6 @@ module.exports = {
 
         try{
             const ckeckPlayingSong = queue.songs[0]
-            var count = 0
             var refreshMessage = setInterval(() => {
                 if (!queue) return console.log("nothing in the queue")
                 let playingSong = queue.songs[0]
@@ -69,9 +68,6 @@ module.exports = {
                     return clearInterval(refreshMessage)
                 }
                 if (ckeckPlayingSong.name != playingSong.name) return clearInterval(refreshMessage)
-                if (count > 3600) return clearInterval(refreshMessage)
-                count++
-                
                 console.log(`${queue.formattedCurrentTime} **${generateProgressBar(queue.currentTime, playingSong.duration )}** ${playingSong.formattedDuration}`)
                 musicChannel.edit({ embeds: [musicEmbed()
                 .setTitle(`Playing ${playingSong.name}`)
