@@ -46,7 +46,7 @@ module.exports = {
         if (Target.id === guild.ownerID) return interaction.reply({embeds : [errorEmbed().setDescription("You can't kick the server owner.")]})
 
         if (Target.roles.highest.position > member.roles.highest.position) return interaction.reply({embeds : [errorEmbed().setDescription("You can't kick a user with a higher role than you.")]})
-        if (Target.permissions.has(this.perms)) return interaction.reply({embeds : [errorEmbed().setDescription("You can't kick a user who had " + this.permission + " permission")]})
+        if (Target.permissions.has("ADMINISTRATOR")) return interaction.reply({embeds : [errorEmbed().setDescription("You can't kick a user who had " + "`ADMINISTRATOR`" + " permission")]})
         
         Target.send({ embeds: [kickEmbed().setDescription("You have been kicked from **" + guild.name + "** for **" + Reason + "**")] })
         .catch(() => {
