@@ -80,7 +80,7 @@ module.exports = {
                 ],
                 components: [musicButtonRow()],
                 ephemeral: false })
-            }, 2000)
+            }, 3000)
         } catch (err) {
             console.log(err)
         }
