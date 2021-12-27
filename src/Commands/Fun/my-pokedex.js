@@ -633,7 +633,7 @@ module.exports = {
                                 await data.delete()
 
 
-                                await message.followUp({
+                                await message.edit({
                                     embeds: [deleteEmbed.setTitle("🗑️ Pokédex supprimé 🗑️").setDescription("Votre Pokédex a été supprimé avec succès.")],
                                     components: [],
                                     ephemeral: true
@@ -643,7 +643,7 @@ module.exports = {
                             } else {
                                 await menu.deferUpdate()
                                 confirmCollector.stop()
-                                await message.followUp({
+                                await message.edit({
                                     embeds: [new MessageEmbed().setDescription("Votre Pokédex n'a pas été supprimé.").setColor("RED")],
                                     components: [],
                                     ephemeral: true
@@ -667,8 +667,59 @@ module.exports = {
 
         }
         
+        //! AFFICHAGE DES INFORMATIONS DU POKÉDEX    
+            
         else if (Sub === "view") { 
             
+            let viewEmbed = new MessageEmbed()
+                .setColor("GOLD")
+                
+
+            await db.findOne({ UserID: member.id }, async (err, data) => {
+                if (err) { return await message.editReply({ embed: [errorEmbed().setDescription("Une erreur a été rencontrée lors de la recherche de votre Pokédex")], ephemeral: true }) }
+                if (!data) {
+                    return await message.editReply({ embeds: [errorEmbed().setDescription(`Vous n'avez pas de Pokédex.\nPour créer un Pokédex, utilisez la commande : \`/${this.name} init\`.`)], ephemeral: true })
+                } else {
+                    let pokedexnames = ""
+                    let pokedexregions = ""
+
+                    if (data.PokedexName.includes(",")) {
+                        data.PokedexName.split(",").forEach(pokedex => {
+                            pokedexnames += "`" + pokedex + "` "
+                        })
+                    } else {
+                        pokedexnames = "`" + data.PokedexName + "`"
+                    }
+                    
+                    if (data.PokedexRegion.includes(",")) {
+                        data.PokedexRegion.split(",").forEach(region => {
+                            pokedexregions += "`" + region + "` "
+                        })
+                    } else {
+                        pokedexregions = "`" + data.PokedexRegion + "`"
+                    }
+                    
+                    
+                    viewEmbed.setAuthor(`Pokédex de ${member.user.username}`, member.displayAvatarURL())
+                        .setDescription(`**Complété à ${Math.round((data.PokemonCaught.length/data.PokemonNotYetCaught.length)*100)} %**\n`)
+                        .addFields(
+                            { name: "Pokedex", value: `${pokedexnames}`, inline: true },
+                            { name: "Région(s)", value: `${pokedexregions}`, inline: true },
+                            { name: "Version", value: `\`${data.PokedexGameVersion}\``, inline: true },
+                            { name: "Génération", value: `\`${data.PokedexGeneration}\``, inline: true },
+                            { name: "Pokémon attrapé/vu", value: `\`${data.PokemonCaught.length}\``, inline: true },
+                            { name: "Pokémon non attrapé/vu", value: `\`${data.PokemonNotYetCaught.length}\``, inline: true },
+                    )
+                    
+                    message.editReply({embeds: [viewEmbed]})
+                }
+            }).clone()
+
+
+
+
+
+
         }
 
     }
