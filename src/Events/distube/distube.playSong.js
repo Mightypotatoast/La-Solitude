@@ -68,7 +68,7 @@ module.exports = {
                     return clearInterval(refreshMessage)
                 }
                 if (ckeckPlayingSong.name != playingSong.name) return clearInterval(refreshMessage)
-                console.log(`${queue.formattedCurrentTime} **${generateProgressBar(queue.currentTime, playingSong.duration )}** ${playingSong.formattedDuration}`)
+                //console.log(`${queue.formattedCurrentTime} **${generateProgressBar(queue.currentTime, playingSong.duration )}** ${playingSong.formattedDuration}`)
                 musicChannel.edit({ embeds: [musicEmbed()
                 .setTitle(`Playing ${playingSong.name}`)
                 .setURL(`${playingSong.url}`)
