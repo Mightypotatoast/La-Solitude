@@ -20,6 +20,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
     "@discordjs/voice": "^0.6.0",
+    "@distube/ytdl-core": "^4.9.4",
     "@giphy/js-fetch-api": "^4.1.2",
     "ascii-table": "^0.0.9",
     "canvas": "^2.8.0",

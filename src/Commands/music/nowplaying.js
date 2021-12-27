@@ -26,11 +26,6 @@ function generateProgressBar(currentTime, duration) {
 
 }
 
-function displayProgressBar(message, queue){
-    
-   
-}
-
 module.exports = {
 
     name: "nowplaying",
