@@ -48,7 +48,22 @@ module.exports = {
                     name: "Triggered",
                     value : "triggered"
                 },
-
+                {
+                    name: "Simp Card",
+                    value : "simpcard"
+                },
+                {
+                    name: "Horny",
+                    value : "horny"
+                },
+                {
+                    name: "Blur",
+                    value : "blur"
+                },
+                {
+                    name: "Pixelate",
+                    value : "pixelate"
+                },
             ]
         },
         {
@@ -85,8 +100,6 @@ module.exports = {
 
 
             const data = await fetchAPI();
-        
-            console.log(data);
 
 
             const attach = new MessageAttachment(data.body, 'img.png');
