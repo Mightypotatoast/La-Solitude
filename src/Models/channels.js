@@ -7,6 +7,7 @@ module.exports = model('Channels', new Schema({
     ReportChannelID: String,
     WelcomeChannelID: String,
     ByeChannelID: String,
+    MusicChannelID: String,
     
 }))
 
