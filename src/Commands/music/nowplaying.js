@@ -26,11 +26,6 @@ function generateProgressBar(currentTime, duration) {
 
 }
 
-function displayProgressBar(message, queue){
-    
-   
-}
-
 module.exports = {
 
     name: "nowplaying",
@@ -60,7 +55,7 @@ module.exports = {
                 .setURL(`${playingSong.url}`)
                 .setThumbnail(`${playingSong.thumbnail}`)
                 .setDescription(`**${queue.formattedCurrentTime} ${generateProgressBar(queue.currentTime, playingSong.duration )} ${playingSong.formattedDuration}**`)
-                .addField(`Requester`, `${playingSong.member}`, true)
+                .addField(`Requester`, `${playingSong.user}`, true)
                 .addField(`Author`, `[${playingSong.uploader.name}](${playingSong.uploader.url})`, true)
                 .addField(`Volume`, `${queue.volume}%`, true)
                 ],

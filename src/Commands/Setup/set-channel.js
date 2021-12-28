@@ -30,6 +30,10 @@ module.exports = {
                 {
                     name: "goodbye",
                     value : "goodbye"
+                },
+                {
+                    name: "music",
+                    value : "music"
                 }
             ],
             required: true,
@@ -117,6 +121,25 @@ module.exports = {
                         })
                     } else {
                         data.ByeChannelID = message.channel.id
+                    }
+                    data.save()
+                })
+                
+                break;
+            case "music":
+
+                db.findOne({
+                    GuildID: message.guild.id
+                }, async (err, data) => {
+                    if (err) throw err
+                    if (!data) {
+                        data = new db({
+                            GuildID: message.guild.id,
+                            MusicChannelID: message.channel.id
+                            
+                        })
+                    } else {
+                        data.MusicChannelID = message.channel.id
                     }
                     data.save()
                 })
