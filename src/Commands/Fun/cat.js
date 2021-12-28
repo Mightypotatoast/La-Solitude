@@ -21,18 +21,20 @@ module.exports = {
             await message.deferReply().catch(() => { });
             
             const fetchAPI = async () => {
-                const response = await fetch("https://some-random-api.ml/img/cat", {
+                const response = await fetch("https://some-random-api.ml/animal/cat", {
                     method: "GET",
                 });
                 return await response.json();
             }
 
             const data = await fetchAPI();
+        
 
             const embed = new MessageEmbed()
-                .setTitle("This is a random cat picture")
+                .setTitle("Cat Picture")
                 .setColor("#00D7FF")
-                .setImage(data.link)
+                .setDescription(data.fact)
+                .setImage(data.image)
                 .setFooter(`Requested by ${message.member.user.tag}`, message.member.displayAvatarURL())
                 .setTimestamp();
             
@@ -42,7 +44,7 @@ module.exports = {
 
         } catch (err) {
             console.log(err)
-            return message.reply({ embeds: [errorEmbed().setDescription(`Une erreur est survenue`)], ephemeral: true })
+            return message.editReply({ embeds: [errorEmbed().setDescription(`Une erreur est survenue`)], ephemeral: true })
         }
 
     },
