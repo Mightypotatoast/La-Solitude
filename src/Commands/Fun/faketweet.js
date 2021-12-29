@@ -59,7 +59,7 @@ module.exports = {
 
             const embed = new MessageEmbed()
                 .setDescription(`**${Target}'s Tweet**`)
-                .setColor("NAVY")
+                .setColor("#00C5FF")
                 .setImage(`attachment://img.png`)
                 .setFooter(`Requested by ${message.member.user.tag}`, message.member.displayAvatarURL())
                 .setTimestamp();
