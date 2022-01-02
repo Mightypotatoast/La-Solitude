@@ -101,7 +101,7 @@ module.exports = {
 
             
             
-            blackjackEmbed.description = "\n**[Voir les Règles](https://fr.wikipedia.org/wiki/Blackjack_(jeu)**"
+            blackjackEmbed.description = "\n**[Voir les Règles](https://fr.wikipedia.org/wiki/Blackjack_(jeu))**"
             blackjackEmbed.addFields(
                 { name: "- Votre Main -", value: "-", inline: true },
                 { name: `- ( ${Score(playerHand)} ) - SCORE - ( ${Score(botHand)} ) -`, value: "--------------------------", inline: true },
@@ -123,7 +123,7 @@ module.exports = {
             blackjackCollector.on('collect', async (btn) => { 
 
 
-                await btn.deferUpdate()
+                
 
                 if (btn.user.id !== message.member.id) {
                     return await btn.reply({
@@ -131,6 +131,8 @@ module.exports = {
                         ephemeral: true
                     })
                 }
+
+                await btn.deferUpdate()
 
                 if (btn.customId === 'BJ-abandon') {
 
@@ -247,6 +249,7 @@ module.exports = {
                         await blackjack.edit(
                             {
                                 embeds: [errorEmbed().setDescription("Vous n'avez pas répondu dans le temps imparti")],
+                                components: [],
                             }
                         )
                         break;
@@ -263,6 +266,7 @@ module.exports = {
                 await blackjack.edit(
                     {
                         embeds: [errorEmbed().setDescription("Vous n'avez pas répondu dans le temps imparti")],
+                        components: [],
                     }
                 )
             }
