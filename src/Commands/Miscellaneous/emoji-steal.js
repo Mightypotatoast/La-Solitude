@@ -1,4 +1,4 @@
-const { MessageEmbed, Util } = require('discord.js')
+const { MessageEmbed, Util, CommandInteraction, Client } = require('discord.js')
 const delay = require("delay")
 const { errorEmbed } = require("../../util/Embeds")
 
@@ -20,11 +20,17 @@ module.exports = {
         },
         
     ],
+    
 
+    /**
+     * 
+     * @param {CommandInteraction} message 
+     * @param {Client} client 
+     */
     
     async execute(message, client) {
 
-        
+        if(!message.member.permissions.has("ADMINISTRATOR")) return message.reply({embeds : [errorEmbed().setDescription("You can't steal an emoji from another server!")]})
 
         let argsEmoji = message.options.getString('emoji')
         let emoji = []

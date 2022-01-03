@@ -7,7 +7,7 @@ const { errorEmbed } = require("../../util/Embeds")
 
 module.exports = {
   
-  name: "pokemonlist",
+  name: "pokemon-list",
   description: "Affiche 1 à 10 pokemon random",
   permission: "ADMINISTRATOR",
   active: true,

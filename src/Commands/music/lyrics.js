@@ -19,12 +19,7 @@ module.exports = {
             
             const queue = client.distube.getQueue(message)
             if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
-            message.reply({
-            embeds: [
-            musicEmbed()
-            .setDescription("⏳ Searching ...")
-            ]
-            })
+            message.deferReply({ ephemeral: false })
 
             //open Browser
             const browser = await puppeteer.launch({headless: true})
@@ -52,18 +47,31 @@ module.exports = {
             
             //scrap the lyrics
             lyrics = await page.evaluate(() => {
-                let elements = document.querySelector('body > routable-page > ng-outlet > song-page > div > div > div.song_body.column_layout > div.column_layout-column_span.column_layout-column_span--primary > div > defer-compile:nth-child(2) > lyrics > div > div > section > p')
+                
+                let elements = document.querySelector('#lyrics-root')
                 return elements.innerText
             })
-
-            //close browser
+            //if lyrics is longer than 2000 characters, send lyrics in multiple embed
+            if (lyrics.length > 4000) {
+                let lyricsArray = []
+                for (let i = 0; i < lyrics.length; i += 4000) {
+                    lyricsArray.push(lyrics.substring(i, i + 4000))
+                }
+                
+                for (let i = 0; i < lyricsArray.length; i++) {
+                    message.followUp({ embeds: [musicEmbed()
+                    .setDescription(lyricsArray[i])
+                ]})
+                await sleep(1000)
+                }
+            } else {
+                message.followUp({ embeds: [musicEmbed()
+                .setDescription(lyrics)
+            ]})
+            }
+           
             browser.close()
 
-            message.editReply({
-                embeds: [
-                musicEmbed()
-                .setDescription(`${lyrics}`)
-            ]})
         } catch (e) {
             message.editReply({ embeds: [errorEmbed().setDescription(`Lyrics not found`)], ephemeral: true })
             console.log(e);

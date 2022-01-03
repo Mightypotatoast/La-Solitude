@@ -1,7 +1,7 @@
+const { DisTube } = require("distube")
 const { errorEmbed, musicEmbed} = require("../../util/Embeds")
 const { musicButtonRow } = require("../../util/buttonLayout")
-
-
+const config = require('../../config')
 
 function generateProgressBar(currentTime, duration) {
         
@@ -27,30 +27,49 @@ function generateProgressBar(currentTime, duration) {
 }
 
 module.exports = {
+    
+    name: 'playSong',
+    once: false,
 
-    name: "nowplaying",
-    aliases: ["now"],
-    description: "Display current playing music",
-    permission: "ADMINISTRATOR",
-    active: true,
- 
-    async execute(message, client) {
+    
+/**
+ * @param {DisTube.Queue} queue
+ * @param {DisTube.Song} song
+ */
+    async execute(queue,song) {
+        if (!queue) return console.log("Queue is not defined")
+        console.log(`Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}`)
         
-        const channel = message.member.voice.channel
-        if (!channel) return message.reply({ embeds: [errorEmbed().setDescription(`Please join a voice channel !`)], ephemeral: true })
-        const queue = client.distube.getQueue(message)
-        if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`Nothing is playing right now !`)], ephemeral: true })
+        const embed = musicEmbed()
+            .setTitle(`Playing ${song.name}`)
+            .setURL(`${song.url}`)
+            .setThumbnail(`${song.thumbnail}`)
+            .setDescription(`**${queue.formattedCurrentTime} ${generateProgressBar(queue.currentTime, song.duration )} ${song.formattedDuration}**`)
+            .addField(`Requester`, `${song.member}`, true)
+            .addField(`Author`, `[${song.uploader.name}](${song.uploader.url})`, true)
+            .addField(`Volume`, `${queue.volume}%`, true)
 
-        try {
-            message.deferReply({ ephemeral: false })
-            var refreshTimout = queue.songs[0].duration - queue.songs[0].currentTime
-            var count = 0
+        try{
+            musicChannel = await queue.voiceChannel.guild.channels.cache.get((await config(queue.voiceChannel.guild.id)).channel.MusicChannelID).send({ embeds : [embed], components: [musicButtonRow()],
+                ephemeral: false  })   
+        }
+        catch(err){
+            //console.log(err)
+            return console.log("Music channel is not defined")
+        }
+
+        try{
+            const ckeckPlayingSong = queue.songs[0]
             var refreshMessage = setInterval(() => {
-                count ++
-                if(count > refreshTimout) clearInterval(refreshMessage)
+                if (!queue) return console.log("nothing in the queue")
                 let playingSong = queue.songs[0]
+                if (!playingSong) {
+                    console.log("wrong duration");
+                    return clearInterval(refreshMessage)
+                }
+                if (ckeckPlayingSong.name != playingSong.name) return clearInterval(refreshMessage)
                 //console.log(`${queue.formattedCurrentTime} **${generateProgressBar(queue.currentTime, playingSong.duration )}** ${playingSong.formattedDuration}`)
-                message.editReply({ embeds: [musicEmbed()
+                musicChannel.edit({ embeds: [musicEmbed()
                 .setTitle(`Playing ${playingSong.name}`)
                 .setURL(`${playingSong.url}`)
                 .setThumbnail(`${playingSong.thumbnail}`)
@@ -61,16 +80,10 @@ module.exports = {
                 ],
                 components: [musicButtonRow()],
                 ephemeral: false })
-            }, 1000)
-            
-
-        } catch (e) {
-            message.editReply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+            }, 3000)
+        } catch (err) {
+            console.log(err)
         }
-        
-
-
-
         
     }
 }
