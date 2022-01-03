@@ -134,7 +134,7 @@ module.exports = {
 
         collector.on('end', async (collected, reason) => {
             m.edit({
-                components: components(true),
+                components: [components(true)],
             })
         });
 
