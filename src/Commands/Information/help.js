@@ -106,7 +106,7 @@ module.exports = {
         const collector = m.createMessageComponentCollector({
             filter,
             componentType: 'SELECT_MENU',
-            time: 600000,
+            time: 300000,
         });
 
         collector.on('collect', async (interaction) => {
@@ -133,9 +133,7 @@ module.exports = {
         });
 
         collector.on('end', async (collected, reason) => {
-            m.edit({
-                components: [components(true)],
-            })
+            m.delete();
         });
 
 
