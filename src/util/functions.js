@@ -9,7 +9,7 @@ module.exports = {
 
     /**
      * 
-     * @param {Integer, String} pokemon 
+     * @param {Number, String} pokemon 
      * @returns 
      */
     fetchPokemonData: async (pokemon) => {
@@ -132,6 +132,36 @@ module.exports = {
 
         return data
     
+    },
+
+    /**
+     * 
+     * @param {Number} currentTime 
+     * @param {Number} duration 
+     * @param {Boolean} isPaused 
+     * @returns 
+     */
+    generateProgressBar : (currentTime, duration, isPaused = false) =>{
+        
+    //make a ASCII progress bar |------🔴--------|
+        let progressBar = "|"
+        let progressBarLength = 25
+        let progressBarMax = duration
+        let progressBarCurrent = currentTime
+        let progressBarPercent = (progressBarCurrent / progressBarMax) * 100
+        let progressBarPercentRounded = Math.round(progressBarPercent/(100/progressBarLength))
+        for (let i = 0; i < progressBarLength; i++) {
+            if (i < progressBarPercentRounded) {
+                progressBar = progressBar.concat("─")
+            } else  if (i == progressBarPercentRounded) {
+                progressBar = progressBar.concat(isPaused ? "⏸️" : "🔹")
+            } else {
+                progressBar = progressBar.concat("─")
+            }
+        }
+        progressBar = progressBar.concat("|")
+        return progressBar
+
     },
     
 

@@ -2,29 +2,7 @@ const { DisTube } = require("distube")
 const { errorEmbed, musicEmbed} = require("../../util/Embeds")
 const { musicButtonRow } = require("../../util/buttonLayout")
 const config = require('../../config')
-
-function generateProgressBar(currentTime, duration) {
-        
-    //make a ASCII progress bar |------🔴--------|
-        let progressBar = "|"
-        let progressBarLength = 25
-        let progressBarMax = duration
-        let progressBarCurrent = currentTime
-        let progressBarPercent = (progressBarCurrent / progressBarMax) * 100
-        let progressBarPercentRounded = Math.round(progressBarPercent/(100/progressBarLength))
-        for (let i = 0; i < progressBarLength; i++) {
-            if (i < progressBarPercentRounded) {
-                progressBar = progressBar.concat("─")
-            } else  if (i == progressBarPercentRounded) {
-                progressBar = progressBar.concat("🔹")
-            } else {
-                progressBar = progressBar.concat("─")
-            }
-        }
-        progressBar = progressBar.concat("|")
-        return progressBar
-
-}
+const { generateProgressBar } = require("../../util/functions")
 
 module.exports = {
     
@@ -44,7 +22,7 @@ module.exports = {
             .setTitle(`Playing ${song.name}`)
             .setURL(`${song.url}`)
             .setThumbnail(`${song.thumbnail}`)
-            .setDescription(`**${queue.formattedCurrentTime} ${generateProgressBar(queue.currentTime, song.duration )} ${song.formattedDuration}**`)
+            .setDescription(`**${queue.formattedCurrentTime} ${generateProgressBar(queue.currentTime, song.duration, false )} ${song.formattedDuration}**`)
             .addField(`Requester`, `${song.member}`, true)
             .addField(`Author`, `[${song.uploader.name}](${song.uploader.url})`, true)
             .addField(`Volume`, `${queue.volume}%`, true)

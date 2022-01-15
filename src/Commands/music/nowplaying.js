@@ -1,30 +1,7 @@
 const { errorEmbed, musicEmbed} = require("../../util/Embeds")
 const { musicButtonRow } = require("../../util/buttonLayout")
+const { generateProgressBar } = require("../../util/functions")
 
-
-
-function generateProgressBar(currentTime, duration) {
-        
-    //make a ASCII progress bar |------🔴--------|
-        let progressBar = "|"
-        let progressBarLength = 25
-        let progressBarMax = duration
-        let progressBarCurrent = currentTime
-        let progressBarPercent = (progressBarCurrent / progressBarMax) * 100
-        let progressBarPercentRounded = Math.round(progressBarPercent/(100/progressBarLength))
-        for (let i = 0; i < progressBarLength; i++) {
-            if (i < progressBarPercentRounded) {
-                progressBar = progressBar.concat("─")
-            } else  if (i == progressBarPercentRounded) {
-                progressBar = progressBar.concat("🔹")
-            } else {
-                progressBar = progressBar.concat("─")
-            }
-        }
-        progressBar = progressBar.concat("|")
-        return progressBar
-
-}
 
 module.exports = {
 
@@ -36,10 +13,10 @@ module.exports = {
  
     async execute(message, client) {
         
-        const channel = message.member.voice.channel
-        if (!channel) return message.reply({ embeds: [errorEmbed().setDescription(`Vous devez rejoindre le Bot en vocal !`)], ephemeral: true })
         const queue = client.distube.getQueue(message)
         if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
+        const channel = message.member.voice.channel
+        if (!channel) return message.reply({ embeds: [errorEmbed().setDescription(`Vous devez rejoindre le Bot en vocal !`)], ephemeral: true })
 
         try {
             message.deferReply({ ephemeral: false })
@@ -54,7 +31,7 @@ module.exports = {
                 .setTitle(`Musique jouée : ${playingSong.name}`)
                 .setURL(`${playingSong.url}`)
                 .setThumbnail(`${playingSong.thumbnail}`)
-                .setDescription(`**${queue.formattedCurrentTime} ${generateProgressBar(queue.currentTime, playingSong.duration )} ${playingSong.formattedDuration}**`)
+                .setDescription(`**${queue.formattedCurrentTime} ${generateProgressBar(queue.currentTime, playingSong.duration, false)} ${playingSong.formattedDuration}**`)
                 .addField(`Demandé par :`, `${playingSong.user}`, true)
                 .addField(`Auteur :`, `[${playingSong.uploader.name}](${playingSong.uploader.url})`, true)
                 .addField(`Volume :`, `${queue.volume}%`, true)

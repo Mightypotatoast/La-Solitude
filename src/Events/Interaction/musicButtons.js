@@ -2,28 +2,7 @@ const { ButtonInteraction, Client } = require("discord.js");
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 const {musicButtonRow } = require("../../util/buttonLayout")
 
-function generateProgressBar(currentTime, duration) {
-        
-    //make a ASCII progress bar |------🔴--------|
-        let progressBar = "|"
-        let progressBarLength = 25
-        let progressBarMax = duration
-        let progressBarCurrent = currentTime
-        let progressBarPercent = (progressBarCurrent / progressBarMax) * 100
-        let progressBarPercentRounded = Math.round(progressBarPercent/(100/progressBarLength))
-        for (let i = 0; i < progressBarLength; i++) {
-            if (i < progressBarPercentRounded) {
-                progressBar = progressBar.concat("─")
-            } else  if (i == progressBarPercentRounded) {
-                progressBar = progressBar.concat("⏸️")
-            } else {
-                progressBar = progressBar.concat("─")
-            }
-        }
-        progressBar = progressBar.concat("|")
-        return progressBar
 
-}
 
 module.exports = {
 
@@ -77,7 +56,7 @@ module.exports = {
                                 .setTitle(`${interaction.user.username} a mis en pause la musique ${playingSong.name}`)
                                 .setURL(`${playingSong.url}`)
                                 .setThumbnail(`${playingSong.thumbnail}`)
-                                .setDescription(`${queue.formattedCurrentTime} **${generateProgressBar(queue.currentTime, playingSong.duration )}** ${playingSong.formattedDuration}`)
+                                .setDescription(`${queue.formattedCurrentTime} **${generateProgressBar(queue.currentTime, playingSong.duration, true )}** ${playingSong.formattedDuration}`)
                                 .addField(`Demandé par :`, `${playingSong.member}`, true)
                                 .addField(`Auteur :`, `[${playingSong.uploader.name}](${playingSong.uploader.url})`, true)
                                 .addField(`Volume :`, `${queue.volume}%`, true)
