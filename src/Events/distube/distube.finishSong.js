@@ -12,9 +12,9 @@ module.exports = {
  * @param {DisTube.Song} song
  */
     async execute(queue,song) {
-        if (!queue) return console.log("Queue is not defined")
+        if (!queue) return console.log("La file d'attente est actuellement vide !")
 
-        console.log(`Finished \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}`)
+        console.log(`La musique est fini - \`${song.name}\` - \`${song.formattedDuration}\`\nDemandé par: ${song.user}`)
 
     }
 }
