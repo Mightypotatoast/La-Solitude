@@ -8,37 +8,37 @@ const {pokemonNames} = require("../../util/pokemonNames")
 module.exports = {
 
     name: "mypokedex",
-    description: "My Pokedex",
+    description: "Créer votre propre Pokédex",
     permission: "ADMINISTRATOR",
     active: true,
     options: [
         {
             name: "init",
-            description: "initialize your pokedex",
+            description: "Initialiser votre Pokédex",
             type: "SUB_COMMAND",
             
         },
 
         {
             name: "delete",
-            description: "delete your pokedex",
+            description: "Supprimer votre Pokémon",
             type: "SUB_COMMAND",
             
         },
 
         {
             name: "add",
-            description: "add a pokemon to your pokedex",
+            description: "Ajouter un Pokémon à votre Pokédex",
             type: "SUB_COMMAND_GROUP",
             options: [
                 {
                     name: "by-names",
-                    description: "add one or several pokemons by name",
+                    description: "Ajouter un ou plusieurs Pokémon par leur nom",
                     type: "SUB_COMMAND",
                     options: [
                         {
                             name: "pokemon",
-                            description: "the pokemon name",
+                            description: "Le nom du Pokémon",
                             type: "STRING",
                             required: true,
                         }
@@ -46,12 +46,12 @@ module.exports = {
                 },
                 {
                     name: "by-index-numbers",
-                    description: "add one or several pokemons by index number",
+                    description: "Ajouter un ou plusieurs Pokémon par leur numéro d'index",
                     type: "SUB_COMMAND",
                     options: [
                         {
                             name: "index",
-                            description: "the pokemon index",
+                            description: "Le numéro d'index du Pokémon",
                             type: "NUMBER",
                             required: true,
                         }
@@ -59,18 +59,18 @@ module.exports = {
                 },
                 {
                     name: "by-index-group",
-                    description: "add group of pokemon by index number",
+                    description: "Ajouter un ou plusieurs Pokémon par groupe d'index",
                     type: "SUB_COMMAND",
                     options: [
                         {
                             name: "min",
-                            description: "the minimum index",
+                            description: "Le numéro minimum d'index",
                             type: "NUMBER",
                             required: true,
                         },
                         {
                             name: "max",
-                            description: "the maximum index",
+                            description: "Le numéro maximum d'index",
                             type: "NUMBER",
                             required: true,
                         }
@@ -82,17 +82,17 @@ module.exports = {
 
         {
             name: "remove",
-            description: "remove a pokemon from your pokedex",
+            description: "Supprimer un Pokémon de votre Pokédex",
             type: "SUB_COMMAND_GROUP",
             options: [
                 {
                     name: "by-names",
-                    description: "add one or several pokemons by name",
+                    description: "Supprimer un ou plusieurs Pokémon par leur nom",
                     type: "SUB_COMMAND",
                     options: [
                         {
                             name: "pokemon",
-                            description: "the pokemon name",
+                            description: "Le nom du Pokémon",
                             type: "STRING",
                             required: true,
                         }
@@ -100,12 +100,12 @@ module.exports = {
                 },
                 {
                     name: "by-index-numbers",
-                    description: "add one or several pokemons by index number",
+                    description: "Supprimer un ou plusieurs Pokémon par leur numéro d'index",
                     type: "SUB_COMMAND",
                     options: [
                         {
                             name: "index",
-                            description: "the pokemon index",
+                            description: "Le numéro d'index du Pokémon",
                             type: "NUMBER",
                             required: true,
                         }
@@ -113,18 +113,18 @@ module.exports = {
                 },
                 {
                     name: "by-index-group",
-                    description: "add group of pokemon by index number",
+                    description: "Supprimer un ou plusieurs Pokémon par groupe d'index",
                     type: "SUB_COMMAND",
                     options: [
                         {
                             name: "min",
-                            description: "the minimum index",
+                            description: "Le numéro minimum d'index",
                             type: "NUMBER",
                             required: true,
                         },
                         {
                             name: "max",
-                            description: "the maximum index",
+                            description: "Le numéro maximum d'index",
                             type: "NUMBER",
                             required: true,
                         }
@@ -135,7 +135,7 @@ module.exports = {
 
         {
             name: "view",
-            description: "view your pokedex",
+            description: "Affiche les informations de votre Pokédex",
             type: "SUB_COMMAND",
 
         },

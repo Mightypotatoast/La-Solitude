@@ -6,21 +6,21 @@ const { MessageEmbed, CommandInteraction, Client, MessageAttachment } = require(
 module.exports = {
 
     name: "fakecomment",
-    description: "Fakes a Youtube comment",
+    description: "Créer un faux commentaire Youtube",
     permission: "ADMINISTRATOR",
     active : true,
 
     options: [
         {
             name: "comment",
-            description: "what do you want to comment",
+            description: "Que voulez-vous commenter sur Youtube ?",
             type: "STRING",
             required: true,
 
         },
         {
             name: "user",
-            description: "the user writing the comment",
+            description: "la personne qui commentera",
             type: "USER",
             required: false
         }
@@ -57,7 +57,7 @@ module.exports = {
             const attach = new MessageAttachment(data.body, 'img.png');
 
             const embed = new MessageEmbed()
-                .setDescription(`**${Target}'s Youtube comment**`)
+                .setDescription(`**Le commentaire Youtube de ${Target}**`)
                 .setColor("RED")
                 .setImage(`attachment://img.png`)
                 .setFooter(`Requested by ${message.member.user.tag}`, message.member.displayAvatarURL())

@@ -7,7 +7,7 @@ module.exports = {
         
         return new MessageEmbed()
             .setColor("#FF0000")
-            .setTitle("⛔ **Error**: ⛔")
+            .setTitle("⛔ **Erreur**: ⛔")
             .setTimestamp()
         
     },
@@ -32,7 +32,7 @@ module.exports = {
 //!---------------------- POKEMON -------------------------------
     pokemonEmbed: () => {
         return new MessageEmbed()
-            .setAuthor("POKEDEX NATIONAL", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
+            .setAuthor("POKÉDEX NATIONAL", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
             .setFooter("Pokédex National | Made by Syns", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
             .setTimestamp()
         
@@ -41,7 +41,7 @@ module.exports = {
     pokemonEasterEggEmbed: () => {
         return new MessageEmbed()
             .setColor("#FF0000")
-            .setAuthor("POKEDEX NATIONAL", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
+            .setAuthor("POKÉDEX NATIONAL", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
             .setFooter("Pokédex National | Made by Syns", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
             .setTimestamp()
 
@@ -50,7 +50,7 @@ module.exports = {
     warningEmbed: () => {
         return new MessageEmbed()
             .setColor("YELLOW")
-            .setTitle("⚠️ --- **WARNING** --- ⚠️")
+            .setTitle("⚠️ --- **AVERTISSEMENT** --- ⚠️")
             .setTimestamp()
     },
 
@@ -59,7 +59,7 @@ module.exports = {
     banEmbed : () => {
         return new MessageEmbed()
             .setColor("#FF0000")
-            .setTitle("⛔ --- **BAN**: --- ⛔")
+            .setTitle("⛔ --- **BANNISSEMENT**: --- ⛔")
             .setTimestamp()
     },
     
@@ -83,7 +83,7 @@ module.exports = {
     setChannelEmbed: () => {
         return new MessageEmbed()
             .setColor("#71CF93")
-            .setTitle("New channel set")
+            .setTitle("NOUVEAU SALON DÉFINI")
             .setTimestamp()
     }
     

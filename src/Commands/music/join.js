@@ -1,9 +1,10 @@
 const { joinVoiceChannel } = require('@discordjs/voice');
+const { successEmbed, errorEmbed } = require('../../util/Embeds');
 
 module.exports = {
 
   name: "join",
-  description: "Join your voice Channel",
+  description: "Rejoins le salon vocal",
   permission: "ADMINISTRATOR",
   active : true,
 
@@ -21,13 +22,8 @@ module.exports = {
       if (joinVoiceChannel) {
         message.reply({
 
+          embeds: [ successEmbed().setDescription(`**J'ai rejoins le channel **${channel.name}**`) ],
           ephemeral: true,
-          embeds: [{
-
-              color: 0x25E325 ,
-              description: "✅ **Connected**",
-
-          }]
 
         })
       }
@@ -36,14 +32,8 @@ module.exports = {
 
     else{
       message.reply({
+        embeds: [errorEmbed().setDescription(`Vous devez d'abord rejoindre un salon vocal !`)],
         ephemeral: true,
-        embeds: [{
-
-          color: 0xff0000,
-          title: "**Erreur**:",
-          description: `Vous devez d'abord rejoindre un salon vocal`
-          
-        }]
       });
     }
 

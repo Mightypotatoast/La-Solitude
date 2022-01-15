@@ -30,16 +30,16 @@ module.exports = {
 
     name: "nowplaying",
     aliases: ["now"],
-    description: "Display current playing music",
+    description: "Affiche les informations de la musique en cours",
     permission: "ADMINISTRATOR",
     active: true,
  
     async execute(message, client) {
         
         const channel = message.member.voice.channel
-        if (!channel) return message.reply({ embeds: [errorEmbed().setDescription(`Please join a voice channel !`)], ephemeral: true })
+        if (!channel) return message.reply({ embeds: [errorEmbed().setDescription(`Vous devez rejoindre le Bot en vocal !`)], ephemeral: true })
         const queue = client.distube.getQueue(message)
-        if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`Nothing is playing right now !`)], ephemeral: true })
+        if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
 
         try {
             message.deferReply({ ephemeral: false })
@@ -51,13 +51,13 @@ module.exports = {
                 let playingSong = queue.songs[0]
                 //console.log(`${queue.formattedCurrentTime} **${generateProgressBar(queue.currentTime, playingSong.duration )}** ${playingSong.formattedDuration}`)
                 message.editReply({ embeds: [musicEmbed()
-                .setTitle(`Playing ${playingSong.name}`)
+                .setTitle(`Musique jouée : ${playingSong.name}`)
                 .setURL(`${playingSong.url}`)
                 .setThumbnail(`${playingSong.thumbnail}`)
                 .setDescription(`**${queue.formattedCurrentTime} ${generateProgressBar(queue.currentTime, playingSong.duration )} ${playingSong.formattedDuration}**`)
-                .addField(`Requester`, `${playingSong.user}`, true)
-                .addField(`Author`, `[${playingSong.uploader.name}](${playingSong.uploader.url})`, true)
-                .addField(`Volume`, `${queue.volume}%`, true)
+                .addField(`Demandé par :`, `${playingSong.user}`, true)
+                .addField(`Auteur :`, `[${playingSong.uploader.name}](${playingSong.uploader.url})`, true)
+                .addField(`Volume :`, `${queue.volume}%`, true)
                 ],
                 components: [musicButtonRow()],
                 ephemeral: false })

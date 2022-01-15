@@ -6,31 +6,31 @@ const { errorEmbed, muteEmbed } = require('../../util/Embeds')
 module.exports = {
 
     name: "mute",
-    description: "Mutes a user for a specified amount of time.",
+    description: "Mute un membre du serveur",
     permission: "MUTE_MEMBERS",
     active: true,
     options: [
         {
             name: "member",
-            description: "The user to mute.",
+            description: "Le membre à mute",
             type: "USER",
             required: true,
         },
         {
             name: "reason",
-            description: "The reason for the mute.",
+            description: "Raison du mute",
             type: "STRING",
             required: true,
         },
         {
             name: "duration",
-            description: "The duration of the mute.",
+            description: "Durée du mute",
             type: "NUMBER",
             required: true,
         },
         {
             name: "duration-type",
-            description: "The duration of the mute.",
+            description: "Type de durée du mute",
             type: "STRING",
             required: true,
             choices: [
@@ -101,11 +101,11 @@ module.exports = {
                 console.log(e);
             }
         }
-        if (Target.id === message.member.id) return message.reply({ embeds: [errorEmbed().setDescription("You cannot mute yourself!")], ephemeral: true })
-        if (Target.roles.cache.has(muteRole.id)) return message.reply({ embeds: [errorEmbed().setDescription("That user is already muted!")], ephemeral: true })
-        if (Target.id === message.client.user.id) return message.reply({ embeds: [errorEmbed().setDescription("I cannot mute myself!")], ephemeral: true })
-        if (Target.id === message.guild.ownerID) return message.reply({ embeds: [errorEmbed().setDescription("I cannot mute the server owner!")], ephemeral: true })
-        if (Target.roles.highest.position > message.member.roles.highest.position) return message.reply({ embeds: [errorEmbed().setDescription("You cannot mute a user with a higher role than you!")], ephemeral: true })
+        if (Target.id === message.member.id) return message.reply({ embeds: [errorEmbed().setDescription("Vous ne pouvez vous mute !")], ephemeral: true })
+        if (Target.roles.cache.has(muteRole.id)) return message.reply({ embeds: [errorEmbed().setDescription("Cette personne est déjà mute !")], ephemeral: true })
+        if (Target.id === message.client.user.id) return message.reply({ embeds: [errorEmbed().setDescription("Vous ne pouvez pas me mute !")], ephemeral: true })
+        if (Target.id === message.guild.ownerID) return message.reply({ embeds: [errorEmbed().setDescription("Vous ne pouvez pas mute le propriétaire du serveur !")], ephemeral: true })
+        if (Target.roles.highest.position > message.member.roles.highest.position) return message.reply({ embeds: [errorEmbed().setDescription("Vous ne pouvez pas mute une personne ayant plus de droit que vous !")], ephemeral: true })
         
         db.findOne({ GuildID: message.guild.id, UserID: Target.id }, async (err, data) => {
             if (err) console.log(err)
@@ -149,13 +149,13 @@ module.exports = {
             Target.send({
                 embeds: [
                     muteEmbed()
-                        .setDescription(`You have been muted by ${message.member} in **${message.guild.name}**`)
-                        .addField("Reason", Reason)
-                        .addField("Duration", `${Duration} ${DurationType}`)
+                        .setDescription(`Vous avez été mute par ${message.member} sur le serveur **${message.guild.name}**`)
+                        .addField("Raison :", Reason)
+                        .addField("Durée :", `${Duration} ${DurationType}`)
                 ]
             })
                 .catch(() => {
-                    console.log(`Could not send the mute notice to ${Target.user.tag}.`)
+                    console.log(`${Target.user.tag} n'a pas pu être notifié de son mute.`)
                 });
             
             
@@ -169,9 +169,9 @@ module.exports = {
             message.reply({
                 embeds: [
                     muteEmbed()
-                        .addField("Muted user", `${Target} | \`${Target.id}\``)
-                        .addField("Reason", Reason)
-                        .addField("Duration", `${Duration} ${DurationType}`)
+                        .addField("Membre :", `${Target} | \`${Target.id}\``)
+                        .addField("Raison :", Reason)
+                        .addField("Durée :", `${Duration} ${DurationType}`)
                     
                 ],
             })

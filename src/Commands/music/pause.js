@@ -4,7 +4,7 @@ const { errorEmbed, musicEmbed} = require("../../util/Embeds")
 module.exports = {
 
     name: "pause",
-    description: "Pause/Resume music",
+    description: "Met en pause ou Reprends la lecture d'une musique en cours",
     permission: "ADMINISTRATOR",
     active: true,
 
@@ -12,13 +12,13 @@ module.exports = {
         
         try{
             const queue = client.distube.getQueue(message)
-            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
+            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
             if (queue.paused) {
                 queue.resume()
                 return message.reply({
                     embeds: [
                     musicEmbed()
-                    .setDescription(`${message.user} Resumed the song...`)
+                    .setDescription(`${message.user} a repris la lecture de la musique en cours...`)
                     ]})
             }
             queue.pause()
@@ -26,7 +26,7 @@ module.exports = {
             message.reply({
             embeds: [
             musicEmbed()
-            .setDescription(`${message.user} Paused the song...`)
+            .setDescription(`${message.user} a mis en pause la musique en cours...`)
             ]})
 
         } catch (e) {

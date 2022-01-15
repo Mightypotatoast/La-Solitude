@@ -6,14 +6,14 @@ const { errorEmbed } = require("../../util/Embeds")
 module.exports = {
 
     name: "emoji-steal",
-    description: "Steal an emoji from another server",
+    description: "Vole un emoji venant d'un autre serveur",
     permission: "ADMINISTRATOR",
     active: true,
 
     options: [
         {
             name: "emoji",
-            description: "Put your emoji(s) | Maximum : 10",
+            description: "Mettez vos émoji | Maximum : 10",
             type: "STRING",
             required: true,
             
@@ -30,7 +30,7 @@ module.exports = {
     
     async execute(message, client) {
 
-        if(!message.member.permissions.has("ADMINISTRATOR")) return message.reply({embeds : [errorEmbed().setDescription("You can't steal an emoji from another server!")]})
+        if(!message.member.permissions.has("ADMINISTRATOR")) return message.reply({embeds : [errorEmbed().setDescription("Vous n'avez pas la permission d'utiliser cette commande")]})
 
         let argsEmoji = message.options.getString('emoji')
         let emoji = []
@@ -53,11 +53,11 @@ module.exports = {
 
         try {
             await message.reply({
-                embeds: [{ description: "⏳ Uploading Emojis ...", color: 0xFF6800 }]
+                embeds: [{ description: "⏳ Envoie des émojis en cours ...", color: 0xFF6800 }]
             })
 
-            if (emoji.length == 0) throw "This is not a guild emoji";
-            //if (emoji.length >= 11) throw "Choose a maximum of 10 emojis per command";
+            if (emoji.length == 0) throw "Ce n'est pas un emoji valide";
+            if (emoji.length >= 11) throw "Choose a maximum of 10 emojis per command";
 
             for (const rawEmoji of emoji) {
 
@@ -65,7 +65,7 @@ module.exports = {
                 
                 const parsedEmoji = Util.parseEmoji(rawEmoji);
 
-                if (rawEmoji !== `<:${parsedEmoji.name}:${parsedEmoji.id}>` && rawEmoji !== `<a:${parsedEmoji.name}:${parsedEmoji.id}>`) throw rawEmoji + " This is not a guild emoji";
+                if (rawEmoji !== `<:${parsedEmoji.name}:${parsedEmoji.id}>` && rawEmoji !== `<a:${parsedEmoji.name}:${parsedEmoji.id}>`) throw rawEmoji + " n'est pas un emoji valide";
                 
                 if (parsedEmoji.id) {
                     const extension = parsedEmoji.animated ? ".gif" : ".png";

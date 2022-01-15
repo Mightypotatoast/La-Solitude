@@ -3,7 +3,7 @@ const Discord = require('discord.js')
 module.exports = {
 
     name: "serverinfo",
-    description: "Some informations of the server",
+    description: "Affiche les informations du serveur",
     permission: "ADMINISTRATOR",
     active:true,
 
@@ -20,7 +20,7 @@ module.exports = {
             .setThumbnail(icon)
             .addField("Nom du Serveur : ", `${message.guild.name}`)
             .addField("Crée le : ", `<t:${parseInt(message.guild.createdAt / 1000)}:R>`)
-            .addField("Owner : ", `${ await message.guild.fetchOwner() }`)
+            .addField("Propriétaire : ", `${ await message.guild.fetchOwner() }`)
             .addField("Tu as rejoins le : ", `<t:${parseInt(message.member.joinedAt / 1000)}:R>`)
             .addField("Total des membres :", `${message.guild.memberCount} `)
             

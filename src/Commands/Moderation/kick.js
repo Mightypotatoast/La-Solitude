@@ -3,20 +3,20 @@ const { MessageEmbed, CommandInteraction } = require("discord.js");
 module.exports = {
 
     name: "kick",
-    description: "Kick a user from the server.",
+    description: "Kick un membre du serveur",
     permission: "KICK_MEMBERS",
     active:true,
 
     options: [
         {
             name: "member",
-            description: "The user to kick.",
+            description: "Le membre à kick",
             type: "USER",
             required: true
         },
         {
             name: "reason",
-            description: "The reason for the kick.",
+            description: "Raison du kick",
             type: "STRING",
             required: false
         }
@@ -32,25 +32,21 @@ module.exports = {
         const { guild, member } = interaction
         const Target = interaction.options.getMember("member")
         const Reason = interaction.options.getString("reason")
-        const Amount = interaction.options.getNumber("messages")
         
-        if (!Target) return interaction.reply({embeds : [errorEmbed().setDescription("Please provide a valid user.")]})
-        if (!Reason) return interaction.reply({embeds : [errorEmbed().setDescription("Please provide a valid reason.")]})
+        if (!Target) return interaction.reply({embeds : [errorEmbed().setDescription("Vous devez mentionner un membre")], ephemeral: true})
+        if (!Reason) return interaction.reply({embeds : [errorEmbed().setDescription("Vous devez mettre une raison")], ephemeral: true})
         
+        if (Target.id === member.id) return interaction.reply({embeds : [errorEmbed().setDescription("Vous ne pouvez pas vous kick")], ephemeral: true})
+        
+        if (Target.id === client.user.id) return interaction.reply({embeds : [errorEmbed().setDescription("Vous ne pouvez pas me kick")], ephemeral: true})
+        if (Target.id === guild.ownerID) return interaction.reply({embeds : [errorEmbed().setDescription("Vous ne pouvez pas kick le propriétaire du serveur")], ephemeral: true})
 
-        if (Amount > 7 || Amount < 0) return interaction.reply({embeds : [errorEmbed().setDescription("Please provide a valid number of days.")]})
+        if (Target.roles.highest.position > member.roles.highest.position) return interaction.reply({embeds : [errorEmbed().setDescription("Vous ne pouvez pas kick une personne ayant plus de droit que vous")], ephemeral: true})
+        if (Target.permissions.has("ADMINISTRATOR")) return interaction.reply({embeds : [errorEmbed().setDescription("Vous ne pouvez pas kick quelqu'un qui a la permission ADMINISTRATOR")], ephemeral: true})
         
-        if (Target.id === member.id) return interaction.reply({embeds : [errorEmbed().setDescription("You can't kick yourself.")]})
-        
-        if (Target.id === client.user.id) return interaction.reply({embeds : [errorEmbed().setDescription("You can't kick me.")]})
-        if (Target.id === guild.ownerID) return interaction.reply({embeds : [errorEmbed().setDescription("You can't kick the server owner.")]})
-
-        if (Target.roles.highest.position > member.roles.highest.position) return interaction.reply({embeds : [errorEmbed().setDescription("You can't kick a user with a higher role than you.")]})
-        if (Target.permissions.has("ADMINISTRATOR")) return interaction.reply({embeds : [errorEmbed().setDescription("You can't kick a user who had " + "`ADMINISTRATOR`" + " permission")]})
-        
-        Target.send({ embeds: [kickEmbed().setDescription("You have been kicked from **" + guild.name + "** for **" + Reason + "**")] })
+        Target.send({ embeds: [kickEmbed().setDescription("Vous avez été kick du serveur **" + guild.name + "** pour la raison suivante : \n**" + Reason + "**")] })
         .catch(() => {
-            console.log("I can't DM that user.")
+            console.log("Impossible d'envoyer un message privé à " + Target.user.username)
         })
 
         //interaction.reply({embeds : [banEmbed().setDescription(Target + " has been banned by "+ member.user +" from **" + guild.name + "** for **" + Reason + "**")]})
@@ -93,7 +89,7 @@ module.exports = {
             
         })
 
-        interaction.reply({embeds : [banEmbed().setDescription("Kicking " + Target + " for " + Reason + ".")]})
+        interaction.reply({embeds : [kickEmbed().setDescription( Target + " a été kick pour la raison suivante : \n" + Reason + ".")]})
         Target.kick({reason: Reason })
             .catch(err => {
                 console.log(err)

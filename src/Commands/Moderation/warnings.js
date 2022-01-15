@@ -4,31 +4,31 @@ const { errorEmbed, warningEmbed } = require('../../util/Embeds');
 
 module.exports = {
     name: 'warnings',
-    description: 'View all warnings for a user',
+    description: 'Affiche les avertissements d\'un membre',
     permission: 'ADMINISTRATOR',
     active : true,
 
     options: [
         {
             name: 'add',
-            description: 'Add a warning to a user',
+            description: 'Ajoute un avertissement à un membre',
             type: "SUB_COMMAND",
             options: [
                 {
                     name: 'target',
-                    description: 'The user to add a warning to',
+                    description: 'Le membre à avertir',
                     type: 'USER',
                     required: true,
                 },
                 {
                     name: 'reason',
-                    description: 'The reason for the warning',
+                    description: 'Raison de l\'avertissement',
                     type: 'STRING',
                     required: true,
                 },
                 {
                     name: 'evidence',
-                    description: 'Evidence for the warning',
+                    description: 'Preuve de l\'avertissement',
                     type: 'STRING',
                     required: false,
                 },
@@ -36,12 +36,12 @@ module.exports = {
         },
         {
             name: 'check',
-            description: 'Check a user\'s warnings',
+            description: 'Affiche les avertissements d\'un membre',
             type: "SUB_COMMAND",
             options: [
                 {
                     name: 'target',
-                    description: 'The user to check',
+                    description: 'Le membre dont on doit afficher les avertissements',
                     type: 'USER',
                     required: true,
                 },
@@ -49,18 +49,18 @@ module.exports = {
         },
         {
             name: 'remove',
-            description: 'Remove a warning from a user',
+            description: 'Supprime un avertissement d\'un membre',
             type: "SUB_COMMAND",
             options: [
                 {
                     name: 'target',
-                    description: 'The user to remove a warning from',
+                    description: 'Le membre dont on doit supprimer un avertissement',
                     type: 'USER',
                     required: true,
                 },
                 {
                     name: 'warn-id',
-                    description: 'The ID of the warning to remove',
+                    description: 'L\'id de l\'avertissement à supprimer',
                     type: 'NUMBER',
                     required: true,
                 },
@@ -68,12 +68,12 @@ module.exports = {
         },
         {
             name: 'clear',
-            description: 'Clear all warnings from a user',
+            description: 'Supprime tous les avertissements d\'un membre',
             type: "SUB_COMMAND",
             options: [
                 {
                     name: 'target',
-                    description: 'The user to clear all warnings from',
+                    description: 'Le membre dont on doit supprimer tous les avertissements',
                     type: 'USER',
                     required: true,
                 },
@@ -88,7 +88,7 @@ module.exports = {
 
         const Target = interaction.options.getMember("target");
         const Reason = interaction.options.getString("reason");
-        const Evidence = interaction.options.getString("evidence") || "None";
+        const Evidence = interaction.options.getString("evidence") || "Rien";
         const WarnID = interaction.options.getNumber("warn-id") - 1;
         const WarnDate = new Date(interaction.createdTimestamp).toLocaleDateString();
 
@@ -97,8 +97,8 @@ module.exports = {
             //! Add a warning
 
             case "add":
-                if (!Target) return interaction.reply({ embeds: [errorEmbed().setDescription("You must specify a user to add a warning to!")] });
-                if (!Reason) return interaction.reply({ embeds: [errorEmbed().setDescription("You must specify a reason for the warning!")] });
+                if (!Target) return interaction.reply({ embeds: [errorEmbed().setDescription("Vous devez spécifiés le membre à qui vous voulez assigner un avertissement !")] });
+                if (!Reason) return interaction.reply({ embeds: [errorEmbed().setDescription("Vous devez spécifiés la raison de l'avertissement ! ")] });
 
                 db.findOne(
                     {
@@ -144,9 +144,9 @@ module.exports = {
                     {
                         embeds: [
                             warningEmbed()
-                                .setDescription(`Warning Added: ${Target.tag}  |  ||${Target.id}||`)
-                                .addField("Reason", Reason)
-                                .addField("Evidence", Evidence)
+                                .setDescription(`Avertissement ajouté à : ${Target.tag}  |  ||${Target.id}||`)
+                                .addField("Raison", Reason)
+                                .addField("Preuve", Evidence)
                         ]
                     }
                 )
@@ -156,7 +156,7 @@ module.exports = {
             //! Check Warnings
             
             case "check":
-                if (!Target) return message.reply({embeds : [ errorEmbed().setDescription("You must specify a user to check!")]});
+                if (!Target) return message.reply({embeds : [ errorEmbed().setDescription("Vous devez spécifier un membre !")]});
 
                 db.findOne({
                     GuildID: interaction.guilId,
@@ -164,7 +164,7 @@ module.exports = {
                     UserTag: Target.user.tag
                 }, async (err, data) => {
                     if (err) throw err;
-                    if (!data || data.Content.length === 0) return interaction.reply({ embeds: [warningEmbed().setDescription("That user has no warnings!")]});
+                    if (!data || data.Content.length === 0) return interaction.reply({ embeds: [warningEmbed().setDescription("Ce membre n'a aucun avertissement à son actif !")]});
 
                     let Warnings = [];
 
@@ -177,8 +177,8 @@ module.exports = {
                         {
                             embeds: [
                                 warningEmbed()
-                                    .setDescription(`Warnings for ${Target.user.tag}`)
-                                    .addField("Warnings :", Warnings.join("\n"))
+                                    .setDescription(`Les avertissement de ${Target}`)
+                                    .addField("Avertissements :", Warnings.join("\n"))
                             ]
                         }
                     )
@@ -196,8 +196,8 @@ module.exports = {
             //! Remove a warning
             case "remove":
 
-                if (!Target) return message.reply({ embeds: [errorEmbed().setDescription("You must specify a user to remove a warning from!")] });
-                if (!WarnID) return message.reply({ embeds: [errorEmbed().setDescription("You must specify a warning ID to remove!")] });
+                if (!Target) return message.reply({ embeds: [errorEmbed().setDescription("Vous devez spécifier un membre !")] });
+                if (!WarnID) return message.reply({ embeds: [errorEmbed().setDescription("Vous devez spécifier l'id d'un avertissement !\n\nUtiliser `/warnings check` pour afficher les avertissements ")] });
                 
                 db.findOne(
                     {
@@ -207,15 +207,15 @@ module.exports = {
                     },
                     async (err, data) => {
                         if (err) throw err;
-                        if (!data) return interaction.reply({ embeds: [warningEmbed().setDescription("That user has no warnings!")] });
-                        if (WarnID > data.Content.length) return interaction.reply({ embeds: [warningEmbed().setDescription("That warning ID does not exist!")] });
+                        if (!data) return interaction.reply({ embeds: [warningEmbed().setDescription("Ce membre n'a aucun avertissement à son acitf !")] });
+                        if (WarnID > data.Content.length) return interaction.reply({ embeds: [warningEmbed().setDescription("L'ID ne correspond à aucun avertissment !")] });
 
                         data.Content.splice(WarnID, 1);
 
                         interaction.reply(
                             {
                                 embeds: [
-                                    warningEmbed().setDescription(`Warning n°${WarnID + 1} Removed: ${Target.user.tag}`)
+                                    warningEmbed().setDescription(`L'avertissement n°${WarnID + 1} de ${Target} a été supprimé`)
                                 ]
                             }
                         )
@@ -228,7 +228,7 @@ module.exports = {
             
             //! Clear all warnings
             case "clear":
-                if (!Target) return interaction.reply({ embeds: [errorEmbed().setDescription("You must specify a user to clear all warnings from!")] });
+                if (!Target) return interaction.reply({ embeds: [errorEmbed().setDescription("Vous devez spécifier un membre")] });
 
                 db.findOne(
                     {
@@ -238,7 +238,7 @@ module.exports = {
                     },
                     async (err, data) => {
                         if (err) throw err;
-                        if (!data) return interaction.reply({ embeds: [warningEmbed().setDescription("That user has no warnings!")] });
+                        if (!data) return interaction.reply({ embeds: [warningEmbed().setDescription("Ce membre n'a aucun avertissement à son actif")] });
                         else {
                             await db.findOneAndDelete({
                                 GuildID: interaction.guilId,
@@ -249,7 +249,7 @@ module.exports = {
                                 {
                                     embeds: [
                                         warningEmbed()
-                                            .setDescription(`All warnings cleared for ${Target.user.tag}`)
+                                            .setDescription(`Tous les avertissement de ${Target.user.tag} ont été supprimés`)
                                     ]
                                 }
                             )

@@ -4,27 +4,28 @@ const { successEmbed } = require("../../util/Embeds");
 
 module.exports = {
     name: "suggest",
-    description: "Suggest something to the bot owner",
+    description: "Suggérer une commande",
     permission: "ADMINISTRATOR",
     active: true,
 
     options: [
         {
             name: "type",
-            description: "The type of suggestion",
+            description: "Le type de suggestion",
             type: "STRING",
             required: true,
             choices: [
-                { name: "Command", value: "Command" },
-                { name: "Event", value: "Event" },
-                { name: "System", value: "System" },
+                { name: "Commande", value: "Commande" },
+                { name: "Evénement", value: "Evénement" },
+                { name: "Système", value: "Système" },
                 { name: "Bug", value: "Bug" },
-                { name: "Other", value: "Other" }
+                { name: "Fonctionnalité", value: "Fonctionnalité" },
+                { name: "Autres", value: "Autres" }
             ]
         },
         {
             name: "suggestion",
-            description: "Describe your suggestion",
+            description: "Décrivez votre suggestion",
             type: "STRING",
             required: true
         }
@@ -42,14 +43,14 @@ module.exports = {
         const Suggestion = options.getString("suggestion");
 
         const Embed = new MessageEmbed()
-            .setTitle(`🗂️ --- ${Type} Suggestion --- 🗂️`)
+            .setTitle(`🗂️ --- Suggestion de ${Type} --- 🗂️`)
             .setColor("NAVY")
             .addFields(
-                { name: "**👤 Author :**", value: `${user.tag} - ||${user.id}||` },
-                { name: "**🔰 Guild :**", value: `${message.guild.name} - ||${guildId}||\n\n` },
+                { name: "**👤 Auteur :**", value: `${user.tag} - ||${user.id}||` },
+                { name: "**🔰 Serveur :**", value: `${message.guild.name} - ||${guildId}||\n\n` },
                 { name: "**⁉️ Suggestion**", value: Suggestion},
                 { name: "**📋 Type**", value: Type, inline: true },
-                { name: "**🔷 Status**", value: "🟠 Pending", inline: true }
+                { name: "**🔷 Statut**", value: "🟠 En Attente", inline: true }
             )
             .setTimestamp();
         
@@ -65,7 +66,7 @@ module.exports = {
 
             const M = await client.guilds.cache.get("235816886259023872").channels.cache.get("915665024012419212").send({embeds: [Embed], components: [Buttons], fetchReply : true});
 
-            message.reply({embeds: [successEmbed().setDescription("Your suggestion has been sent to the bot owner!")], ephemeral: true});
+            message.reply({embeds: [successEmbed().setDescription("Votre suggestion a bien été envoyé")], ephemeral: true});
 
             await db.create({
                 GuildID: guildId, MessageID: M.id, Details: [{

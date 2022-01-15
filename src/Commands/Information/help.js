@@ -4,7 +4,7 @@ const { errorEmbed } = require("../../util/Embeds");
 
 module.exports = {
     name: "help",
-    description: "Shows the help menu",
+    description: "Affiche la liste des commandes",
     permission: "ADMINISTRATOR",
     active: true,
 
@@ -51,8 +51,8 @@ module.exports = {
                 .filter(c => c.category === d)
                 .map((cmd) => {
                     return {
-                        name: cmd.name || 'There is no name',
-                        description: cmd.description || 'There is no description',
+                        name: cmd.name || 'Il n\'y a pas de nom',
+                        description: cmd.description || 'Il n\'y a pas de description',
                     }
                 });
             
@@ -66,24 +66,24 @@ module.exports = {
         });
 
         const helpEmbed = new MessageEmbed()
-            .setAuthor(`${client.user.username} Help Menu`, client.user.avatarURL())
+            .setAuthor(`${client.user.username} Menu Help`, client.user.avatarURL())
             .setColor('#0099ff')
-            .setDescription(`Please select a category`)
-            .setFooter(`Requested by ${message.user.tag}`, message.member.avatarURL())
+            .setDescription(`Sélectionnez une catégorie pour voir les commandes`)
+            .setFooter(`Demandé par ${message.user.tag}`, message.member.avatarURL())
             .setTimestamp();
         
         const components = (state) => {
             return new MessageActionRow().addComponents(
                 new MessageSelectMenu()
                     .setCustomId('help-menu')
-                    .setPlaceholder('Select a category')
+                    .setPlaceholder('Rien n\'est sélectionné')
                     .setDisabled(state)
                     .addOptions(
                         categories.map((c) => { 
                             return {
                                 label: c.directory,
                                 value: c.directory.toLowerCase(),
-                                description: `Commands from ${c.directory} category`,
+                                description: `Les commandes de la catégorie ${c.directory}`,
                                 emoji: emoji[c.directory.toLowerCase()] || "🔷"
                             };
                         })
@@ -113,7 +113,7 @@ module.exports = {
             const [directory] = interaction.values;
             const category = categories.find(c => c.directory.toLowerCase() === directory);
 
-            helpEmbed.setTitle(`${category.emoji} --- ${category.directory} Commands --- ${category.emoji}`)
+            helpEmbed.setTitle(`${category.emoji} --- Les commandes ${category.directory} --- ${category.emoji}`)
                 .setDescription("")
                 .setFields(
                     category.commands.map(c => { 

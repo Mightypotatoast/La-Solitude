@@ -3,7 +3,7 @@ const { errorEmbed, musicEmbed} = require("../../util/Embeds")
 module.exports = {
 
     name: "previous",
-    description: "Skip to the previous music",
+    description: "Relance la musique précédente",
     permission: "ADMINISTRATOR",
     active: true,
 
@@ -11,8 +11,8 @@ module.exports = {
         
         const queue = client.distube.getQueue(message)
         const previousSong = queue.previousSongs[queue.previousSongs.length-1]
-        if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
-        if (previousSong === undefined) return message.reply({ embeds: [errorEmbed().setDescription(`Nothing has been played previously in queue right now !`)], ephemeral: true })
+        if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
+        if (previousSong === undefined) return message.reply({ embeds: [errorEmbed().setDescription(`Rien n'a été joué précédement !`)], ephemeral: true })
         try {
             
             queue.previous()
@@ -21,7 +21,7 @@ module.exports = {
             embeds: [
             musicEmbed()
             .setThumbnail(`${previousSong.thumbnail}`)
-            .setDescription(` Song skipped by ${message.user}! Now playing:\n [${previousSong.name}](${previousSong.url})`)
+            .setDescription(`Le son a été passé par ${message.user}! Musique actuelle :\n [${previousSong.name}](${previousSong.url})`)
             ]})
         } catch (e) {
             message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })

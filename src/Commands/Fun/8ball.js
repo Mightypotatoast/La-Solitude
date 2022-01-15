@@ -38,13 +38,13 @@ const answers = [
 module.exports = {
 
     name: "8ball",
-    description: "Ask your questions",
+    description: "Je répond à vos questions",
     permission: "ADMINISTRATOR",
     active: true,
     options: [
         {
-            name: "your-question",
-            description: "Write your question here",
+            name: "question",
+            description: "Ecris ta question",
             type: "STRING",
             required: true
         }
@@ -53,7 +53,7 @@ module.exports = {
 
   
     execute(message, client) {
-        const question = message.options.getString("your-question")
+        const question = message.options.getString("question")
 
         const embed = new MessageEmbed()
             .setTitle('🎱  The Magic 8-Ball  🎱')

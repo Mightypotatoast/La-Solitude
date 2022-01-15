@@ -10,13 +10,13 @@ const MAX_MEME = 5
 module.exports = {
 
     name: "meme",
-    description: "Fetch a meme from reddit",
+    description: "Renvoie un meme",
     permission: "ADMINISTRATOR",
     active: true,
     options: [
         {
-            name: "how-many",
-            description: `How many memes do you want? | Maximum : ${MAX_MEME}`,
+            name: "combien",
+            description: `Combien de meme voulez-vous ? | Maximum : ${MAX_MEME}`,
             type: "NUMBER",
             required: false,
         }
@@ -26,7 +26,7 @@ module.exports = {
     async execute(message) {
         
 
-        let memeNumber = (message.options.getNumber("how-many") === null) ? 1 : Math.floor(message.options.getNumber("how-many"));
+        let memeNumber = (message.options.getNumber("combien") === null) ? 1 : Math.floor(message.options.getNumber("combien"));
         
         if (memeNumber > MAX_MEME || memeNumber <= 0)
             return message.reply({ embeds: [errorEmbed().setDescription(`Choisissez un nombre entre 1 et ${MAX_MEME}`)], ephemeral: true })

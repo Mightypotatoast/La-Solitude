@@ -6,13 +6,13 @@ module.exports = {
 
     name: "fastforward",
     aliases: ["ff"],
-    description: "fast forward to x into the music",
+    description: "Avance la musique d'un certain nombre de secondes",
     permission: "ADMINISTRATOR",
     active: true,
     options: [
         {
             name: "time",
-            description: `Number of second to skip`,
+            description: `Le nombre de secondes à avancer`,
             type: "INTEGER",
             required: true,
         }
@@ -22,13 +22,13 @@ module.exports = {
         try {
             timeToSkip = message.options.getInteger('time')
             const queue = client.distube.getQueue(message)
-            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
+            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
             queue.seek(timeToSkip)
             
             message.reply({
                 embeds: [
                 musicEmbed()
-                .setDescription(`${message.user} Seeked to ${timeToSkip}!`)
+                .setDescription(`La musique a été avancée de ${timeToSkip} secondes par ${message.member}!`)
             ]})
         } catch (e) {
             message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })

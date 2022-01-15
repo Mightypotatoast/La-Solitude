@@ -46,7 +46,7 @@ module.exports = {
 
 
         const queue = client.distube.getQueue(interaction)
-        if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
+        if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
 
         switch (customId) {
                 
@@ -60,12 +60,12 @@ module.exports = {
                         if (queue.paused) {
                             queue.resume()
                             await interaction.message.edit({ embeds: [musicEmbed()
-                                .setTitle(`Playing ${playingSong.name}`)
+                                .setTitle(`Musique actuelle : ${playingSong.name}`)
                                 .setURL(`${playingSong.url}`)
                                 .setThumbnail(`${playingSong.thumbnail}`)
-                                .addField(`Requester`, `${playingSong.member}`, true)
-                                .addField(`Author`, `[${playingSong.uploader.name}](${playingSong.uploader.url})`, true)
-                                .addField(`Volume`, `${queue.volume}%`, true)
+                                .addField(`Demandé par :`, `${playingSong.member}`, true)
+                                .addField(`Auteur :`, `[${playingSong.uploader.name}](${playingSong.uploader.url})`, true)
+                                .addField(`Volume :`, `${queue.volume}%`, true)
                             ],
                             components: [musicButtonRow()],
                             ephemeral: true })
@@ -74,13 +74,13 @@ module.exports = {
                         
                         queue.pause()
                         await interaction.message.edit({ embeds: [musicEmbed()
-                                .setTitle(`${interaction.user.username} paused ${playingSong.name}`)
+                                .setTitle(`${interaction.user.username} a mis en pause la musique ${playingSong.name}`)
                                 .setURL(`${playingSong.url}`)
                                 .setThumbnail(`${playingSong.thumbnail}`)
                                 .setDescription(`${queue.formattedCurrentTime} **${generateProgressBar(queue.currentTime, playingSong.duration )}** ${playingSong.formattedDuration}`)
-                                .addField(`Requester`, `${playingSong.member}`, true)
-                                .addField(`Author`, `[${playingSong.uploader.name}](${playingSong.uploader.url})`, true)
-                                .addField(`Volume`, `${queue.volume}%`, true)
+                                .addField(`Demandé par :`, `${playingSong.member}`, true)
+                                .addField(`Auteur :`, `[${playingSong.uploader.name}](${playingSong.uploader.url})`, true)
+                                .addField(`Volume :`, `${queue.volume}%`, true)
                             ],
                             components: [musicButtonRow()],
                             ephemeral: true })
@@ -100,17 +100,22 @@ module.exports = {
                     let previousSong;
                     try {previousSong = queue.previousSongs[queue.previousSongs.length-1]} catch (e) {console.log(e)}
                 
-                    if (previousSong === undefined) return interaction.reply({ embeds: [errorEmbed().setDescription(`Nothing has been played previously in queue right now !`)], ephemeral: true })
+                    if (previousSong === undefined) return interaction.reply({ embeds: [errorEmbed().setDescription(`Rien n'a été joué précédement !`)], ephemeral: true })
                     try {
 
                         queue.previous()
 
-                        interaction.message.edit({
-                        embeds: [
-                        musicEmbed()
-                        .setThumbnail(`${previousSong.thumbnail}`)
-                        .setDescription(` Song skipped by ${interaction.user}! Now playing:\n [${previousSong.name}](${previousSong.url})`)
-                        ],components: [musicButtonRow()]})
+                        interaction.message.edit(
+                            {
+                                embeds: [
+                                    musicEmbed()
+                                        .setThumbnail(`${previousSong.thumbnail}`)
+                                        .setDescription(`Le son a été passé par ${interaction.user}! Musique actuelle :\n [${previousSong.name}](${previousSong.url})`)
+                                ],
+
+                                components: [musicButtonRow()]
+                            }
+                        )
                         interaction.deferUpdate()
                     } catch (e) {
                         interaction.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
@@ -125,12 +130,12 @@ module.exports = {
                         
                         if (!queue) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing to play :( !`)], ephemeral: true })
                         mode = queue.setRepeatMode()
-                        mode = mode ? mode === 2 ? "Repeat queue" : "Repeat song" : "Off"
+                        mode = mode ? mode === 2 ? "Répétition de la file d'attente" : "Répétition de la musique" : "Désactiver"
 
                         interaction.message.edit({
                                 embeds: [
                                 musicEmbed()
-                                .setDescription(`🔁 | ${interaction.user} has set repeat mode to ${mode}`)
+                                .setDescription(`🔁 | ${interaction.user} a défini le mode de répétition sur ${mode}`)
                             ]})
                         interaction.deferUpdate()
                     } catch (e) {
@@ -148,7 +153,7 @@ module.exports = {
                         interaction.message.edit({
                             embeds: [
                             musicEmbed()
-                            .setDescription(`🔀 | ${interaction.user} Shuffled the queue !`)
+                            .setDescription(`🔀 | ${interaction.user} a mélangé les musiques de la file d'attente...`)
                         ],components: [musicButtonRow()]})
                         interaction.deferUpdate()
                     } catch (e) {
@@ -164,13 +169,13 @@ module.exports = {
                         
                         const nextSong = queue.songs[1] 
                     
-                        if (nextSong === undefined) return interaction.reply({ embeds: [errorEmbed().setDescription(`There is nothing next in queue right now !`)], ephemeral: true })
+                        if (nextSong === undefined) return interaction.reply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
 
                         interaction.message.edit({
                         embeds: [
                             musicEmbed()
                                 .setThumbnail(`${nextSong.thumbnail}`)
-                                .setDescription(` Song skipped by ${interaction.user}! Now playing:\n [${nextSong.name}](${nextSong.url})`)
+                                .setDescription(` La musique a été passée par ${interaction.user}! Musique actuelle :\n [${nextSong.name}](${nextSong.url})`)
                         ],components: [musicButtonRow()]})
                         interaction.deferUpdate()
                         queue.skip()

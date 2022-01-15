@@ -12,8 +12,8 @@ module.exports = {
         const target = await interaction.guild.members.fetch(interaction.targetId);
 
         const userMessage = new MessageEmbed()
-            .setAuthor(target.user.tag + "'s Avatar")
-            .setImage(target.user.avatarURL({ dynamic: true }))
+            .setAuthor("Avatar de " + target.user.tag, target.user.displayAvatarURL({ format: "png" }))
+            .setImage(target.user.avatarURL({ dynamic: true, format: "png" }))
             .setTimestamp()
         
         interaction.reply({embeds : [userMessage], ephemeral : true})

@@ -5,14 +5,14 @@ const { musicButtonRow } = require("../../util/buttonLayout")
 module.exports = {
 
     name: "play",
-    description: "Play a music",
+    description: "Joue une musique",
     permission: "ADMINISTRATOR",
     active: true,
 
     options: [
         {
             name: "music",
-            description: `Music name or URL`,
+            description: `Le nom ou l'URL de la musique à jouer`,
             type: "STRING",
             required: true,
         }
@@ -21,7 +21,7 @@ module.exports = {
     async execute(message, client) {
         
         channel = message.member.voice.channel
-        if (!channel) return message.reply({ embeds: [errorEmbed().setDescription(`Please join a voice channel !`)], ephemeral: true })
+        if (!channel) return message.reply({ embeds: [errorEmbed().setDescription(`Vous devez rejoindre un salon vocal !`)], ephemeral: true })
         
         const music = message.options.getString('music')
         if (music=="") return
@@ -64,12 +64,12 @@ module.exports = {
         try{
             message.editReply({ 
                     embeds: [musicEmbed()
-                        .setTitle(`▶️ | Song added to the queue : `)
+                        .setTitle(`▶️ | Une musique a été ajouté à la file d'attente : `)
                         .setDescription(`[${addedSong.name}](${addedSong.url})`)
                         .setThumbnail(`${addedSong.thumbnail}`)
-                        .addField(`Requester`, `${message.user} `, true)
-                        .addField(`Author`, `[${addedSong.uploader.name}](${addedSong.uploader.url})`, true)
-                        .addField(`Duration`, `${addedSong.formattedDuration}`, true)],
+                        .addField(`Demandé par :`, `${message.user} `, true)
+                        .addField(`Auteur :`, `[${addedSong.uploader.name}](${addedSong.uploader.url})`, true)
+                        .addField(`Durée :`, `${addedSong.formattedDuration}`, true)],
                     components: [musicButtonRow()], ephemeral: true })
         } catch (e) {
                 console.log(e)

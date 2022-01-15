@@ -3,7 +3,7 @@ const { errorEmbed, musicEmbed} = require("../../util/Embeds")
 module.exports = {
     name: "repeat",
     aliases: ["loop"],
-    description: "Repeat mode",
+    description: "Répète la musique en cours",
     type : 1,
     inVoiceChannel: true,
     permission: "ADMINISTRATOR",
@@ -11,21 +11,21 @@ module.exports = {
     options: [
         {
             name: "mode",
-            description: `Type of repeat mode (0 is disabled, 1 is repeating a song, 2 is repeating all the queue).`,
+            description: `Choisissez un mode de répétition (Désactiver, Répéter la musique, Répéter la file d'attente).`,
             type: 4,
             required: true,
             choices: [
 
                 {
-                    name: "Disabled",
+                    name: "Désactiver",
                     value: 0
                 },
                 {
-                    name: "Song only",
+                    name: "Répéter la musique",
                     value: 1
                 },
                 {
-                    name: "whole Queue",
+                    name: "Répéter la file d'attente",
                     value: 2
                 }
             ]
@@ -36,14 +36,14 @@ module.exports = {
         try {
             mode = message.options.getInteger('mode')
             const queue = client.distube.getQueue(message)
-            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing to play :( !`)], ephemeral: true })
+            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`Aucune musique n'est joué actuellement 😕 !`)], ephemeral: true })
             mode = queue.setRepeatMode(mode)
-            mode = mode ? mode === 2 ? "Repeat queue" : "Repeat song" : "Off"
+            mode = mode ? mode === 2 ? "Répétition de la file d'attente" : "Répétition de la musique" : "Désactiver"
 
             message.reply({
                     embeds: [
                     musicEmbed()
-                    .setDescription(`🔁 | ${message.user} has set repeat mode to ${mode}`)
+                    .setDescription(`🔁 | ${message.user} a défini le mode de répétition sur \`${mode}\``)
                 ]})
         } catch (e) {
             message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })

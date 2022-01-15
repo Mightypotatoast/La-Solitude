@@ -14,8 +14,8 @@ module.exports = {
 
     options: [
         {
-            name: "max-number",
-            description: "The maximum number of facts to return (default: 1 | max: 10)",
+            name: "combien",
+            description: "Le maximum de Chuck Norris facts à afficher.",
             type: "NUMBER",
             required: false
         }
@@ -32,7 +32,7 @@ module.exports = {
     async execute(message, client) {
 
 
-        let MaxNUM = message.options.getNumber("max-number") || 1;
+        let MaxNUM = message.options.getNumber("combien") || 1;
 
         await message.deferReply();
         

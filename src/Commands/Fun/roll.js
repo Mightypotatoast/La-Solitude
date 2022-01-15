@@ -2,14 +2,14 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
 
     name: "roll",
-    description: "roll a dice",
+    description: "Lancer un dé",
     permission: "ADMINISTRATOR",
     active : true,
 
     options: [
           {
               name: "dice",
-              description: `Max number of you dice`,
+              description: `Le nombre du dé que tu veux lancer`,
               type: "STRING",
               required: false,
           }
@@ -22,8 +22,8 @@ module.exports = {
             const roll = Math.floor(Math.random() * dice) + 1
             const embed = new MessageEmbed()
                 .setColor("#FF0000")
-                .setAuthor("Roll your dice", "https://upload.wikimedia.org/wikipedia/commons/5/53/Six_sided_dice.png")
-                .setDescription(`${message.user} rolled a ${roll} (0-${dice})`)
+                .setAuthor("Lance un dé", "https://upload.wikimedia.org/wikipedia/commons/5/53/Six_sided_dice.png")
+                .setDescription(`${message.user} lance un dé : ${roll} (0-${dice})`)
 
             message.reply({embeds: [embed]})
         } catch (error) {

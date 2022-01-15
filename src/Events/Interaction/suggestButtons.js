@@ -17,19 +17,19 @@ module.exports = {
         if (!buttonsID.includes(customId)) return;
         
         
-        if (!interaction.member.permissions.has("ADMINISTRATOR")) return interaction.reply({ embeds: [errorEmbeds().setDescription("You don't have permission to use this command!")], ephemeral: true });
+        if (!interaction.member.permissions.has("ADMINISTRATOR")) return interaction.reply({ embeds: [errorEmbeds().setDescription("Vous n'avez pas la permission d'utiliser ce bouton")], ephemeral: true });
         
         await db.findOne({ MessageID: message.id }, async (err, data) => {
             
             if (err) throw err;
-            if (!data) return interaction.reply({ embeds: [errorEmbed().setDescription("No data was found in the database")], ephemeral: true });
+            if (!data) return interaction.reply({ embeds: [errorEmbed().setDescription("Aucune donnée n'a été trouvé")], ephemeral: true });
 
             const Embed = message.embeds[0];
             if (!Embed) return;
 
             switch (customId) {
                 case "suggest-accept": {
-                        Embed.fields[4] = { name: "**🔷 Status**", value: "🟢 Accepted", inline: true };
+                        Embed.fields[4] = { name: "**🔷 Statut**", value: "🟢 Accepté", inline: true };
                         message.edit({ embeds: [Embed.setColor("GREEN")], components:[] });
                         data.Details[0].Status = "Accepted";
                         data.save()
@@ -37,7 +37,7 @@ module.exports = {
                     }
                     break;
                 case "suggest-decline": {
-                        Embed.fields[4] = { name: "**🔷 Status**", value: "🔴 Declined", inline: true };
+                        Embed.fields[4] = { name: "**🔷 Statut**", value: "🔴 Refusé", inline: true };
                         message.edit({ embeds: [Embed.setColor("RED")], components: [] });
                         data.Details[0].Status = "Declined";
                         data.save();

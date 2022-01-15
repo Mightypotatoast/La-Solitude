@@ -6,20 +6,23 @@ module.exports = {
     
 
     name: "remove",
-    description: "remove a music from the queue :",
+    description: "Supprime une musique de la file d'attente",
     permission: "ADMINISTRATOR",
     active: true,
         
     async execute(message, client) {        
         try {
             const queue = client.distube.getQueue(message)
-            if (!queue) return message.editReply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
-            //numberOfSelectNeeded = math.ceil(queue.songs.length/25) //TODO ajouter plusieurs SelectMenu if queue.songs.length-1 >= 25
+            if (!queue) return message.editReply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
+            //numberOfSelectNeeded = math.ceil(queue.songs.length/25) 
+            
+            //TODO ajouter plusieurs SelectMenu if queue.songs.length-1 >= 25 
+            //! [EWEN] Si jamais je l'ai deja fait dans le fichier /Commands/Developper/commands.js ligne 84 --> ligne 98
 
             await message.reply({
             embeds: [
             musicEmbed()
-            .setDescription("⏳ Loading ...")
+            .setDescription("⏳ Chargement ...")
             ]
             })
 
@@ -37,13 +40,13 @@ module.exports = {
 				new MessageSelectMenu()
 					.setCustomId('remove')
                     .setMaxValues(1)
-					.setPlaceholder('Nothing selected')
+					.setPlaceholder('Sélectionnez une musique à supprimer')
 					.addOptions(optionMenu.slice(0,24)))
 
             message.editReply({
                 embeds: [
                 musicEmbed()
-                .setDescription(`Select the music you want to remove from the queue below ⤵️`)
+                .setDescription(`Sélectionner une ou plusieurs musiques à supprimer ci-dessous ⤵️`)
             ],components: [row], ephemeral: true})
             
             //queue.songs.splice(removeNumber, 1)
