@@ -143,7 +143,7 @@ module.exports = {
                     }
                 });
 
-                message.editReply({ embeds: [successEmbed().setDescription("Toutes les commandes ont été recharger")], ephemeral: true });
+                message.editReply({ embeds: [successEmbed().setDescription("Toutes les commandes ont été rechargées")], ephemeral: true });
 
                 break;
 
