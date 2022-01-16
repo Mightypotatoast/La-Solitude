@@ -3,7 +3,7 @@ const { connection } = require("mongoose");
 
 module.exports = {
     name: "status",
-    description: "Get the status of the bot and the database connection.",
+    description: "Affiche le statut du Bot et de la base de données",
     permission: "ADMINISTRATOR",
     active: true,
 
@@ -15,10 +15,10 @@ module.exports = {
     async execute(message, client) {
         const Response = new MessageEmbed()
             .setColor("#0099ff")
-            .setTitle("🤖 --- Bot Status --- 🤖")
-            .addField("Client :", `\`🟢 ONLINE\` - \`${client.ws.ping} ms\``, true)
-            .addField("Database :", `\`${getStatus(connection.readyState)}\``, true)
-            .addField("Uptime", `<t:${parseInt(client.readyTimestamp / 1000)}:R>`, true)
+            .setTitle("🤖 --- Statut du Bot --- 🤖")
+            .addField("Client :", `\`🟢 EN LIGNE\` - \`${client.ws.ping} ms\``, true)
+            .addField("Base de Donnée :", `\`${getStatus(connection.readyState)}\``, true)
+            .addField("Temps de Fonctionnement", `<t:${parseInt(client.readyTimestamp / 1000)}:R>`, true)
             .setTimestamp()
         
         message.reply({ embeds: [Response] });
@@ -30,16 +30,16 @@ function getStatus(val) {
 
     switch (val) {
         case 0:
-            status = `🔴 DISCONNECTED`;
+            status = `🔴 HORS LIGNE`;
             break;
         case 1:
-            status = `🟢 CONNECTED`;
+            status = `🟢 EN LIGNE`;
             break;
         case 2:
-            status = `🟠 CONNECTING`;
+            status = `🟠 EN ATTENTE DE CONNEXION`;
             break;
         case 3:
-            status = `🔵 DISCONNECTING`;
+            status = `🔵 EN ATTENTE DE DECONNEXION`;
             break;
         
     }

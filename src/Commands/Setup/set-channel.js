@@ -5,14 +5,14 @@ const db = require("../../Models/channels");
 
 module.exports = {
     name: "set-channel",
-    description: "Set the channel for the bot to send messages to.",
+    description: "Défini les salons utilisés par le bot",
     permission: "ADMINISTRATOR",
     active: true,
   
     options: [
         {
             name: "channel",
-            description: "The channel to set the bot to send messages to.",
+            description: "Le salon à définir",
             type: "STRING",
             choices: [
                 {
@@ -24,15 +24,15 @@ module.exports = {
                     value : "report"
                 },
                 {
-                    name: "welcome",
+                    name: "Bienvenue",
                     value : "welcome"
                 },
                 {
-                    name: "goodbye",
+                    name: "Au revoir",
                     value : "goodbye"
                 },
                 {
-                    name: "music",
+                    name: "Musique",
                     value : "music"
                 }
             ],
@@ -46,12 +46,12 @@ module.exports = {
     async execute(message) {
 
         if (!message.member.permissions.has("ADMINISTRATOR")) {
-            return message.reply({embeds : [errorEmbed().setDescription("You need to be an Administrator to use this command.")], ephemeral: true});
+            return message.reply({embeds : [errorEmbed().setDescription("Vous devez être un Administrateur pour utiliser cette commande")], ephemeral: true});
         }
 
         
-        
         switch (message.options.getString("channel")) {
+        
             case "log":
                 db.findOne({
                     GuildID: message.guild.id
@@ -68,8 +68,8 @@ module.exports = {
                     }
                     data.save()
                 })
-
                 break;
+            
             case "report":
                 db.findOne({
                     GuildID: message.guild.id
@@ -87,6 +87,7 @@ module.exports = {
                     data.save()
                 })
                 break;
+            
             case "welcome":
 
                 db.findOne({
@@ -104,9 +105,9 @@ module.exports = {
                         data.WelcomeChannelID = message.channel.id
                     }
                     data.save()
-                })
-                
+                })    
                 break
+            
             case "goodbye":
 
                 db.findOne({
@@ -124,8 +125,8 @@ module.exports = {
                     }
                     data.save()
                 })
-                
                 break;
+                
             case "music":
 
                 db.findOne({
@@ -143,12 +144,10 @@ module.exports = {
                     }
                     data.save()
                 })
-                
                 break;
-
-
+                
         }
 
-        message.reply({embeds : [setChannelEmbed().setDescription(`The ${message.options.getString("channel")} channel is now set in : ${message.channel}  `)], ephemeral: true});
+        message.reply({embeds : [setChannelEmbed().setDescription(`le salon \`${message.options.getString("channel")}\` est maintenant défini dans le salon : ${message.channel}  `)], ephemeral: true});
     }
 };

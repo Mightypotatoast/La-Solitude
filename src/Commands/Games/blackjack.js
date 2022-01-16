@@ -3,7 +3,7 @@ const { errorEmbed } = require("../../util/Embeds");
 
 module.exports = {
     name: "blackjack",
-    description: "Play blackjack",
+    description: "Lance une partie de Blackjack",
     permission: "ADMINISTRATOR",
     active: true,
 

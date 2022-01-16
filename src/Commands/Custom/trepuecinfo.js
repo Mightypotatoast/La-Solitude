@@ -3,7 +3,7 @@ const Discord = require('discord.js')
 module.exports = {
 
     name: "trepuecinfo",
-    description: "Some informations of Mr François Le Trepuec",
+    description: "Quelque informations à propos de Mr François Le Trepuec",
     permission: "ADMINISTRATOR",
     active:true,
 
@@ -20,7 +20,7 @@ module.exports = {
 
         await message.deferReply()
 
-        await message.editReply({embeds : [{description : "⏳ Loading Image ...", color:0xFF6800}]})
+        await message.editReply({embeds : [{description : "⏳ Chargement ...", color:0xFF6800}]})
             .then(async (resultMessage) => {
                 resultMessage.edit({ embeds: [trepuecembed], files: [trepuecAttach] })
             });

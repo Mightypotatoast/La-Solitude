@@ -6,21 +6,21 @@ const { errorEmbed } = require('../../util/Embeds');
 module.exports = {
 
   name: "report",
-  description: "Use for report an annoying guy",
+  description: "Signaler un membre du serveur",
   permission: "ADMINISTRATOR",
   active:true,
 
   options: [
     {
       name: 'member',
-      description: "Choose the member to report",
+      description: "Le membre à signaler",
       type: 'USER',
       required: true
     },
     
     {
       name: 'reason',
-      description: "Why do you report him?",
+      description: "Raison du signalement",
       type:"STRING",
       required: false
     }
@@ -28,6 +28,7 @@ module.exports = {
 
 
   async execute(message) {
+    
     let config = await conf(message.guild.id);
     
       let rUser = message.options.getMember("member");

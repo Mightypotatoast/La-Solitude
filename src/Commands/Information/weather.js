@@ -1,16 +1,17 @@
 const { MessageEmbed } = require('discord.js')
 const weather = require('weather-js')
+const { errorEmbed } = require('../../util/Embeds')
 
 module.exports = {
 
     name: "weather",
-    description: "Fetch the weather of a location",
+    description: "Affiche la météo",
     permission: "ADMINISTRATOR",
     active: true,
     options: [
         {
-            name: "city",
-            description: "Write a city",
+            name: "ville",
+            description: "La ville où vous voulez connaître la météo",
             type: "STRING",
             required: true,
         }
@@ -19,34 +20,30 @@ module.exports = {
   
     execute(message, client) {
 
-        let errorEmbed = new MessageEmbed()
-            .setColor("#FF0000")
-            .setTitle("⛔ **Erreur**: ⛔")
 
-        weather.find({ search: message.options.getString("city"), degreeType: 'C' }, (error, result) => {
+        weather.find({ search: message.options.getString("ville"), degreeType: 'C' }, (error, result) => {
             
             if(error) return message.reply({ embeds: [errorEmbed.setDescription(`${error}`)], ephemeral: true })
 
-            if(result === undefined || result.length === 0) return message.reply({ embeds: [errorEmbed.setDescription(`**Invalid** location`)], ephemeral: true })
+            if(result === undefined || result.length === 0) return message.reply({ embeds: [errorEmbed().setDescription(`Localisation invalide`)], ephemeral: true })
 
             let current = result[0].current
             let location = result[0].location
             let forecast = result[0].forecast
             
-
-            console.log(forecast)
+            let ressentieEmoji = (current.temperature > current.feelslike) ? "🥵" : (current.temperature > current.feelslike)? "🔸" : "🥶"
 
             const resultEmbed = new MessageEmbed()
                 .setColor("#111111")
-                .setTitle(`Weather forecast for ${current.observationpoint} at ${current.observationtime}`)
+                .setTitle(`Prévisions météorologiques pour ${current.observationpoint} à ${current.observationtime}`)
                 .setThumbnail(current.imageUrl)
                 .setDescription(`**${current.skytext}**`)
-                .addField('TimeZone', `UTC ${location.timezone}`, true)
-                .addField('Degree Type', `Celsius`, true)
-                .addField('Temperature', `${current.temperature}°C`, true)
-                .addField('Feels like', `${current.feelslike}°C`, true)
-                .addField('Wind', `${current.winddisplay}`, true)
-                .addField('Humidity', `${current.humidity}%`, true)
+                .addField('🕜 Fuseau Horaire :', `UTC ${location.timezone}`, true)
+                .addField('🔹 Type de degrée :', `Celsius`, true)
+                .addField('🌡️ Température :', `${current.temperature}°C`, true)
+                .addField(`${ressentieEmoji} Ressentie :`, `${current.feelslike}°C`, true)
+                .addField('💨 Vent :', `${current.winddisplay}`, true)
+                .addField('💧 Humidité :', `${current.humidity}%`, true)
                 .setTimestamp()
                         
             message.reply({embeds:[resultEmbed]})

@@ -11,14 +11,14 @@ const P = new Pokedex();
 
 module.exports = {
   name: "pokemon-info",
-  description: "Affiche les informations d'un pokemon",
+  description: "Affiche les informations d'un Pokémon",
   permission: "ADMINISTRATOR",
   active: true,
   
   options: [
     {
       name: "pokemon",
-      description: "Nom ou numéro du Pokemon",
+      description: "Nom ou numéro du Pokémon",
       type: "STRING",
       required: true,
     },
@@ -66,7 +66,7 @@ module.exports = {
           pokemonEN = pokemonArgs
       }
       else { //not in range
-        return message.reply({ embeds: [errorEmbed().setDescription("Il n'existe que 898 Pokémon à ce jour, choisis un Pokémon existant !")] });
+        return message.reply({ embeds: [errorEmbed().setDescription("Il n'existe que 898 Pokémon à ce jour, choisissez un Pokémon existant !")] });
       }
     }
     
@@ -136,35 +136,5 @@ module.exports = {
       message.editReply({embeds:[errorEmbed().setDescription(`\`${e}\``)]})
     }
 
-    
-    // let pokemonArgs = message.options.getString("pokemon");
-    //               //function that process pokemon and send them
-    // const sendPokemon = (pokemon) => {
-      
-    //   P.getPokemonSpeciesByName(pokemon)
-    //     .then(function (response) {
-          
-    //       let isAnimated = response.sprites.versions["generation-v"]["black-white"].animated.front_default;
-
-    //       if (isAnimated != null) {                                 //if animated
-    //         message.reply(response.names[4].name);
-    //                                                                 //message.channel.send(isAnimated);
-    //       }
-    //       else { //not animated
-    //         message.reply(response.names[4].name);
-    //                                                                 //message.channel.send(response.sprites.front_default);
-    //       }
-
-    //     })
-    //     .catch(function (error) { ERROR: ", error);
-    //       message.reply({ embeds: [errorEmbed().setDescription(`${error}`)] });
-    //     });
-    // };
-
-    //                                                                 //import pokemon names
-    // let tmp = config.pokemonNames.join("~").toLowerCase();
-    // let pokemonNames = tmp.split("~");
-
-    //                                                                 //check if the input contain a number
   },
 };

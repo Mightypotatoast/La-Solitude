@@ -15,11 +15,11 @@ module.exports = {
             .setColor("AQUA")
             .setAuthor(target.user.tag, target.user.avatarURL({ dynamic: true, size: 512 }))
             .setThumbnail(target.user.avatarURL({ dynamic: true, size: 512 }))
-            .setDescription("User's Information")
-            .addField("ID", `${target.user.id}`)
-            .addField("Roles", `${target.roles.cache.map(r => r).join(" ").replace("@everyone","")|| "`None`"}`)
-            .addField("Member Since", `<t:${parseInt(target.joinedTimestamp / 1000)}:R>`, true)
-            .addField("Discord User Since", `<t:${parseInt(target.user.createdTimestamp / 1000)}:R>`, true)
+            .setDescription("Informations sur " + target)
+            .addField("ID :", `${target.user.id}`)
+            .addField("Rôles :", `${target.roles.cache.map(r => r).join(" ").replace("@everyone","")|| "`Rien`"}`)
+            .addField("Membre depuis :", `<t:${parseInt(target.joinedTimestamp / 1000)}:R>`, true)
+            .addField("Utilise Discord depuis :", `<t:${parseInt(target.user.createdTimestamp / 1000)}:R>`, true)
         
         interaction.reply({embeds : [userMessage], ephemeral : true})
     }

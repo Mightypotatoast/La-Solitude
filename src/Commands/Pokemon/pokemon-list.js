@@ -8,7 +8,7 @@ const { errorEmbed } = require("../../util/Embeds")
 module.exports = {
   
   name: "pokemon-list",
-  description: "Affiche 1 à 10 pokemon random",
+  description: "Affiche 1 à 10 Pokémon random",
   permission: "ADMINISTRATOR",
   active: true,
 
@@ -59,13 +59,13 @@ module.exports = {
               
             })
             .catch(function (error) { //catch error
-              console.log("There was an ERROR: ", error);
+              console.log("ERROR: ", error);
               message.reply({ embeds: [errorEmbed().setDescription(error)] });
             });
         });
       })
       .catch(function (error) { //catch error
-        console.log("There was an ERROR: ", error);
+        console.log("ERROR: ", error);
         message.reply({ embeds: [errorEmbed().setDescription(error)] });
       });
     };
@@ -77,11 +77,11 @@ module.exports = {
 
     } else if (isNaN(interval.limit)) { //check si la limit n'est pas un nombre
 
-      message.reply({ embeds: [errorEmbed().setDescription("Choisis un nombre !")] });
+      message.reply({ embeds: [errorEmbed().setDescription("Choisissez un nombre !")] });
       
     } else {
       
-      message.reply({ embeds: [errorEmbed().setDescription("Choisis un nombre entre 1 et 10 !")] });
+      message.reply({ embeds: [errorEmbed().setDescription("Choisissez un nombre entre 1 et 10 !")] });
 
     }
   }

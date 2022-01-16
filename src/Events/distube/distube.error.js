@@ -14,7 +14,7 @@ module.exports = {
     async execute(channel, error) {
         
         try{
-            console.log(`Error: ${error}, in channel: ${channel}`)
+            console.log(`Erreurr: ${error}, dans le salon: ${channel}`)
         } catch (e) {
             console.log(e)
         }

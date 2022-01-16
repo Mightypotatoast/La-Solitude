@@ -6,7 +6,7 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 module.exports = {
 
     name: "dog",
-    description: "Random Dog Pictures",
+    description: "Renvois une image de chien",
     permission: "ADMINISTRATOR",
     active: true,
     

@@ -5,25 +5,25 @@ const db = require('../../Models/infraction')
 
 module.exports = {
     name: "ban",
-    description: "Bans a user from the server.",
+    description: "Bannir un membre du serveur",
     permission: "BAN_MEMBERS",
     active: true,
     options: [
         {
             name: "member",
-            description: "The user to ban.",
+            description: "Le membre à bannir",
             type: "USER",
             require: true,
         },
         {
             name: "reason",
-            description: "The reason for the ban",
+            description: "Raison du ban",
             type: "STRING",
             require: true,
         },
         {
             name: "messages",
-            description: "Number of days to delete mesages for (0-7)",
+            description: "Nombre de jours de messages à supprimer (0-7)",
             type: "NUMBER",
             require: true,
         },
@@ -41,23 +41,23 @@ module.exports = {
         const Reason = interaction.options.getString("reason")
         const Amount = interaction.options.getNumber("messages")
         
-        if (!Target) return interaction.reply({embeds : [errorEmbed().setDescription("Please provide a valid user.")]})
-        if (!Reason) return interaction.reply({embeds : [errorEmbed().setDescription("Please provide a valid reason.")]})
-        if (!Amount) return interaction.reply({embeds : [errorEmbed().setDescription("Please provide a valid number of days.")]})
+        if (!Target) return interaction.reply({embeds : [errorEmbed().setDescription("Vous devez mentionner un membre")]})
+        if (!Reason) return interaction.reply({embeds : [errorEmbed().setDescription("Vous devez mettre une raison")]})
+        if (!Amount) return interaction.reply({embeds : [errorEmbed().setDescription("Vous devez mettre un nombre de jours")]})
 
-        if (Amount > 7 || Amount < 0) return interaction.reply({embeds : [errorEmbed().setDescription("Please provide a valid number of days.")], ephemeral: true})
+        if (Amount > 7 || Amount < 0) return interaction.reply({embeds : [errorEmbed().setDescription("Vous devez un nombre de jours entre 0 et 7")], ephemeral: true})
         
-        if (Target.id === member.id) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban yourself.")], ephemeral: true})
+        if (Target.id === member.id) return interaction.reply({embeds : [errorEmbed().setDescription("Vous ne pouvez pas vous bannir")], ephemeral: true})
         
-        if (Target.id === client.user.id) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban me.")], ephemeral: true})
-        if (Target.id === guild.ownerID) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban the server owner.")], ephemeral: true})
+        if (Target.id === client.user.id) return interaction.reply({embeds : [errorEmbed().setDescription("Vous ne pouvez pas me bannir")], ephemeral: true})
+        if (Target.id === guild.ownerID) return interaction.reply({embeds : [errorEmbed().setDescription("Vous ne pouvez pas bannir le propriétaire du serveur")], ephemeral: true})
 
-        if (Target.roles.highest.position > member.roles.highest.position) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban a user with a higher role than you.")], ephemeral: true})
-        if (Target.permissions.has(this.perms)) return interaction.reply({embeds : [errorEmbed().setDescription("You can't ban a user who had " + this.permission + " permission")], ephemeral: true})
+        if (Target.roles.highest.position > member.roles.highest.position) return interaction.reply({embeds : [errorEmbed().setDescription("Vous ne pouvez pas bannir une personne ayant plus de droit que vous")], ephemeral: true})
+        if (Target.permissions.has(this.perms)) return interaction.reply({embeds : [errorEmbed().setDescription("Vous ne pouvez pas bannir quelqu'un qui a la permission " + this.permission)], ephemeral: true})
         
-        Target.send({ embeds: [banEmbed().setDescription("You have been banned from **" + guild.name + "** for **" + Reason + "**")] })
+        Target.send({ embeds: [banEmbed().setDescription("Vous avez été banni du serveur **" + guild.name + "** pour la raison suivante : \n **" + Reason + "**")] })
         .catch(() => {
-            console.log("I can't DM that user.")
+            console.log("Je ne peux pas envoyer un message à " + Target.user.tag)
         })
 
         //interaction.reply({embeds : [banEmbed().setDescription(Target + " has been banned by "+ member.user +" from **" + guild.name + "** for **" + Reason + "**")]})
@@ -102,7 +102,7 @@ module.exports = {
             
         })
 
-        interaction.reply({embeds : [banEmbed().setDescription("Banning " + Target + " for " + Reason + " for " + Amount + " days.")]})
+        interaction.reply({embeds : [banEmbed().setDescription(Target + " a été bannie pour la raison suivante :\n" + Reason + "\n\n Tous ses messages depuis " + Amount + " jours ont été supprimés")]})
         Target.ban({ days: Amount, reason: Reason })
             .catch(err => {
                 console.log(err)

@@ -2,7 +2,7 @@ const { errorEmbed, musicEmbed} = require("../../util/Embeds")
 
 module.exports = {
     name: "filters",
-    description: "Enable sound filter (bassboost for exemple)",
+    description: "Applique des filtres à la musique",
     type : 1,
     inVoiceChannel: true,
     permission: "ADMINISTRATOR",
@@ -10,33 +10,33 @@ module.exports = {
     options: [
         {
             name: "filter",
-            description: `What filter to enable.`,
+            description: `Le filtre à appliquer`,
             type: 4,
             required: true,
             choices: [
 
                 {
-                    name: "Disabled",
+                    name: "Désactiver",
                     value: 0
                 },
                 {
-                    name: "3d",
+                    name: "3D",
                     value: 1
                 },
                 {
-                    name: "bassboost",
+                    name: "BassBoosted",
                     value: 2
                 },
                 {
-                    name: "echo",
+                    name: "Echo",
                     value: 3
                 },
                 {
-                    name: "karaoke",
+                    name: "Karaoké",
                     value: 4
                 },
                 {
-                    name: "Nightcore",
+                    name: "NightCore",
                     value: 5
                 },
                 {
@@ -72,7 +72,7 @@ module.exports = {
                     value: 13
                 },
                 {
-                    name: "tremolo",
+                    name: "Tremolo",
                     value: 14
                 },
                 {
@@ -90,14 +90,14 @@ module.exports = {
 
             filterNumber = message.options.getInteger('filter')
             const queue = client.distube.getQueue(message)
-            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing to play :( !`)], ephemeral: true })
+            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`Aucune musique n'est joué actuellement 😕 !`)], ephemeral: true })
             queue.setFilter(filterList[filterNumber])
             
 
             message.reply({
                     embeds: [
                     musicEmbed()
-                    .setDescription(`🔊 | ${message.user} has set filter to ${filterList[filterNumber]}`)
+                    .setDescription(`🔊 | ${message.user} a appliqué le filtre \`${filterList[filterNumber] || "Désactiver"}\` à la musique !`)
                 ]})
         } catch (e) {
             message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })

@@ -8,7 +8,7 @@ module.exports = {
     
     execute(message, client) {
         
-        if (message.member.id !== "206905331366756353") return message.reply({ embed: [errorEmbed().setDescription("You need to be the owner of this server!")] });
+        if (message.member.id !== "206905331366756353") return message.reply({ embed: [errorEmbed().setDescription("Vous devez être le propriétaire du Bot pour utiliser cette commande !")] });
         
         client.emit("guildMemberAdd", message.member)
         //client.emit("guildMemberRemove", message.member)

@@ -34,6 +34,8 @@ module.exports = async (client) => {
 
         if (!command.active)
             return Table.addRow(command.name, "⚠️  DESACTIVATED");
+
+        command.category = file.split("/")[file.split("/").length - 2];
         
         client.commands.set(command.name, command);
         CommandsArray.push(command);

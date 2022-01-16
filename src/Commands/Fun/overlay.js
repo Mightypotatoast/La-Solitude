@@ -6,14 +6,14 @@ const { MessageEmbed, CommandInteraction, Client, MessageAttachment } = require(
 module.exports = {
 
     name: "overlay",
-    description: "add an overlay on your avatar",
+    description: "Ajoute un overlay sur ton avatar",
     permission: "ADMINISTRATOR",
     active : true,
 
     options: [
         {
             name: "overlay",
-            description: "the overlay you want to add",
+            description: "L'overlay que tu veux ajouter",
             type: "STRING",
             required: true,
 
@@ -25,23 +25,23 @@ module.exports = {
                     value: "gay",
                 },
                 {
-                    name: "Glass",
+                    name: "Vitre",
                     value : "glass"
                 },
                 {
-                    name: "Wasted",
+                    name: "GTA : Wasted",
                     value : "wasted"
                 },
                 {
-                    name: "Mission Passed",
+                    name: "GTA : Mission Passed",
                     value : "passed"
                 },
                 {
-                    name: "Jail",
+                    name: "En prison",
                     value : "jail"
                 },
                 {
-                    name: "Comrade",
+                    name: "Mon Camarade",
                     value : "comrade"
                 },
                 {
@@ -49,7 +49,7 @@ module.exports = {
                     value : "triggered"
                 },
                 {
-                    name: "Simp Card",
+                    name: "Carte Simp",
                     value : "simpcard"
                 },
                 {
@@ -57,11 +57,11 @@ module.exports = {
                     value : "horny"
                 },
                 {
-                    name: "Blur",
+                    name: "Flouté",
                     value : "blur"
                 },
                 {
-                    name: "Pixelate",
+                    name: "Pixéliser",
                     value : "pixelate"
                 },
             ]
@@ -105,10 +105,10 @@ module.exports = {
             const attach = new MessageAttachment(data.body, 'img.png');
 
             const embed = new MessageEmbed()
-                .setDescription(`**${Target}'s avatar with ${overlay} overlay**`)
+                .setDescription(`**L'avatar de ${Target} avec l'overlay \`${overlay}\` **`)
                 .setColor("WHITE")
                 .setImage(`attachment://img.png`)
-                .setFooter(`Requested by ${message.member.user.tag}`, message.member.displayAvatarURL())
+                .setFooter(`Demander par ${message.member.user.tag}`, message.member.displayAvatarURL())
                 .setTimestamp();
             
             await message.editReply({ embeds: [embed], files: [attach] });

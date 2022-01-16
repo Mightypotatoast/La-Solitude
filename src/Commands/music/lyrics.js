@@ -10,7 +10,7 @@ function sleep(ms) {
 module.exports = {
 
     name: "lyrics",
-    description: "Display the lyrics of the playing song",
+    description: "Affiche les paroles d'un titre",
     permission: "ADMINISTRATOR",
     active: true,
     
@@ -18,7 +18,7 @@ module.exports = {
         try {
             
             const queue = client.distube.getQueue(message)
-            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`There is nothing in the queue right now !`)], ephemeral: true })
+            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
             message.deferReply({ ephemeral: false })
 
             //open Browser
@@ -73,7 +73,7 @@ module.exports = {
             browser.close()
 
         } catch (e) {
-            message.editReply({ embeds: [errorEmbed().setDescription(`Lyrics not found`)], ephemeral: true })
+            message.editReply({ embeds: [errorEmbed().setDescription(`Aucune parole n'a été trouvée !`)], ephemeral: true })
             console.log(e);
         }
 

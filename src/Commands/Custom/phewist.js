@@ -6,7 +6,7 @@ const phewist = require("../../util/phewistLists")
 module.exports = {
 
   name: "phewist",
-  description: "Generate a Phewist's quote",
+  description: "Générer une phrase que pourrait dire Phewist",
   permission: "ADMINISTRATOR",
   active: true,
 

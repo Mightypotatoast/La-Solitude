@@ -6,7 +6,7 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 module.exports = {
 
     name: "cat",
-    description: "Random Cat Pictures",
+    description: "Envoie une image de chat",
     permission: "ADMINISTRATOR",
     active: true,
     
@@ -31,11 +31,11 @@ module.exports = {
         
 
             const embed = new MessageEmbed()
-                .setTitle("Cat Picture")
+                .setTitle("Image de Chat")
                 .setColor("#00D7FF")
                 .setDescription(data.fact)
                 .setImage(data.image)
-                .setFooter(`Requested by ${message.member.user.tag}`, message.member.displayAvatarURL())
+                .setFooter(`Demander par ${message.member.user.tag}`, message.member.displayAvatarURL())
                 .setTimestamp();
             
             await message.editReply({ embeds: [embed] });

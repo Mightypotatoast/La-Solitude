@@ -3,27 +3,21 @@ const { MessageAttachment, MessageEmbed } = require('discord.js')
 module.exports = {
           
     name: "logo",
-    description: "Display the logo of SensÔkami",
+    description: "Affiche le logo du serveur",
     permission: "ADMINISTRATOR",
     active:true,
    
     async execute(message,client) {
-      var Kwey = client.users.cache.get("232110364186247168")
-
-      const logoImg = new MessageAttachment('./src/util/img/Sensokami.png', 'Sensokami.png');
 
       let logoembed = new MessageEmbed()
-         .setTitle("Le Logo de SensÔkami")
-         //.setAuthor(client.user.username, client.user.avatarURL)
+         .setTitle(`Le Logo de ${message.guild.name}`)
          .setColor(0xFF6800)
-         .setImage('attachment://Sensokami.png')
-
-         .setFooter('© Designed by Kweyy', Kwey.displayAvatarURL() )
+         .setImage(message.guild.iconURL({ dynamic: true, format: "png" }))
          .setTimestamp();
 
       await message.deferReply()
 
-      await message.editReply({embeds : [{description : "⏳ Loading Image ...", color:0xFF6800}]})
+      await message.editReply({embeds : [{description : "⏳ Chargement", color:0xFF6800}]})
           .then(async (resultMessage) => {
               resultMessage.edit({ embeds: [logoembed], files: [logoImg] })
       });

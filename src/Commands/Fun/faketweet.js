@@ -6,21 +6,21 @@ const { MessageEmbed, CommandInteraction, Client, MessageAttachment } = require(
 module.exports = {
 
     name: "faketweet",
-    description: "Fakes a tweet",
+    description: "créer un faux tweet",
     permission: "ADMINISTRATOR",
     active : true,
 
     options: [
         {
             name: "tweet",
-            description: "what do you want to tweet",
+            description: "Que voulez-vous tweeter ?",
             type: "STRING",
             required: true,
 
         },
         {
             name: "user",
-            description: "the user writing the comment",
+            description: "la personne qui tweetera",
             type: "USER",
             required: false
         }
@@ -58,10 +58,10 @@ module.exports = {
             const attach = new MessageAttachment(data.body, 'img.png');
 
             const embed = new MessageEmbed()
-                .setDescription(`**${Target}'s Tweet**`)
+                .setDescription(`**Tweet de ${Target}**`)
                 .setColor("#00C5FF")
                 .setImage(`attachment://img.png`)
-                .setFooter(`Requested by ${message.member.user.tag}`, message.member.displayAvatarURL())
+                .setFooter(`Demander par ${message.member.user.tag}`, message.member.displayAvatarURL())
                 .setTimestamp();
             
             await message.editReply({ embeds: [embed], files: [attach] });

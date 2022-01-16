@@ -6,20 +6,20 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 module.exports = {
 
     name: "setnick",
-    description: "Change your nickname",
+    description: "Change le pseudo de quelqu'un",
     permission: "ADMINISTRATOR",
     active: true,
     
     options: [
         {
             name: "nickname",
-            description: "The nickname you want to change to",
+            description: "Le nouveau pseudo",
             type: "STRING",
             required: true,
         },
         {
             name: "member",
-            description: "The user you want to change the nickname of",
+            description: "Le membre dont vous voulez changer le pseudo",
             type: "USER",
             required: false,
         },

@@ -4,15 +4,15 @@ const { errorEmbed} = require("../../util/Embeds")
 
 module.exports = {
 
-    name: "rps",
-    description: "Play Rock Paper Scissors with the bot or someone else",
+    name: "shifumi",
+    description: "Lance une partie de Pierre-Feuille-Ciseaux",
     permission: "ADMINISTRATOR",
     active: true,
 
     options: [
         {
             name: "user",
-            description: "The user to play against",
+            description: "L'utilisateur que vous voulez défier",
             type: "USER",
             required: true,
         }
@@ -29,25 +29,26 @@ module.exports = {
         let Target = interaction.options.getMember("user")
         let Executor = interaction.member
 
-        if (Executor.id === Target.id) return interaction.editReply({embeds : [errorEmbed().setDescription("You can't play against yourself!")], ephemeral: true})
+        if (Executor.id === Target.id) return interaction.editReply({embeds : [errorEmbed().setDescription("Vous ne pouvez pas jouer contre toi-même")], ephemeral: true})
 
-        if (Target.id === client.user.id) return interaction.editReply({embeds : [errorEmbed().setDescription("You can't play against the bot!")], ephemeral: true})
+        if (Target.id === client.user.id) return interaction.editReply({embeds : [errorEmbed().setDescription("Vous ne pouvez pas jouer contre le Bot")], ephemeral: true})
 
 
         let inviteEmbed = new MessageEmbed()
-            .setTitle(`⚔️ --- NEW RPS DUEL --- ⚔️`)
-            .setDescription(`${Executor} challenges ${Target} to a duel`)
+            .setTitle(`⚔️ --- SHIFUMI --- ⚔️`)
+            .setAuthor("C'est l'heure du...dududu...du...du...Duel !")
+            .setDescription(`${Executor} défie ${Target} au jeu de Shifumi`)
             .setColor("RED")
-            .addField("Description", "Play a Rock Paper Scissors game")
+            .addField("Description", "Le jeu consiste à décider qui va gagner en faisant un choix entre :\n\n- Pierre (fort contre Ciseaux) \n- Feuille (fort contre Pierre)\n- Ciseaux (fort contre Feuille)")
         
         
         let inviteRow = new MessageActionRow().addComponents(
             new MessageButton()
-                .setLabel('Accept')
+                .setLabel('Accepter')
                 .setCustomId(`duel-accept`)
                 .setStyle('SUCCESS'),
             new MessageButton()
-                .setLabel('Decline')
+                .setLabel('Refuser')
                 .setCustomId(`duel-decline`)
                 .setStyle('DANGER')
         )
@@ -55,12 +56,12 @@ module.exports = {
         const duelEmbed = new MessageEmbed()
             .setTitle(`⚔️ --- ${interaction.user.username} VS. ${Target.user.username} --- ⚔️`)
             .setColor("RED")
-            .setDescription('Select 🪨, 📄, or ✂️')
-            .setFooter('You have 30 seconds to make your choice')
+            .setDescription('Choisissez entre 🪨 Pierre, 📄 Feuille, ou ✂️ Ciseaux')
+            .setFooter('Vous avez 30 secondes pour faire votre choix')
             .addFields(
-                { name: `${Executor.user.username}`, value: '🔴 Not Set', inline: true },
+                { name: `${Executor.user.username}`, value: '🔴 Non Défini', inline: true },
                 { name: `------`, value: '**------**', inline: true },
-                { name: `${Target.user.username}`, value: '🔴 Not Set', inline: true }
+                { name: `${Target.user.username}`, value: '🔴 Non Défini', inline: true }
             )
             .setTimestamp()
         
@@ -68,19 +69,19 @@ module.exports = {
         let duelRow = new MessageActionRow()
             .addComponents(
                 new MessageButton()
-                        .setLabel('ROCK')
+                        .setLabel('PIERRE')
                         .setCustomId('rock')
                         .setStyle("SECONDARY")
                         .setEmoji('🪨'),
 
                 new MessageButton()
-                    .setLabel('PAPER')
+                    .setLabel('FEUILLE')
                     .setCustomId('paper')
                     .setStyle("SUCCESS")
                     .setEmoji('📄'),
 
                 new MessageButton()
-                    .setLabel('SCISSORS')
+                    .setLabel('CISEAUX')
                     .setCustomId('scissors')
                     .setStyle("PRIMARY")
                     .setEmoji('✂️'),
@@ -88,7 +89,7 @@ module.exports = {
         let ReplayRow = new MessageActionRow()
             .addComponents(
                 new MessageButton()
-                    .setLabel('Replay')
+                    .setLabel('Rejouer')
                     .setCustomId('replay')
                     .setStyle("SUCCESS")
                     .setEmoji('🔁'),
@@ -106,14 +107,14 @@ module.exports = {
             
             if (button.user.id === Executor.id) {
                 return button.reply({
-                    embeds: [errorEmbed().setDescription("You can't accept your own duel")],
+                    embeds: [errorEmbed().setDescription("Vous ne pouvez pas accepter votre propre invitation")],
                     ephemeral: true
                 })
             }
 
             if (button.user.id !== Target.id) {
                 return await button.reply({
-                    embeds: [errorEmbed().setDescription('You cant play the game as they didnt call you to play.')],
+                    embeds: [errorEmbed().setDescription('Ce n\'est pas une invitation pour vous')],
                     ephemeral: true
                 })
             }
@@ -145,7 +146,7 @@ module.exports = {
             btnCollector.on('collect', async (b) => {
                 if (!ids.has(b.user.id))
                     return await button.editReply({
-                        content: 'You cant play the game as they didnt call u to play.',
+                        content: 'Vous n\'êtes pas de la partie',
                         ephemeral: true
                     })
                 ids.delete(b.user.id)
@@ -156,7 +157,7 @@ module.exports = {
                 if (b.user.id === Executor.id) {
                     auth = b.customId
 
-                    duelEmbed.fields[0].value = `🟢 Ready`
+                    duelEmbed.fields[0].value = `🟢 Prêt`
 
                     await interaction.editReply({
                         embeds: [duelEmbed],
@@ -168,7 +169,7 @@ module.exports = {
                 if (b.user.id === Target.id) {
                     op = b.customId
 
-                    duelEmbed.fields[2].value = `🟢 Ready`
+                    duelEmbed.fields[2].value = `🟢 Prêt`
 
                     await interaction.editReply({
                         embeds: [duelEmbed],
@@ -186,9 +187,9 @@ module.exports = {
                     await interaction.editReply({
                         embeds: [
                             new MessageEmbed()
-                                .setTitle('Challenge Not Accepted in Time')
+                                .setTitle('Délai d\'acceptation expiré')
                                 .setColor("BLACK")
-                                .setDescription('Ran out of time!\nTime limit: 30s')
+                                .setDescription('Délai expiré \ntemps limite : 30s')
                         ],
                         components: []
                     })
@@ -214,15 +215,15 @@ module.exports = {
 
                     if (op === auth) {
                         
-                        duelEmbed.fields[1].value = `**DRAW**`
+                        duelEmbed.fields[1].value = `**Egalité**`
                         
                     } else if (winnerMap[op] === auth) {
                         
-                        duelEmbed.fields[1].value = `**${Target} Won !**`
+                        duelEmbed.fields[1].value = `**${Target} a gagné !**`
 
                     } else {
 
-                        duelEmbed.fields[1].value = `**${Executor} Won**`
+                        duelEmbed.fields[1].value = `**${Executor} a gagné**`
 
                     }
 
@@ -273,9 +274,9 @@ module.exports = {
                 await interaction.editReply({
                     embeds: [
                         new MessageEmbed()
-                            .setTitle('Challenge Not Accepted in Time')
+                            .setTitle('Délai d\'acceptation expiré')
                             .setColor("BLACK")
-                            .setDescription('Ran out of time!\nTime limit: 30s')
+                            .setDescription('Délai expiré \ntemps limite : 30s')
                     ],
                     components: []
                 })
@@ -285,14 +286,14 @@ module.exports = {
                 await interaction.editReply({
                     embeds: [
                         new MessageEmbed()
-                            .setTitle('Game Declined!')
+                            .setTitle('Invitation refusée')
                             .setAuthor(
                                 interaction.user.tag,
                                 interaction.user.displayAvatarURL()
                             )
                             .setColor("#C90000")
                             
-                            .setDescription(`${Target} has declined your game!`)
+                            .setDescription(`${Target} a refusé l'invitation de ${Executor} au Shifumi`)
                     ],
                     components: []
                 })

@@ -18,7 +18,7 @@ module.exports = {
             if (!command) return interaction.reply({
                 embeds: [
                     errorEmbed()
-                        .setDescription("There was an error while executing this command")
+                        .setDescription("Une erreur est survenue lors de la récupération de la commande")
                 ], ephemeral : true
             } ) && client.commands.delete(interaction.commandName);
 
@@ -36,22 +36,23 @@ module.exports = {
                 
                 await interaction.followUp({
                 embeds: [
-                musicEmbed()
-                .setDescription(`${interaction.user} has removed [${queue.songs[songId].name}](${queue.songs[songId].url}) from the queue`)
-                ]})
+                        musicEmbed()
+                            .setDescription(`${interaction.user} a supprimé la musique [${queue.songs[songId].name}](${queue.songs[songId].url}) de la file d'attente`)
+                    ]
+                })
                 
                 interaction.message.delete()
                 //interaction.message.resolveComponent(interaction.customId).setDisabled(true) //!wtf pk ca marche pas
             } catch (e) {
                 console.error(e)
-                interaction.editReply({
-                embeds: [
-                    new MessageEmbed()
-                        .setColor("RED")
-                        .setTitle("⛔⛔ **ERREUR** ⛔⛔")
-                        .setDescription("ALED")
-                    ], ephemeral : true
-                })
+                interaction.editReply(
+                    {
+                        embeds: [
+                            errorEmbed().setDescription(`ALED : \n${e}`)
+                        ],
+                        ephemeral: true
+                    }
+                )
             }
         }
     }
