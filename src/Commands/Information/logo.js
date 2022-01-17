@@ -19,7 +19,7 @@ module.exports = {
 
       await message.editReply({embeds : [{description : "⏳ Chargement", color:0xFF6800}]})
           .then(async (resultMessage) => {
-              resultMessage.edit({ embeds: [logoembed], files: [logoImg] })
+              resultMessage.edit({ embeds: [logoembed]})
       });
       
     }
