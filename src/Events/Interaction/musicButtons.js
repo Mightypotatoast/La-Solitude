@@ -1,7 +1,7 @@
 const { ButtonInteraction, Client } = require("discord.js");
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 const {musicButtonRow } = require("../../util/buttonLayout")
-
+const { generateProgressBar } = require("../../util/functions")
 
 
 module.exports = {
@@ -148,7 +148,7 @@ module.exports = {
                         
                         const nextSong = queue.songs[1] 
                     
-                        if (nextSong === undefined) return interaction.reply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
+                        if (nextSong === undefined && queue.autoplay === false) return interaction.reply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
 
                         interaction.message.edit({
                         embeds: [
