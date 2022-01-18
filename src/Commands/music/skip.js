@@ -20,7 +20,7 @@ module.exports = {
             
             let skipNumber = (message.options.getNumber("how-many") === null) ? 1 : Math.floor(message.options.getNumber("how-many"));
             const queue = client.distube.getQueue(message)
-            if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
+            if (nextSong === undefined && queue.autoplay === false) return interaction.reply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
             if (queue.songs[skipNumber] === undefined) return message.reply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
             
             message.reply({
