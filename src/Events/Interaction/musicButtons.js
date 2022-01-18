@@ -1,7 +1,7 @@
 const { ButtonInteraction, Client } = require("discord.js");
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 const {musicButtonRow } = require("../../util/buttonLayout")
-
+const { generateProgressBar } = require("../../util/functions")
 
 
 module.exports = {
