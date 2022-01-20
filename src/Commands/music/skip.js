@@ -20,9 +20,10 @@ module.exports = {
                 message.options.getNumber("how-many") === null
                     ? 1
                     : Math.floor(message.options.getNumber("how-many"));
+
             const queue = client.distube.getQueue(message);
-            if (nextSong === undefined && queue.autoplay === false)
-                return interaction.reply({
+            if (queue.nextSong === undefined && queue.autoplay === false)
+                return message.reply({
                     embeds: [
                         errorEmbed().setDescription(
                             `La file d'attente est actuellement vide !`
