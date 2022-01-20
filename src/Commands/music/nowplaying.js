@@ -1,5 +1,5 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
-const { musicButtonRow } = require("../../util/buttonLayout");
+const { musicButtonRow, musicButtonRow2 } = require("../../util/buttonLayout");
 const { generateProgressBar } = require("../../util/functions");
 
 module.exports = {

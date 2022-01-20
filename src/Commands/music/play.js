@@ -1,7 +1,7 @@
 const { Message } = require("discord.js");
 const { joinVoiceChannel } = require("@discordjs/voice");
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
-const { musicButtonRow } = require("../../util/buttonLayout");
+const { musicButtonRow, musicButtonRow2 } = require("../../util/buttonLayout");
 module.exports = {
     name: "play",
     description: "Joue une musique",

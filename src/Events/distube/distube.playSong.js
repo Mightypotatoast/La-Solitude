@@ -1,6 +1,6 @@
 const { DisTube } = require("distube");
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
-const { musicButtonRow } = require("../../util/buttonLayout");
+const { musicButtonRow, musicButtonRow2 } = require("../../util/buttonLayout");
 const config = require("../../config");
 const { generateProgressBar } = require("../../util/functions");
 
