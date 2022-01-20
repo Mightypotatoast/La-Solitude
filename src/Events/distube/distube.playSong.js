@@ -47,7 +47,7 @@ module.exports = {
                 )
                 .send({
                     embeds: [embed],
-                    components: [musicButtonRow()],
+                    components: [musicButtonRow(), musicButtonRow2()],
                     ephemeral: false,
                 });
         } catch (err) {
@@ -98,7 +98,7 @@ module.exports = {
                             )
                             .addField(`Volume :`, `${queue.volume}%`, true),
                     ],
-                    components: [musicButtonRow()],
+                    components: [musicButtonRow(), musicButtonRow2()],
                     ephemeral: false,
                 });
             }, 3000);

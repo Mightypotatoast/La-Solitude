@@ -71,7 +71,7 @@ module.exports = {
                             )
                             .addField(`Volume :`, `${queue.volume}%`, true),
                     ],
-                    components: [musicButtonRow()],
+                    components: [musicButtonRow(), musicButtonRow2()],
                     ephemeral: false,
                 });
             }, 1000);
