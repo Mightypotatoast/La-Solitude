@@ -258,10 +258,9 @@ module.exports = {
             case "skip":
                 {
                     try {
-                        if (
-                            queue.songs[1] === undefined &&
-                            queue.autoplay === false
-                        )
+                        const nextSong = queue.songs[1];
+
+                        if (nextSong === undefined && queue.autoplay === false)
                             return interaction.reply({
                                 embeds: [
                                     errorEmbed().setDescription(
@@ -270,18 +269,19 @@ module.exports = {
                                 ],
                                 ephemeral: true,
                             });
-                        await queue.skip();
+
                         interaction.message.edit({
                             embeds: [
                                 musicEmbed()
-                                    .setThumbnail(`${queue.songs[0].thumbnail}`)
+                                    .setThumbnail(`${nextSong.thumbnail}`)
                                     .setDescription(
-                                        ` La musique a été passée par ${interaction.user}! Musique actuelle :\n [${queue.songs[0].name}](${queue.songs[0].url})`
+                                        ` La musique a été passée par ${interaction.user}! Musique actuelle :\n [${nextSong.name}](${nextSong.url})`
                                     ),
                             ],
                             components: [musicButtonRow(), musicButtonRow2()],
                         });
                         interaction.deferUpdate();
+                        queue.skip();
                     } catch (e) {
                         interaction.reply({
                             embeds: [errorEmbed().setDescription(`${e}`)],
