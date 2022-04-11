@@ -2,6 +2,7 @@ const { ButtonInteraction, Client } = require("discord.js");
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 const { musicButtonRow, musicButtonRow2 } = require("../../util/buttonLayout");
 const { generateProgressBar } = require("../../util/functions");
+const db = require("../../Models/playlist");
 
 module.exports = {
     name: "interactionCreate",
@@ -227,15 +228,23 @@ module.exports = {
             case "like":
                 {
                     try {
-                        interaction.message.edit({
-                            embeds: [
-                                musicEmbed().setDescription(
-                                    `❤️ | ${interaction.user} mdrr t'as cru ct déja implémenté`
-                                ),
-                            ],
-                            components: [musicButtonRow(), musicButtonRow2()],
-                        });
-                        interaction.deferUpdate();
+                        db.findOne(
+                            {
+                                GuildID: message.guild.id,
+                            },
+                            async (err, data) => {
+                                if (err) throw err;
+                                if (!data) {
+                                    data = new db({
+                                        GuildID: message.guild.id,
+                                        LogChannelID: message.channel.id,
+                                    });
+                                } else {
+                                    data.LogChannelID = message.channel.id;
+                                }
+                                data.save();
+                            }
+                        );
                     } catch (e) {
                         interaction.reply({
                             embeds: [errorEmbed().setDescription(`${e}`)],
