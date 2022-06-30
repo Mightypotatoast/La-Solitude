@@ -2,10 +2,9 @@ const { joinVoiceChannel } = require("@discordjs/voice");
 const { successEmbed, errorEmbed } = require("../../util/Embeds");
 
 module.exports = {
-    name: "join",
-    description: "Rejoins le salon vocal",
-    permission: "ADMINISTRATOR",
-    active: true,
+    data: new SlashCommandBuilder()
+        .setName("Join")
+        .setDescription("Rejoins le salon vocal"),
 
     async execute(message) {
         var channel = message.member.voice.channel;

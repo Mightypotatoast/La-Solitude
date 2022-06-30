@@ -3,10 +3,9 @@ const { options } = require("snekfetch");
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 
 module.exports = {
-    name: "remove",
-    description: "Supprime une musique de la file d'attente",
-    permission: "ADMINISTRATOR",
-    active: true,
+    data: new SlashCommandBuilder()
+        .setName("Remove")
+        .setDescription("Supprime une musique de la file d'attente"),
 
     async execute(message, client) {
         try {

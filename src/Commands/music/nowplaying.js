@@ -3,11 +3,9 @@ const { musicButtonRow, musicButtonRow2 } = require("../../util/buttonLayout");
 const { generateProgressBar } = require("../../util/functions");
 
 module.exports = {
-    name: "nowplaying",
-    aliases: ["now"],
-    description: "Affiche les informations de la musique en cours",
-    permission: "ADMINISTRATOR",
-    active: true,
+    data: new SlashCommandBuilder()
+        .setName("NowPlaying")
+        .setDescription("Affiche les informations de la musique en cours"),
 
     async execute(message, client) {
         const queue = client.distube.getQueue(message);

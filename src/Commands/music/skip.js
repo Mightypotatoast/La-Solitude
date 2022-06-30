@@ -1,6 +1,17 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 
 module.exports = {
+    data: new SlashCommandBuilder()
+        .setName("Skip")
+        .setDescription("Passe la musique en cours")
+        .addIntegerOption((option) =>
+            option
+                .setName("number")
+                .setDescription("Nombre de musiques à passer")
+                .setRequired(true)
+                .setDefaultValue("1")
+        ),
+
     name: "skip",
     description: "Passe la musique en cours",
     permission: "ADMINISTRATOR",

@@ -1,35 +1,23 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 
 module.exports = {
-    name: "repeat",
-    aliases: ["loop"],
-    description: "Répète la musique en cours",
-    type: 1,
-    inVoiceChannel: true,
-    permission: "ADMINISTRATOR",
-    active: true,
-    options: [
-        {
-            name: "mode",
-            description: `Choisissez un mode de répétition (Désactiver, Répéter la musique, Répéter la file d'attente).`,
-            type: 4,
-            required: true,
-            choices: [
-                {
-                    name: "Désactiver",
-                    value: 0,
-                },
-                {
-                    name: "Répéter la musique",
-                    value: 1,
-                },
-                {
-                    name: "Répéter la file d'attente",
-                    value: 2,
-                },
-            ],
-        },
-    ],
+    data: new SlashCommandBuilder()
+        .setName("Reapeat")
+        .setDescription("Répète la musique en cours")
+        .addStringOption((option) =>
+            option
+                .setName("Mode")
+                .setDescription(
+                    "Choisissez un mode de répétition (Désactiver, Répéter la musique, Répéter la file d'attente)."
+                )
+                .setRequired(true)
+                .addChoices(
+                    { name: "Désactiver", value: "0" },
+                    { name: "Répéter la musique", value: "1" },
+                    { name: "Répéter la file d'attente", value: "2" }
+                )
+        ),
+
     async execute(message, client) {
         try {
             mode = message.options.getInteger("mode");

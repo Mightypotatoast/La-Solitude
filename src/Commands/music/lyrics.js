@@ -8,10 +8,9 @@ function sleep(ms) {
 }
 
 module.exports = {
-    name: "lyrics",
-    description: "Affiche les paroles de la musique en cours",
-    permission: "ADMINISTRATOR",
-    active: false,
+    data: new SlashCommandBuilder()
+        .setName("Lyrics")
+        .setDescription("Affiche les paroles de la musique en cours"),
 
     async execute(message, client) {
         try {

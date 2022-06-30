@@ -1,10 +1,9 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 
 module.exports = {
-    name: "previous",
-    description: "Relance la musique précédente",
-    permission: "ADMINISTRATOR",
-    active: true,
+    data: new SlashCommandBuilder()
+        .setName("Previous")
+        .setDescription("Rejoue la musique précédente"),
 
     async execute(message, client) {
         const queue = client.distube.getQueue(message);

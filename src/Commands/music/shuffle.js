@@ -1,10 +1,9 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 
 module.exports = {
-    name: "shuffle",
-    description: "Mélange les musiques de la file d'attente",
-    permission: "ADMINISTRATOR",
-    active: true,
+    data: new SlashCommandBuilder()
+        .setName("Shuffle")
+        .setDescription("Mélange les musiques de la file d'attente"),
 
     async execute(message, client) {
         try {

@@ -3,19 +3,17 @@ const { joinVoiceChannel } = require("@discordjs/voice");
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 const { musicButtonRow, musicButtonRow2 } = require("../../util/buttonLayout");
 module.exports = {
-    name: "play",
-    description: "Joue une musique",
-    permission: "ADMINISTRATOR",
-    active: true,
-
-    options: [
-        {
-            name: "music",
-            description: `Le nom ou l'URL de la musique à jouer`,
-            type: "STRING",
-            required: true,
-        },
-    ],
+    data: new SlashCommandBuilder()
+        .setName("Play")
+        .setDescription(
+            "Joue une musique ou une playlist depuis Youtube ou une URL"
+        )
+        .addStringOption((option) =>
+            option
+                .setName("url")
+                .setDescription("url ou nom de la musique a jouer")
+                .setRequired(true)
+        ),
 
     async execute(message, client) {
         channel = message.member.voice.channel;

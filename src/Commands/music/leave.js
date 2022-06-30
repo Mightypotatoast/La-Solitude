@@ -1,10 +1,9 @@
 const { getVoiceConnection } = require("@discordjs/voice");
 
 module.exports = {
-    name: "leave",
-    description: "Quitte le salon vocal",
-    permission: "ADMINISTRATOR",
-    active: true,
+    data: new SlashCommandBuilder()
+        .setName("Leave")
+        .setDescription("Quitte le salon vocal"),
 
     async execute(message) {
         if (!message.member.voice.channel)

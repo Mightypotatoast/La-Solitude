@@ -2,10 +2,9 @@ const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 const { musicButtonRow, musicButtonRow2 } = require("../../util/buttonLayout");
 
 module.exports = {
-    name: "queue",
-    description: "Affiche la file d'attente",
-    permission: "ADMINISTRATOR",
-    active: true,
+    data: new SlashCommandBuilder()
+        .setName("Queue")
+        .setDescription("Affiche la file d'attente"),
 
     async execute(message, client) {
         try {
