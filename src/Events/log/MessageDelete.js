@@ -1,5 +1,5 @@
 const { MessageEmbed, MessageAttachment } = require('discord.js')
-const config = require('../../config.json')
+const config = require('../../config')
 
 
 module.exports = {
@@ -7,11 +7,14 @@ module.exports = {
     name: 'messageDelete',
     once: false,
 
-    async execute(message) {
+    async execute(message, client) {
 
-        
 
-        for(const [key, value] of Object.entries(config.channel)){
+        if (message.author.bot || message.member.id === client.user.id) return;
+
+        const { channel } = await config(message.guild.id)
+
+        for(const [key, value] of Object.entries(channel)){
             if (message.channel.id === value) return;
         };
 
@@ -42,8 +45,11 @@ module.exports = {
             .setImage((message.attachments.size == 0) ? null : `${message.attachments.first().url}`)
             .setTimestamp()
         
-        message.guild.channels.cache.get(config.channel.logID).send({ embeds: [messageEmbed] });
-    
+        try{
+            message.guild.channels.cache.get(channel.logID).send({ embeds: [messageEmbed] });
+        } catch (e) {
+            console.log(e);
+        }
         
         // console.log(entry)
         // console.log("\n***************************************************************************************\n")

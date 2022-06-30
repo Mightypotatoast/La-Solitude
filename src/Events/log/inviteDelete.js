@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-const config = require('../../config.json')
+const config = require('../../config')
 
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
     name: 'inviteDelete',
     once: false,
 
-    execute(invite) {
+    async execute(invite) {
         
         let inviteDate = invite.createdAt
         let inviteExpireDate = invite.expiresAt
@@ -21,8 +21,11 @@ module.exports = {
             .setTimestamp()
                     
 
-        invite.guild.channels.cache.get(config.channel.logID).send({ embeds : [inviteEmbed] });
-    
+        try {       
+            invite.guild.channels.cache.get((await config(invite.guild.id)).channel.logID).send({ embeds : [inviteEmbed] });
+        } catch (e) {
+            console.log(e);
+        }
        
     }
 }

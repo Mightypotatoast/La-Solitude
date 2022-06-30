@@ -1,28 +1,59 @@
-const { Client, CommandInteraction, MessageEmbed } = require('discord.js')
-const { execute } = require('../guild/guildCreate')
+const { MessageEmbed, CommandInteraction, Client } = require('discord.js')
+const { musicEmbed, errorEmbed } = require("../../util/Embeds") //!provisoir, a retirer quand Handler pour Select menu sera présent
 
 module.exports = {
 
     name: "interactionCreate",
     
-
+    /**
+     * 
+     * @param {CommandInteraction} interaction 
+     * @param {Client} client 
+     * @returns 
+     */
     async execute(interaction, client) {
         
         if (interaction.isCommand() || interaction.isContextMenu()) {
             const command = client.commands.get(interaction.commandName);
             if (!command) return interaction.reply({
                 embeds: [
-                    new MessageEmbed()
-                        .setColor("RED")
-                        .setTitle("⛔⛔ **ERREUR** ⛔⛔")
-                        .setDescription("Une erreur a été rencontrée lors du lancement de cette commande")
+                    errorEmbed()
+                        .setDescription("Une erreur est survenue lors de la récupération de la commande")
                 ], ephemeral : true
             } ) && client.commands.delete(interaction.commandName);
 
             command.execute(interaction,client)
         }
+        
+        else if (interaction.isSelectMenu()) {    //! a modifer/mettre en place un handler pour les SelectMenu
+            try {
 
-
+                if (interaction.customId !== 'remove') return
+                await interaction.deferReply()
+                const queue = client.distube.getQueue(interaction)
+                const songId = interaction.values[0]
+                queue.songs.splice(songId, 1)
+                
+                await interaction.followUp({
+                embeds: [
+                        musicEmbed()
+                            .setDescription(`${interaction.user} a supprimé la musique [${queue.songs[songId].name}](${queue.songs[songId].url}) de la file d'attente`)
+                    ]
+                })
+                
+                interaction.message.delete()
+                //interaction.message.resolveComponent(interaction.customId).setDisabled(true) //!wtf pk ca marche pas
+            } catch (e) {
+                console.error(e)
+                interaction.editReply(
+                    {
+                        embeds: [
+                            errorEmbed().setDescription(`ALED : \n${e}`)
+                        ],
+                        ephemeral: true
+                    }
+                )
+            }
+        }
     }
-
 }

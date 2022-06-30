@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const config = require('../../config.json')
+const config = require('../../config')
 
 
 module.exports = {
@@ -15,9 +15,9 @@ module.exports = {
 	        .setTimestamp();
 
         
-        if (channel) {
-            member.guild.channels.cache.get(config.channel.au_revoirID).send({embeds : [exampleEmbed]})
-        } else { console.log("pas trouvé le channel 'au_revoir'"); }
+        
+        (!config(member.guild.id).channel.au_revoirID) ? console.log("/!\\ Le salon 'au_revoir' n'est pas initialisé /!\\") : member.guild.channels.cache.get(config(member.guild.id).channel.au_revoirID).send({embeds : [exampleEmbed]})
+            
         
     }
 }
