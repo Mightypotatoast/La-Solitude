@@ -9,23 +9,22 @@ function sleep(ms) {
 
 module.exports = {
     name: "lyrics",
-    description: "Affiche les paroles d'un titre",
+    description: "Affiche les paroles de la musique en cours",
     permission: "ADMINISTRATOR",
-    active: true,
+    active: false,
 
     async execute(message, client) {
         try {
-            const queue = client.distube.getQueue(message);
-            if (!queue)
-                return message.reply({
-                    embeds: [
-                        errorEmbed().setDescription(
-                            `La file d'attente est actuellement vide !`
-                        ),
-                    ],
-                    ephemeral: true,
-                });
-            message.deferReply({ ephemeral: false });
+            return message.reply({
+                embeds: [
+                    errorEmbed().setDescription(
+                        `La file d'attente est actuellement vide !`
+                    ),
+                ],
+                ephemeral: true,
+            });
+
+            //! a refaire
 
             //open Browser
             const browser = await puppeteer.launch({ headless: true });
