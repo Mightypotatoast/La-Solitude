@@ -1,8 +1,9 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("Previous")
+        .setName("previous")
         .setDescription("Rejoue la musique précédente"),
 
     async execute(message, client) {

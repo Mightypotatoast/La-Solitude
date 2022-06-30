@@ -2,15 +2,17 @@ const { Message } = require("discord.js");
 const { joinVoiceChannel } = require("@discordjs/voice");
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 const { musicButtonRow, musicButtonRow2 } = require("../../util/buttonLayout");
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("Play")
+        .setName("play")
         .setDescription(
             "Joue une musique ou une playlist depuis Youtube ou une URL"
         )
         .addStringOption((option) =>
             option
-                .setName("url")
+                .setName("musique")
                 .setDescription("url ou nom de la musique a jouer")
                 .setRequired(true)
         ),
@@ -27,7 +29,7 @@ module.exports = {
                 ephemeral: true,
             });
 
-        const music = message.options.getString("music");
+        const music = message.options.getString("musique");
         if (music == "") return;
 
         message.deferReply({ ephemeral: false });

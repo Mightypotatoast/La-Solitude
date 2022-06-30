@@ -1,10 +1,11 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 const { musicButtonRow, musicButtonRow2 } = require("../../util/buttonLayout");
 const { generateProgressBar } = require("../../util/functions");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("NowPlaying")
+        .setName("nowplaying")
         .setDescription("Affiche les informations de la musique en cours"),
 
     async execute(message, client) {

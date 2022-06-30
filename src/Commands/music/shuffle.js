@@ -1,8 +1,9 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("Shuffle")
+        .setName("shuffle")
         .setDescription("Mélange les musiques de la file d'attente"),
 
     async execute(message, client) {

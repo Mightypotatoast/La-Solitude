@@ -7,6 +7,7 @@ const { Perms } = require("../util/Permissions"),
     config = require("../config");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { REST } = require("@discordjs/rest");
+const { Console, log } = require("console");
 const { Routes } = require("discord-api-types/v9");
 require("dotenv").config();
 /**
@@ -15,12 +16,13 @@ require("dotenv").config();
  */
 module.exports = async (client) => {
     /*******************************************/
+    //           COMMANDS UPDATE
     //           CONSOLE RECAP                 //
     /*******************************************/
+    commandsArrayScync = [];
     const Table = new Ascii("Command Loaded");
     CommandsArray = [];
-    commandArrayScync = [];
-    (await PG(`${process.cwd()}/src/Commands/*/*.js`)).map(async (file) => {
+    (await PG(`${process.cwd()}/src/Commands/music/*.js`)).map(async (file) => {
         const command = require(file);
 
         if (!command.name)
@@ -55,6 +57,7 @@ module.exports = async (client) => {
 
         client.commands.set(command.name, command);
         CommandsArray.push(command);
+        commandsArrayScync.push(command.data.toJSON());
         if (
             typeof command.description === "string" ||
             command.description instanceof String
@@ -62,31 +65,28 @@ module.exports = async (client) => {
         } else {
             command.description = "No description";
         }
-        await commandArrayScync.push(
-            new SlashCommandBuilder()
-                .setName(command.name)
-                .setDescription(command.description)
-                .addStringOption(command.option)
-        );
+
         await Table.addRow(command.name, "🟢 SUCCESSFUL");
     });
-
     console.log(Table.toString());
 
-    /*******************************************/
-    //           COMMANDS UPDATE               //
-    /*******************************************/
-
-    commandArrayScync.map((command) => command.toJSON());
     const rest = new REST({ version: "9" }).setToken(process.env.DISCORD_TOKEN);
+    (async () => {
+        try {
+            console.log("Started refreshing application (/) commands.");
+            console.log(commandsArrayScync);
+            await rest.put(
+                Routes.applicationCommands(process.env.DISCORD_CLIENT_ID),
+                {
+                    body: commandsArrayScync,
+                }
+            );
 
-    rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT_ID), {
-        body: commandArrayScync,
-    })
-        .then(() =>
-            console.log("Successfully registered application commands.")
-        )
-        .catch(console.error);
+            console.log("Successfully reloaded application (/) commands.");
+        } catch (error) {
+            console.error(error);
+        }
+    })();
 
     /*******************************************/
     //           PERMISSIONS CHECK

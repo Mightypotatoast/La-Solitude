@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("Autoplay")
+        .setName("autoplay")
         .setDescription(
             "Si activé, le Bot jouera une musique recommandée par Youtube quand la file d'attente sera vide"
         ),

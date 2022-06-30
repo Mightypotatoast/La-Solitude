@@ -1,12 +1,13 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("Reapeat")
+        .setName("reapeat")
         .setDescription("Répète la musique en cours")
         .addStringOption((option) =>
             option
-                .setName("Mode")
+                .setName("mode")
                 .setDescription(
                     "Choisissez un mode de répétition (Désactiver, Répéter la musique, Répéter la file d'attente)."
                 )

@@ -1,9 +1,10 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     //! la commande fonctionne pour des petits nombre mais pas pour les grand (genre 300secondes)
     data: new SlashCommandBuilder()
-        .setName("FastForward")
+        .setName("fastforward")
         .setDescription("Avance la musique d'un certain nombre de secondes")
         .addIntegerOption((option) =>
             option

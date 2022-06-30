@@ -1,8 +1,9 @@
 const { getVoiceConnection } = require("@discordjs/voice");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("Leave")
+        .setName("leave")
         .setDescription("Quitte le salon vocal"),
 
     async execute(message) {

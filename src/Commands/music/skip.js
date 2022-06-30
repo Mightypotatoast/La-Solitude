@@ -1,15 +1,15 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("Skip")
+        .setName("skip")
         .setDescription("Passe la musique en cours")
         .addIntegerOption((option) =>
             option
                 .setName("number")
                 .setDescription("Nombre de musiques à passer")
                 .setRequired(true)
-                .setDefaultValue("1")
         ),
 
     name: "skip",
