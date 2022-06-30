@@ -3,20 +3,52 @@ const { Perms } = require("../util/Permissions"),
     { promisify } = require("util"),
     { glob } = require("glob"),
     PG = promisify(glob),
-    Ascii = require("ascii-table"),
-    config = require("../config");
-const { SlashCommandBuilder } = require("@discordjs/builders");
+    Ascii = require("ascii-table");
 const { REST } = require("@discordjs/rest");
-const { Console, log } = require("console");
 const { Routes } = require("discord-api-types/v9");
 require("dotenv").config();
+const fs = require("node:fs");
 /**
  *
  * @param {Client} client
  */
 module.exports = async (client) => {
     /*******************************************/
-    //           COMMANDS UPDATE
+    //           COMMANDS UPDATE              //
+    /*******************************************/
+
+    const commands = [];
+    fs.readdirSync("./src/Commands").forEach((dir) => {
+        const commandfiles = fs
+            .readdirSync(`./src/Commands/${dir}/`)
+            .filter((file) => file.endsWith(".js"));
+        for (const file of commandfiles) {
+            const command = require(`../src/Commands/${dir}/${file}`);
+            console.log(`Loading  ${command.data.name}`, "cmd");
+            commands.push(command.data.toJSON());
+        }
+    });
+    console.log(`commands :${commands}`);
+    const rest = new REST({ version: "9" }).setToken(process.env.DISCORD_TOKEN);
+    (async () => {
+        try {
+            console.log("Started refreshing application (/) commands    .");
+
+            await rest.put(
+                Routes.applicationCommands(process.env.DISCORD_CLIENT_ID),
+                {
+                    body: commands,
+                }
+            );
+
+            console.log("Successfully reloaded application (/) commands .");
+            console.log(commands);
+        } catch (error) {
+            console.error(error);
+        }
+    })();
+
+    /*******************************************/
     //           CONSOLE RECAP                 //
     /*******************************************/
     commandsArrayScync = [];
@@ -57,7 +89,6 @@ module.exports = async (client) => {
 
         client.commands.set(command.name, command);
         CommandsArray.push(command);
-        commandsArrayScync.push(command.data.toJSON());
         if (
             typeof command.description === "string" ||
             command.description instanceof String
@@ -69,24 +100,6 @@ module.exports = async (client) => {
         await Table.addRow(command.name, "🟢 SUCCESSFUL");
     });
     console.log(Table.toString());
-
-    const rest = new REST({ version: "9" }).setToken(process.env.DISCORD_TOKEN);
-    (async () => {
-        try {
-            console.log("Started refreshing application (/) commands.");
-            console.log(commandsArrayScync);
-            await rest.put(
-                Routes.applicationCommands(process.env.DISCORD_CLIENT_ID),
-                {
-                    body: commandsArrayScync,
-                }
-            );
-
-            console.log("Successfully reloaded application (/) commands.");
-        } catch (error) {
-            console.error(error);
-        }
-    })();
 
     /*******************************************/
     //           PERMISSIONS CHECK
