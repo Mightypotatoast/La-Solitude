@@ -50,10 +50,12 @@ module.exports = {
             else {
                 messageMeme = await message.channel.send({ embeds: [embedReponse], fetchReply: true})
             }
-
-            await messageMeme.react(message.guild.emojis.cache.find(emoji => emoji.name === "upvote"))
-            await messageMeme.react(message.guild.emojis.cache.find(emoji => emoji.name === "downvote"))
-
+            try {
+                await messageMeme.react(message.guild.emojis.cache.find(emoji => emoji.name === "upvote"))
+                await messageMeme.react(message.guild.emojis.cache.find(emoji => emoji.name === "downvote"))
+            } catch (e) {
+                console.log("Le serveur n'a pas les émojis !")
+            }
         }
       
   },

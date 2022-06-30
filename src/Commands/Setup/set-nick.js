@@ -5,7 +5,7 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 
 module.exports = {
 
-    name: "setnick",
+    name: "set-nick",
     description: "Change le pseudo de quelqu'un",
     permission: "ADMINISTRATOR",
     active: true,
