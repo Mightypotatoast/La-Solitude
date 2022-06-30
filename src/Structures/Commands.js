@@ -66,6 +66,7 @@ module.exports = async (client) => {
             new SlashCommandBuilder()
                 .setName(command.name)
                 .setDescription(command.description)
+                .addStringOption(command.option)
         );
         await Table.addRow(command.name, "🟢 SUCCESSFUL");
     });
