@@ -5,16 +5,21 @@ const { Perms } = require("../util/Permissions"),
     PG = promisify(glob),
     Ascii = require("ascii-table"),
     config = require("../config");
-
+const { SlashCommandBuilder } = require("@discordjs/builders");
+const { REST } = require("@discordjs/rest");
+const { Routes } = require("discord-api-types/v9");
+require("dotenv").config();
 /**
  *
  * @param {Client} client
  */
 module.exports = async (client) => {
+    /*******************************************/
+    //           CONSOLE RECAP                 //
+    /*******************************************/
     const Table = new Ascii("Command Loaded");
-
     CommandsArray = [];
-
+    commandArrayScync = [];
     (await PG(`${process.cwd()}/src/Commands/*/*.js`)).map(async (file) => {
         const command = require(file);
 
@@ -50,14 +55,41 @@ module.exports = async (client) => {
 
         client.commands.set(command.name, command);
         CommandsArray.push(command);
-
+        if (
+            typeof command.description === "string" ||
+            command.description instanceof String
+        ) {
+        } else {
+            command.description = "No description";
+        }
+        await commandArrayScync.push(
+            new SlashCommandBuilder()
+                .setName(command.name)
+                .setDescription(command.description)
+        );
         await Table.addRow(command.name, "🟢 SUCCESSFUL");
     });
 
     console.log(Table.toString());
 
     /*******************************************/
-    //           PERMISSIONS CHECK             //
+    //           COMMANDS UPDATE               //
+    /*******************************************/
+
+    commandArrayScync.map((command) => command.toJSON());
+    const rest = new REST({ version: "9" }).setToken(process.env.DISCORD_TOKEN);
+
+    rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT_ID), {
+        body: commandArrayScync,
+    })
+        .then(() =>
+            console.log("Successfully registered application commands.")
+        )
+        .catch(console.error);
+
+    /*******************************************/
+    //           PERMISSIONS CHECK
+    //!            NE MARCHE PLUS              //
     /*******************************************/
 
     /**
