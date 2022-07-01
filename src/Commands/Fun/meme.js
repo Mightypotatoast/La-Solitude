@@ -11,7 +11,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("meme")
         .setDescription("Renvoie un meme")
-        .addIntegerOption((option) =>
+        .addNumberOption((option) =>
             option
                 .setName("combien")
                 .setDescription(

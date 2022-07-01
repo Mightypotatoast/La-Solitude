@@ -16,20 +16,7 @@ client.distube = new Distube.default(client, {
 /*******************************************/
 //       Add commands in collection          //
 /*******************************************/
-client.commands = new Collection();
-const commandsPath = path.join(__dirname, "./Commands");
-const commandFiles = fs
-    .readdirSync(commandsPath)
-    .filter((file) => file.endsWith(".js"));
 
-for (const file of commandFiles) {
-    console.log(` ${file} command file found 🟢`);
-    const filePath = path.join(commandsPath, file);
-    const command = require(filePath);
-    //console.info(command);
-    // Set a new item in the Collection
-    // With the key as the command name and the value as the exported module
-    client.commands.set(command.data.name, command);
-}
+client.commands = new Collection();
 
 client.login(process.env.DISCORD_TOKEN);

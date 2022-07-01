@@ -20,7 +20,7 @@ module.exports = async (client) => {
     //           COMMANDS UPDATE               //
     /*******************************************/
     commands = [];
-    (await PG(`${process.cwd()}/src/Commands/music/*.js`)).map(async (file) => {
+    (await PG(`${process.cwd()}/src/Commands/*/*.js`)).map(async (file) => {
         const command = require(file);
         //console.log(`commande ${command.data.name} chargée 🟢`);
         commands.push(command.data.toJSON());
@@ -46,6 +46,15 @@ module.exports = async (client) => {
             console.error(error);
         }
     })();
+
+    /*******************************************/
+    //           COMMANDS UPDATE COLLECTION     //
+    /*******************************************/
+    (await PG(`${process.cwd()}/src/Commands/*/*.js`)).map(async (file) => {
+        const command = require(file);
+        console.log(` ${command.data.name} command file found 🟢`);
+        client.commands.set(command.data.name, command);
+    });
 
     /*******************************************/
     //           CONSOLE RECAP                 //

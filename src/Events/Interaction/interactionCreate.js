@@ -16,7 +16,7 @@ module.exports = {
         );
         if (!interaction.isCommand()) return;
         const command = client.commands.get(interaction.commandName);
-        console.info(command);
+        //console.info(client.commands);
         if (!command) return console.log("commande non trouvée");
 
         try {
