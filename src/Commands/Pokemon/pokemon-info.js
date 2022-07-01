@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
 const Discord = require("discord.js");
 // const https = require("https");
 // const axios = require("axios");

@@ -7,6 +7,7 @@ const { errorEmbed, successEmbed, musicEmbed } = require("../../util/Embeds");
 const db = require("../../Models/commands");
 const glob = require("glob");
 const { SortObjectArray } = require("../../util/functions");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandBuilder()

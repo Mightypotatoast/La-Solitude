@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const db = require("../../Models/infraction");
 const { errorEmbed, warningEmbed } = require("../../util/Embeds");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     //TODO A REFAIRE

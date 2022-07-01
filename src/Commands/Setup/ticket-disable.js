@@ -2,6 +2,7 @@ const { CommandInteraction, MessageEmbed, Client } = require("discord.js");
 const { errorEmbed, successEmbed } = require("../../util/Embeds");
 const db = require("../../Models/channels");
 const ticketDB = require("../../Models/tickets");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandBuilder()

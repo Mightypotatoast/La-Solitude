@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
 const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
 const { errorEmbed, banEmbed } = require("../../util/Embeds");
 

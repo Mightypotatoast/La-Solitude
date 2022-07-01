@@ -1,5 +1,6 @@
 const { CommandInteraction } = require("discord.js");
 const { errorEmbed } = require("../../util/Embeds");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 const clean = (text) => {
     if (typeof text === "string")

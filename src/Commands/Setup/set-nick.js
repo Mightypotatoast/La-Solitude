@@ -2,6 +2,7 @@ const { MessageEmbed, CommandInteraction } = require("discord.js");
 const { errorEmbed } = require("../../util/Embeds");
 const fetch = (...args) =>
     import("node-fetch").then(({ default: fetch }) => fetch(...args)); // eslint-disable-line
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     //TODO A REFAIRE

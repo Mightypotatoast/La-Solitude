@@ -2,6 +2,7 @@ const ms = require("ms");
 const { CommandInteraction } = require("discord.js");
 const db = require("../../Models/infraction");
 const { errorEmbed, muteEmbed } = require("../../util/Embeds");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     //TODO A REFAIRE

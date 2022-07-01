@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const phewist = require("../../util/phewistLists");
-
+const { SlashCommandBuilder } = require("@discordjs/builders");
 //const config = require("../../config.json");
 
 module.exports = {

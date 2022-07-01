@@ -1,3 +1,4 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
 const { ContextMenuInteraction, MessageEmbed } = require("discord.js");
 
 module.exports = {

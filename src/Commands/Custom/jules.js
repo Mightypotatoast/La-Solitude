@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 // const https = require("https");
 // const axios = require("axios");
 // const config = require("../../config.json");

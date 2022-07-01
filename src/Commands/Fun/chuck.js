@@ -3,7 +3,7 @@ const { errorEmbed } = require("../../util/Embeds");
 const fetch = (...args) =>
     import("node-fetch").then(({ default: fetch }) => fetch(...args)); // eslint-disable-line
 const cheerio = require("cheerio");
-
+const { SlashCommandBuilder } = require("@discordjs/builders");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("chuck")
