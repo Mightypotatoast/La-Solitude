@@ -18,7 +18,6 @@ module.exports = {
         ),
 
     async execute(message, client) {
-        message.deferReply({ ephemeral: false });
         channel = message.member.voice.channel;
         if (!channel)
             return message.reply({
@@ -33,7 +32,8 @@ module.exports = {
         const music = message.options.getString("musique");
         if (music == "") return;
 
-        var channel = message.member.voice.channel;
+        message.deferReply({ ephemeral: false });
+
         await joinVoiceChannel({
             channelId: channel.id,
             guildId: message.guild.id,
