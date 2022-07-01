@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require("discord.js");
 const answers = [
     "C'est certain.",
     "C'est le cas.",
@@ -30,39 +30,34 @@ const answers = [
     "C'est ton destin.",
     "Oui absolument.",
     "C'est bien parti",
-    "Faut pas rêver"
+    "Faut pas rêver",
 ];
 
-
-
 module.exports = {
+    data: new SlashCommandBuilder()
+        .setName("8ball")
+        .setDescription("AJe répond à vos questions")
+        .addStringOption((option) =>
+            option
+                .setName("question")
+                .setDescription("Écris ta question")
+                .setRequired(true)
+        ),
 
-    name: "8ball",
-    description: "Je répond à vos questions",
-    permission: "ADMINISTRATOR",
-    active: true,
-    options: [
-        {
-            name: "question",
-            description: "Ecris ta question",
-            type: "STRING",
-            required: true
-        }
-    ],
-
-
-  
     execute(message, client) {
-        const question = message.options.getString("question")
+        const question = message.options.getString("question");
 
         const embed = new MessageEmbed()
-            .setTitle('🎱  The Magic 8-Ball  🎱')
+            .setTitle("🎱  The Magic 8-Ball  🎱")
             //.setDescription("**-----------------------------**")
-            .addField('Question', `\`${question}\``)
-            .addField('Réponse', `\`${answers[Math.floor(Math.random() * answers.length)]}\``)
+            .addField("Question", `\`${question}\``)
+            .addField(
+                "Réponse",
+                `\`${answers[Math.floor(Math.random() * answers.length)]}\``
+            )
             .setTimestamp()
             .setColor("#6f00ff");
-        
+
         message.reply({ embeds: [embed] });
-    }
-}
+    },
+};
