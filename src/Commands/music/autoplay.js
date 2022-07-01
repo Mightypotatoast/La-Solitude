@@ -1,13 +1,12 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
-    name: "autoplay",
-    description:
-        "Si activé, le Bot jouera une musique recommandée par Youtube quand la file d'attente sera vide", //"if enabled, the bot will play recommanded music from youtuabe when the queue is empty",
-    type: 1,
-    inVoiceChannel: true,
-    permission: "ADMINISTRATOR",
-    active: true,
+    data: new SlashCommandBuilder()
+        .setName("autoplay")
+        .setDescription(
+            "Si activé, le Bot jouera une musique recommandée par Youtube quand la file d'attente sera vide"
+        ),
 
     async execute(message, client) {
         try {

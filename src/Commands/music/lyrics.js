@@ -1,5 +1,6 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 const puppeteer = require("puppeteer");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 function sleep(ms) {
     return new Promise((resolve) => {
@@ -8,10 +9,9 @@ function sleep(ms) {
 }
 
 module.exports = {
-    name: "lyrics",
-    description: "Affiche les paroles de la musique en cours",
-    permission: "ADMINISTRATOR",
-    active: false,
+    data: new SlashCommandBuilder()
+        .setName("lyrics")
+        .setDescription("Affiche les paroles de la musique en cours"),
 
     async execute(message, client) {
         try {

@@ -1,5 +1,17 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
+    data: new SlashCommandBuilder()
+        .setName("volume")
+        .setDescription("Change le volume de la musique")
+        .addIntegerOption((option) =>
+            option
+                .setName("% du volume")
+                .setDescription("Par défaut, le volume est à 50%")
+                .setRequired(true)
+        ),
+
     name: "volume",
     description: "Change le volume de la musique",
     permission: "ADMINISTRATOR",

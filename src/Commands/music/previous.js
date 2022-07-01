@@ -1,10 +1,10 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
-    name: "previous",
-    description: "Relance la musique précédente",
-    permission: "ADMINISTRATOR",
-    active: true,
+    data: new SlashCommandBuilder()
+        .setName("previous")
+        .setDescription("Rejoue la musique précédente"),
 
     async execute(message, client) {
         const queue = client.distube.getQueue(message);

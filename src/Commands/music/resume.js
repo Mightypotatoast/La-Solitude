@@ -1,10 +1,12 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
-    name: "resume",
-    description: "Met en pause ou Reprends la lecture d'une musique en cours",
-    permission: "ADMINISTRATOR",
-    active: true,
+    data: new SlashCommandBuilder()
+        .setName("resume")
+        .setDescription(
+            "Met en pause ou Reprends la lecture d'une musique en cours"
+        ),
 
     async execute(message, client) {
         try {
