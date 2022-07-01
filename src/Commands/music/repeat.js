@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("reapeat")
+        .setName("repeat")
         .setDescription("Répète la musique en cours")
         .addStringOption((option) =>
             option
