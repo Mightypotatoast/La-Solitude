@@ -7,7 +7,7 @@ module.exports = {
         .setDescription("Change le volume de la musique")
         .addIntegerOption((option) =>
             option
-                .setName("pourcentage du volume")
+                .setName("pourcentage")
                 .setDescription("Par défaut, le volume est à 50%")
                 .setRequired(true)
         ),
