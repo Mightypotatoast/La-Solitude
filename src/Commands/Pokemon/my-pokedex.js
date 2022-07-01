@@ -19,8 +19,8 @@ module.exports = {
     //TODO A REFAIRE
     //TODO A REFAIRE
     data: new SlashCommandBuilder()
-        .setName("mute")
-        .setDescription("Mute un membre du serveur"),
+        .setName("mypokedex")
+        .setDescription("Créer votre propre Pokédex"),
 
     // name: "mypokedex",
     // description: "Créer votre propre Pokédex",
