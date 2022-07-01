@@ -9,7 +9,7 @@ fs.appendFile(
         if (err) {
             console.log(`${folder} failed to be added to the README.md`);
         } else {
-            console.log(`ajout du titre ${folder}`);
+            console.log(`ajout des credits`);
         }
     }
 );
@@ -27,17 +27,17 @@ for (folder of commandsFolder) {
     });
     for (file of commandFiles) {
         const command = require(`./Commands/${folder}/${file}`);
-        console.info(command);
-        // fs.appendFile(
-        //     "README.md",
-        //     `\n | name | Description | \n | :------ | :------ | \n | \`${command.data.name}\` | \`${command.data.description}\` |`,
-        //     function (err) {
-        //         if (err) {
-        //             // append failed
-        //         } else {
-        //             console.log(`ajout de la commande ${command.data.name}`);
-        //         }
-        //     }
-        // );
+        //console.info(command);
+        fs.appendFile(
+            "../README.md",
+            `\n | name | Description | \n | :------ | :------ | \n | \`${command.data.name}\` | \`${command.data.description}\` |`,
+            function (err) {
+                if (err) {
+                    // append failed
+                } else {
+                    console.log(`ajout de la commande ${command.data.name}`);
+                }
+            }
+        );
     }
 }
