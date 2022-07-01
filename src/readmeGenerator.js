@@ -18,19 +18,23 @@ for (folder of commandsFolder) {
     const commandFiles = fs
         .readdirSync(`./Commands/${folder}`)
         .filter((file) => file.endsWith(".js"));
-    fs.appendFile("../README.md", `\n## ${folder}\n`, function (err) {
-        if (err) {
-            console.log(`${folder} failed to be added to the README.md`);
-        } else {
-            console.log(`ajout du titre ${folder}`);
+    fs.appendFile(
+        "../README.md",
+        `\n## ${folder}\n \n | name | Description | \n | :------ | :------ | \n `,
+        function (err) {
+            if (err) {
+                console.log(`${folder} failed to be added to the README.md`);
+            } else {
+                console.log(`ajout du titre ${folder}`);
+            }
         }
-    });
+    );
     for (file of commandFiles) {
         const command = require(`./Commands/${folder}/${file}`);
         //console.info(command);
         fs.appendFile(
             "../README.md",
-            `\n | name | Description | \n | :------ | :------ | \n | \`${command.data.name}\` | \`${command.data.description}\` |`,
+            `| \`${command.data.name}\` | \`${command.data.description}\` |\n`,
             function (err) {
                 if (err) {
                     // append failed
