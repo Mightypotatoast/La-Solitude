@@ -11,19 +11,24 @@ module.exports = {
      * @returns
      */
     async execute(interaction, client) {
-        if (interaction.isCommand() || interaction.isContextMenu()) {
-            const command = client.commands.get(interaction.commandName);
-            if (!command) return;
-            try {
-                await command.execute(interaction);
-            } catch (error) {
-                console.error(error);
-                await interaction.reply({
-                    content: "There was an error while executing this command!",
-                    ephemeral: true,
-                });
-            }
-        } else if (interaction.isSelectMenu()) {
+        console.log(
+            `commande ${interaction.commandName} utilisée par ${interaction.user.username} sur le serveur ${interaction.guild}`
+        );
+        if (!interaction.isCommand()) return;
+        const command = client.commands.get(interaction.commandName);
+        console.info(command);
+        if (!command) return console.log("commande non trouvée");
+
+        try {
+            await command.execute(interaction);
+        } catch (error) {
+            console.error(error);
+            await interaction.reply({
+                content: "There was an error while executing this command!",
+                ephemeral: true,
+            });
+        }
+        if (interaction.isSelectMenu()) {
             //TODO a modifer/mettre en place un handler pour les SelectMenu
             try {
                 if (interaction.customId !== "remove") return;

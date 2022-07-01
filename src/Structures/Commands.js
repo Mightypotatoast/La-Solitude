@@ -19,11 +19,11 @@ module.exports = async (client) => {
     /*******************************************/
     //           COMMANDS UPDATE               //
     /*******************************************/
-    client.commands = [];
+    commands = [];
     (await PG(`${process.cwd()}/src/Commands/music/*.js`)).map(async (file) => {
         const command = require(file);
         //console.log(`commande ${command.data.name} chargée 🟢`);
-        client.commands.push(command.data.toJSON());
+        commands.push(command.data.toJSON());
     });
 
     const rest = new REST({ version: "9" }).setToken(process.env.DISCORD_TOKEN);
@@ -37,7 +37,7 @@ module.exports = async (client) => {
                     "493383989588000769"
                 ),
                 {
-                    body: client.commands,
+                    body: commands,
                 }
             );
 
@@ -46,24 +46,6 @@ module.exports = async (client) => {
             console.error(error);
         }
     })();
-
-    /*******************************************/
-    //       Add commands in collection          //
-    /*******************************************/
-    const commandsPath = path.join(__dirname, "../Commands/music");
-    const commandFiles = fs
-        .readdirSync(commandsPath)
-        .filter((file) => file.endsWith(".js"));
-
-    for (const file of commandFiles) {
-        console.log(`commande ${file} trouvé`);
-        const filePath = path.join(commandsPath, file);
-        const command = require(filePath);
-        console.info(command);
-        // Set a new item in the Collection
-        // With the key as the command name and the value as the exported module
-        client.commands.set(command.data.name, command);
-    }
 
     /*******************************************/
     //           CONSOLE RECAP                 //
