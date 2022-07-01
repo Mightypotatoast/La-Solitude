@@ -13,218 +13,115 @@ j'ai décidé de créer mon propre bot discord afin de répondre au besoin du se
 -   [@MightyPotatoast](https://github.com/MightyPotatoast)
 
 ## Commands
+| `jerem` | `Fait spawn un jérémie sauvage` |
+| `jules` | `Spawn un jules random` |
 
 ## Custom
-
-| name      | Description                                    |
-| :-------- | :--------------------------------------------- |
-| `jerem`   | `Fait spawn un jérémie sauvage`                |
-| name      | Description                                    |
-| :------   | :------                                        |
-| `phewist` | `Générer une phrase que pourrait dire Phewist` |
-| name      | Description                                    |
-| :------   | :------                                        |
-| `jules`   | `Spawn un jules random`                        |
+ 
+ | name | Description | 
+ | :------ | :------ | 
+ | `phewist` | `Générer une phrase que pourrait dire Phewist` |
+| `trepuecinfo` | `Quelque informations à propos de Mr François Le Trepuec` |
+| `command` | `Activation ou rechargement des commandes` |
+| `eval` | `eval` |
 
 ## Developper
-
-| name          | Description                                               |
-| :------------ | :-------------------------------------------------------- |
-| `trepuecinfo` | `Quelque informations à propos de Mr François Le Trepuec` |
-| name          | Description                                               |
-| :------       | :------                                                   |
-| `eval`        | `eval`                                                    |
-| name          | Description                                               |
-| :------       | :------                                                   |
-| `zap`         | `Euuuuh....`                                              |
-| name          | Description                                               |
-| :------       | :------                                                   |
-| `testing`     | `testing`                                                 |
-| name          | Description                                               |
-| :------       | :------                                                   |
-| `command`     | `Activation ou rechargement des commandes`                |
-| name          | Description                                               |
-| :------       | :------                                                   |
-| `cat`         | `Envoie une image de chat`                                |
-| name          | Description                                               |
-| :------       | :------                                                   |
-| `8ball`       | `AJe répond à vos questions`                              |
-| name          | Description                                               |
-| :------       | :------                                                   |
-| `chuck`       | `Chuck Norris facts`                                      |
-| name          | Description                                               |
-| :------       | :------                                                   |
-| `dog`         | `Envoie une image de chien`                               |
-| name          | Description                                               |
-| :------       | :------                                                   |
-| `faketweet`   | `Créer un faux tweet`                                     |
-| name          | Description                                               |
-| :------       | :------                                                   |
-| `fakecomment` | `Créer un faux commentaire Youtube`                       |
-| name          | Description                                               |
-| :------       | :------                                                   |
-| `overlay`     | `Ajoute un overlay sur ton avatar`                        |
-
+ 
+ | name | Description | 
+ | :------ | :------ | 
+ 
 ## Fun
-
-| name       | Description           |
-| :--------- | :-------------------- |
+ 
+ | name | Description | 
+ | :------ | :------ | 
+ | `zap` | `Euuuuh....` |
+| `8ball` | `AJe répond à vos questions` |
+| `testing` | `testing` |
+| `chuck` | `Chuck Norris facts` |
+| `cat` | `Envoie une image de chat` |
+| `faketweet` | `Créer un faux tweet` |
+| `fakecomment` | `Créer un faux commentaire Youtube` |
+| `dog` | `Envoie une image de chien` |
+| `overlay` | `Ajoute un overlay sur ton avatar` |
 | `coinflip` | `Joue à pile ou face` |
+| `roll` | `Lancer un dé` |
 
 ## Games
-
-| name        | Description                                  |
-| :---------- | :------------------------------------------- |
-| `roll`      | `Lancer un dé`                               |
-| name        | Description                                  |
-| :------     | :------                                      |
-| `blackjack` | `Lance une partie de Blackjack`              |
-| name        | Description                                  |
-| :------     | :------                                      |
-| `hot`       | `Hot Combien ... tu suce ton père ?`         |
-| name        | Description                                  |
-| :------     | :------                                      |
-| `meme`      | `Renvoie un meme`                            |
-| name        | Description                                  |
-| :------     | :------                                      |
-| `curvytron` | `Lance une room curvytron`                   |
-| name        | Description                                  |
-| :------     | :------                                      |
-| `shifumi`   | `Lance une partie de Pierre-Feuille-Ciseaux` |
-| name        | Description                                  |
-| :------     | :------                                      |
-| `avatar`    | `Hot Combien ... tu suce ton père ?`         |
-| name        | Description                                  |
-| :------     | :------                                      |
-| `logo`      | `Affiche le logo du serveur`                 |
+ 
+ | name | Description | 
+ | :------ | :------ | 
+ | `curvytron` | `Lance une room curvytron` |
+| `blackjack` | `Lance une partie de Blackjack` |
+| `shifumi` | `Lance une partie de Pierre-Feuille-Ciseaux` |
+| `hot` | `Hot Combien ... tu suce ton père ?` |
 
 ## Information
-
-| name          | Description                                         |
-| :------------ | :-------------------------------------------------- |
-| `ping`        | `Retourne le ping du bot`                           |
-| name          | Description                                         |
-| :------       | :------                                             |
-| `serverinfo`  | `Affiche les informations du serveur`               |
-| name          | Description                                         |
-| :------       | :------                                             |
-| `status`      | `Affiche le statut du Bot et de la base de données` |
-| name          | Description                                         |
-| :------       | :------                                             |
-| `help`        | `Affiche la liste des commandes`                    |
-| name          | Description                                         |
-| :------       | :------                                             |
-| `userinfo`    | `Affiche les informations de l'utilisateur`         |
-| name          | Description                                         |
-| :------       | :------                                             |
-| `emoji-steal` | `Vole un emoji venant d'un autre serveur`           |
-| name          | Description                                         |
-| :------       | :------                                             |
-| `suggest`     | `Suggérer une commande`                             |
-| name          | Description                                         |
-| :------       | :------                                             |
-| `weather`     | `Affiche la météo`                                  |
-| name          | Description                                         |
-| :------       | :------                                             |
-| `ban`         | `Bannir un membre du serveur`                       |
+ 
+ | name | Description | 
+ | :------ | :------ | 
+ | `meme` | `Renvoie un meme` |
+| `avatar` | `Hot Combien ... tu suce ton père ?` |
+| `help` | `Affiche la liste des commandes` |
+| `serverinfo` | `Affiche les informations du serveur` |
+| `logo` | `Affiche le logo du serveur` |
+| `status` | `Affiche le statut du Bot et de la base de données` |
+| `weather` | `Affiche la météo` |
+| `userinfo` | `Affiche les informations de l'utilisateur` |
 
 ## Miscellaneous
+ 
+ | name | Description | 
+ | :------ | :------ | 
+ | `emoji-steal` | `Vole un emoji venant d'un autre serveur` |
+| `suggest` | `Suggérer une commande` |
 
 ## Moderation
-
-| name          | Description                                                                                      |
-| :------------ | :----------------------------------------------------------------------------------------------- |
-| `mute`        | `Mute un membre du serveur`                                                                      |
-| name          | Description                                                                                      |
-| :------       | :------                                                                                          |
-| `report`      | `Signaler un membre du serveur`                                                                  |
-| name          | Description                                                                                      |
-| :------       | :------                                                                                          |
-| `warming`     | `Affiche les avertissements d'un membre`                                                         |
-| name          | Description                                                                                      |
-| :------       | :------                                                                                          |
-| `kick`        | `Kick un membre du serveur`                                                                      |
-| name          | Description                                                                                      |
-| :------       | :------                                                                                          |
-| `fastforward` | `Avance la musique d'un certain nombre de secondes`                                              |
-| name          | Description                                                                                      |
-| :------       | :------                                                                                          |
-| `autoplay`    | `Si activé, le Bot jouera une musique recommandée par Youtube quand la file d'attente sera vide` |
-| name          | Description                                                                                      |
-| :------       | :------                                                                                          |
-| `filters`     | `Applique des filtres à la musique`                                                              |
-| name          | Description                                                                                      |
-| :------       | :------                                                                                          |
-| `join`        | `Rejoins le salon vocal`                                                                         |
-| name          | Description                                                                                      |
-| :------       | :------                                                                                          |
-| `lyrics`      | `Affiche les paroles de la musique en cours`                                                     |
+ 
+ | name | Description | 
+ | :------ | :------ | 
+ | `ping` | `Retourne le ping du bot` |
+| `ban` | `Bannir un membre du serveur` |
+| `report` | `Signaler un membre du serveur` |
+| `warming` | `Affiche les avertissements d'un membre` |
+| `mute` | `Mute un membre du serveur` |
 
 ## music
-
-| name           | Description                                                  |
-| :------------- | :----------------------------------------------------------- |
-| `leave`        | `Quitte le salon vocal`                                      |
-| name           | Description                                                  |
-| :------        | :------                                                      |
-| `nowplaying`   | `Affiche les informations de la musique en cours`            |
-| name           | Description                                                  |
-| :------        | :------                                                      |
-| `play`         | `Joue une musique ou une playlist depuis Youtube ou une URL` |
-| name           | Description                                                  |
-| :------        | :------                                                      |
-| `pause`        | `Met en pause ou Reprends la lecture d'une musique en cours` |
-| name           | Description                                                  |
-| :------        | :------                                                      |
-| `queue`        | `Affiche la file d'attente`                                  |
-| name           | Description                                                  |
-| :------        | :------                                                      |
-| `previous`     | `Rejoue la musique précédente`                               |
-| name           | Description                                                  |
-| :------        | :------                                                      |
-| `repeat`       | `Répète la musique en cours`                                 |
-| name           | Description                                                  |
-| :------        | :------                                                      |
-| `remove`       | `Supprime une musique de la file d'attente`                  |
-| name           | Description                                                  |
-| :------        | :------                                                      |
-| `shuffle`      | `Mélange les musiques de la file d'attente`                  |
-| name           | Description                                                  |
-| :------        | :------                                                      |
-| `resume`       | `Met en pause ou Reprends la lecture d'une musique en cours` |
-| name           | Description                                                  |
-| :------        | :------                                                      |
-| `playlist`     | `Affiche vos playlist`                                       |
-| name           | Description                                                  |
-| :------        | :------                                                      |
-| `skip`         | `Passe la musique en cours`                                  |
-| name           | Description                                                  |
-| :------        | :------                                                      |
-| `volume`       | `Change le volume de la musique`                             |
-| name           | Description                                                  |
-| :------        | :------                                                      |
-| `pokemon-info` | `Affiche les informations d'un Pokémon`                      |
+ 
+ | name | Description | 
+ | :------ | :------ | 
+ | `autoplay` | `Si activé, le Bot jouera une musique recommandée par Youtube quand la file d'attente sera vide` |
+| `kick` | `Kick un membre du serveur` |
+| `filters` | `Applique des filtres à la musique` |
+| `fastforward` | `Avance la musique d'un certain nombre de secondes` |
+| `leave` | `Quitte le salon vocal` |
+| `lyrics` | `Affiche les paroles de la musique en cours` |
+| `nowplaying` | `Affiche les informations de la musique en cours` |
+| `pause` | `Met en pause ou Reprends la lecture d'une musique en cours` |
+| `playlist` | `Affiche vos playlist` |
+| `play` | `Joue une musique ou une playlist depuis Youtube ou une URL` |
+| `join` | `Rejoins le salon vocal` |
+| `queue` | `Affiche la file d'attente` |
+| `previous` | `Rejoue la musique précédente` |
+| `repeat` | `Répète la musique en cours` |
+| `remove` | `Supprime une musique de la file d'attente` |
+| `skip` | `Passe la musique en cours` |
+| `resume` | `Met en pause ou Reprends la lecture d'une musique en cours` |
+| `volume` | `Change le volume de la musique` |
+| `shuffle` | `Mélange les musiques de la file d'attente` |
 
 ## Pokemon
-
-| name           | Description                     |
-| :------------- | :------------------------------ |
-| `mute`         | `Mute un membre du serveur`     |
-| name           | Description                     |
-| :------        | :------                         |
+ 
+ | name | Description | 
+ | :------ | :------ | 
+ | `mute` | `Mute un membre du serveur` |
 | `pokemon-list` | `Affiche 1 à 10 Pokémon random` |
+| `pokemon-info` | `Affiche les informations d'un Pokémon` |
 
 ## Setup
-
-| name             | Description                             |
-| :--------------- | :-------------------------------------- |
-| `set-nick`       | `Change le pseudo de quelqu'un`         |
-| name             | Description                             |
-| :------          | :------                                 |
-| `set-channel`    | `Défini les salons utilisés par le bot` |
-| name             | Description                             |
-| :------          | :------                                 |
-| `ticket-disable` | `Désactive le système de tickets.`      |
-| name             | Description                             |
-| :------          | :------                                 |
-| `ticket-enable`  | `Active le système de tickets.`         |
+ 
+ | name | Description | 
+ | :------ | :------ | 
+ | `set-channel` | `Défini les salons utilisés par le bot` |
+| `ticket-enable` | `Active le système de tickets.` |
+| `ticket-disable` | `Désactive le système de tickets.` |
+| `set-nick` | `Change le pseudo de quelqu'un` |
