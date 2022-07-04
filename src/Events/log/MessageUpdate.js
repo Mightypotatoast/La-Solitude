@@ -13,11 +13,13 @@ module.exports = {
         
             
         
-        if (newMessage.author.bot || newMessage.user.id === client.user.id) return;
+        if (newMessage.author.bot || newMessage.member.id === client.user.id) return;
+
+        let { channel } = await config(newMessage.guild.id)
         if (newMessage.channel.id === channel.logID) return;
+        
         if (oldMessage.content === newMessage.content) return;
         
-        let { channel } = await config(newMessage.guild.id)
         
         let logs = await newMessage.guild.fetchAuditLogs({ type: "MESSAGE_UPDATE" });
         let entry = logs.entries.first(a => Date.now() - a.createdTimestamp < 20000);
