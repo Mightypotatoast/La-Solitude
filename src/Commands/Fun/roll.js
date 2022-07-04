@@ -18,12 +18,12 @@ module.exports = {
             const roll = Math.floor(Math.random() * dice) + 1;
             const embed = new MessageEmbed()
                 .setColor("#FF0000")
-                .setAuthor(
-                    "Lance un dé",
-                    "https://upload.wikimedia.org/wikipedia/commons/5/53/Six_sided_dice.png"
-                )
+                .setAuthor({
+                    name: "Lance un dé",
+                    iconURL: "https://upload.wikimedia.org/wikipedia/commons/5/53/Six_sided_dice.png"
+                })
                 .setDescription(
-                    `${message.user} lance un dé : ${roll} (0-${dice})`
+                    `${message.user} lance un dé : ${roll} (1-${dice})`
                 );
 
             message.reply({ embeds: [embed] });

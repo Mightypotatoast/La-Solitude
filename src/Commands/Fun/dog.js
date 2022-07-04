@@ -34,10 +34,11 @@ module.exports = {
                 .setColor("#00D7FF")
                 .setDescription(data.fact)
                 .setImage(data.image)
-                .setFooter(
-                    `Requested by ${message.member.user.tag}`,
-                    message.member.displayAvatarURL()
-                )
+                .setFooter({
+
+                    text: `Requested by ${message.member.user.tag}`,
+                    iconURL: message.member.displayAvatarURL()
+                })
                 .setTimestamp();
 
             await message.editReply({ embeds: [embed] });

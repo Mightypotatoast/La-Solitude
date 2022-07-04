@@ -19,7 +19,7 @@ module.exports = {
                 .setRequired(true)
                 .addChoices(
                     { name: "Commande", value: "Commande" },
-                    { name: "Evénement", value: "Evénement" },
+                    { name: "Évènement", value: "Évènement" },
                     { name: "Système", value: "Système" },
                     { name: "Bug", value: "Bug" },
                     { name: "Fonctionnalité", value: "Fonctionnalité" },
@@ -44,7 +44,7 @@ module.exports = {
         const Suggestion = options.getString("suggestion");
 
         const Embed = new MessageEmbed()
-            .setTitle(`🗂️ --- Suggestion de ${Type} --- 🗂️`)
+            .setTitle(`🗂️ --- Suggestion de type : ${Type} --- 🗂️`)
             .setColor("NAVY")
             .addFields(
                 {

@@ -39,7 +39,7 @@ module.exports = {
                         },
                     });
 
-                    img_result = await google.scrape("chauve barbue", 200);
+                    img_result = await google.scrape("bearded bald guy", 200);
                 } catch (e) {
                     const google = new Scrapper({
                         puppeteer: {

@@ -64,10 +64,10 @@ module.exports = {
                 .setDescription(`**Tweet de ${Target}**`)
                 .setColor("#00C5FF")
                 .setImage(`attachment://img.png`)
-                .setFooter(
-                    `Demander par ${message.member.user.tag}`,
-                    message.member.displayAvatarURL()
-                )
+                .setFooter({
+                    text: `Demander par ${message.member.user.tag}`,
+                    iconURL: message.member.displayAvatarURL()
+                })
                 .setTimestamp();
 
             await message.editReply({ embeds: [embed], files: [attach] });

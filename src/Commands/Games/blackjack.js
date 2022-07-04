@@ -26,7 +26,7 @@ module.exports = {
             .setTitle("🎲 -- Blackjack -- 🎲")
             .setDescription("Vous voulez faire une partie de blackjack ?")
             .setColor("#0099ff")
-            .setFooter("Blackjack")
+            .setFooter({ text:"Blackjack" })
             .setTimestamp();
 
         let inviteRow = new MessageActionRow().addComponents(

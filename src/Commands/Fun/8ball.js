@@ -37,7 +37,7 @@ const answers = [
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("8ball")
-        .setDescription("AJe répond à vos questions")
+        .setDescription("Je répond à vos questions")
         .addStringOption((option) =>
             option
                 .setName("question")

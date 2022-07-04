@@ -61,10 +61,10 @@ module.exports = {
                 .setDescription(`**Le commentaire Youtube de ${Target}**`)
                 .setColor("RED")
                 .setImage(`attachment://img.png`)
-                .setFooter(
-                    `Requested by ${message.member.user.tag}`,
-                    message.member.displayAvatarURL()
-                )
+                .setFooter({
+                    text:`Requested by ${message.member.user.tag}`,
+                    iconURL: message.member.displayAvatarURL()
+                })
                 .setTimestamp();
 
             await message.editReply({ embeds: [embed], files: [attach] });

@@ -26,14 +26,23 @@ module.exports = {
     musicEmbed: () => {
         return new MessageEmbed()
             .setColor("#7F00FF")
-            .setAuthor("Spotifion", "https://www.iconsdb.com/icons/preview/violet/spotify-xxl.png")
+            .setAuthor({
+                name:"Spotifion",
+                iconURL: "https://www.iconsdb.com/icons/preview/violet/spotify-xxl.png"
+            })
             .setTimestamp()
     },
 //!---------------------- POKEMON -------------------------------
     pokemonEmbed: () => {
         return new MessageEmbed()
-            .setAuthor("POKÉDEX NATIONAL", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
-            .setFooter("Pokédex National | Made by Syns", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
+            .setAuthor({
+                name: "POKÉDEX NATIONAL",
+                iconURL: "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png"
+            })
+            .setFooter({
+                name: "Pokédex National | Made by Syns",
+                iconURL: "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png"
+            })
             .setTimestamp()
         
     },
@@ -41,8 +50,14 @@ module.exports = {
     pokemonEasterEggEmbed: () => {
         return new MessageEmbed()
             .setColor("#FF0000")
-            .setAuthor("POKÉDEX NATIONAL", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
-            .setFooter("Pokédex National | Made by Syns", "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png")
+            .setAuthor({
+                name: "POKÉDEX NATIONAL",
+                iconURL: "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png"
+            })
+            .setFooter({
+                name: "Pokédex National | Made by Syns",
+                iconURL: "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png"
+            })
             .setTimestamp()
 
     },

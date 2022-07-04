@@ -4,7 +4,8 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 module.exports = {
     data: new SlashCommandBuilder().setName("zap").setDescription("Euuuuh...."),
 
-    execute(message, client) {
+    execute(message) {
+        let client = message.client
         var Kwey = client.users.cache.get("232110364186247168");
 
         message.reply({

@@ -45,7 +45,7 @@ function getStatus(val) {
             status = `🔴 HORS LIGNE`;
             break;
         case 1:
-            status = `🟢 EN LIGNE`;
+            status = `🟢 CONNECTÉ`;
             break;
         case 2:
             status = `🟠 EN ATTENTE DE CONNEXION`;

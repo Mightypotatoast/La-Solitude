@@ -21,12 +21,12 @@ module.exports = {
         let phewistEmbed = new MessageEmbed()
             .setColor("#666699")
             .setDescription(`**Moi, ${rndSujet}, ${rndVerbs} ${rndObjet}.**`)
-            .setAuthor(
-                phewistID ? `${phewistID.user.tag}` : "Phewist",
-                phewistID
+            .setAuthor({ 
+                name : phewistID ? `${phewistID.user.tag}` : "Phewist",
+                iconURL : phewistID
                     ? `${phewistID.user.displayAvatarURL()}`
                     : "https://cdn.discordapp.com/avatars/178851979332812801/473cdeb49f6293a18b7c449a7774db4c.webp"
-            )
+            })
             .setTimestamp();
 
         message.reply({ embeds: [phewistEmbed] });
