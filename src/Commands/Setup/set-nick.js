@@ -11,27 +11,18 @@ module.exports = {
     //TODO A REFAIRE
     data: new SlashCommandBuilder()
         .setName("set-nick")
-        .setDescription("Change le pseudo de quelqu'un"),
+        .setDescription("Change le pseudo de quelqu'un")
+        .addStringOption(option =>
+            option.setName("nickname")
+                .setDescription("Le nouveau pseudo")
+                .setRequired(true)
+        )
+        .addUserOption(option => 
+            option.setName('member')
+                .setDescription("Le membre dont vous voulez changer le pseudo")
+                .setRequired(false)
+        ),
 
-    // name: "set-nick",
-    // description: "Change le pseudo de quelqu'un",
-    // permission: "ADMINISTRATOR",
-    // active: true,
-
-    // options: [
-    //     {
-    //         name: "nickname",
-    //         description: "Le nouveau pseudo",
-    //         type: "STRING",
-    //         required: true,
-    //     },
-    //     {
-    //         name: "member",
-    //         description: "Le membre dont vous voulez changer le pseudo",
-    //         type: "USER",
-    //         required: false,
-    //     },
-    // ],
 
     /**
      *
