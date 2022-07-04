@@ -10,82 +10,68 @@ const {
 } = require("discord.js");
 
 module.exports = {
-    //TODO A REFAIRE
-    //TODO A REFAIRE
-    //TODO A REFAIRE
-    //TODO A REFAIRE
+
     data: new SlashCommandBuilder()
         .setName("overlay")
-        .setDescription("Ajoute un overlay sur ton avatar"),
+        .setDescription("Ajoute un overlay sur ton avatar")
+        .addStringOption(option =>
+            option.setName('overlay')
+                .setDescription('L\'overlay que tu veux ajouter')
+                .setRequired(true)
+                .addChoices(
+                    {
+                         name: "Gay",
+                         value: "gay",
+                     },
+                     {
+                         name: "Vitre",
+                         value: "glass",
+                     },
+                     {
+                         name: "GTA : Wasted",
+                         value: "wasted",
+                     },
+                     {
+                         name: "GTA : Mission Passed",
+                         value: "passed",
+                     },
+                     {
+                         name: "En prison",
+                         value: "jail",
+                     },
+                     {
+                         name: "Mon Camarade",
+                         value: "comrade",
+                     },
+                     {
+                         name: "Triggered",
+                         value: "triggered",
+                     },
+                     {
+                         name: "Carte Simp",
+                         value: "simpcard",
+                     },
+                     {
+                         name: "Horny",
+                         value: "horny",
+                     },
+                     {
+                         name: "Flouté",
+                         value: "blur",
+                     },
+                     {
+                         name: "Pixéliser",
+                         value: "pixelate",
+                     },
+                )
+        )
+        .addUserOption(option => 
+            option.setName('user')
+                .setDescription('La personne à qui l\'overlay sera appliqué')
+                .setRequired(false)
 
-    // name: "overlay",
-    // description: "Ajoute un overlay sur ton avatar",
-    // permission: "ADMINISTRATOR",
-    // active: true,
+        ),
 
-    // options: [
-    //     {
-    //         name: "overlay",
-    //         description: "L'overlay que tu veux ajouter",
-    //         type: "STRING",
-    //         required: true,
-
-    //         // choose "gay", "glass", "Wasted", "mission passed", "jail", "comrade", "triggered"
-
-    //         choices: [
-    //             {
-    //                 name: "Gay",
-    //                 value: "gay",
-    //             },
-    //             {
-    //                 name: "Vitre",
-    //                 value: "glass",
-    //             },
-    //             {
-    //                 name: "GTA : Wasted",
-    //                 value: "wasted",
-    //             },
-    //             {
-    //                 name: "GTA : Mission Passed",
-    //                 value: "passed",
-    //             },
-    //             {
-    //                 name: "En prison",
-    //                 value: "jail",
-    //             },
-    //             {
-    //                 name: "Mon Camarade",
-    //                 value: "comrade",
-    //             },
-    //             {
-    //                 name: "Triggered",
-    //                 value: "triggered",
-    //             },
-    //             {
-    //                 name: "Carte Simp",
-    //                 value: "simpcard",
-    //             },
-    //             {
-    //                 name: "Horny",
-    //                 value: "horny",
-    //             },
-    //             {
-    //                 name: "Flouté",
-    //                 value: "blur",
-    //             },
-    //             {
-    //                 name: "Pixéliser",
-    //                 value: "pixelate",
-    //             },
-    //         ],
-    //     },
-    //     {
-    //         name: "user",
-    //         description: "the user you want to add the overlay to",
-    //         type: "USER",
-    //         required: false,
-    //     },
-    // ],
 
     /**
      *
@@ -124,9 +110,10 @@ module.exports = {
                 )
                 .setColor("WHITE")
                 .setImage(`attachment://img.png`)
-                .setFooter(
-                    `Demander par ${message.member.user.tag}`,
-                    message.member.displayAvatarURL()
+                .setFooter({
+                    text: `Demander par ${message.member.user.tag}`,
+                    iconURL: message.member.displayAvatarURL()
+                }
                 )
                 .setTimestamp();
 
