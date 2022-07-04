@@ -4,45 +4,35 @@ const db = require("../../Models/channels");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
-    //TODO A REFAIRE
-    //TODO A REFAIRE
-    //TODO A REFAIRE
-    //TODO A REFAIRE
+    
     data: new SlashCommandBuilder()
         .setName("set-channel")
-        .setDescription("Défini les salons utilisés par le bot"),
+        .setDescription("Défini les salons utilisés par le bot")
+        .addStringOption(option =>
+            option.setName('channel')
+            .setDescription('Le salon à définir')
+            .setRequired(true)
+            .addChoices(
+            {
+                name: "log",
+                value: "log",
+            },
+            {
+                name: "report",
+                value: "report",
+            },
+            {
+                name: "Bienvenue",
+                value: "welcome",
+            },
+            {
+                name: "Au revoir",
+                value: "goodbye",
+            },
+            )
+        ),
 
-    // name: "set-channel",
-    // description: "Défini les salons utilisés par le bot",
-    // permission: "ADMINISTRATOR",
-    // active: true,
-
-    // options: [
-    //     {
-    //         name: "channel",
-    //         description: "Le salon à définir",
-    //         type: "STRING",
-    //         choices: [
-    //             {
-    //                 name: "log",
-    //                 value: "log",
-    //             },
-    //             {
-    //                 name: "report",
-    //                 value: "report",
-    //             },
-    //             {
-    //                 name: "Bienvenue",
-    //                 value: "welcome",
-    //             },
-    //             {
-    //                 name: "Au revoir",
-    //                 value: "goodbye",
-    //             },
-    //         ],
-    //         required: true,
-    //     },
-    // ],
+    
     /**
      *
      * @param {CommandInteraction} message
