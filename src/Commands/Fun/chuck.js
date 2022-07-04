@@ -9,7 +9,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("chuck")
         .setDescription("Chuck Norris facts")
-        .addIntegerOption((option) =>
+        .addNumberOption((option) =>
             option
                 .setName("combien")
                 .setDescription("Le maximum de Chuck Norris facts à afficher.")
