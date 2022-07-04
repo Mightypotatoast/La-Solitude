@@ -1,14 +1,22 @@
-require('dotenv').config();
-const {Client, Collection, MessageEmbed} = require("discord.js");
+require("dotenv").config();
+const { Client, Collection, MessageEmbed } = require("discord.js");
 const client = new Client({ intents: 32767 });
-const Distube = require('distube')
-
-
-client.commands = new Collection()
+const Distube = require("distube");
+const fs = require("fs");
+const path = require("node:path");
 
 require("./Structures/Events")(client);
 require("./Structures/Commands")(client);
 
-client.distube = new Distube.default(client, { searchSongs: 0, emitNewSongOnly: true })
+client.distube = new Distube.default(client, {
+    searchSongs: 0,
+    emitNewSongOnly: true,
+});
 
-client.login(process.env.DISCORD_TOKEN)
+/*******************************************/
+//       Add commands in collection          //
+/*******************************************/
+
+client.commands = new Collection();
+
+client.login(process.env.DISCORD_TOKEN);

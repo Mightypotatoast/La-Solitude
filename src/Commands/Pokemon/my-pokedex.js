@@ -1,726 +1,1024 @@
-const { CommandInteraction, Client, MessageEmbed, MessageActionRow, MessageButton, MessageSelectMenu } = require("discord.js")
-const db = require("../../Models/my-pokedex")
-const { errorEmbed, successEmbed } = require("../../util/Embeds")
+const { SlashCommandBuilder } = require("@discordjs/builders");
+const {
+    CommandInteraction,
+    Client,
+    MessageEmbed,
+    MessageActionRow,
+    MessageButton,
+    MessageSelectMenu,
+} = require("discord.js");
+const db = require("../../Models/my-pokedex");
+const { errorEmbed, successEmbed } = require("../../util/Embeds");
 const Pokedex = require("pokedex-promise-v2");
 const P = new Pokedex();
-const {pokemonNames} = require("../../util/pokemonNames")
+const { pokemonNames } = require("../../util/pokemonNames");
 
 module.exports = {
+    //TODO A REFAIRE
+    //TODO A REFAIRE
+    //TODO A REFAIRE
+    //TODO A REFAIRE
+    data: new SlashCommandBuilder()
+        .setName("mypokedex")
+        .setDescription("Créer votre propre Pokédex"),
 
-    name: "mypokedex",
-    description: "Créer votre propre Pokédex",
-    permission: "ADMINISTRATOR",
-    active: true,
-    options: [
-        {
-            name: "init",
-            description: "Initialiser votre Pokédex",
-            type: "SUB_COMMAND",
-            
-        },
+    // name: "mypokedex",
+    // description: "Créer votre propre Pokédex",
+    // permission: "ADMINISTRATOR",
+    // active: true,
+    // options: [
+    //     {
+    //         name: "init",
+    //         description: "Initialiser votre Pokédex",
+    //         type: "SUB_COMMAND",
+    //     },
 
-        {
-            name: "delete",
-            description: "Supprimer votre Pokémon",
-            type: "SUB_COMMAND",
-            
-        },
+    //     {
+    //         name: "delete",
+    //         description: "Supprimer votre Pokémon",
+    //         type: "SUB_COMMAND",
+    //     },
 
-        {
-            name: "add",
-            description: "Ajouter un Pokémon à votre Pokédex",
-            type: "SUB_COMMAND_GROUP",
-            options: [
-                {
-                    name: "by-names",
-                    description: "Ajouter un ou plusieurs Pokémon par leur nom",
-                    type: "SUB_COMMAND",
-                    options: [
-                        {
-                            name: "pokemon",
-                            description: "Le nom du Pokémon",
-                            type: "STRING",
-                            required: true,
-                        }
-                    ],
-                },
-                {
-                    name: "by-index-numbers",
-                    description: "Ajouter un ou plusieurs Pokémon par leur numéro d'index",
-                    type: "SUB_COMMAND",
-                    options: [
-                        {
-                            name: "index",
-                            description: "Le numéro d'index du Pokémon",
-                            type: "NUMBER",
-                            required: true,
-                        }
-                    ],
-                },
-                {
-                    name: "by-index-group",
-                    description: "Ajouter un ou plusieurs Pokémon par groupe d'index",
-                    type: "SUB_COMMAND",
-                    options: [
-                        {
-                            name: "min",
-                            description: "Le numéro minimum d'index",
-                            type: "NUMBER",
-                            required: true,
-                        },
-                        {
-                            name: "max",
-                            description: "Le numéro maximum d'index",
-                            type: "NUMBER",
-                            required: true,
-                        }
-                    ],
-                },
-            ]
-        },
+    //     {
+    //         name: "add",
+    //         description: "Ajouter un Pokémon à votre Pokédex",
+    //         type: "SUB_COMMAND_GROUP",
+    //         options: [
+    //             {
+    //                 name: "by-names",
+    //                 description: "Ajouter un ou plusieurs Pokémon par leur nom",
+    //                 type: "SUB_COMMAND",
+    //                 options: [
+    //                     {
+    //                         name: "pokemon",
+    //                         description: "Le nom du Pokémon",
+    //                         type: "STRING",
+    //                         required: true,
+    //                     },
+    //                 ],
+    //             },
+    //             {
+    //                 name: "by-index-numbers",
+    //                 description:
+    //                     "Ajouter un ou plusieurs Pokémon par leur numéro d'index",
+    //                 type: "SUB_COMMAND",
+    //                 options: [
+    //                     {
+    //                         name: "index",
+    //                         description: "Le numéro d'index du Pokémon",
+    //                         type: "NUMBER",
+    //                         required: true,
+    //                     },
+    //                 ],
+    //             },
+    //             {
+    //                 name: "by-index-group",
+    //                 description:
+    //                     "Ajouter un ou plusieurs Pokémon par groupe d'index",
+    //                 type: "SUB_COMMAND",
+    //                 options: [
+    //                     {
+    //                         name: "min",
+    //                         description: "Le numéro minimum d'index",
+    //                         type: "NUMBER",
+    //                         required: true,
+    //                     },
+    //                     {
+    //                         name: "max",
+    //                         description: "Le numéro maximum d'index",
+    //                         type: "NUMBER",
+    //                         required: true,
+    //                     },
+    //                 ],
+    //             },
+    //         ],
+    //     },
 
+    //     {
+    //         name: "remove",
+    //         description: "Supprimer un Pokémon de votre Pokédex",
+    //         type: "SUB_COMMAND_GROUP",
+    //         options: [
+    //             {
+    //                 name: "by-names",
+    //                 description:
+    //                     "Supprimer un ou plusieurs Pokémon par leur nom",
+    //                 type: "SUB_COMMAND",
+    //                 options: [
+    //                     {
+    //                         name: "pokemon",
+    //                         description: "Le nom du Pokémon",
+    //                         type: "STRING",
+    //                         required: true,
+    //                     },
+    //                 ],
+    //             },
+    //             {
+    //                 name: "by-index-numbers",
+    //                 description:
+    //                     "Supprimer un ou plusieurs Pokémon par leur numéro d'index",
+    //                 type: "SUB_COMMAND",
+    //                 options: [
+    //                     {
+    //                         name: "index",
+    //                         description: "Le numéro d'index du Pokémon",
+    //                         type: "NUMBER",
+    //                         required: true,
+    //                     },
+    //                 ],
+    //             },
+    //             {
+    //                 name: "by-index-group",
+    //                 description:
+    //                     "Supprimer un ou plusieurs Pokémon par groupe d'index",
+    //                 type: "SUB_COMMAND",
+    //                 options: [
+    //                     {
+    //                         name: "min",
+    //                         description: "Le numéro minimum d'index",
+    //                         type: "NUMBER",
+    //                         required: true,
+    //                     },
+    //                     {
+    //                         name: "max",
+    //                         description: "Le numéro maximum d'index",
+    //                         type: "NUMBER",
+    //                         required: true,
+    //                     },
+    //                 ],
+    //             },
+    //         ],
+    //     },
 
-        {
-            name: "remove",
-            description: "Supprimer un Pokémon de votre Pokédex",
-            type: "SUB_COMMAND_GROUP",
-            options: [
-                {
-                    name: "by-names",
-                    description: "Supprimer un ou plusieurs Pokémon par leur nom",
-                    type: "SUB_COMMAND",
-                    options: [
-                        {
-                            name: "pokemon",
-                            description: "Le nom du Pokémon",
-                            type: "STRING",
-                            required: true,
-                        }
-                    ],
-                },
-                {
-                    name: "by-index-numbers",
-                    description: "Supprimer un ou plusieurs Pokémon par leur numéro d'index",
-                    type: "SUB_COMMAND",
-                    options: [
-                        {
-                            name: "index",
-                            description: "Le numéro d'index du Pokémon",
-                            type: "NUMBER",
-                            required: true,
-                        }
-                    ],
-                },
-                {
-                    name: "by-index-group",
-                    description: "Supprimer un ou plusieurs Pokémon par groupe d'index",
-                    type: "SUB_COMMAND",
-                    options: [
-                        {
-                            name: "min",
-                            description: "Le numéro minimum d'index",
-                            type: "NUMBER",
-                            required: true,
-                        },
-                        {
-                            name: "max",
-                            description: "Le numéro maximum d'index",
-                            type: "NUMBER",
-                            required: true,
-                        }
-                    ],
-                },
-            ]
-        },
-
-        {
-            name: "view",
-            description: "Affiche les informations de votre Pokédex",
-            type: "SUB_COMMAND",
-
-        },
-        
-    ],
+    //     {
+    //         name: "view",
+    //         description: "Affiche les informations de votre Pokédex",
+    //         type: "SUB_COMMAND",
+    //     },
+    // ],
 
     /**
-     * 
-     * @param {CommandInteraction} message 
-     * @param {Client} client 
+     *
+     * @param {CommandInteraction} message
+     * @param {Client} client
      */
-  
-    async execute(message, client) {
-        
-        const { options, guild, member } = message
-        
-        let Sub = options.getSubcommand(["view", "init","delete"])
 
-        await message.deferReply()
+    async execute(message, client) {
+        const { options, guild, member } = message;
+
+        let Sub = options.getSubcommand(["view", "init", "delete"]);
+
+        await message.deferReply();
 
         //! INITIALISATION DE LA BDD POKEDEX DU USER
 
         if (Sub === "init") {
             //if (message.member.permissions.has("ADMINISTRATOR")) { return message.editReply({ embed: [errorEmbed().setDescription("You need to be an administrator to use this command.")], ephemeral: true }) }
-            
+
             let initEmbed = new MessageEmbed()
                 .setTitle("Initialisation de votre Pokédex...")
                 .setColor("#000000")
                 .setDescription("Veuillez indiquer la version de votre jeu")
-                .setTimestamp()
+                .setTimestamp();
 
+            let isInDB = false;
 
-            let isInDB = false
-
-
-            await db.findOne({ UserID: member.id }, async (err, doc) => {
-                if (err) { return await message.editReply({ embed: [errorEmbed().setDescription("Une erreur a été rencontrée lors de la recherche de votre Pokédex")], ephemeral: true }) }
-                if (doc) {
-                    isInDB = true
-                    return await message.editReply({ embeds: [errorEmbed().setDescription(`Tu as déjà un Pokédex`)], ephemeral: true })
-                }
-            }).clone()
-            
-            console.log(isInDB)
-            if (isInDB) return;
-
-            let tempDB = {}
-            let versions = []
-            let pokedexs = []
-
-            await P.getVersionGroupsList().then(res => {
-
-                res.results.forEach(version => {
-                    let versionsBlacklist = ["colosseum", "xd"]
-
-                    if (!versionsBlacklist.includes(version.name)) {
-                        versions.push({ label: "Pokemon " + version.name, value: version.name })
+            await db
+                .findOne({ UserID: member.id }, async (err, doc) => {
+                    if (err) {
+                        return await message.editReply({
+                            embed: [
+                                errorEmbed().setDescription(
+                                    "Une erreur a été rencontrée lors de la recherche de votre Pokédex"
+                                ),
+                            ],
+                            ephemeral: true,
+                        });
+                    }
+                    if (doc) {
+                        isInDB = true;
+                        return await message.editReply({
+                            embeds: [
+                                errorEmbed().setDescription(
+                                    `Tu as déjà un Pokédex`
+                                ),
+                            ],
+                            ephemeral: true,
+                        });
                     }
                 })
-                
-            })
+                .clone();
+
+            console.log(isInDB);
+            if (isInDB) return;
+
+            let tempDB = {};
+            let versions = [];
+            let pokedexs = [];
+
+            await P.getVersionGroupsList().then((res) => {
+                res.results.forEach((version) => {
+                    let versionsBlacklist = ["colosseum", "xd"];
+
+                    if (!versionsBlacklist.includes(version.name)) {
+                        versions.push({
+                            label: "Pokemon " + version.name,
+                            value: version.name,
+                        });
+                    }
+                });
+            });
 
             let row = new MessageActionRow().addComponents(
                 new MessageSelectMenu()
                     .setOptions(versions)
                     .setCustomId("pokedex-version")
                     .setPlaceholder("Choisissez une version")
-            )
+            );
 
             m = await message.editReply({
                 embeds: [initEmbed],
-                components: [row]
-            })
+                components: [row],
+            });
             const versionCollector = m.createMessageComponentCollector({
                 type: "SELECT_MENU",
-                time: 60000
-            })
+                time: 60000,
+            });
 
             versionCollector.on("collect", async (menu) => {
-                
                 if (menu.user.id !== member.id) {
                     return menu.reply({
-                        embeds: [errorEmbed().setDescription("Ce n'est pas ton Pokédex")],
-                        ephemeral: true
-                    })
+                        embeds: [
+                            errorEmbed().setDescription(
+                                "Ce n'est pas ton Pokédex"
+                            ),
+                        ],
+                        ephemeral: true,
+                    });
                 }
-                                
+
                 if (menu.customId === "pokedex-version") {
-
                     console.log();
-                    tempDB.version = menu.values[0]
+                    tempDB.version = menu.values[0];
 
-                    await P.getVersionGroupByName(menu.values[0]).then(res => {
+                    await P.getVersionGroupByName(menu.values[0])
+                        .then((res) => {
+                            let tempRegions = [];
 
-                        let tempRegions = []
-                        
-                        if (res.regions.length > 1) {
-                            res.regions.forEach(region => {
-                                tempRegions.push(region.name)
-                            })
-                        } else {
-                            tempRegions.push(res.regions[0].name)
-                        }
-                            
-                        (tempRegions.length > 1) ? tempDB.regions = tempRegions.join(",") : tempDB.regions = tempRegions[0]
+                            if (res.regions.length > 1) {
+                                res.regions.forEach((region) => {
+                                    tempRegions.push(region.name);
+                                });
+                            } else {
+                                tempRegions.push(res.regions[0].name);
+                            }
 
-                        
-                        let pokedexregions = ""
+                            tempRegions.length > 1
+                                ? (tempDB.regions = tempRegions.join(","))
+                                : (tempDB.regions = tempRegions[0]);
 
-                        if (tempDB.regions.includes(",")) {
-                            tempDB.regions.split(",").forEach(region => {
-                                pokedexregions += "`" + region + "` "
-                            })
-                        } else {
-                            pokedexregions = "`" + tempDB.regions + "`"
-                        }
+                            let pokedexregions = "";
 
-                        tempDB.generations = res.generation.name
-                        initEmbed.addFields(
-                            { name: "Version", value: `\`${menu.values[0]}\``, inline: true },
-                            { name: "Région(s)", value: `${tempDB.regions}`, inline: true },
-                            { name: "Génération", value: `\`${res.generation.name}\``, inline: true }
-                        )
-                        
-                        let nationalBlacklist = ["lets-go", "firered-leafgreen", "red-blue", "yellow", "gold-silver", "crystal"]
-                        
-                        if (!nationalBlacklist.includes(menu.values[0])) {
-                            pokedexs.push({ label: "National", value: "national" })
-                        }
+                            if (tempDB.regions.includes(",")) {
+                                tempDB.regions.split(",").forEach((region) => {
+                                    pokedexregions += "`" + region + "` ";
+                                });
+                            } else {
+                                pokedexregions = "`" + tempDB.regions + "`";
+                            }
 
-                        if (res.pokedexes.length > 1) {
-                            
-                            let pokedexlist = ""
-
-                            res.pokedexes.forEach(pokedex => {
-                                if (res.pokedexes.indexOf(pokedex) !== res.pokedexes.length - 1) {
-                                    pokedexlist += pokedex.name + ","
-                                } else {
-                                    pokedexlist += pokedex.name
+                            tempDB.generations = res.generation.name;
+                            initEmbed.addFields(
+                                {
+                                    name: "Version",
+                                    value: `\`${menu.values[0]}\``,
+                                    inline: true,
+                                },
+                                {
+                                    name: "Région(s)",
+                                    value: `${tempDB.regions}`,
+                                    inline: true,
+                                },
+                                {
+                                    name: "Génération",
+                                    value: `\`${res.generation.name}\``,
+                                    inline: true,
                                 }
-                            })
+                            );
 
-                            pokedexs.push({ label: "Tous les Pokédex de la région", value: `${pokedexlist}` })
-                        }
+                            let nationalBlacklist = [
+                                "lets-go",
+                                "firered-leafgreen",
+                                "red-blue",
+                                "yellow",
+                                "gold-silver",
+                                "crystal",
+                            ];
 
-                        res.pokedexes.forEach(pokedex => {
-                            pokedexs.push({ label: pokedex.name, value: pokedex.name })
+                            if (!nationalBlacklist.includes(menu.values[0])) {
+                                pokedexs.push({
+                                    label: "National",
+                                    value: "national",
+                                });
+                            }
+
+                            if (res.pokedexes.length > 1) {
+                                let pokedexlist = "";
+
+                                res.pokedexes.forEach((pokedex) => {
+                                    if (
+                                        res.pokedexes.indexOf(pokedex) !==
+                                        res.pokedexes.length - 1
+                                    ) {
+                                        pokedexlist += pokedex.name + ",";
+                                    } else {
+                                        pokedexlist += pokedex.name;
+                                    }
+                                });
+
+                                pokedexs.push({
+                                    label: "Tous les Pokédex de la région",
+                                    value: `${pokedexlist}`,
+                                });
+                            }
+
+                            res.pokedexes.forEach((pokedex) => {
+                                pokedexs.push({
+                                    label: pokedex.name,
+                                    value: pokedex.name,
+                                });
+                            });
                         })
-                        
-                        
-                        
-                        
-                    }).catch(err => {
-                        console.log(err);
-                        return message.editReply({ embeds: [errorEmbed().setDescription(`${err}`)], components: [], ephemeral: true })
-                        
-                    })
-                    
-                    
-                    await menu.deferUpdate()
-                    versionCollector.stop()
-                    
+                        .catch((err) => {
+                            console.log(err);
+                            return message.editReply({
+                                embeds: [errorEmbed().setDescription(`${err}`)],
+                                components: [],
+                                ephemeral: true,
+                            });
+                        });
+
+                    await menu.deferUpdate();
+                    versionCollector.stop();
+
                     let row = new MessageActionRow().addComponents(
                         new MessageSelectMenu()
                             .setOptions(pokedexs)
                             .setCustomId("pokedex-type")
                             .setPlaceholder("Choisissez un Pokédex")
-                    )
+                    );
 
                     await m.edit({
-                        embeds: [initEmbed.setDescription("Veuillez choisir un Pokédex")],
-                        components: [row]
-                    })
+                        embeds: [
+                            initEmbed.setDescription(
+                                "Veuillez choisir un Pokédex"
+                            ),
+                        ],
+                        components: [row],
+                    });
 
                     const pokedexCollector = m.createMessageComponentCollector({
                         type: "SELECT_MENU",
-                        time: 60000
-                    })
+                        time: 60000,
+                    });
 
                     pokedexCollector.on("collect", async (menu) => {
-
                         if (menu.user.id !== member.id) {
                             return menu.reply({
-                                embeds: [errorEmbed().setDescription("Ce n'est pas ton Pokédex")],
-                                ephemeral: true
-                            })
+                                embeds: [
+                                    errorEmbed().setDescription(
+                                        "Ce n'est pas ton Pokédex"
+                                    ),
+                                ],
+                                ephemeral: true,
+                            });
                         }
-                        
-                        if (menu.customId === "pokedex-type") {
 
-                            tempDB.pokedex = menu.values[0]
-                            
-                            let pokedexnames = ""
+                        if (menu.customId === "pokedex-type") {
+                            tempDB.pokedex = menu.values[0];
+
+                            let pokedexnames = "";
 
                             if (tempDB.pokedex.includes(",")) {
-                                tempDB.pokedex.split(",").forEach(pokedex => {
-                                    pokedexnames += "`" + pokedex + "` "
-                                })
+                                tempDB.pokedex.split(",").forEach((pokedex) => {
+                                    pokedexnames += "`" + pokedex + "` ";
+                                });
                             } else {
-                                pokedexnames = "`" + tempDB.pokedex + "`"
+                                pokedexnames = "`" + tempDB.pokedex + "`";
                             }
 
-                            initEmbed.addFields(
-                                { name: "Pokédex", value: `${pokedexnames}`, inline: true }
-                            )
+                            initEmbed.addFields({
+                                name: "Pokédex",
+                                value: `${pokedexnames}`,
+                                inline: true,
+                            });
 
-                            await menu.deferUpdate()
-                            pokedexCollector.stop()
+                            await menu.deferUpdate();
+                            pokedexCollector.stop();
 
                             let row = new MessageActionRow().addComponents(
                                 new MessageSelectMenu()
-                                    .setOptions([{ label: "Oui", value: "yes", emoji: "✔️" }, { label: "Non", value: "no", emoji: "❌" }])
+                                    .setOptions([
+                                        {
+                                            label: "Oui",
+                                            value: "yes",
+                                            emoji: "✔️",
+                                        },
+                                        {
+                                            label: "Non",
+                                            value: "no",
+                                            emoji: "❌",
+                                        },
+                                    ])
                                     .setCustomId("pokedex-init-confirm")
-                                    .setPlaceholder("Confirmer l'initialisation")
-                            )
+                                    .setPlaceholder(
+                                        "Confirmer l'initialisation"
+                                    )
+                            );
 
                             await m.edit({
-                                embeds: [initEmbed.setDescription("\`\`\`Voulez-vous initialiser votre pokedex ?\`\`\`")],
-                                components: [row]
-                            })
+                                embeds: [
+                                    initEmbed.setDescription(
+                                        "```Voulez-vous initialiser votre pokedex ?```"
+                                    ),
+                                ],
+                                components: [row],
+                            });
 
-                            const confirmCollector = m.createMessageComponentCollector({
-                                type: "SELECT_MENU",
-                                time: 60000
-                            })
+                            const confirmCollector =
+                                m.createMessageComponentCollector({
+                                    type: "SELECT_MENU",
+                                    time: 60000,
+                                });
 
                             confirmCollector.on("collect", async (menu) => {
-
                                 if (menu.user.id !== member.id) {
                                     return menu.reply({
-                                        embeds: [errorEmbed().setDescription("Ce n'est pas ton Pokédex")],
-                                        ephemeral: true
-                                    })
+                                        embeds: [
+                                            errorEmbed().setDescription(
+                                                "Ce n'est pas ton Pokédex"
+                                            ),
+                                        ],
+                                        ephemeral: true,
+                                    });
                                 }
                                 if (menu.customId === "pokedex-init-confirm") {
                                     if (menu.values[0] === "yes") {
-                                        
-                                        tempDB.pokemonNotCatch = []
+                                        tempDB.pokemonNotCatch = [];
 
-                                        await menu.deferUpdate()
-                                        confirmCollector.stop()
+                                        await menu.deferUpdate();
+                                        confirmCollector.stop();
                                         await m.edit({
-                                            embeds: [initEmbed.setDescription("Initialisation en cours...")],
-                                            components: []
-                                        })
-                                        
+                                            embeds: [
+                                                initEmbed.setDescription(
+                                                    "Initialisation en cours..."
+                                                ),
+                                            ],
+                                            components: [],
+                                        });
 
                                         if (tempDB.pokedex === "national") {
                                             console.log("national");
 
-                                            let index_max
-                                            
+                                            let index_max;
+
                                             //set max index with all generations
 
-                                            if (tempDB.generations === "generation-i") {
-                                                index_max = 151
-                                            } else if (tempDB.generations === "generation-ii") {
-                                                index_max = 251
-                                            }
-                                            else if (tempDB.generations === "generation-iii") {
-                                                index_max = 386
-                                            }
-                                            else if (tempDB.generations === "generation-iv") {
-                                                index_max = 493
-                                            }
-                                            else if (tempDB.generations === "generation-v") {
-                                                index_max = 649
-                                            }
-                                            else if (tempDB.generations === "generation-vi") {
-                                                index_max = 721
-                                            }
-                                            else if (tempDB.generations === "generation-vii") {
-                                                index_max = 809
-                                            }
-                                            else if (tempDB.generations === "generation-viii") {
-                                                index_max = 898
+                                            if (
+                                                tempDB.generations ===
+                                                "generation-i"
+                                            ) {
+                                                index_max = 151;
+                                            } else if (
+                                                tempDB.generations ===
+                                                "generation-ii"
+                                            ) {
+                                                index_max = 251;
+                                            } else if (
+                                                tempDB.generations ===
+                                                "generation-iii"
+                                            ) {
+                                                index_max = 386;
+                                            } else if (
+                                                tempDB.generations ===
+                                                "generation-iv"
+                                            ) {
+                                                index_max = 493;
+                                            } else if (
+                                                tempDB.generations ===
+                                                "generation-v"
+                                            ) {
+                                                index_max = 649;
+                                            } else if (
+                                                tempDB.generations ===
+                                                "generation-vi"
+                                            ) {
+                                                index_max = 721;
+                                            } else if (
+                                                tempDB.generations ===
+                                                "generation-vii"
+                                            ) {
+                                                index_max = 809;
+                                            } else if (
+                                                tempDB.generations ===
+                                                "generation-viii"
+                                            ) {
+                                                index_max = 898;
                                             }
 
-                                            await P.getPokedexByName("national").then(res => {
-                                                res.pokemon_entries.forEach(pokemon => {
-                                                    if (pokemon.entry_number <= index_max) {
-                                                        pokemonFR = Object.keys(pokemonNames).find(key => pokemonNames[key] === pokemon.pokemon_species.name)
-                                                    
+                                            await P.getPokedexByName(
+                                                "national"
+                                            ).then((res) => {
+                                                res.pokemon_entries.forEach(
+                                                    (pokemon) => {
+                                                        if (
+                                                            pokemon.entry_number <=
+                                                            index_max
+                                                        ) {
+                                                            pokemonFR =
+                                                                Object.keys(
+                                                                    pokemonNames
+                                                                ).find(
+                                                                    (key) =>
+                                                                        pokemonNames[
+                                                                            key
+                                                                        ] ===
+                                                                        pokemon
+                                                                            .pokemon_species
+                                                                            .name
+                                                                );
+
+                                                            tempDB.pokemonNotCatch.push(
+                                                                {
+                                                                    name: pokemonFR,
+                                                                    index: pokemon.entry_number,
+                                                                    pokedex:
+                                                                        "national",
+                                                                }
+                                                            );
+                                                        }
+                                                    }
+                                                );
+                                            });
+                                        } else if (
+                                            tempDB.pokedex.includes(",")
+                                        ) {
+                                            console.log("multiple");
+                                            let pokedexes =
+                                                tempDB.pokedex.split(",");
+                                            console.log(pokedexes);
+
+                                            for (
+                                                let i = 0;
+                                                i < pokedexes.length;
+                                                i++
+                                            ) {
+                                                let pokemonFR;
+                                                await P.getPokedexByName(
+                                                    pokedexes[i]
+                                                ).then((res) => {
+                                                    res.pokemon_entries.forEach(
+                                                        (pokemon) => {
+                                                            pokemonFR =
+                                                                Object.keys(
+                                                                    pokemonNames
+                                                                ).find(
+                                                                    (key) =>
+                                                                        pokemonNames[
+                                                                            key
+                                                                        ] ===
+                                                                        pokemon
+                                                                            .pokemon_species
+                                                                            .name
+                                                                );
+
+                                                            tempDB.pokemonNotCatch.push(
+                                                                {
+                                                                    name: pokemonFR,
+                                                                    index: pokemon.entry_number,
+                                                                    pokedex:
+                                                                        pokedexes[
+                                                                            i
+                                                                        ],
+                                                                }
+                                                            );
+                                                        }
+                                                    );
+                                                });
+                                            }
+                                        } else {
+                                            console.log("single");
+                                            await P.getPokedexByName(
+                                                tempDB.pokedex
+                                            ).then((res) => {
+                                                res.pokemon_entries.forEach(
+                                                    (pokemon) => {
+                                                        pokemonFR = Object.keys(
+                                                            pokemonNames
+                                                        ).find(
+                                                            (key) =>
+                                                                pokemonNames[
+                                                                    key
+                                                                ] ===
+                                                                pokemon
+                                                                    .pokemon_species
+                                                                    .name
+                                                        );
+
                                                         tempDB.pokemonNotCatch.push(
                                                             {
                                                                 name: pokemonFR,
                                                                 index: pokemon.entry_number,
-                                                                pokedex: "national"
+                                                                pokedex:
+                                                                    tempDB.pokedex,
                                                             }
                                                         );
                                                     }
-                                                })
-                                            })
-                                             
-                                            
-
-                                        }
-                                        else if (tempDB.pokedex.includes(",")) {
-                                            console.log("multiple");
-                                            let pokedexes = tempDB.pokedex.split(",")
-                                            console.log(pokedexes);
-
-                                            for (let i = 0; i < pokedexes.length; i++) {
-                                                let pokemonFR
-                                                await P.getPokedexByName(pokedexes[i]).then(res => {
-
-                                                    res.pokemon_entries.forEach(pokemon => {
-
-                                                        pokemonFR = Object.keys(pokemonNames).find(key => pokemonNames[key] === pokemon.pokemon_species.name)
-                                                    
-                                                        tempDB.pokemonNotCatch.push(
-                                                            {
-                                                                name: pokemonFR,
-                                                                index: pokemon.entry_number,
-                                                                pokedex: pokedexes[i]
-                                                            }
-                                                        );
-                                                    
-                                                    })
-                                                
-                                                })
-                                            }
-
-                                        }
-                                        else {
-                                            console.log("single");
-                                            await P.getPokedexByName(tempDB.pokedex).then(res => {
-                                                res.pokemon_entries.forEach(pokemon => {
-                                                    pokemonFR = Object.keys(pokemonNames).find(key => pokemonNames[key] === pokemon.pokemon_species.name)
-                                                    
-                                                    tempDB.pokemonNotCatch.push(
-                                                        {
-                                                            name: pokemonFR,
-                                                            index: pokemon.entry_number,
-                                                            pokedex: tempDB.pokedex
-                                                        }
-                                                    );
-                                                })
-                                            })
-                                            
+                                                );
+                                            });
                                         }
 
                                         console.log(tempDB.pokemonNotCatch);
 
-                                        
                                         //create line in DB
-                                        
-                                        await db.findOne({ UserID: member.id }, (err, data) => {
-                                            if (err) throw err;
-                                            if (!data) {
-                                                data = new db({
-                                                    
-                                                    UserID: member.id,
-                                                    UserTag: member.user.tag,
-                                                    
-                                                    PokedexName: tempDB.pokedex,            // ex: national
-                                                    PokedexRegion: tempDB.regions,          // ex: galar
-                                                    PokedexGameVersion: tempDB.version,     // ex: sword-shield
-                                                    PokedexGeneration: tempDB.generations,      // ex: gen-7
-                                                    
-                                                    PokemonNotYetCaught: tempDB.pokemonNotCatch,
-                                                })
-                                                data.save()
-                                            }
-                                        }).clone()
 
-                                    
+                                        await db
+                                            .findOne(
+                                                { UserID: member.id },
+                                                (err, data) => {
+                                                    if (err) throw err;
+                                                    if (!data) {
+                                                        data = new db({
+                                                            UserID: member.id,
+                                                            UserTag:
+                                                                member.user.tag,
+
+                                                            PokedexName:
+                                                                tempDB.pokedex, // ex: national
+                                                            PokedexRegion:
+                                                                tempDB.regions, // ex: galar
+                                                            PokedexGameVersion:
+                                                                tempDB.version, // ex: sword-shield
+                                                            PokedexGeneration:
+                                                                tempDB.generations, // ex: gen-7
+
+                                                            PokemonNotYetCaught:
+                                                                tempDB.pokemonNotCatch,
+                                                        });
+                                                        data.save();
+                                                    }
+                                                }
+                                            )
+                                            .clone();
+
                                         await m.edit({
-                                            embeds: [initEmbed.setTitle("✅ Pokedex initialisé ✅").setDescription("Votre Pokédex a été initialisé avec succès. ").setColor("#00ff00")],
-                                            components: []
-                                        })
-
-
+                                            embeds: [
+                                                initEmbed
+                                                    .setTitle(
+                                                        "✅ Pokedex initialisé ✅"
+                                                    )
+                                                    .setDescription(
+                                                        "Votre Pokédex a été initialisé avec succès. "
+                                                    )
+                                                    .setColor("#00ff00"),
+                                            ],
+                                            components: [],
+                                        });
                                     } else {
-                                        await menu.deferUpdate()
-                                        confirmCollector.stop()
+                                        await menu.deferUpdate();
+                                        confirmCollector.stop();
                                         await m.edit({
-                                            embeds: [new MessageEmbed().setDescription("Votre Pokédex n'a pas été initialisé.").setColor("RED")],
-                                            components: []
-                                        })
+                                            embeds: [
+                                                new MessageEmbed()
+                                                    .setDescription(
+                                                        "Votre Pokédex n'a pas été initialisé."
+                                                    )
+                                                    .setColor("RED"),
+                                            ],
+                                            components: [],
+                                        });
                                     }
                                 }
-                            })
+                            });
 
-                            confirmCollector.on("end", async (collected, reason) => {
-                                if (reason === "time") {
-                                    return m.edit({ embeds: [errorEmbed().setDescription("Vous n'avez pas comfirmé dans le temps imparti")], components: [], ephemeral: true })
+                            confirmCollector.on(
+                                "end",
+                                async (collected, reason) => {
+                                    if (reason === "time") {
+                                        return m.edit({
+                                            embeds: [
+                                                errorEmbed().setDescription(
+                                                    "Vous n'avez pas comfirmé dans le temps imparti"
+                                                ),
+                                            ],
+                                            components: [],
+                                            ephemeral: true,
+                                        });
+                                    }
                                 }
-                            })
+                            );
                         }
-
-
-                    })
+                    });
 
                     pokedexCollector.on("end", async (collected, reason) => {
                         if (reason === "time") {
-                            return m.edit({ embeds: [errorEmbed().setDescription("Vous n'avez pas choisis de Pokédex dans le temps imparti")], components: [], ephemeral: true })
+                            return m.edit({
+                                embeds: [
+                                    errorEmbed().setDescription(
+                                        "Vous n'avez pas choisis de Pokédex dans le temps imparti"
+                                    ),
+                                ],
+                                components: [],
+                                ephemeral: true,
+                            });
                         }
-                    })
-
-
+                    });
                 }
-            })
+            });
             versionCollector.on("end", async (collected, reason) => {
                 if (reason === "time") {
-                    return m.edit({ embeds: [errorEmbed().setDescription("Vous n'avez pas choisis de version dans le temps imparti")], components: [], ephemeral: true })
+                    return m.edit({
+                        embeds: [
+                            errorEmbed().setDescription(
+                                "Vous n'avez pas choisis de version dans le temps imparti"
+                            ),
+                        ],
+                        components: [],
+                        ephemeral: true,
+                    });
                 }
-            })
-
-            
+            });
         }
 
         //! SUPPRESION DE LA BDD POKEDEX DU USER
-
         else if (Sub === "delete") {
-            
             let deleteEmbed = new MessageEmbed()
                 .setTitle("Supression de votre Pokédex...")
                 .setColor("RED")
-                .setDescription("\`\`\`Êtes-vous sûr de vouloir supprimés votre Pokédex ?\`\`\`")
-                .setTimestamp()
+                .setDescription(
+                    "```Êtes-vous sûr de vouloir supprimés votre Pokédex ?```"
+                )
+                .setTimestamp();
 
-            await db.findOne({ UserID: member.id }, async (err, data) => {
-                if (err) { return await message.editReply({ embed: [errorEmbed().setDescription("Une erreur a été rencontrée lors de la recherche de votre Pokédex")], ephemeral: true }) }
-                if (!data) {
-                    return await message.editReply({ embeds: [errorEmbed().setDescription(`Vous n'avez pas de Pokédex.\nPour créer un Pokédex, utilisez la commande : \`/${this.name} init\`.`)], ephemeral: true })
-                } else {
-
-                    let pokedexnames = ""
-                    let pokedexregions = ""
-
-                    if (data.PokedexName.includes(",")) {
-                        data.PokedexName.split(",").forEach(pokedex => {
-                            pokedexnames += "`" + pokedex + "` "
-                        })
-                    } else {
-                        pokedexnames = "`" + data.PokedexName + "`"
+            await db
+                .findOne({ UserID: member.id }, async (err, data) => {
+                    if (err) {
+                        return await message.editReply({
+                            embed: [
+                                errorEmbed().setDescription(
+                                    "Une erreur a été rencontrée lors de la recherche de votre Pokédex"
+                                ),
+                            ],
+                            ephemeral: true,
+                        });
                     }
-                    
-                    if (data.PokedexRegion.includes(",")) {
-                        data.PokedexRegion.split(",").forEach(region => {
-                            pokedexregions += "`" + region + "` "
-                        })
+                    if (!data) {
+                        return await message.editReply({
+                            embeds: [
+                                errorEmbed().setDescription(
+                                    `Vous n'avez pas de Pokédex.\nPour créer un Pokédex, utilisez la commande : \`/${this.name} init\`.`
+                                ),
+                            ],
+                            ephemeral: true,
+                        });
                     } else {
-                        pokedexregions = "`" + data.PokedexRegion + "`"
-                    }
+                        let pokedexnames = "";
+                        let pokedexregions = "";
 
-                    deleteEmbed.addFields(
-                        { name: "Pokedex", value: `${pokedexnames}`, inline: true },
-                        { name: "Région(s)", value: `${pokedexregions}`, inline: true },
-                        { name: "Version", value: `\`${data.PokedexGameVersion}\``, inline: true },
-                        { name: "Génération", value: `\`${data.PokedexGeneration}\``, inline: true },
-                        { name: "Pokémon attrapé/vu", value: `\`${data.PokemonCaught.length}\``, inline: true },
-                        { name: "Pokémon non attrapé/vu", value: `\`${data.PokemonNotYetCaught.length}\``, inline: true },
-                    )
-
-
-
-
-
-
-                    let row = new MessageActionRow().addComponents(
-                        new MessageSelectMenu()
-                            .setOptions([{ label: "Oui", value: "yes", emoji: "✔️" }, { label: "Non", value: "no", emoji: "❌" }])
-                            .setCustomId("pokedex-delete-confirm")
-                            .setPlaceholder("Confirmer la suppression")
-                    )
-
-                    let m = await message.editReply({
-                        embeds: [deleteEmbed],
-                        components: [row],
-                        ephemeral: true
-                    })
-
-                    const confirmCollector = m.createMessageComponentCollector({
-                        type: "SELECT_MENU",
-                        time: 60000
-                    })
-
-                    confirmCollector.on("collect", async (menu) => {
-
-                        if (menu.user.id !== member.id) {
-                            return menu.reply({
-                                embeds: [errorEmbed().setDescription("Ce n'est pas ton pokédex")],
-                                ephemeral: true
-                            })
+                        if (data.PokedexName.includes(",")) {
+                            data.PokedexName.split(",").forEach((pokedex) => {
+                                pokedexnames += "`" + pokedex + "` ";
+                            });
+                        } else {
+                            pokedexnames = "`" + data.PokedexName + "`";
                         }
-                        if (menu.customId === "pokedex-delete-confirm") {
-                            
-                            
-                            if (menu.values[0] === "yes") {
-                                
-                                confirmCollector.stop()
-                                await menu.deferUpdate()
-                                await data.delete()
 
+                        if (data.PokedexRegion.includes(",")) {
+                            data.PokedexRegion.split(",").forEach((region) => {
+                                pokedexregions += "`" + region + "` ";
+                            });
+                        } else {
+                            pokedexregions = "`" + data.PokedexRegion + "`";
+                        }
 
-                                await message.edit({
-                                    embeds: [deleteEmbed.setTitle("🗑️ Pokédex supprimé 🗑️").setDescription("Votre Pokédex a été supprimé avec succès.")],
-                                    components: [],
-                                    ephemeral: true
-                                })
-
-
-                            } else {
-                                await menu.deferUpdate()
-                                confirmCollector.stop()
-                                await message.edit({
-                                    embeds: [new MessageEmbed().setDescription("Votre Pokédex n'a pas été supprimé.").setColor("RED")],
-                                    components: [],
-                                    ephemeral: true
-                                })
+                        deleteEmbed.addFields(
+                            {
+                                name: "Pokedex",
+                                value: `${pokedexnames}`,
+                                inline: true,
+                            },
+                            {
+                                name: "Région(s)",
+                                value: `${pokedexregions}`,
+                                inline: true,
+                            },
+                            {
+                                name: "Version",
+                                value: `\`${data.PokedexGameVersion}\``,
+                                inline: true,
+                            },
+                            {
+                                name: "Génération",
+                                value: `\`${data.PokedexGeneration}\``,
+                                inline: true,
+                            },
+                            {
+                                name: "Pokémon attrapé/vu",
+                                value: `\`${data.PokemonCaught.length}\``,
+                                inline: true,
+                            },
+                            {
+                                name: "Pokémon non attrapé/vu",
+                                value: `\`${data.PokemonNotYetCaught.length}\``,
+                                inline: true,
                             }
-                        }
-                    })
+                        );
 
-                    confirmCollector.on("end", async (collected, reason) => {
-                        if (reason === "time") {
-                            return m.edit({
-                                embeds: [errorEmbed().setDescription("Vous n'avez pas confirmé dans le temps imparti")],
-                                components: [],
-                                ephemeral: true
-                            })
-                        }
-                    })
-                }
-            }).clone()
+                        let row = new MessageActionRow().addComponents(
+                            new MessageSelectMenu()
+                                .setOptions([
+                                    { label: "Oui", value: "yes", emoji: "✔️" },
+                                    { label: "Non", value: "no", emoji: "❌" },
+                                ])
+                                .setCustomId("pokedex-delete-confirm")
+                                .setPlaceholder("Confirmer la suppression")
+                        );
 
+                        let m = await message.editReply({
+                            embeds: [deleteEmbed],
+                            components: [row],
+                            ephemeral: true,
+                        });
 
-        }
-        
-        //! AFFICHAGE DES INFORMATIONS DU POKÉDEX    
-            
-        else if (Sub === "view") { 
-            
-            let viewEmbed = new MessageEmbed()
-                .setColor("GOLD")
-                
+                        const confirmCollector =
+                            m.createMessageComponentCollector({
+                                type: "SELECT_MENU",
+                                time: 60000,
+                            });
 
-            await db.findOne({ UserID: member.id }, async (err, data) => {
-                if (err) { return await message.editReply({ embed: [errorEmbed().setDescription("Une erreur a été rencontrée lors de la recherche de votre Pokédex")], ephemeral: true }) }
-                if (!data) {
-                    return await message.editReply({ embeds: [errorEmbed().setDescription(`Vous n'avez pas de Pokédex.\nPour créer un Pokédex, utilisez la commande : \`/${this.name} init\`.`)], ephemeral: true })
-                } else {
-                    let pokedexnames = ""
-                    let pokedexregions = ""
+                        confirmCollector.on("collect", async (menu) => {
+                            if (menu.user.id !== member.id) {
+                                return menu.reply({
+                                    embeds: [
+                                        errorEmbed().setDescription(
+                                            "Ce n'est pas ton pokédex"
+                                        ),
+                                    ],
+                                    ephemeral: true,
+                                });
+                            }
+                            if (menu.customId === "pokedex-delete-confirm") {
+                                if (menu.values[0] === "yes") {
+                                    confirmCollector.stop();
+                                    await menu.deferUpdate();
+                                    await data.delete();
 
-                    if (data.PokedexName.includes(",")) {
-                        data.PokedexName.split(",").forEach(pokedex => {
-                            pokedexnames += "`" + pokedex + "` "
-                        })
-                    } else {
-                        pokedexnames = "`" + data.PokedexName + "`"
+                                    await message.edit({
+                                        embeds: [
+                                            deleteEmbed
+                                                .setTitle(
+                                                    "🗑️ Pokédex supprimé 🗑️"
+                                                )
+                                                .setDescription(
+                                                    "Votre Pokédex a été supprimé avec succès."
+                                                ),
+                                        ],
+                                        components: [],
+                                        ephemeral: true,
+                                    });
+                                } else {
+                                    await menu.deferUpdate();
+                                    confirmCollector.stop();
+                                    await message.edit({
+                                        embeds: [
+                                            new MessageEmbed()
+                                                .setDescription(
+                                                    "Votre Pokédex n'a pas été supprimé."
+                                                )
+                                                .setColor("RED"),
+                                        ],
+                                        components: [],
+                                        ephemeral: true,
+                                    });
+                                }
+                            }
+                        });
+
+                        confirmCollector.on(
+                            "end",
+                            async (collected, reason) => {
+                                if (reason === "time") {
+                                    return m.edit({
+                                        embeds: [
+                                            errorEmbed().setDescription(
+                                                "Vous n'avez pas confirmé dans le temps imparti"
+                                            ),
+                                        ],
+                                        components: [],
+                                        ephemeral: true,
+                                    });
+                                }
+                            }
+                        );
                     }
-                    
-                    if (data.PokedexRegion.includes(",")) {
-                        data.PokedexRegion.split(",").forEach(region => {
-                            pokedexregions += "`" + region + "` "
-                        })
-                    } else {
-                        pokedexregions = "`" + data.PokedexRegion + "`"
-                    }
-                    
-                    
-                    viewEmbed.setAuthor(`Pokédex de ${member.user.username}`, member.displayAvatarURL())
-                        .setDescription(`**Complété à ${Math.round((data.PokemonCaught.length/data.PokemonNotYetCaught.length)*100)} %**\n`)
-                        .addFields(
-                            { name: "Pokedex", value: `${pokedexnames}`, inline: true },
-                            { name: "Région(s)", value: `${pokedexregions}`, inline: true },
-                            { name: "Version", value: `\`${data.PokedexGameVersion}\``, inline: true },
-                            { name: "Génération", value: `\`${data.PokedexGeneration}\``, inline: true },
-                            { name: "Pokémon attrapé/vu", value: `\`${data.PokemonCaught.length}\``, inline: true },
-                            { name: "Pokémon non attrapé/vu", value: `\`${data.PokemonNotYetCaught.length}\``, inline: true },
-                    )
-                    
-                    message.editReply({embeds: [viewEmbed]})
-                }
-            }).clone()
-
-
-
-
-
-
+                })
+                .clone();
         }
 
-    }
-}
+        //! AFFICHAGE DES INFORMATIONS DU POKÉDEX
+        else if (Sub === "view") {
+            let viewEmbed = new MessageEmbed().setColor("GOLD");
+
+            await db
+                .findOne({ UserID: member.id }, async (err, data) => {
+                    if (err) {
+                        return await message.editReply({
+                            embed: [
+                                errorEmbed().setDescription(
+                                    "Une erreur a été rencontrée lors de la recherche de votre Pokédex"
+                                ),
+                            ],
+                            ephemeral: true,
+                        });
+                    }
+                    if (!data) {
+                        return await message.editReply({
+                            embeds: [
+                                errorEmbed().setDescription(
+                                    `Vous n'avez pas de Pokédex.\nPour créer un Pokédex, utilisez la commande : \`/${this.name} init\`.`
+                                ),
+                            ],
+                            ephemeral: true,
+                        });
+                    } else {
+                        let pokedexnames = "";
+                        let pokedexregions = "";
+
+                        if (data.PokedexName.includes(",")) {
+                            data.PokedexName.split(",").forEach((pokedex) => {
+                                pokedexnames += "`" + pokedex + "` ";
+                            });
+                        } else {
+                            pokedexnames = "`" + data.PokedexName + "`";
+                        }
+
+                        if (data.PokedexRegion.includes(",")) {
+                            data.PokedexRegion.split(",").forEach((region) => {
+                                pokedexregions += "`" + region + "` ";
+                            });
+                        } else {
+                            pokedexregions = "`" + data.PokedexRegion + "`";
+                        }
+
+                        viewEmbed
+                            .setAuthor(
+                                `Pokédex de ${member.user.username}`,
+                                member.displayAvatarURL()
+                            )
+                            .setDescription(
+                                `**Complété à ${Math.round(
+                                    (data.PokemonCaught.length /
+                                        data.PokemonNotYetCaught.length) *
+                                        100
+                                )} %**\n`
+                            )
+                            .addFields(
+                                {
+                                    name: "Pokedex",
+                                    value: `${pokedexnames}`,
+                                    inline: true,
+                                },
+                                {
+                                    name: "Région(s)",
+                                    value: `${pokedexregions}`,
+                                    inline: true,
+                                },
+                                {
+                                    name: "Version",
+                                    value: `\`${data.PokedexGameVersion}\``,
+                                    inline: true,
+                                },
+                                {
+                                    name: "Génération",
+                                    value: `\`${data.PokedexGeneration}\``,
+                                    inline: true,
+                                },
+                                {
+                                    name: "Pokémon attrapé/vu",
+                                    value: `\`${data.PokemonCaught.length}\``,
+                                    inline: true,
+                                },
+                                {
+                                    name: "Pokémon non attrapé/vu",
+                                    value: `\`${data.PokemonNotYetCaught.length}\``,
+                                    inline: true,
+                                }
+                            );
+
+                        message.editReply({ embeds: [viewEmbed] });
+                    }
+                })
+                .clone();
+        }
+    },
+};

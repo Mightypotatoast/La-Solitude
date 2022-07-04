@@ -34,7 +34,6 @@ module.exports = {
 
         message.deferReply({ ephemeral: false });
 
-        var channel = message.member.voice.channel;
         await joinVoiceChannel({
             channelId: channel.id,
             guildId: message.guild.id,
