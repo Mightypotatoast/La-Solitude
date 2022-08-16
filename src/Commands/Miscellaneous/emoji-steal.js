@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
-    MessageEmbed,
+    EmbedBuilder,
     Util,
     CommandInteraction,
     Client,
@@ -44,7 +44,7 @@ module.exports = {
             emoji[i] = "<" + emoji[i];
         }
 
-        let embedCreate = new MessageEmbed()
+        let embedCreate = new EmbedBuilder()
             .setColor("#25E325")
             .setTitle("Nouveaux émojis ")
             .setDescription(
@@ -84,13 +84,13 @@ module.exports = {
                     }`;
 
                     await message.guild.emojis.create(url, parsedEmoji.name);
-                    await embedCreate.addField(
-                        parsedEmoji.name,
-                        `<${parsedEmoji.animated ? "a" : ""}:${
+                    await embedCreate.addFields({
+                        name: parsedEmoji.name,
+                        value: `<${parsedEmoji.animated ? "a" : ""}:${
                             parsedEmoji.name
                         }:${parsedEmoji.id}>`,
-                        true
-                    );
+                        inline: true
+                    });
                 }
             }
             await delay("2000");

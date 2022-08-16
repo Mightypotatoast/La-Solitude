@@ -1,11 +1,11 @@
-const { MessageEmbed,} = require("discord.js");
+const { EmbedBuilder,} = require("discord.js");
 
 module.exports = {
     
 //!------------------------ ERROR -------------------------------    
     errorEmbed: () => {
         
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor("#FF0000")
             .setTitle("⛔ **Erreur**: ⛔")
             .setTimestamp()
@@ -15,7 +15,7 @@ module.exports = {
 //!------------------------ SUCCESS -------------------------------
     successEmbed: () => {
             
-            return new MessageEmbed()
+            return new EmbedBuilder()
                 .setColor("#00FF00")
                 .setTitle("✅ **Success**: ✅")
                 .setTimestamp()
@@ -24,7 +24,7 @@ module.exports = {
 
 //!------------------------ Music -------------------------------    
     musicEmbed: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor("#7F00FF")
             .setAuthor({
                 name:"Spotifion",
@@ -34,7 +34,7 @@ module.exports = {
     },
 //!---------------------- POKEMON -------------------------------
     pokemonEmbed: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setAuthor({
                 name: "POKÉDEX NATIONAL",
                 iconURL: "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png"
@@ -48,7 +48,7 @@ module.exports = {
     },
 
     pokemonEasterEggEmbed: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor("#FF0000")
             .setAuthor({
                 name: "POKÉDEX NATIONAL",
@@ -63,7 +63,7 @@ module.exports = {
     },
 //!---------------------- Warning -------------------------------
     warningEmbed: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor("YELLOW")
             .setTitle("⚠️ --- **AVERTISSEMENT** --- ⚠️")
             .setTimestamp()
@@ -72,7 +72,7 @@ module.exports = {
 //!---------------------- Ban -------------------------------
 
     banEmbed : () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor("#FF0000")
             .setTitle("⛔ --- **BANNISSEMENT**: --- ⛔")
             .setTimestamp()
@@ -80,14 +80,14 @@ module.exports = {
     
 //!---------------------- Kick -------------------------------
     kickEmbed : () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor("#FF0000")
             .setTitle("🦶 --- **KICK**: --- 🦶")
             .setTimestamp()
     },
 //!---------------------- Mute -------------------------------
     muteEmbed: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor("#FF0000")
             .setTitle("🔇 --- **MUTE**: --- 🔇")
             .setTimestamp()
@@ -96,7 +96,7 @@ module.exports = {
 //!---------------------- Set-channel -------------------------------
     
     setChannelEmbed: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor("#71CF93")
             .setTitle("NOUVEAU SALON DÉFINI")
             .setTimestamp()

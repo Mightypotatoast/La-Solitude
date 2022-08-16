@@ -79,7 +79,7 @@ module.exports = {
 
 
 
-        const Addembed = new Discord.MessageEmbed()
+        const Addembed = new Discord.EmbedBuilder()
             .setTitle("BIENVENUE")
             .setColor(0x00ff00)
             .setDescription(`Bonjour ${member} et bienvenue sur le serveur **${member.guild.name}**. Nous sommes maintenant **${member.guild.memberCount}** sur ce serveur.`)

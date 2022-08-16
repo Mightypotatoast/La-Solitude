@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageButton, ButtonInteraction } = require('discord.js');
+const { EmbedBuilder, MessageActionRow, MessageButton, ButtonInteraction } = require('discord.js');
 const { errorEmbed, successEmbed } = require("../../util/Embeds");
 const conf = require("../../config");
 const db = require("../../Models/tickets");
@@ -52,7 +52,7 @@ module.exports = {
                 });
         
 
-                const Embed = new MessageEmbed()
+                const Embed = new EmbedBuilder()
                     .setAuthor(`🎫 -- ${guild.name} | Système de Ticket -- 🎫`, guild.iconURL({ dynamic: true, format: "png" }))
                     .setColor("#0099ff")
                     .setDescription(`Veuillez patienter pour une réponse d'un administrateur, pendant ce temps, vous pouvez en profiter pour décrire votre problème.`)

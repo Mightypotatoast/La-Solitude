@@ -82,16 +82,22 @@ module.exports = {
                         )
                         .setDescription(`[${addedSong.name}](${addedSong.url})`)
                         .setThumbnail(`${addedSong.thumbnail}`)
-                        .addField(`Demandé par :`, `${message.user} `, true)
-                        .addField(
-                            `Auteur :`,
-                            `[${addedSong.uploader.name}](${addedSong.uploader.url})`,
-                            true
-                        )
-                        .addField(
-                            `Durée :`,
-                            `${addedSong.formattedDuration}`,
-                            true
+                        .addFields(
+                            {
+                                name: `Demandé par :`,
+                                value: `${message.user} `,
+                                inline: true
+                            },
+                            {
+                                name: `Auteur :`,
+                                value: `[${addedSong.uploader.name}](${addedSong.uploader.url})`,
+                                inline: true
+                            },
+                            {
+                                name: `Durée :`,
+                                value: `${addedSong.formattedDuration}`,
+                                inline: true
+                            }
                         ),
                 ],
                 components: [musicButtonRow(), musicButtonRow2()],

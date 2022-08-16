@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
 const {
-    MessageEmbed,
+    EmbedBuilder,
     MessageAttachment,
     MessageButton,
     MessageActionRow,
@@ -94,7 +94,7 @@ module.exports = {
         gifUrlWait = gifsWait[randGif].images.original.url;
         gifUrlStart = gifsStart[randGif].images.original.url; //url gif start
 
-        const embedWait = new MessageEmbed() //embed wait
+        const embedWait = new EmbedBuilder() //embed wait
             .setColor("BLURPLE")
             .setTitle("✨ Ready, waiting for players ... ✨")
             .setURL(url)
@@ -102,7 +102,7 @@ module.exports = {
             // .setThumbnail('http://www.curvytron.com/images/tuto/turn.gif')
             .setImage(gifUrlWait); //git url wait
 
-        const embedSart = new MessageEmbed() //embed start
+        const embedSart = new EmbedBuilder() //embed start
             .setColor("GOLD")
             .setTitle("Partie lancée 🥳!")
             .setURL(url)
@@ -170,7 +170,7 @@ module.exports = {
                             .setEmoji("🎮")
                     );
 
-                const embedSoloPlayer = new MessageEmbed() //embed solo player
+                const embedSoloPlayer = new EmbedBuilder() //embed solo player
                     .setColor("RED")
                     .setTitle(`@${playersolo} est tout seul dans la partie`)
                     .setURL(url)

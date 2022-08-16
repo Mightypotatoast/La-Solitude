@@ -138,82 +138,80 @@ module.exports = {
                         .setColor(pokemonData.color)
                         .setThumbnail(pokemonData.image)
 
-                        .addField(
-                            "__**Type(s) :**__",
-                            "```" +
-                                `${pokemonData.types}`.replace(",", " | ") +
-                                "```"
-                        )
-
-                        .addField(
-                            "__**Région :**__",
-                            "```" +
-                                pokemonData.region.charAt(0).toUpperCase() +
-                                pokemonData.region.slice(1) +
-                                "```",
-                            true
-                        )
-                        .addField(
-                            "__**Habitat :**__",
-                            pokemonData.habitat === null
-                                ? "```Non défini```"
-                                : "```" +
-                                      pokemonData.habitat
-                                          .charAt(0)
-                                          .toUpperCase() +
-                                      pokemonData.habitat.slice(1) +
-                                      "```",
-                            true
-                        )
-                        .addField(
-                            "__**Taille :**__",
-                            "```" + pokemonData.taille + " m```",
-                            true
-                        )
-
-                        .addField(
-                            "__**Version d'apparition :**__",
-                            "```" + pokemonData.version + "```",
-                            true
-                        )
-                        .addField(
-                            "__**Forme :**__",
-                            "```" + pokemonData.shape + "```",
-                            true
-                        )
-                        .addField(
-                            "__**Poids :**__",
-                            "```" + pokemonData.poids + " kg```",
-                            true
-                        )
-
-                        .addField(
-                            "__**Légendaire :**__",
-                            pokemonData.isLegendary ? "```Oui```" : "```Non```",
-                            true
-                        )
-                        .addField(
-                            "__**Mythique :**__",
-                            pokemonData.isMythical ? "```Oui```" : "```Non```",
-                            true
-                        )
-                        .addField(
-                            "__**Méga-évolution :**__",
-                            pokemonData.isMega ? "```Oui```" : "```Non```",
-                            true
-                        )
-
-                        .addField(
-                            "__**Taux de Capture :**__",
-                            "```" +
-                                Math.round(
-                                    (pokemonData.tauxCapture * 100) / 255,
-                                    2
-                                ) +
-                                " % ```",
-                            true
-                        )
-                        .addField("__**Evolution :**__", evolv(), true),
+                        .addFields(
+                            {
+                                name: "__**Type(s) :**__",
+                                value: "```" + `${pokemonData.types}`.replace(",", " | ") + "```"
+                            },
+                            {
+                                name: "__**Région :**__",
+                                value: "```" +
+                                    pokemonData.region.charAt(0).toUpperCase() +
+                                    pokemonData.region.slice(1) +
+                                    "```",
+                                inline: true
+                            },
+                            {
+                                name: "__**Habitat :**__",
+                                value: pokemonData.habitat === null
+                                    ? "```Non défini```"
+                                    : "```" +
+                                        pokemonData.habitat
+                                            .charAt(0)
+                                            .toUpperCase() +
+                                        pokemonData.habitat.slice(1) +
+                                        "```",
+                                inline: true
+                            },
+                            {
+                                name: "__**Taille :**__",
+                                value: "```" + pokemonData.taille + " m```",
+                                inline: true
+                            },
+                            {
+                                name: "__**Version d'apparition :**__",
+                                value: "```" + pokemonData.version + "```",
+                                inline: true
+                            },
+                            {
+                                name: "__**Forme :**__",
+                                value: "```" + pokemonData.shape + "```",
+                                inline: true
+                            },
+                            {
+                                name: "__**Poids :**__",
+                                value: "```" + pokemonData.poids + " kg```",
+                                inline: true
+                            },
+                            {
+                                name: "__**Légendaire :**__",
+                                value: pokemonData.isLegendary ? "```Oui```" : "```Non```",
+                                inline: true
+                            },
+                            {
+                                name: "__**Mythique :**__",
+                                value: pokemonData.isMythical ? "```Oui```" : "```Non```",
+                                inline: true
+                            },
+                            {
+                                name: "__**Méga-évolution :**__",
+                                value: pokemonData.isMega ? "```Oui```" : "```Non```",
+                                inline: true
+                            },
+                            {
+                                name: "__**Taux de Capture :**__",
+                                value: "```" +
+                                    Math.round(
+                                        (pokemonData.tauxCapture * 100) / 255,
+                                        2
+                                    ) +
+                                    " % ```",
+                                inline: true
+                            },
+                            {
+                                name: "__**Evolution :**__",value: evolv(),inline: true
+                            }
+                        ),
                 ],
             });
         } catch (e) {

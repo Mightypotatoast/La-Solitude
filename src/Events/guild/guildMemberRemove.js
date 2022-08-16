@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const config = require('../../config')
 
 
@@ -9,7 +9,7 @@ module.exports = {
 
     execute(member) {
 
-       const exampleEmbed = new MessageEmbed()
+       const exampleEmbed = new EmbedBuilder()
 	        .setColor('#ff0000')
 	        .setDescription(`${member} est parti(e). `)
 	        .setTimestamp();

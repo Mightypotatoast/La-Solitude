@@ -1,4 +1,4 @@
-const { MessageEmbed, ButtonInteraction } = require("discord.js");
+const { EmbedBuilder, ButtonInteraction } = require("discord.js");
 const { errorEmbed, successEmbed } = require("../../util/Embeds");
 const { createTranscript } = require("discord-html-transcripts");
 const db = require("../../Models/tickets");
@@ -29,7 +29,7 @@ module.exports = {
         if (!member.permissions.has("ADMINISTRATOR")) 
             return interaction.reply({ embeds: [errorEmbed().setDescription("Vous devez être un Administrateur pour utiliser cette commande.")], ephemeral: true });
         
-        const Embed = new MessageEmbed().setColor("#0099ff");
+        const Embed = new EmbedBuilder().setColor("#0099ff");
 
         db.findOne({ ChannelID: channel.id }, async (err, data) => { 
             if (err) return interaction.reply({ embeds: [errorEmbed().setDescription(`Une erreur est survenue: \`${err}\``)], ephemeral: true });
@@ -98,8 +98,18 @@ module.exports = {
                         embeds: [
                             Embed.setAuthor(`${MEMBER.user.tag}`, MEMBER.user.displayAvatarURL({ dynamic: true }))
                                 .setTitle(`Transcript du ${channel.name}`)
-                                .addField("Type", `${data.Type}`, true)
-                                .addField("Member", `${MEMBER}`, true)
+                                .addFields(
+                                    {
+                                        name: "Type",
+                                        value: `${data.Type}`,
+                                        inline: true
+                                    },
+                                    {
+                                        name: "Member",
+                                        value: `${MEMBER}`,
+                                        inline: true
+                                    }
+                                )
                         ],
                         files: [transcript],
                     });

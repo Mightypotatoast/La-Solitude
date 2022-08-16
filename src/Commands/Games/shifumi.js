@@ -5,7 +5,7 @@ const {
     Client,
     MessageActionRow,
     MessageButton,
-    MessageEmbed,
+    EmbedBuilder,
 } = require("discord.js");
 const { errorEmbed } = require("../../util/Embeds");
 
@@ -53,15 +53,15 @@ module.exports = {
                 ephemeral: true,
             });
 
-        let inviteEmbed = new MessageEmbed()
+        let inviteEmbed = new EmbedBuilder()
             .setTitle(`⚔️ --- SHIFUMI --- ⚔️`)
             .setAuthor("C'est l'heure du...dududu...du...du...Duel !")
             .setDescription(`${Executor} défie ${Target} au jeu de Shifumi`)
             .setColor("RED")
-            .addField(
-                "Description",
-                "Le jeu consiste à décider qui va gagner en faisant un choix entre :\n\n- Pierre (fort contre Ciseaux) \n- Feuille (fort contre Pierre)\n- Ciseaux (fort contre Feuille)"
-            );
+            .addFields({
+                name: "Description",
+                value: "Le jeu consiste à décider qui va gagner en faisant un choix entre :\n\n- Pierre (fort contre Ciseaux) \n- Feuille (fort contre Pierre)\n- Ciseaux (fort contre Feuille)"
+            });
 
         let inviteRow = new MessageActionRow().addComponents(
             new MessageButton()
@@ -74,7 +74,7 @@ module.exports = {
                 .setStyle("DANGER")
         );
 
-        const duelEmbed = new MessageEmbed()
+        const duelEmbed = new EmbedBuilder()
             .setTitle(
                 `⚔️ --- ${interaction.user.username} VS. ${Target.user.username} --- ⚔️`
             )
@@ -221,7 +221,7 @@ module.exports = {
                 if (reason === "time") {
                     await interaction.editReply({
                         embeds: [
-                            new MessageEmbed()
+                            new EmbedBuilder()
                                 .setTitle("Délai d'acceptation expiré")
                                 .setColor("BLACK")
                                 .setDescription(
@@ -298,7 +298,7 @@ module.exports = {
             if (reason === "time") {
                 await interaction.editReply({
                     embeds: [
-                        new MessageEmbed()
+                        new EmbedBuilder()
                             .setTitle("Délai d'acceptation expiré")
                             .setColor("BLACK")
                             .setDescription(
@@ -310,7 +310,7 @@ module.exports = {
             } else if (reason === "decline") {
                 await interaction.editReply({
                     embeds: [
-                        new MessageEmbed()
+                        new EmbedBuilder()
                             .setTitle("Invitation refusée")
                             .setAuthor(
                                 interaction.user.tag,

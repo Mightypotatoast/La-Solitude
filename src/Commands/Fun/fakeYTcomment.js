@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const fetch = (...args) =>
     import("node-fetch").then(({ default: fetch }) => fetch(...args)); // eslint-disable-line
 const {
-    MessageEmbed,
+    EmbedBuilder,
     CommandInteraction,
     Client,
     MessageAttachment,
@@ -57,7 +57,7 @@ module.exports = {
 
             const attach = new MessageAttachment(data.body, "img.png");
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setDescription(`**Le commentaire Youtube de ${Target}**`)
                 .setColor("RED")
                 .setImage(`attachment://img.png`)

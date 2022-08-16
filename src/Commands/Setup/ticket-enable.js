@@ -1,6 +1,6 @@
 const {
     CommandInteraction,
-    MessageEmbed,
+    EmbedBuilder,
     Client,
     MessageActionRow,
     MessageButton,
@@ -138,7 +138,7 @@ module.exports = {
                 transcriptChannel: transcriptChannel.id,
             };
 
-            const Embed = new MessageEmbed()
+            const Embed = new EmbedBuilder()
                 .setAuthor(
                     `🎫 -- ${guild.name} | Système de Ticket -- 🎫`,
                     guild.iconURL({ dynamic: true, format: "png" })

@@ -58,17 +58,23 @@ module.exports = {
                                     false
                                 )} ${playingSong.formattedDuration}**`
                             )
-                            .addField(
-                                `Demandé par :`,
-                                `${playingSong.user}`,
-                                true
-                            )
-                            .addField(
-                                `Auteur :`,
-                                `[${playingSong.uploader.name}](${playingSong.uploader.url})`,
-                                true
-                            )
-                            .addField(`Volume :`, `${queue.volume}%`, true),
+                            .addFields(
+                                {
+                                    name: `Demandé par :`,
+                                    value: `${playingSong.user}`,
+                                    inline: true
+                                },
+                                {
+                                    name:`Auteur :`,
+                                    value:`[${playingSong.uploader.name}](${playingSong.uploader.url})`,
+                                    inline: true
+                                },
+                                {
+                                    name: `Volume :`,
+                                    value: `${queue.volume}%`,
+                                    inline: true
+                                }
+                            ),
                     ],
                     components: [musicButtonRow(), musicButtonRow2()],
                     ephemeral: false,

@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 const config = require('../../config')
 
 module.exports = {
@@ -9,9 +9,14 @@ module.exports = {
     async execute(oldChannel, newChannel) {
 
        
-        const channelEmbed = new MessageEmbed()
+        const channelEmbed = new EmbedBuilder()
             .setTitle("**Un channel a été modifié !**")
-            .addField("Nom Actuel",newChannel.name)
+            .addFields(
+                {
+                    name: "Nom Actuel",
+                    value: newChannel.name
+                }
+            )
             .setColor("#3CE7E7")
             .setTimestamp()
 
@@ -19,13 +24,23 @@ module.exports = {
 
         if (oldChannel.name != newChannel.name) {
 
-            channelEmbed.addField("Changement de **nom**",`\`${oldChannel.name}\` a été renommé en \`${newChannel.name}\` `)
+            channelEmbed.addFields(
+                {
+                    name: "Changement de **nom**",
+                    value: `\`${oldChannel.name}\` a été renommé en \`${newChannel.name}\` `
+                }
+            )
             
         }
         
         else if (oldChannel.permissionOverwrites.cache !== newChannel.permissionOverwrites.cache) {
 
-           channelEmbed.addField("Changement de **permissions**", "une ou plusieurs permissions ont été changées")
+            channelEmbed.addFields(
+                {   
+                    name: "Changement de **permissions**",
+                    value: "une ou plusieurs permissions ont été changées"
+                }
+            )
             
         }
         

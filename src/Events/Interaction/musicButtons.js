@@ -47,20 +47,22 @@ module.exports = {
                                         .setThumbnail(
                                             `${playingSong.thumbnail}`
                                         )
-                                        .addField(
-                                            `Demandé par :`,
-                                            `${playingSong.member}`,
-                                            true
-                                        )
-                                        .addField(
-                                            `Auteur :`,
-                                            `[${playingSong.uploader.name}](${playingSong.uploader.url})`,
-                                            true
-                                        )
-                                        .addField(
-                                            `Volume :`,
-                                            `${queue.volume}%`,
-                                            true
+                                        .addFields(
+                                            {
+                                                name: `Demandé par :`,
+                                                value: `${playingSong.member}`,
+                                                inline: true
+                                            },
+                                            {
+                                                name: `Auteur :`,
+                                                value: `[${playingSong.uploader.name}](${playingSong.uploader.url})`,
+                                                inline: true
+                                            },
+                                            {
+                                                name: `Volume :`,
+                                                value: `${queue.volume}%`,
+                                                inline: true
+                                            }
                                         ),
                                 ],
                                 components: [
@@ -90,20 +92,22 @@ module.exports = {
                                             true
                                         )}** ${playingSong.formattedDuration}`
                                     )
-                                    .addField(
-                                        `Demandé par :`,
-                                        `${playingSong.member}`,
-                                        true
-                                    )
-                                    .addField(
-                                        `Auteur :`,
-                                        `[${playingSong.uploader.name}](${playingSong.uploader.url})`,
-                                        true
-                                    )
-                                    .addField(
-                                        `Volume :`,
-                                        `${queue.volume}%`,
-                                        true
+                                    .addFields(
+                                        {
+                                            name: `Demandé par :`,
+                                            value: `${playingSong.user}`,
+                                            inline: true
+                                        },
+                                        {
+                                            name: `Auteur :`,
+                                            value: `[${playingSong.uploader.name}](${playingSong.uploader.url})`,
+                                            inline: true
+                                        },
+                                        {    
+                                            name: `Volume :`,
+                                            value: `${queue.volume}%`,
+                                            inline: true
+                                        }
                                     ),
                             ],
                             components: [musicButtonRow(), musicButtonRow2()],

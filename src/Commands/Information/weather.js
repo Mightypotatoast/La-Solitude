@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const weather = require("weather-js");
 const { errorEmbed } = require("../../util/Embeds");
 
@@ -45,31 +45,45 @@ module.exports = {
                         ? "🔸"
                         : "🥶";
 
-                const resultEmbed = new MessageEmbed()
+                const resultEmbed = new EmbedBuilder()
                     .setColor("#111111")
                     .setTitle(
                         `Prévisions météorologiques pour ${current.observationpoint} à ${current.observationtime}`
                     )
                     .setThumbnail(current.imageUrl)
                     .setDescription(`**${current.skytext}**`)
-                    .addField(
-                        "🕜 Fuseau Horaire :",
-                        `UTC ${location.timezone}`,
-                        true
+                    .addFields(
+                        {
+                            name: "🕜 Fuseau Horaire :",
+                            value: `UTC ${location.timezone}`,
+                            inline: true
+                        },
+                        {
+                            name: "🔹 Type de degrée :",
+                            value: `Celsius`,
+                            inline: true
+                        },
+                        {
+                            name: "🌡️ Température :",
+                            value: `${current.temperature}°C`,
+                            inline: true
+                        },
+                        {
+                            name: `${ressentieEmoji} Ressentie :`,
+                            value: `${current.feelslike}°C`,
+                            inline: true
+                        },
+                        {
+                            name: "💨 Vent :",
+                            value: `${current.winddisplay}`,
+                            inline: true
+                        },
+                        {
+                            name: "💧 Humidité :",
+                            value: `${current.humidity}%`,
+                            inline: true
+                        }
                     )
-                    .addField("🔹 Type de degrée :", `Celsius`, true)
-                    .addField(
-                        "🌡️ Température :",
-                        `${current.temperature}°C`,
-                        true
-                    )
-                    .addField(
-                        `${ressentieEmoji} Ressentie :`,
-                        `${current.feelslike}°C`,
-                        true
-                    )
-                    .addField("💨 Vent :", `${current.winddisplay}`, true)
-                    .addField("💧 Humidité :", `${current.humidity}%`, true)
                     .setTimestamp();
 
                 message.reply({ embeds: [resultEmbed] });

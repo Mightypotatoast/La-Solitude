@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { ContextMenuInteraction, MessageEmbed } = require("discord.js");
+const { ContextMenuInteraction, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,7 +11,7 @@ module.exports = {
             interaction.targetId
         );
 
-        const userMessage = new MessageEmbed()
+        const userMessage = new EmbedBuilder()
             .setAuthor(
                 "Avatar de " + target.user.tag,
                 target.user.displayAvatarURL({ format: "png" })

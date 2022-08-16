@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 const config = require('../../config')
 
 module.exports = {
@@ -8,11 +8,16 @@ module.exports = {
 
     async execute(oldEmoji, newEmoji) {
 
-       const emojiEmbed = new MessageEmbed()
+       const emojiEmbed = new EmbedBuilder()
             .setTitle("**Un émoji a été modifié !**")
             .setColor("#3CE7E7")
             .setThumbnail(newEmoji.url)
-            .addField('Changements : ', `L'émoji \`:${oldEmoji.name}:\` a été renommé en \`:${newEmoji.name}:\``)
+            .addFields(
+                {
+                    name:'Changements : ',
+                    value: `L'émoji \`:${oldEmoji.name}:\` a été renommé en \`:${newEmoji.name}:\``
+                }
+            )
             .setTimestamp()
         
         

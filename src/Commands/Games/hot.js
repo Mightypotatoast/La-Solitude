@@ -56,13 +56,13 @@ module.exports = {
         let ChallengeEmbed = new MessageEmbed()
             .setTitle("🔥 **Hot Combien** 🔥")
             .setColor("BLURPLE")
-            .addField(`**Challenge** : ${reason}`)
-
-            .addField("Sens", "", true)
-
-            .addField(`${executor.user.username}`, `⚫*en attente ...*`, true)
-            .addField("➡️ Normal ➡️", `Hot ${NumberMax}`, true)
-            .addField(`${target.user.username}`, `⚫*en attente ...*`, true);
+            .addFields(
+                {name: `**Challenge** :`, value: reason},
+                {name: "Sens", value: "", inline: true},
+                {name: `${executor.user.username}`, value: `⚫*en attente ...*`, inline: true},
+                {name: "➡️ Normal ➡️",value: `Hot ${NumberMax}`, inline: true},
+                {name: `${target.user.username}`,value: `⚫*en attente ...*`,inline: true}
+            );
 
         message.reply({ embeds: [ChallengeEmbed] });
 

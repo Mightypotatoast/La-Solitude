@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const db = require("../../Models/infraction");
 const { errorEmbed, warningEmbed } = require("../../util/Embeds");
 const { SlashCommandBuilder } = require("@discordjs/builders");
@@ -174,8 +174,16 @@ module.exports = {
                             .setDescription(
                                 `Avertissement ajouté à : ${Target.tag}  |  ||${Target.id}||`
                             )
-                            .addField("Raison", Reason)
-                            .addField("Preuve", Evidence),
+                            .addFields(
+                                {
+                                    name: "Raison",
+                                    value: Reason
+                                },
+                                {
+                                    name:"Preuve",
+                                    value: Evidence
+                                }
+                            ),
                     ],
                 });
                 break;
@@ -224,9 +232,11 @@ module.exports = {
                                     .setDescription(
                                         `Les avertissement de ${Target}`
                                     )
-                                    .addField(
-                                        "Avertissements :",
-                                        Warnings.join("\n")
+                                    .addFields(
+                                        {
+                                            name: "Avertissements :",
+                                            value: Warnings.join("\n")
+                                        }
                                     ),
                             ],
                         });

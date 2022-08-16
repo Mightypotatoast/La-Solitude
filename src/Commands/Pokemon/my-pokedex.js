@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
     CommandInteraction,
     Client,
-    MessageEmbed,
+    EmbedBuilder,
     MessageActionRow,
     MessageButton,
     MessageSelectMenu,
@@ -175,7 +175,7 @@ module.exports = {
         if (Sub === "init") {
             //if (message.member.permissions.has("ADMINISTRATOR")) { return message.editReply({ embed: [errorEmbed().setDescription("You need to be an administrator to use this command.")], ephemeral: true }) }
 
-            let initEmbed = new MessageEmbed()
+            let initEmbed = new EmbedBuilder()
                 .setTitle("Initialisation de votre Pokédex...")
                 .setColor("#000000")
                 .setDescription("Veuillez indiquer la version de votre jeu")
@@ -689,7 +689,7 @@ module.exports = {
                                         confirmCollector.stop();
                                         await m.edit({
                                             embeds: [
-                                                new MessageEmbed()
+                                                new EmbedBuilder()
                                                     .setDescription(
                                                         "Votre Pokédex n'a pas été initialisé."
                                                     )
@@ -752,7 +752,7 @@ module.exports = {
 
         //! SUPPRESION DE LA BDD POKEDEX DU USER
         else if (Sub === "delete") {
-            let deleteEmbed = new MessageEmbed()
+            let deleteEmbed = new EmbedBuilder()
                 .setTitle("Supression de votre Pokédex...")
                 .setColor("RED")
                 .setDescription(
@@ -891,7 +891,7 @@ module.exports = {
                                     confirmCollector.stop();
                                     await message.edit({
                                         embeds: [
-                                            new MessageEmbed()
+                                            new EmbedBuilder()
                                                 .setDescription(
                                                     "Votre Pokédex n'a pas été supprimé."
                                                 )
@@ -927,7 +927,7 @@ module.exports = {
 
         //! AFFICHAGE DES INFORMATIONS DU POKÉDEX
         else if (Sub === "view") {
-            let viewEmbed = new MessageEmbed().setColor("GOLD");
+            let viewEmbed = new EmbedBuilder().setColor("GOLD");
 
             await db
                 .findOne({ UserID: member.id }, async (err, data) => {

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { ContextMenuInteraction, MessageEmbed } = require("discord.js");
+const { ContextMenuInteraction, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,7 +11,7 @@ module.exports = {
             interaction.targetId
         );
 
-        const userMessage = new MessageEmbed()
+        const userMessage = new EmbedBuilder()
             .setColor("AQUA")
             .setAuthor(
                 target.user.tag,
@@ -19,25 +19,30 @@ module.exports = {
             )
             .setThumbnail(target.user.avatarURL({ dynamic: true, size: 512 }))
             .setDescription("Informations sur " + target)
-            .addField("ID :", `${target.user.id}`)
-            .addField(
-                "Rôles :",
-                `${
-                    target.roles.cache
-                        .map((r) => r)
-                        .join(" ")
-                        .replace("@everyone", "") || "`Rien`"
-                }`
-            )
-            .addField(
-                "Membre depuis :",
-                `<t:${parseInt(target.joinedTimestamp / 1000)}:R>`,
-                true
-            )
-            .addField(
-                "Utilise Discord depuis :",
-                `<t:${parseInt(target.user.createdTimestamp / 1000)}:R>`,
-                true
+            .addFields(
+                {
+                    name: "ID :",
+                    value: `${target.user.id}`
+                },
+                {
+                    name :"Rôles :",
+                    value: `${
+                        target.roles.cache
+                            .map((r) => r)
+                            .join(" ")
+                            .replace("@everyone", "") || "`Rien`"
+                        }`
+                },
+                {
+                    name: "Membre depuis :",
+                    value: `<t:${parseInt(target.joinedTimestamp / 1000)}:R>`,
+                    inline: true
+                },
+                {
+                    name: "Utilise Discord depuis :",
+                    value: `<t:${parseInt(target.user.createdTimestamp / 1000)}:R>`,
+                    inline: true
+                }
             );
 
         interaction.reply({ embeds: [userMessage], ephemeral: true });

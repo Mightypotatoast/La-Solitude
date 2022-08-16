@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
     CommandInteraction,
-    MessageEmbed,
+    EmbedBuilder,
     MessageActionRow,
     MessageButton,
 } = require("discord.js");
@@ -43,7 +43,7 @@ module.exports = {
         const Type = options.getString("type");
         const Suggestion = options.getString("suggestion");
 
-        const Embed = new MessageEmbed()
+        const Embed = new EmbedBuilder()
             .setTitle(`🗂️ --- Suggestion de type : ${Type} --- 🗂️`)
             .setColor("NAVY")
             .addFields(

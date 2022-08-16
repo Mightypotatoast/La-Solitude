@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageAttachment, MessageEmbed } = require("discord.js");
+const { MessageAttachment, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -7,7 +7,7 @@ module.exports = {
         .setDescription("Affiche le logo du serveur"),
 
     async execute(message, client) {
-        let logoembed = new MessageEmbed()
+        let logoembed = new EmbedBuilder()
             .setTitle(`Le Logo de ${message.guild.name}`)
             .setColor(0xff6800)
             .setImage(message.guild.iconURL({ dynamic: true, format: "png" }))

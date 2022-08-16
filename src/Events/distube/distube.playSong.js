@@ -30,13 +30,23 @@ module.exports = {
                     false
                 )} ${song.formattedDuration}**`
             )
-            .addField(`Demandé par :`, `${song.member}`, true)
-            .addField(
-                `Auteur :`,
-                `[${song.uploader.name}](${song.uploader.url})`,
-                true
-            )
-            .addField(`Volume :`, `${queue.volume}%`, true);
+            .addFields(
+                {
+                    name: `Demandé par :`,
+                    value: `${song.member}`,
+                    inline: true
+                },
+                {
+                    name: `Auteur :`,
+                    value: `[${song.uploader.name}](${song.uploader.url})`,
+                    inline: true
+                },
+                {
+                    name: `Volume :`,
+                    value: `${queue.volume}%`,
+                    inline: true
+                }
+            );
 
         try {
             musicChannel = await queue.voiceChannel.guild.channels.cache
@@ -86,17 +96,23 @@ module.exports = {
                                     playingSong.duration
                                 )} ${playingSong.formattedDuration}**`
                             )
-                            .addField(
-                                `Demandé par :`,
-                                `${playingSong.user}`,
-                                true
-                            )
-                            .addField(
-                                `Auteur :`,
-                                `[${playingSong.uploader.name}](${playingSong.uploader.url})`,
-                                true
-                            )
-                            .addField(`Volume :`, `${queue.volume}%`, true),
+                            .addFields(
+                                {
+                                    name: `Demandé par :`,
+                                    value: `${playingSong.user}`,
+                                    inline: true
+                                },
+                                {
+                                    name: `Auteur :`,
+                                    value: `[${playingSong.uploader.name}](${playingSong.uploader.url})`,
+                                    inline: true
+                                },
+                                {    
+                                    name: `Volume :`,
+                                    value: `${queue.volume}%`,
+                                    inline: true
+                                }
+                            ),
                     ],
                     components: [musicButtonRow(), musicButtonRow2()],
                     ephemeral: false,

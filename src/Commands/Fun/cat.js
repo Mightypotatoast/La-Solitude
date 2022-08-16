@@ -1,4 +1,4 @@
-const { MessageEmbed, CommandInteraction } = require("discord.js");
+const { EmbedBuilder, CommandInteraction } = require("discord.js");
 const { errorEmbed } = require("../../util/Embeds");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const fetch = (...args) =>
@@ -29,7 +29,7 @@ module.exports = {
 
             const data = await fetchAPI();
 
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setTitle("Image de Chat")
                 .setColor("#00D7FF")
                 .setDescription(data.fact)

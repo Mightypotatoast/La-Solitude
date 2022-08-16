@@ -1,4 +1,4 @@
-const { MessageEmbed, CommandInteraction } = require("discord.js");
+const { EmbedBuilder, CommandInteraction } = require("discord.js");
 const conf = require("../../config");
 const { errorEmbed } = require("../../util/Embeds");
 const { SlashCommandBuilder } = require("@discordjs/builders");
@@ -42,18 +42,35 @@ module.exports = {
             rreason = "Aucune raison n'a été indiqué";
         }
 
-        let reportEmbed = new MessageEmbed()
+        let reportEmbed = new EmbedBuilder()
             .setTitle(":satellite: Signalement Détecté :satellite:")
             .setColor("#000000")
-            .addField("Membre signalé : ", `${rUser}`, true)
-            .addField("Signalé par : ", `${message.user}`, true)
-            .addField("Dans le salon : ", `<#${message.channel.id}>`, true)
-            .addField(
-                "Date : ",
-                `<t:${parseInt(message.createdAt / 1000)}:R>`,
-                true
-            )
-            .addField("Raison : ", `${rreason}`);
+            .addFields(
+                {
+                    name: "Membre signalé : ",
+                    value: `${rUser}`,
+                    inline: true
+                },
+                {
+                    name:"Signalé par : ",
+                    value: `${message.user}`,
+                    inline: true
+                },
+                {
+                    name:"Dans le salon : ",
+                    value: `<#${message.channel.id}>`,
+                    inline: true
+                },
+                {
+                    name: "Date : ",
+                    value: `<t:${parseInt(message.createdAt / 1000)}:R>`,
+                    inline: true
+                },
+                {
+                    name: "Raison : ",
+                    value: `${rreason}`
+                }
+            );
 
         let reportschannel = !config.channel.reportID
             ? null

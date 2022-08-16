@@ -1,4 +1,4 @@
-const { MessageEmbed, CommandInteraction, GuildMember, MessageActionRow, MessageButton } = require("discord.js");
+const { EmbedBuilder, CommandInteraction, GuildMember, MessageActionRow, MessageButton } = require("discord.js");
 const Pokedex = require("pokedex-promise-v2");
 const { errorEmbed } = require("./Embeds");
 const P = new Pokedex();

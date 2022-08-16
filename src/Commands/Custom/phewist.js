@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const phewist = require("../../util/phewistLists");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 //const config = require("../../config.json");
@@ -18,7 +18,7 @@ module.exports = {
 
         let phewistID = message.guild.members.cache.get("178851979332812801");
 
-        let phewistEmbed = new MessageEmbed()
+        let phewistEmbed = new EmbedBuilder()
             .setColor("#666699")
             .setDescription(`**Moi, ${rndSujet}, ${rndVerbs} ${rndObjet}.**`)
             .setAuthor({ 

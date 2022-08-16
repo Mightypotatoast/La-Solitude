@@ -1,4 +1,4 @@
-const { CommandInteraction, MessageEmbed, Client } = require("discord.js");
+const { CommandInteraction, EmbedBuilder, Client } = require("discord.js");
 const { errorEmbed, successEmbed } = require("../../util/Embeds");
 const db = require("../../Models/channels");
 const ticketDB = require("../../Models/tickets");

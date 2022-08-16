@@ -1,4 +1,4 @@
-const { MessageEmbed, CommandInteraction } = require("discord.js");
+const { EmbedBuilder, CommandInteraction } = require("discord.js");
 const { errorEmbed } = require("../../util/Embeds");
 const fetch = (...args) =>
     import("node-fetch").then(({ default: fetch }) => fetch(...args)); // eslint-disable-line
@@ -98,7 +98,7 @@ module.exports = {
             .then(() => {
                 message.reply({
                     embeds: [
-                        new MessageEmbed()
+                        new EmbedBuilder()
                             .setDescription(
                                 `**Le pseudo de ${Target} a été changé** \n\n\`${oldNickname}\` ---> \`${newNickname}\``
                             )

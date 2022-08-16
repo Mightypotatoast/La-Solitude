@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
     CommandInteraction,
-    MessageEmbed,
+    EmbedBuilder,
     Client,
     MessageActionRow,
     MessageSelectMenu,
@@ -66,7 +66,7 @@ module.exports = {
             };
         });
 
-        const helpEmbed = new MessageEmbed()
+        const helpEmbed = new EmbedBuilder()
             .setAuthor(
                 `${client.user.username} Menu Help`,
                 client.user.avatarURL()

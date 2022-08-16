@@ -1,4 +1,4 @@
-const { MessageEmbed, CommandInteraction, Client } = require("discord.js");
+const { EmbedBuilder, CommandInteraction, Client } = require("discord.js");
 const { musicEmbed, errorEmbed } = require("../../util/Embeds"); //!provisoir, a retirer quand Handler pour Select menu sera présent
 
 module.exports = {

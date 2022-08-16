@@ -1,4 +1,4 @@
-const { CommandInteraction, MessageEmbed, Client } = require("discord.js");
+const { CommandInteraction, EmbedBuilder, Client } = require("discord.js");
 const { errorEmbed } = require("../../util/Embeds");
 const fetch = (...args) =>
     import("node-fetch").then(({ default: fetch }) => fetch(...args)); // eslint-disable-line
@@ -74,7 +74,7 @@ module.exports = {
                     });
                 }
 
-                const chuckEmbed = new MessageEmbed()
+                const chuckEmbed = new EmbedBuilder()
                     .setTitle("Chuck Norris Facts")
                     .setColor(0xff6800)
                     .setThumbnail(
@@ -86,10 +86,10 @@ module.exports = {
                     .setTimestamp();
 
                 facts.forEach((f) => {
-                    chuckEmbed.addField(
-                        `\`Fact ${f.id}\``,
-                        `${f.fact}\n_Note: ${f.note}_`
-                    );
+                    chuckEmbed.addFields({
+                        name: `\`Fact ${f.id}\``,
+                        value :`${f.fact}\n_Note: ${f.note}_`
+                    });
                 });
 
                 resultMessage.edit({ embeds: [chuckEmbed] });

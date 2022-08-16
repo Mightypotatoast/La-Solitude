@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageAttachment } = require("discord.js");
+const { EmbedBuilder, MessageAttachment } = require("discord.js");
 const Scrapper = require("images-scraper");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
@@ -50,7 +50,7 @@ module.exports = {
                     img_result = await google.scrape("chauve barbue", 200);
                 }
 
-                let baldEmbed = new MessageEmbed()
+                let baldEmbed = new EmbedBuilder()
                     .setColor(0xedb987)
                     .setDescription(`**Jérémie n°${rnd}**`)
                     .setImage(img_result[rnd].url)

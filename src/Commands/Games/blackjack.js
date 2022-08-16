@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 
 const {
     CommandInteraction,
-    MessageEmbed,
+    EmbedBuilder,
     MessageActionRow,
     MessageButton,
     Client,
@@ -22,7 +22,7 @@ module.exports = {
      *
      */
     async execute(message, client) {
-        let blackjackEmbed = new MessageEmbed()
+        let blackjackEmbed = new EmbedBuilder()
             .setTitle("🎲 -- Blackjack -- 🎲")
             .setDescription("Vous voulez faire une partie de blackjack ?")
             .setColor("#0099ff")

@@ -195,8 +195,16 @@ module.exports = {
                             .setDescription(
                                 `Vous avez été mute par ${message.member} sur le serveur **${message.guild.name}**`
                             )
-                            .addField("Raison :", Reason)
-                            .addField("Durée :", `${Duration} ${DurationType}`),
+                            .addFields(
+                                {
+                                    name:"Raison :", 
+                                    value: Reason
+                                },
+                                {
+                                    name: "Durée :", 
+                                    value: `${Duration} ${DurationType}`
+                                },
+                            )
                     ],
                 }).catch(() => {
                     console.log(
@@ -218,12 +226,20 @@ module.exports = {
                 message.reply({
                     embeds: [
                         muteEmbed()
-                            .addField(
-                                "Membre :",
-                                `${Target} | \`${Target.id}\``
+                            .addFields(
+                                {
+                                    name: "Membre :",
+                                    value: `${Target} | \`${Target.id}\``
+                                },
+                                {
+                                    name :"Raison :", 
+                                    value: Reason
+                                },
+                                { 
+                                    name:"Durée :",
+                                    value: `${Duration} ${DurationType}`
+                                }
                             )
-                            .addField("Raison :", Reason)
-                            .addField("Durée :", `${Duration} ${DurationType}`),
                     ],
                 });
             }

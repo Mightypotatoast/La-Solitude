@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 module.exports = {
     data: new SlashCommandBuilder()
@@ -9,7 +9,7 @@ module.exports = {
         try {
             let coin = Math.floor(Math.random() * 2);
 
-            const coinEmbed = new MessageEmbed()
+            const coinEmbed = new EmbedBuilder()
                 .setColor("#E1A741")
                 .setAuthor({
                     name: "Pile ou Face",

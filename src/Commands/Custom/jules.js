@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 // const https = require("https");
 // const axios = require("axios");
@@ -27,7 +27,7 @@ module.exports = {
 
         message.reply({
             embeds: [
-                new MessageEmbed().setImage(jules[random]).setColor("#FF00B9"),
+                new EmbedBuilder().setImage(jules[random]).setColor("#FF00B9"),
             ],
         });
     },

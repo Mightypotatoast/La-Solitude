@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,7 +16,7 @@ module.exports = {
             let dice = message.options.getString("dice");
             if (dice == null) dice = "6";
             const roll = Math.floor(Math.random() * dice) + 1;
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor("#FF0000")
                 .setAuthor({
                     name: "Lance un dé",

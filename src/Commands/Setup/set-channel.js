@@ -1,4 +1,4 @@
-const { MessageEmbed, CommandInteraction } = require("discord.js");
+const { EmbedBuilder, CommandInteraction } = require("discord.js");
 const { errorEmbed, setChannelEmbed } = require("../../util/Embeds");
 const db = require("../../Models/channels");
 const { SlashCommandBuilder } = require("@discordjs/builders");

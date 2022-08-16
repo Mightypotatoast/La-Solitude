@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const answers = [
     "C'est certain.",
     "C'est le cas.",
@@ -48,14 +48,14 @@ module.exports = {
     execute(message, client) {
         const question = message.options.getString("question");
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setTitle("🎱  The Magic 8-Ball  🎱")
             //.setDescription("**-----------------------------**")
-            .addField("Question", `\`${question}\``)
-            .addField(
-                "Réponse",
-                `\`${answers[Math.floor(Math.random() * answers.length)]}\``
-            )
+            .addFields({name: "Question", value: `\`${question}\``},
+            {
+                name: "Réponse",
+                value: `\`${answers[Math.floor(Math.random() * answers.length)]}\``
+            })
             .setTimestamp()
             .setColor("#6f00ff");
 

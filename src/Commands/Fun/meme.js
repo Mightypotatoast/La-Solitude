@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const fetch = (...args) =>
     import("node-fetch").then(({ default: fetch }) => fetch(...args));
@@ -43,7 +43,7 @@ module.exports = {
                 "http://meme-api.herokuapp.com/gimme/memes"
             ).then((res) => res.json());
 
-            let embedReponse = new MessageEmbed()
+            let embedReponse = new EmbedBuilder()
                 .setTitle(data.title)
                 .setURL(data.postLink)
                 .setColor("#00D7FF")
