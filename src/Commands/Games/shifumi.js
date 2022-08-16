@@ -195,7 +195,7 @@ module.exports = {
                 if (b.user.id === Executor.id) {
                     auth = b.customId;
 
-                    duelEmbed.fields[0].value = `🟢 Prêt`;
+                    duelEmbed.data.fields[0].value = `🟢 Prêt`;
 
                     await interaction.editReply({
                         embeds: [duelEmbed],
@@ -206,7 +206,7 @@ module.exports = {
                 if (b.user.id === Target.id) {
                     op = b.customId;
 
-                    duelEmbed.fields[2].value = `🟢 Prêt`;
+                    duelEmbed.data.fields[2].value = `🟢 Prêt`;
 
                     await interaction.editReply({
                         embeds: [duelEmbed],
@@ -243,16 +243,16 @@ module.exports = {
                         paper: "📄",
                     };
 
-                    duelEmbed.fields[0].value = `${emojiMap[auth]} ${auth}`;
-                    duelEmbed.fields[2].value = `${emojiMap[op]} ${op}`;
+                    duelEmbed.data.fields[0].value = `${emojiMap[auth]} ${auth}`;
+                    duelEmbed.data.fields[2].value = `${emojiMap[op]} ${op}`;
                     duelEmbed.setColor("GREEN");
 
                     if (op === auth) {
-                        duelEmbed.fields[1].value = `**Egalité**`;
+                        duelEmbed.data.fields[1].value = `**Egalité**`;
                     } else if (winnerMap[op] === auth) {
-                        duelEmbed.fields[1].value = `**${Target} a gagné !**`;
+                        duelEmbed.data.fields[1].value = `**${Target} a gagné !**`;
                     } else {
-                        duelEmbed.fields[1].value = `**${Executor} a gagné**`;
+                        duelEmbed.data.fields[1].value = `**${Executor} a gagné**`;
                     }
 
                     await interaction.editReply({

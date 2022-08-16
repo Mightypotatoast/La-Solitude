@@ -112,7 +112,7 @@ module.exports = {
                 { name: "- Main du bot -", value: "-", inline: true }
             );
 
-            blackjackEmbed.fields[0].value = `\`${playerHand[0].number} ${playerHand[0].icon}\` | \`${playerHand[1].number} ${playerHand[1].icon}\``;
+            blackjackEmbed.data.fields[0].value = `\`${playerHand[0].number} ${playerHand[0].icon}\` | \`${playerHand[1].number} ${playerHand[1].icon}\``;
 
             await message.editReply({
                 embeds: [blackjackEmbed],
@@ -147,14 +147,14 @@ module.exports = {
                 if (btn.customId === "BJ-draw") {
                     playerHand.push(DrawCard());
 
-                    blackjackEmbed.fields[0].value = "";
+                    blackjackEmbed.data.fields[0].value = "";
                     playerHand.forEach((card) => {
-                        blackjackEmbed.fields[0].value += `\`${card.number} ${card.icon}\` | `;
+                        blackjackEmbed.data.fields[0].value += `\`${card.number} ${card.icon}\` | `;
                     });
-                    blackjackEmbed.fields[0].value =
-                        "" + blackjackEmbed.fields[0].value.slice(0, -2);
+                    blackjackEmbed.data.fields[0].value =
+                        "" + blackjackEmbed.data.fields[0].value.slice(0, -2);
 
-                    blackjackEmbed.fields[1].name = `- ( ${Score(
+                    blackjackEmbed.data.fields[1].name = `- ( ${Score(
                         playerHand
                     )} ) - SCORE - ( ${Score(botHand)} ) -`;
                 }
@@ -177,7 +177,7 @@ module.exports = {
                     blackjackRow.components[0].setDisabled(true);
                     blackjackRow.components[1].setDisabled(true);
                     blackjackRow.components[2].setDisabled(true);
-                    blackjackEmbed.fields[1].value = "Vous avez perdu !";
+                    blackjackEmbed.data.fields[1].value = "Vous avez perdu !";
 
                     blackjackCollector.stop("lose");
                 }
@@ -194,31 +194,31 @@ module.exports = {
                         while (Score(botHand) < 17) {
                             botHand.push(DrawCard());
 
-                            blackjackEmbed.fields[2].value = "";
+                            blackjackEmbed.data.fields[2].value = "";
 
                             botHand.forEach((card) => {
-                                blackjackEmbed.fields[2].value += `\`${card.number} ${card.icon}\` | `;
+                                blackjackEmbed.data.fields[2].value += `\`${card.number} ${card.icon}\` | `;
                             });
 
-                            blackjackEmbed.fields[2].value =
+                            blackjackEmbed.data.fields[2].value =
                                 "" +
-                                blackjackEmbed.fields[2].value.slice(0, -2);
+                                blackjackEmbed.data.fields[2].value.slice(0, -2);
 
-                            blackjackEmbed.fields[1].name = `- ( ${Score(
+                            blackjackEmbed.data.fields[1].name = `- ( ${Score(
                                 playerHand
                             )} ) - SCORE - ( ${Score(botHand)} ) -`;
                         }
 
                         if (Score(botHand) > 21) {
-                            blackjackEmbed.fields[1].value =
+                            blackjackEmbed.data.fields[1].value =
                                 "Vous avez gagné !";
                         } else if (Score(botHand) > Score(playerHand)) {
-                            blackjackEmbed.fields[1].value =
+                            blackjackEmbed.data.fields[1].value =
                                 "Vous avez perdu !";
                         } else if (Score(botHand) === Score(playerHand)) {
-                            blackjackEmbed.fields[1].value = "Egalité !";
+                            blackjackEmbed.data.fields[1].value = "Egalité !";
                         } else {
-                            blackjackEmbed.fields[1].value =
+                            blackjackEmbed.data.fields[1].value =
                                 "Vous avez gagné !";
                         }
 
