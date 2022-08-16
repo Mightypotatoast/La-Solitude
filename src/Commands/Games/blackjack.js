@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
     CommandInteraction,
     EmbedBuilder,
-    MessageActionRow,
+    ActionRow,
     MessageButton,
     Client,
 } = require("discord.js");
@@ -29,7 +29,7 @@ module.exports = {
             .setFooter({ text:"Blackjack" })
             .setTimestamp();
 
-        let inviteRow = new MessageActionRow().addComponents(
+        let inviteRow = new ActionRow().addComponents(
             new MessageButton()
                 .setLabel("Oui")
                 .setCustomId(`BJ-accept`)
@@ -40,7 +40,7 @@ module.exports = {
                 .setStyle("DANGER")
         );
 
-        let blackjackRow = new MessageActionRow().addComponents(
+        let blackjackRow = new ActionRow().addComponents(
             new MessageButton()
                 .setLabel("Piocher")
                 .setCustomId(`BJ-draw`)

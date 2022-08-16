@@ -10,7 +10,8 @@ function loadCommands(client){
     const fs = require("fs");
     const table = new ascii().setHeading("Events", "Status");
     const { REST } = require('@discordjs/rest');
-    
+    const { Routes } = require("discord-api-types/v10");
+
     let commandsArray = [];
     let developerArray= [];
 
@@ -45,7 +46,7 @@ function loadCommands(client){
             await rest.put(
                 Routes.applicationCommands(client.user.id),
                 {
-                    body: commands,
+                    body: commandsArray,
                 }
             );
 

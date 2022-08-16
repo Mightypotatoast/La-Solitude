@@ -1,6 +1,6 @@
 const {
     CommandInteraction,
-    MessageActionRow,
+    ActionRow,
     MessageSelectMenu,
 } = require("discord.js");
 const { errorEmbed, successEmbed, musicEmbed } = require("../../util/Embeds");
@@ -79,7 +79,7 @@ module.exports = {
                 let i = 0,
                     j = 1;
                 do {
-                    let row = new MessageActionRow().addComponents(
+                    let row = new ActionRow().addComponents(
                         new MessageSelectMenu()
                             .setCustomId(`disable-${j}`)
                             .setPlaceholder("Rien n'est sélectionné")

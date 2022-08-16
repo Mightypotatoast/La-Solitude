@@ -1,9 +1,9 @@
-const { MessageActionRow, MessageButton } = require("discord.js");
+const { ActionRow, MessageButton } = require("discord.js");
 
 module.exports = {
     //------------------------ Music -------------------------------
     musicButtonRow: () => {
-        return new MessageActionRow().addComponents(
+        return new ActionRow().addComponents(
             new MessageButton()
                 .setLabel("⏮️")
                 .setCustomId(`previous`)
@@ -20,7 +20,7 @@ module.exports = {
     },
 
     musicButtonRow2: () => {
-        return new MessageActionRow().addComponents(
+        return new ActionRow().addComponents(
             new MessageButton()
                 .setLabel("🔀")
                 .setCustomId(`shuffle`)

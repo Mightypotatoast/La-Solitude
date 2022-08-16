@@ -7,9 +7,11 @@ module.exports = {
     name: 'guildMemberRemove',
     once: false,
 
-    execute(member) {
+    execute(member, client) {
 
-       const exampleEmbed = new EmbedBuilder()
+        if(member.id === client.user.id) return;
+        
+        const exampleEmbed = new EmbedBuilder()
 	        .setColor('#ff0000')
 	        .setDescription(`${member} est parti(e). `)
 	        .setTimestamp();

@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
     CommandInteraction,
     EmbedBuilder,
-    MessageActionRow,
+    ActionRow,
     MessageButton,
 } = require("discord.js");
 const db = require("../../Models/suggest");
@@ -61,7 +61,7 @@ module.exports = {
             )
             .setTimestamp();
 
-        const Buttons = new MessageActionRow();
+        const Buttons = new ActionRow();
 
         Buttons.addComponents(
             new MessageButton()

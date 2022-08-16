@@ -1,4 +1,4 @@
-const { MessageActionRow, MessageSelectMenu } = require("discord.js");
+const { ActionRow, MessageSelectMenu } = require("discord.js");
 const { options } = require("snekfetch");
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 const { SlashCommandBuilder } = require("@discordjs/builders");
@@ -36,7 +36,7 @@ module.exports = {
                 };
             });
 
-            const row = new MessageActionRow().addComponents(
+            const row = new ActionRow().addComponents(
                 new MessageSelectMenu()
                     .setCustomId("remove")
                     .setMaxValues(1)

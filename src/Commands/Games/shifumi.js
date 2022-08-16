@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
     CommandInteraction,
     Client,
-    MessageActionRow,
+    ActionRow,
     MessageButton,
     EmbedBuilder,
 } = require("discord.js");
@@ -30,7 +30,7 @@ module.exports = {
         } catch (e) {
             console.log(e);
         }
-        let Target = interaction.options.getMember("user");
+        let Target = interaction.options.getMember("qui");
         let Executor = interaction.member;
 
         if (Executor.id === Target.id)
@@ -55,15 +55,15 @@ module.exports = {
 
         let inviteEmbed = new EmbedBuilder()
             .setTitle(`⚔️ --- SHIFUMI --- ⚔️`)
-            .setAuthor("C'est l'heure du...dududu...du...du...Duel !")
+            .setAuthor({name:"C'est l'heure du...dududu...du...du...Duel !"})
             .setDescription(`${Executor} défie ${Target} au jeu de Shifumi`)
-            .setColor("RED")
+            .setColor("#FFF000")
             .addFields({
                 name: "Description",
                 value: "Le jeu consiste à décider qui va gagner en faisant un choix entre :\n\n- Pierre (fort contre Ciseaux) \n- Feuille (fort contre Pierre)\n- Ciseaux (fort contre Feuille)"
             });
 
-        let inviteRow = new MessageActionRow().addComponents(
+        let inviteRow = new ActionRow().addComponents(
             new MessageButton()
                 .setLabel("Accepter")
                 .setCustomId(`duel-accept`)
@@ -98,7 +98,7 @@ module.exports = {
             )
             .setTimestamp();
 
-        let duelRow = new MessageActionRow().addComponents(
+        let duelRow = new ActionRow().addComponents(
             new MessageButton()
                 .setLabel("PIERRE")
                 .setCustomId("rock")
@@ -117,7 +117,7 @@ module.exports = {
                 .setStyle("PRIMARY")
                 .setEmoji("✂️")
         );
-        let ReplayRow = new MessageActionRow().addComponents(
+        let ReplayRow = new ActionRow().addComponents(
             new MessageButton()
                 .setLabel("Rejouer")
                 .setCustomId("replay")

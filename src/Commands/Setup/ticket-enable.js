@@ -2,7 +2,7 @@ const {
     CommandInteraction,
     EmbedBuilder,
     Client,
-    MessageActionRow,
+    ActionRow,
     MessageButton,
 } = require("discord.js");
 const { errorEmbed, successEmbed } = require("../../util/Embeds");
@@ -149,7 +149,7 @@ module.exports = {
                 )
                 .setTimestamp();
 
-            const row = new MessageActionRow().addComponents(
+            const row = new ActionRow().addComponents(
                 new MessageButton()
                     .setLabel("Signaler un membre")
                     .setCustomId("ticket-member")
