@@ -13,17 +13,22 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("command")
         .setDescription("Activation ou rechargement des commandes")
-        .addStringOption((option) =>
-            option
-                .setName("mode")
-                .setDescription("Modifier l'état d'une commande")
-                .setRequired(true)
-                .addChoices(
-                    { name: "enable", value: "0" },
-                    { name: "disable", value: "1" },
-                    { name: "reload", value: "2" }
-                )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('enable')
+                .setDescription('Activer une ou plusieurs commandes')
+                .addUserOption(option => option.setName('target').setDescription('The user')))
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('disable')
+                .setDescription('Désactiver une ou plusieurs commandes')
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('reload')
+                .setDescription('Recharger les commandes')
         ),
+        
 
     /**
      * @param {CommandInteraction} interaction
@@ -34,8 +39,10 @@ module.exports = {
 
         const Sub = options.getSubcommand(["enable", "disable", "reload"]);
 
+        await message.deferReply();
+
         if (!message.member.permissions.has("ADMINISTRATOR"))
-            return message.reply({
+            return await message.editReply({
                 embeds: [
                     errorEmbed().setDescription(
                         "Vous devez être Administrateur pour utiliser cette commande"
@@ -65,7 +72,7 @@ module.exports = {
 
         SortObjectArray(Commandfiles, "label");
 
-        await message.reply({
+        await message.editReply({
             embeds: [musicEmbed().setDescription("⏳ Chargement ...")],
             ephemeral: true,
         });
@@ -97,7 +104,7 @@ module.exports = {
                     j++;
                 } while (Commandfiles.length > i);
 
-                message.editReply({
+                await message.editReply({
                     embeds: [
                         musicEmbed().setDescription(
                             `Sélectionner une ou plusieurs commandes à désactiver ⤵️`
@@ -129,7 +136,7 @@ module.exports = {
 
             case "reload":
                 if (message.member.id !== "206905331366756353")
-                    return message.editReply({
+                    return await message.editReply({
                         embed: [
                             errorEmbed().setDescription(
                                 "Vous n'avez pas la permission d'utiliser cette commande : **`BOT OWNER ONLY`**"
