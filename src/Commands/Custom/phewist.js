@@ -8,15 +8,26 @@ module.exports = {
         .setName("phewist")
         .setDescription("Générer une phrase que pourrait dire Phewist"),
 
-    async execute(message) {
+    async execute(message, client) {
+        
+        await message.deferReply()
+        
         let rndSujet =
             phewist.sujet[Math.floor(Math.random() * phewist.sujet.length)];
-        let rndVerbs =
+            let rndVerbs =
             phewist.verbs[Math.floor(Math.random() * phewist.verbs.length)];
-        let rndObjet =
+            let rndObjet =
             phewist.objet[Math.floor(Math.random() * phewist.objet.length)];
-
-        let phewistID = message.guild.members.cache.get("178851979332812801");
+            
+        let phewistID
+        try{
+            phewistID = await message.guild.members.fetch("178851979332812801").catch();
+        }
+        catch(e){
+            phewistID = null
+        }
+        
+        console.log(phewistID)
 
         let phewistEmbed = new EmbedBuilder()
             .setColor("#666699")
@@ -24,11 +35,11 @@ module.exports = {
             .setAuthor({ 
                 name : phewistID ? `${phewistID.user.tag}` : "Phewist",
                 iconURL : phewistID
-                    ? `${phewistID.user.displayAvatarURL()}`
+                    ? `${phewistID.user.avatarURL()}`
                     : "https://cdn.discordapp.com/avatars/178851979332812801/473cdeb49f6293a18b7c449a7774db4c.webp"
             })
             .setTimestamp();
 
-        message.reply({ embeds: [phewistEmbed] });
+        await message.editReply({ embeds: [phewistEmbed] });
     },
 };
