@@ -13,7 +13,7 @@ module.exports = {
     async execute(interaction, client) {
         if (!interaction.isCommand()) return;
         console.log(
-            `[ ${interaction.guild} ]|[ #${interaction.channel} ]| ${interaction.user.username} => use command : /${interaction.commandName}`
+            `${interaction.guild} => #${interaction.channel.name} => ${interaction.user.username} => use command : /${interaction.commandName}`
         );
         const command = client.commands.get(interaction.commandName);
         //console.info(client.commands);
