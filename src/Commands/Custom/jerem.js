@@ -1,4 +1,4 @@
-const { EmbedBuilder, MessageAttachment } = require("discord.js");
+const { EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const Scrapper = require("images-scraper");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 

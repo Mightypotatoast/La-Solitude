@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 
 const {
     EmbedBuilder,
-    MessageAttachment,
+    AttachmentBuilder,
     ButtonBuilder,
     ActionRowBuilder,
 } = require("discord.js");
@@ -157,7 +157,7 @@ module.exports = {
                     clip: { x: 250, y: 440, width: 550, height: 200 },
                 }); //screenshot
 
-                const playerSoloAttachment = new MessageAttachment(
+                const playerSoloAttachment = new AttachmentBuilder(
                     "playerSolo.png"
                 );
 

@@ -9,7 +9,7 @@ module.exports = {
         ),
 
     async execute(message) {
-        const trepuecAttach = new Discord.MessageAttachment(
+        const trepuecAttach = new Discord.AttachmentBuilder(
             "./src/util/img/trepuec.jpg"
         );
 

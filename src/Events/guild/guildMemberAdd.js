@@ -75,7 +75,7 @@ module.exports = {
         const avatar = await Canvas.loadImage(buffer);
         ctx.drawImage(avatar, (canvas.width/2)-65 , 20 , 130, 130);
 
-        const CanvasAttachment = new Discord.MessageAttachment(canvas.toBuffer(), 'welcome-image.png');
+        const CanvasAttachment = new Discord.AttachmentBuilder(canvas.toBuffer(), 'welcome-image.png');
 
 
 

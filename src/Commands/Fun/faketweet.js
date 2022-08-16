@@ -6,7 +6,7 @@ const {
     EmbedBuilder,
     CommandInteraction,
     Client,
-    MessageAttachment,
+    AttachmentBuilder,
 } = require("discord.js");
 
 module.exports = {
@@ -58,7 +58,7 @@ module.exports = {
 
             const data = await fetchAPI();
 
-            const attach = new MessageAttachment(data.body, "img.png");
+            const attach = new AttachmentBuilder(data.body, "img.png");
 
             const embed = new EmbedBuilder()
                 .setDescription(`**Tweet de ${Target}**`)
