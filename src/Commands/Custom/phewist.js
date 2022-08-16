@@ -21,21 +21,20 @@ module.exports = {
             
         let phewistID
         try{
-            phewistID = await message.guild.members.fetch("178851979332812801").catch();
+            phewistID = await client.users.fetch("178851979332812801").catch();
         }
         catch(e){
             phewistID = null
         }
         
-        console.log(phewistID)
 
         let phewistEmbed = new EmbedBuilder()
             .setColor("#666699")
             .setDescription(`**Moi, ${rndSujet}, ${rndVerbs} ${rndObjet}.**`)
             .setAuthor({ 
-                name : phewistID ? `${phewistID.user.tag}` : "Phewist",
+                name : phewistID ? `${phewistID.tag}` : "Phewist",
                 iconURL : phewistID
-                    ? `${phewistID.user.avatarURL()}`
+                    ? `${phewistID.avatarURL()}`
                     : "https://cdn.discordapp.com/avatars/178851979332812801/473cdeb49f6293a18b7c449a7774db4c.webp"
             })
             .setTimestamp();
