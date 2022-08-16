@@ -3,7 +3,7 @@ const {
     CommandInteraction,
     EmbedBuilder,
     Client,
-    ActionRow,
+    ActionRowBuilder,
     MessageSelectMenu,
 } = require("discord.js");
 const { log } = require("util");
@@ -82,7 +82,7 @@ module.exports = {
             .setTimestamp();
 
         const components = (state) => {
-            return new ActionRow().addComponents(
+            return new ActionRowBuilder().addComponents(
                 new MessageSelectMenu()
                     .setCustomId("help-menu")
                     .setPlaceholder("Rien n'est sélectionné")

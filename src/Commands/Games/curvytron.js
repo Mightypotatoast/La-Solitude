@@ -4,7 +4,7 @@ const {
     EmbedBuilder,
     MessageAttachment,
     MessageButton,
-    ActionRow,
+    ActionRowBuilder,
 } = require("discord.js");
 const puppeteer = require("puppeteer");
 require("isomorphic-fetch");
@@ -56,7 +56,7 @@ module.exports = {
         const url = await page.url(); //get url
         console.log(url);
 
-        const joinButton = new ActionRow() //join game button
+        const joinButton = new ActionRowBuilder() //join game button
             .addComponents(
                 new MessageButton()
                     .setURL(url)
@@ -65,7 +65,7 @@ module.exports = {
                     .setEmoji("🎮")
             );
 
-        const spectateButton = new ActionRow() //spectate button
+        const spectateButton = new ActionRowBuilder() //spectate button
             .addComponents(
                 new MessageButton()
                     .setURL(url)
@@ -161,7 +161,7 @@ module.exports = {
                     "playerSolo.png"
                 );
 
-                const joinButtonUser = new ActionRow() //join @user button
+                const joinButtonUser = new ActionRowBuilder() //join @user button
                     .addComponents(
                         new MessageButton()
                             .setURL(url)

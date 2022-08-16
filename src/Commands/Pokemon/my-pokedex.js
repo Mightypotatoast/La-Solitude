@@ -3,7 +3,7 @@ const {
     CommandInteraction,
     Client,
     EmbedBuilder,
-    ActionRow,
+    ActionRowBuilder,
     MessageButton,
     MessageSelectMenu,
 } = require("discord.js");
@@ -229,7 +229,7 @@ module.exports = {
                 });
             });
 
-            let row = new ActionRow().addComponents(
+            let row = new ActionRowBuilder().addComponents(
                 new MessageSelectMenu()
                     .setOptions(versions)
                     .setCustomId("pokedex-version")
@@ -361,7 +361,7 @@ module.exports = {
                     await menu.deferUpdate();
                     versionCollector.stop();
 
-                    let row = new ActionRow().addComponents(
+                    let row = new ActionRowBuilder().addComponents(
                         new MessageSelectMenu()
                             .setOptions(pokedexs)
                             .setCustomId("pokedex-type")
@@ -416,7 +416,7 @@ module.exports = {
                             await menu.deferUpdate();
                             pokedexCollector.stop();
 
-                            let row = new ActionRow().addComponents(
+                            let row = new ActionRowBuilder().addComponents(
                                 new MessageSelectMenu()
                                     .setOptions([
                                         {
@@ -834,7 +834,7 @@ module.exports = {
                             }
                         );
 
-                        let row = new ActionRow().addComponents(
+                        let row = new ActionRowBuilder().addComponents(
                             new MessageSelectMenu()
                                 .setOptions([
                                     { label: "Oui", value: "yes", emoji: "✔️" },

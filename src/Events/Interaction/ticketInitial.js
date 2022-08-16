@@ -1,4 +1,4 @@
-const { EmbedBuilder, ActionRow, MessageButton, ButtonInteraction } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, MessageButton, ButtonInteraction } = require('discord.js');
 const { errorEmbed, successEmbed } = require("../../util/Embeds");
 const conf = require("../../config");
 const db = require("../../Models/tickets");
@@ -59,7 +59,7 @@ module.exports = {
                     .setFooter("Les boutons ci-dessous sont réservés aux administrateurs du serveur.")
                     .setTimestamp()
 
-                const row = new ActionRow().addComponents(
+                const row = new ActionRowBuilder().addComponents(
                     new MessageButton()
                         .setLabel("Sauvegarder et Fermer")
                         .setCustomId("ticket-close")

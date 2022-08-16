@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
     CommandInteraction,
     Client,
-    ActionRow,
+    ActionRowBuilder,
     MessageButton,
     EmbedBuilder,
 } = require("discord.js");
@@ -63,7 +63,7 @@ module.exports = {
                 value: "Le jeu consiste à décider qui va gagner en faisant un choix entre :\n\n- Pierre (fort contre Ciseaux) \n- Feuille (fort contre Pierre)\n- Ciseaux (fort contre Feuille)"
             });
 
-        let inviteRow = new ActionRow().addComponents(
+        let inviteRow = new ActionRowBuilder().addComponents(
             new MessageButton()
                 .setLabel("Accepter")
                 .setCustomId(`duel-accept`)
@@ -98,7 +98,7 @@ module.exports = {
             )
             .setTimestamp();
 
-        let duelRow = new ActionRow().addComponents(
+        let duelRow = new ActionRowBuilder().addComponents(
             new MessageButton()
                 .setLabel("PIERRE")
                 .setCustomId("rock")
@@ -117,7 +117,7 @@ module.exports = {
                 .setStyle("PRIMARY")
                 .setEmoji("✂️")
         );
-        let ReplayRow = new ActionRow().addComponents(
+        let ReplayRow = new ActionRowBuilder().addComponents(
             new MessageButton()
                 .setLabel("Rejouer")
                 .setCustomId("replay")
