@@ -11,10 +11,10 @@ module.exports = {
      * @returns
      */
     async execute(interaction, client) {
-        console.log(
-            `commande ${interaction.commandName} utilisée par ${interaction.user.username} sur le serveur ${interaction.guild}`
-        );
         if (!interaction.isCommand()) return;
+        console.log(
+            `[ ${interaction.guild} ]|[ #${interaction.channel} ]| ${interaction.user.username} => use command : /${interaction.commandName}`
+        );
         const command = client.commands.get(interaction.commandName);
         //console.info(client.commands);
         if (!command) return console.log("commande non trouvée");
