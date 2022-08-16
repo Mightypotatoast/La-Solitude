@@ -1,4 +1,4 @@
-const { EmbedBuilder, ActionRowBuilder, MessageButton, ButtonInteraction } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonInteraction } = require('discord.js');
 const { errorEmbed, successEmbed } = require("../../util/Embeds");
 const conf = require("../../config");
 const db = require("../../Models/tickets");
@@ -60,22 +60,22 @@ module.exports = {
                     .setTimestamp()
 
                 const row = new ActionRowBuilder().addComponents(
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setLabel("Sauvegarder et Fermer")
                         .setCustomId("ticket-close")
-                        .setStyle("PRIMARY")
+                        .setStyle("Primary")
                         .setEmoji("💾"),
                 
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setLabel("Bloquer")
                         .setCustomId("ticket-lock")
-                        .setStyle("SECONDARY")
+                        .setStyle("Secondary")
                         .setEmoji("🔒"),
                 
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setLabel("Débloquer")
                         .setCustomId("ticket-unlock")
-                        .setStyle("SUCCESS")
+                        .setStyle("Success")
                         .setEmoji("🔓")
                         .setDisabled(true),
                     

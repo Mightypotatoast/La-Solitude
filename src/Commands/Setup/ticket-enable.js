@@ -3,7 +3,7 @@ const {
     EmbedBuilder,
     Client,
     ActionRowBuilder,
-    MessageButton,
+    ButtonBuilder,
 } = require("discord.js");
 const { errorEmbed, successEmbed } = require("../../util/Embeds");
 const db = require("../../Models/channels");
@@ -150,20 +150,20 @@ module.exports = {
                 .setTimestamp();
 
             const row = new ActionRowBuilder().addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                     .setLabel("Signaler un membre")
                     .setCustomId("ticket-member")
-                    .setStyle("PRIMARY")
+                    .setStyle("Primary")
                     .setEmoji("🎫"),
-                new MessageButton()
+                new ButtonBuilder()
                     .setLabel("Signaler un bug")
                     .setCustomId("ticket-bug")
-                    .setStyle("SECONDARY")
+                    .setStyle("Secondary")
                     .setEmoji("🐛"),
-                new MessageButton()
+                new ButtonBuilder()
                     .setLabel("Autres")
                     .setCustomId("ticket-other")
-                    .setStyle("DANGER")
+                    .setStyle("Danger")
                     .setEmoji("📝")
             );
 

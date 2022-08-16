@@ -4,7 +4,7 @@ const {
     CommandInteraction,
     EmbedBuilder,
     ActionRowBuilder,
-    MessageButton,
+    ButtonBuilder,
     Client,
 } = require("discord.js");
 const { errorEmbed } = require("../../util/Embeds");
@@ -30,32 +30,32 @@ module.exports = {
             .setTimestamp();
 
         let inviteRow = new ActionRowBuilder().addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setLabel("Oui")
                 .setCustomId(`BJ-accept`)
-                .setStyle("SUCCESS"),
-            new MessageButton()
+                .setStyle("Success"),
+            new ButtonBuilder()
                 .setLabel("Non")
                 .setCustomId(`BJ-decline`)
-                .setStyle("DANGER")
+                .setStyle("Danger")
         );
 
         let blackjackRow = new ActionRowBuilder().addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setLabel("Piocher")
                 .setCustomId(`BJ-draw`)
-                .setStyle("SUCCESS")
+                .setStyle("Success")
                 .setEmoji("🎴"),
 
-            new MessageButton()
+            new ButtonBuilder()
                 .setLabel("Rester")
                 .setCustomId(`BJ-stay`)
-                .setStyle("SECONDARY")
+                .setStyle("Secondary")
                 .setEmoji("💤"),
-            new MessageButton()
+            new ButtonBuilder()
                 .setLabel("Abandonner")
                 .setCustomId(`BJ-abandon`)
-                .setStyle("DANGER")
+                .setStyle("Danger")
                 .setEmoji("🏳️")
         );
 

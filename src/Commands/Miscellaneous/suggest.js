@@ -3,7 +3,7 @@ const {
     CommandInteraction,
     EmbedBuilder,
     ActionRowBuilder,
-    MessageButton,
+    ButtonBuilder,
 } = require("discord.js");
 const db = require("../../Models/suggest");
 const { successEmbed } = require("../../util/Embeds");
@@ -64,18 +64,18 @@ module.exports = {
         const Buttons = new ActionRowBuilder();
 
         Buttons.addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setCustomId("suggest-accept")
                 .setLabel("✅ Accept")
-                .setStyle("SECONDARY"),
-            new MessageButton()
+                .setStyle("Secondary"),
+            new ButtonBuilder()
                 .setCustomId("suggest-decline")
                 .setLabel("⛔ Decline")
-                .setStyle("SECONDARY"),
-            new MessageButton()
+                .setStyle("Secondary"),
+            new ButtonBuilder()
                 .setCustomId("suggest-delete")
                 .setLabel("🗑️ Delete")
-                .setStyle("DANGER")
+                .setStyle("Danger")
         );
 
         try {

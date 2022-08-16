@@ -4,7 +4,7 @@ const {
     Client,
     EmbedBuilder,
     ActionRowBuilder,
-    MessageButton,
+    ButtonBuilder,
     MessageSelectMenu,
 } = require("discord.js");
 const db = require("../../Models/my-pokedex");

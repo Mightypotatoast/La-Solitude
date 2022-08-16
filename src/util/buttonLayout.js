@@ -1,38 +1,38 @@
-const { ActionRowBuilder, MessageButton } = require("discord.js");
+const { ActionRowBuilder, ButtonBuilder } = require("discord.js");
 
 module.exports = {
     //------------------------ Music -------------------------------
     musicButtonRow: () => {
         return new ActionRowBuilder().addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setLabel("⏮️")
                 .setCustomId(`previous`)
-                .setStyle("SECONDARY"),
-            new MessageButton()
+                .setStyle("Secondary"),
+            new ButtonBuilder()
                 .setLabel("⏯️")
                 .setCustomId(`pause`)
-                .setStyle("SECONDARY"),
-            new MessageButton()
+                .setStyle("Secondary"),
+            new ButtonBuilder()
                 .setLabel("⏭️")
                 .setCustomId(`skip`)
-                .setStyle("SECONDARY")
+                .setStyle("Secondary")
         );
     },
 
     musicButtonRow2: () => {
         return new ActionRowBuilder().addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setLabel("🔀")
                 .setCustomId(`shuffle`)
-                .setStyle("SECONDARY"),
-            new MessageButton()
+                .setStyle("Secondary"),
+            new ButtonBuilder()
                 .setLabel("🔁")
                 .setCustomId(`repeat`)
-                .setStyle("SECONDARY"),
-            new MessageButton()
+                .setStyle("Secondary"),
+            new ButtonBuilder()
                 .setLabel("❤️")
                 .setCustomId(`like`)
-                .setStyle("SECONDARY")
+                .setStyle("Secondary")
         );
     },
 };

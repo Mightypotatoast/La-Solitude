@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
     EmbedBuilder,
     MessageAttachment,
-    MessageButton,
+    ButtonBuilder,
     ActionRowBuilder,
 } = require("discord.js");
 const puppeteer = require("puppeteer");
@@ -58,19 +58,19 @@ module.exports = {
 
         const joinButton = new ActionRowBuilder() //join game button
             .addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                     .setURL(url)
                     .setLabel("Rejoindre la room")
-                    .setStyle("LINK")
+                    .setStyle("Link")
                     .setEmoji("🎮")
             );
 
         const spectateButton = new ActionRowBuilder() //spectate button
             .addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                     .setURL(url)
                     .setLabel("Regarder la game")
-                    .setStyle("LINK")
+                    .setStyle("Link")
                     .setEmoji("👀")
             );
 
@@ -163,10 +163,10 @@ module.exports = {
 
                 const joinButtonUser = new ActionRowBuilder() //join @user button
                     .addComponents(
-                        new MessageButton()
+                        new ButtonBuilder()
                             .setURL(url)
                             .setLabel(`Rejoindre @${playersolo}`)
-                            .setStyle("LINK")
+                            .setStyle("Link")
                             .setEmoji("🎮")
                     );
 

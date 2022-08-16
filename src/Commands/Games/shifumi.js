@@ -4,7 +4,7 @@ const {
     CommandInteraction,
     Client,
     ActionRowBuilder,
-    MessageButton,
+    ButtonBuilder,
     EmbedBuilder,
 } = require("discord.js");
 const { errorEmbed } = require("../../util/Embeds");
@@ -64,25 +64,25 @@ module.exports = {
             });
 
         let inviteRow = new ActionRowBuilder().addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setLabel("Accepter")
                 .setCustomId(`duel-accept`)
-                .setStyle("SUCCESS"),
-            new MessageButton()
+                .setStyle("Success"),
+            new ButtonBuilder()
                 .setLabel("Refuser")
                 .setCustomId(`duel-decline`)
-                .setStyle("DANGER")
+                .setStyle("Danger")
         );
 
         const duelEmbed = new EmbedBuilder()
             .setTitle(
                 `⚔️ --- ${interaction.user.username} VS. ${Target.user.username} --- ⚔️`
             )
-            .setColor("RED")
+            .setColor("#FFF000")
             .setDescription(
                 "Choisissez entre 🪨 Pierre, 📄 Feuille, ou ✂️ Ciseaux"
             )
-            .setFooter("Vous avez 30 secondes pour faire votre choix")
+            .setFooter({text: "Vous avez 30 secondes pour faire votre choix"})
             .addFields(
                 {
                     name: `${Executor.user.username}`,
@@ -99,29 +99,29 @@ module.exports = {
             .setTimestamp();
 
         let duelRow = new ActionRowBuilder().addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setLabel("PIERRE")
                 .setCustomId("rock")
-                .setStyle("SECONDARY")
+                .setStyle("Secondary")
                 .setEmoji("🪨"),
 
-            new MessageButton()
+            new ButtonBuilder()
                 .setLabel("FEUILLE")
                 .setCustomId("paper")
-                .setStyle("SUCCESS")
+                .setStyle("Success")
                 .setEmoji("📄"),
 
-            new MessageButton()
+            new ButtonBuilder()
                 .setLabel("CISEAUX")
                 .setCustomId("scissors")
-                .setStyle("PRIMARY")
+                .setStyle("Primary")
                 .setEmoji("✂️")
         );
         let ReplayRow = new ActionRowBuilder().addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setLabel("Rejouer")
                 .setCustomId("replay")
-                .setStyle("SUCCESS")
+                .setStyle("Success")
                 .setEmoji("🔁")
         );
 
