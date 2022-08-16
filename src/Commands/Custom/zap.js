@@ -4,9 +4,9 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 module.exports = {
     data: new SlashCommandBuilder().setName("zap").setDescription("Euuuuh...."),
 
-    execute(message) {
+    async execute(message) {
         let client = message.client
-        var Kwey = client.users.cache.get("232110364186247168");
+        var Kwey = await client.users.fetch("232110364186247168");
 
         message.reply({
             embeds: [
@@ -15,7 +15,7 @@ module.exports = {
                     title: "**Chignon = Pneu**",
                     description: "",
                     footer: {
-                        icon_url: Kwey.avatarURL,
+                        icon_url: Kwey.avatarURL(),
                         text: "© Created by Kweyy",
                     },
                 },
