@@ -90,9 +90,7 @@ module.exports = {
 
             const fetchAPI = async () => {
                 const response = await fetch(
-                    `https://some-random-api.ml/canvas/${overlay}?avatar=${Target.displayAvatarURL(
-                        { format: "png" }
-                    )}`,
+                    `https://some-random-api.ml/canvas/${overlay}?avatar=${Target.user.displayAvatarURL().replace(".webp",".png")}`,
                     {
                         method: "GET",
                     }
@@ -102,13 +100,13 @@ module.exports = {
 
             const data = await fetchAPI();
 
-            const attach = new AttachmentBuilder(data.body, "img.png");
+            const attach = new AttachmentBuilder(data.body, {name: "img.png"});
 
             const embed = new EmbedBuilder()
                 .setDescription(
                     `**L'avatar de ${Target} avec l'overlay \`${overlay}\` **`
                 )
-                .setColor("WHITE")
+                .setColor("White")
                 .setImage(`attachment://img.png`)
                 .setFooter({
                     text: `Demander par ${message.member.user.tag}`,
