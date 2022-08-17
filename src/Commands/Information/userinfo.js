@@ -1,10 +1,10 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { ContextMenuCommandBuilder, EmbedBuilder } = require("discord.js");
+const { ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder } = require("discord.js");
 
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new ContextMenuCommandBuilder()
         .setName("userinfo")
-        .setDescription("Affiche les informations de l'utilisateur"),
+        .setType(ApplicationCommandType.User),
 
     async execute(interaction) {
         const target = await interaction.guild.members.fetch(
@@ -13,12 +13,12 @@ module.exports = {
 
         const userMessage = new EmbedBuilder()
             .setColor("AQUA")
-            .setAuthor(
-                target.user.tag,
-                target.user.avatarURL({ dynamic: true, size: 512 })
-            )
+            .setAuthor({
+                name: target.user.tag,
+                url: target.user.avatarURL({ dynamic: true, size: 512 })
+            })
             .setThumbnail(target.user.avatarURL({ dynamic: true, size: 512 }))
-            .setDescription("Informations sur " + target)
+            .setDescription(`Informations sur <@${target.id}>`)
             .addFields(
                 {
                     name: "ID :",

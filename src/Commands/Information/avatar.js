@@ -1,10 +1,9 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { ContextMenuCommandBuilder, EmbedBuilder } = require("discord.js");
+const { ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder } = require("discord.js");
 
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new ContextMenuCommandBuilder()
         .setName("avatar")
-        .setDescription("Hot Combien ... tu suce ton père ?"),
+        .setType(ApplicationCommandType.User),
 
     async execute(interaction) {
         const target = await interaction.guild.members.fetch(
@@ -12,10 +11,10 @@ module.exports = {
         );
 
         const userMessage = new EmbedBuilder()
-            .setAuthor(
-                "Avatar de " + target.user.tag,
-                target.user.displayAvatarURL({ format: "png" })
-            )
+            .setAuthor({
+                name: "Avatar de " + target.user.tag,
+                url: target.user.displayAvatarURL({ format: "png" })
+            })
             .setImage(target.user.avatarURL({ dynamic: true, format: "png" }))
             .setTimestamp();
 
