@@ -29,16 +29,18 @@ module.exports = {
 
             switch (customId) {
                 case "suggest-accept": {
-                        Embed.data.fields[4] = { name: "**🔷 Statut**", value: "🟢 Accepté", inline: true };
-                        message.edit({ embeds: [Embed.setColor("GREEN")], components:[] });
+                        Embed.fields[4] = { name: "**🔷 Statut**", value: "🟢 Accepté", inline: true };
+                        Embed.color="Green"
+                        message.edit({ embeds: [Embed], components:[] });
                         data.Details[0].Status = "Accepted";
                         data.save()
                         return interaction.reply({ content: "Suggestion Accepted !", ephemeral: true });
                     }
                     break;
                 case "suggest-decline": {
-                        Embed.data.fields[4] = { name: "**🔷 Statut**", value: "🔴 Refusé", inline: true };
-                        message.edit({ embeds: [Embed.setColor("RED")], components: [] });
+                        Embed.fields[4] = { name: "**🔷 Statut**", value: "🔴 Refusé", inline: true };
+                        Embed.color="Red"
+                        message.edit({ embeds: [Embed], components: [] });
                         data.Details[0].Status = "Declined";
                         data.save();
                         return interaction.reply({ content: "Suggestion Declined !", ephemeral: true });

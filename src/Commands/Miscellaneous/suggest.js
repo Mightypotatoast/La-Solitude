@@ -45,7 +45,7 @@ module.exports = {
 
         const Embed = new EmbedBuilder()
             .setTitle(`🗂️ --- Suggestion de type : ${Type} --- 🗂️`)
-            .setColor("NAVY")
+            .setColor("Navy")
             .addFields(
                 {
                     name: "**👤 Auteur :**",
