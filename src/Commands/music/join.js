@@ -1,16 +1,31 @@
 const { joinVoiceChannel } = require("@discordjs/voice");
 const { successEmbed, errorEmbed } = require("../../util/Embeds");
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { CommandInteraction } = require("discord.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("join")
         .setDescription("Rejoins le salon vocal"),
 
-    async execute(message) {
+    /**
+     * 
+     * @param {CommandInteraction} message 
+     */
+    async execute(message, client) {
         var channel = message.member.voice.channel;
         //bot.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
         if (channel) {
+            if(message.guild.members.me.voice.channel){
+                if(message.guild.members.me.voice.channel.id !== channel.id) return message.reply({
+                    embeds: [
+                        errorEmbed().setDescription(
+                            `Je suis déjà là !`
+                        ),
+                    ],
+                    ephemeral: true,
+                });
+            }
             joinVoiceChannel({
                 channelId: channel.id,
                 guildId: message.guild.id,
@@ -21,7 +36,7 @@ module.exports = {
                 message.reply({
                     embeds: [
                         successEmbed().setDescription(
-                            `**J'ai rejoins le channel **${channel.name}**`
+                            `Coucou ! 🖐️\nJ'ai rejoins le channel **🔈${channel.name}**`
                         ),
                     ],
                     ephemeral: true,

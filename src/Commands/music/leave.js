@@ -17,7 +17,7 @@ module.exports = {
                 ephemeral: true,
             });
 
-        if (!message.guild.me.voice.channel)
+        if (!message.guild.members.me.voice.channel)
             return message.reply({
                 embeds: [
                     errorEmbed().setDescription(
@@ -28,7 +28,7 @@ module.exports = {
             });
 
         if (
-            message.guild.me.voice.channel.id !==
+            message.guild.members.me.voice.channel.id !==
             message.member.voice.channel.id
         )
             return message.reply({
