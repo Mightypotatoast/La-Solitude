@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
     EmbedBuilder,
-    Util,
+    parseEmoji,
     CommandInteraction,
     Client,
 } = require("discord.js");
@@ -12,7 +12,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("emoji-steal")
         .setDescription("Vole un emoji venant d'un autre serveur")
-        .addUserOption((option) =>
+        .addStringOption((option) =>
             option
                 .setName("emoji")
                 .setDescription(`Mettez vos émoji | Maximum : 10`)
@@ -69,7 +69,7 @@ module.exports = {
                 throw "Choose a maximum of 10 emojis per command";
 
             for (const rawEmoji of emoji) {
-                const parsedEmoji = Util.parseEmoji(rawEmoji);
+                const parsedEmoji = parseEmoji(rawEmoji);
 
                 if (
                     rawEmoji !== `<:${parsedEmoji.name}:${parsedEmoji.id}>` &&
@@ -83,7 +83,7 @@ module.exports = {
                         parsedEmoji.id + extension
                     }`;
 
-                    await message.guild.emojis.create(url, parsedEmoji.name);
+                    await message.guild.emojis.create({ attachment: url, name: parsedEmoji.name});
                     await embedCreate.addFields({
                         name: parsedEmoji.name,
                         value: `<${parsedEmoji.animated ? "a" : ""}:${
@@ -99,6 +99,7 @@ module.exports = {
             message.editReply({
                 embeds: [errorEmbed().setDescription(`${e}`)],
             });
+            console.log(e)
         }
     },
 };
