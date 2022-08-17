@@ -56,9 +56,9 @@ function loadCommands(client){
         }
     })();
 
-    const developerGuild = client.guilds.cache.get(process.env.DEV_GUILD);
+    /*const developerGuild = client.guilds.cache.get(process.env.DEV_GUILD);
 
-    developerGuild.commands.set(developerArray);
+    developerGuild.commands.set(developerArray);*/
 
     return console.log(table.toString(), "\nLoaded Commands")
 }

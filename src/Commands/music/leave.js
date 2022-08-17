@@ -1,4 +1,5 @@
 const { getVoiceConnection } = require("@discordjs/voice");
+const { successEmbed, errorEmbed } = require("../../util/Embeds");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
@@ -40,7 +41,7 @@ module.exports = {
                 ],
             });
 
-        var connection = getVoiceConnection(message.guild.id);
+        const connection = getVoiceConnection(message.guild.id, "default");
         connection.destroy();
 
         message.reply({

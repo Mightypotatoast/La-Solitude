@@ -17,7 +17,7 @@ module.exports = {
         //bot.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
         if (channel) {
             if(message.guild.members.me.voice.channel){
-                if(message.guild.members.me.voice.channel.id !== channel.id) return message.reply({
+                if(message.guild.members.me.voice.channel.id === channel.id) return message.reply({
                     embeds: [
                         errorEmbed().setDescription(
                             `Je suis déjà là !`
