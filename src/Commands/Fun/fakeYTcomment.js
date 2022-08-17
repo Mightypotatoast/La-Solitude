@@ -15,7 +15,7 @@ module.exports = {
         .setDescription("Créer un faux commentaire Youtube")
         .addStringOption((option) =>
             option
-                .setName("commentaire")
+                .setName("comment")
                 .setDescription("Que voulez-vous commenter sur Youtube ?")
                 .setRequired(true)
         )
@@ -43,9 +43,8 @@ module.exports = {
 
             const fetchAPI = async () => {
                 const response = await fetch(
-                    `https://some-random-api.ml/canvas/youtube-comment?avatar=${Target.displayAvatarURL(
-                        { format: "png" }
-                    )}&username=${Target.user.username}&comment=${comment}`,
+                    `https://some-random-api.ml/canvas/youtube-comment?avatar=${Target.displayAvatarURL().replace(".webp",".png")
+                    }&username=${Target.user.username}&comment=${comment}`,
                     {
                         method: "GET",
                     }
@@ -55,11 +54,11 @@ module.exports = {
 
             const data = await fetchAPI();
 
-            const attach = new AttachmentBuilder(data.body, "img.png");
+            const attach = new AttachmentBuilder(data.body, { name: "img.png" });
 
             const embed = new EmbedBuilder()
                 .setDescription(`**Le commentaire Youtube de ${Target}**`)
-                .setColor("RED")
+                .setColor("Red")
                 .setImage(`attachment://img.png`)
                 .setFooter({
                     text:`Requested by ${message.member.user.tag}`,
