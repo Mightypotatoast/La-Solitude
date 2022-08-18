@@ -2,7 +2,6 @@ const { Message, SlashCommandBuilder } = require("discord.js");
 const { joinVoiceChannel } = require("@discordjs/voice");
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 const { musicButtonRow, musicButtonRow2 } = require("../../util/buttonLayout");
- 
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -18,6 +17,7 @@ module.exports = {
         ),
 
     async execute(message, client) {
+        await message.deferReply({ ephemeral: false });
         channel = message.member.voice.channel;
         if (!channel)
             return message.reply({
@@ -32,49 +32,15 @@ module.exports = {
         const music = message.options.getString("musique");
         if (music == "") return;
 
-        message.deferReply({ ephemeral: false });
+        await client.distube.play(channel, music);
 
-        await joinVoiceChannel({
-            channelId: channel.id,
-            guildId: message.guild.id,
-            adapterCreator: message.guild.voiceAdapterCreator,
-        });
+        queue = await client.distube.getQueue(message);
+        const addedSong = queue.songs.slice(-1)[0];
 
-        if (music.startsWith("http")) {
-            try {
-                await client.distube.playVoiceChannel(channel, music, {
-                    options: message.user,
-                });
-                const queue = client.distube.getQueue(message);
-                numberSongs = queue.songs.length - 1;
-                addedSong = queue.songs[numberSongs];
-            } catch (e) {
-                console.log(e);
-                message.editReply({
-                    embeds: [errorEmbed().setDescription(`${e}`)],
-                    ephemeral: true,
-                });
-            }
-        } else {
-            try {
-                YTBsearch = await client.distube.search(music);
-                addedSong = YTBsearch[0];
-                await client.distube.playVoiceChannel(
-                    channel,
-                    YTBsearch[0].url,
-                    { options: message.user }
-                );
-            } catch (e) {
-                console.log(e);
-                message.editReply({
-                    embeds: [errorEmbed().setDescription(`${e}`)],
-                    ephemeral: true,
-                });
-            }
-        }
+        console.log(addedSong);
 
         try {
-            message.editReply({
+            await message.editReply({
                 embeds: [
                     musicEmbed()
                         .setTitle(
@@ -85,23 +51,23 @@ module.exports = {
                         .addFields(
                             {
                                 name: `Demandé par :`,
-                                value: `${message.user} `,
-                                inline: true
+                                value: `${addedSong.user} `,
+                                inline: true,
                             },
                             {
                                 name: `Auteur :`,
                                 value: `[${addedSong.uploader.name}](${addedSong.uploader.url})`,
-                                inline: true
+                                inline: true,
                             },
                             {
                                 name: `Durée :`,
                                 value: `${addedSong.formattedDuration}`,
-                                inline: true
+                                inline: true,
                             }
                         ),
                 ],
                 components: [musicButtonRow(), musicButtonRow2()],
-                ephemeral: true,
+                ephemeral: false,
             });
         } catch (e) {
             console.log(e);
