@@ -1,6 +1,6 @@
-const { EmbedBuilder, AttachmentBuilder } = require("discord.js");
+const { EmbedBuilder, AttachmentBuilder, SlashCommandBuilder } = require("discord.js");
 const Scrapper = require("images-scraper");
-const { SlashCommandBuilder } = require("@discordjs/builders");
+ 
 
 module.exports = {
     data: new SlashCommandBuilder()

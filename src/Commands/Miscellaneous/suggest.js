@@ -1,9 +1,10 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+ 
 const {
     CommandInteraction,
     EmbedBuilder,
     ActionRowBuilder,
     ButtonBuilder,
+    SlashCommandBuilder
 } = require("discord.js");
 const db = require("../../Models/suggest");
 const { successEmbed } = require("../../util/Embeds");

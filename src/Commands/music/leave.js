@@ -1,6 +1,6 @@
 const { getVoiceConnection } = require("@discordjs/voice");
 const { successEmbed, errorEmbed } = require("../../util/Embeds");
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+ 
 
 const {
     CommandInteraction,
@@ -6,6 +6,7 @@ const {
     ActionRowBuilder,
     ButtonBuilder,
     EmbedBuilder,
+    SlashCommandBuilder
 } = require("discord.js");
 const { errorEmbed } = require("../../util/Embeds");
 

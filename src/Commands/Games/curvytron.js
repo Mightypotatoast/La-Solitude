@@ -1,10 +1,11 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+ 
 
 const {
     EmbedBuilder,
     AttachmentBuilder,
     ButtonBuilder,
     ActionRowBuilder,
+    SlashCommandBuilder
 } = require("discord.js");
 const puppeteer = require("puppeteer");
 require("isomorphic-fetch");

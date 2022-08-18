@@ -1,9 +1,10 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+ 
 const {
     EmbedBuilder,
     parseEmoji,
     CommandInteraction,
     Client,
+    SlashCommandBuilder
 } = require("discord.js");
 const delay = require("delay");
 const { errorEmbed } = require("../../util/Embeds");

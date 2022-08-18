@@ -1,5 +1,5 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { EmbedBuilder } = require("discord.js");
+ 
+const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const answers = [
     "C'est certain.",
     "C'est le cas.",

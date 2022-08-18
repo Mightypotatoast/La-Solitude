@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+ 
 const {
     CommandInteraction,
     Client,
@@ -6,6 +6,7 @@ const {
     ActionRowBuilder,
     ButtonBuilder,
     MessageSelectMenu,
+    SlashCommandBuilder
 } = require("discord.js");
 const db = require("../../Models/my-pokedex");
 const { errorEmbed, successEmbed } = require("../../util/Embeds");

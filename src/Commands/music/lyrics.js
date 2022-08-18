@@ -1,6 +1,6 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
 const puppeteer = require("puppeteer");
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { SlashCommandBuilder } = require("discord.js");
 
 function sleep(ms) {
     return new Promise((resolve) => {

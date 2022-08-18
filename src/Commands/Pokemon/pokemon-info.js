@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+ 
 const Discord = require("discord.js");
 // const https = require("https");
 // const axios = require("axios");
@@ -14,7 +14,7 @@ const Pokedex = require("pokedex-promise-v2");
 const P = new Pokedex();
 
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
         .setName("pokemon-info")
         .setDescription("Affiche les informations d'un Pokémon")
         .addStringOption((option) =>

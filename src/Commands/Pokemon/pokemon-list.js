@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+ 
 const Discord = require("discord.js");
 // const https = require("https");
 // const axios = require("axios");
@@ -7,7 +7,7 @@ var P = new Pokedex();
 const { errorEmbed } = require("../../util/Embeds");
 
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
         .setName("pokemon-list")
         .setDescription("Affiche 1 à 10 Pokémon random")
         .addStringOption((option) =>

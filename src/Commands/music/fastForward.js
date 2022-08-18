@@ -1,5 +1,5 @@
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
     //! la commande fonctionne pour des petits nombre mais pas pour les grand (genre 300secondes)

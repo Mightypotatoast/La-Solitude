@@ -1,5 +1,5 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { CommandInteraction, EmbedBuilder, Client } = require("discord.js");
+ 
+const { CommandInteraction, EmbedBuilder, Client, SlashCommandBuilder } = require("discord.js");
 const { connection } = require("mongoose");
 
 module.exports = {

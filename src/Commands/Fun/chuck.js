@@ -1,10 +1,10 @@
-const { CommandInteraction, EmbedBuilder, Client } = require("discord.js");
+const { CommandInteraction, EmbedBuilder, Client, SlashCommandBuilder } = require("discord.js");
 const { errorEmbed } = require("../../util/Embeds");
 const fetch = (...args) =>
     import("node-fetch").then(({ default: fetch }) => fetch(...args)); // eslint-disable-line
 const cheerio = require("cheerio");
 const https = require("https");
-const { SlashCommandBuilder } = require("@discordjs/builders");
+ 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("chuck")

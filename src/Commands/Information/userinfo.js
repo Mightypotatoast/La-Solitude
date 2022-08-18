@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+ 
 const { ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder } = require("discord.js");
 
 module.exports = {

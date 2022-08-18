@@ -1,7 +1,7 @@
-const { ActionRowBuilder, MessageSelectMenu } = require("discord.js");
+const { ActionRowBuilder, MessageSelectMenu, SlashCommandBuilder } = require("discord.js");
 const { options } = require("snekfetch");
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
-const { SlashCommandBuilder } = require("@discordjs/builders");
+ 
 
 module.exports = {
     data: new SlashCommandBuilder()

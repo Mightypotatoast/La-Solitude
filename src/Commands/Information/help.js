@@ -1,10 +1,11 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+ 
 const {
     CommandInteraction,
     EmbedBuilder,
     Client,
     ActionRowBuilder,
     MessageSelectMenu,
+    SlashCommandBuilder
 } = require("discord.js");
 const { log } = require("util");
 const { errorEmbed } = require("../../util/Embeds");

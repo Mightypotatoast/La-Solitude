@@ -1,5 +1,5 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { EmbedBuilder } = require("discord.js");
+ 
+const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
 const weather = require("weather-js");
 const { errorEmbed } = require("../../util/Embeds");
 
