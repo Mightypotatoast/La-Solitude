@@ -40,7 +40,7 @@ module.exports = {
                 iconURL: "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png"
             })
             .setFooter({
-                name: "Pokédex National | Made by Syns",
+                text: "Pokédex National | Made by Syns",
                 iconURL: "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png"
             })
             .setTimestamp()
@@ -55,7 +55,7 @@ module.exports = {
                 iconURL: "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png"
             })
             .setFooter({
-                name: "Pokédex National | Made by Syns",
+                text: "Pokédex National | Made by Syns",
                 iconURL: "https://www.g33kmania.com/wp-content/uploads/Pokemon-Pokedex.png"
             })
             .setTimestamp()
@@ -64,7 +64,7 @@ module.exports = {
 //!---------------------- Warning -------------------------------
     warningEmbed: () => {
         return new EmbedBuilder()
-            .setColor("YELLOW")
+            .setColor("Yellow")
             .setTitle("⚠️ --- **AVERTISSEMENT** --- ⚠️")
             .setTimestamp()
     },

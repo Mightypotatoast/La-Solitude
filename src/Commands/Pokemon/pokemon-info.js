@@ -17,7 +17,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("pokemon-info")
         .setDescription("Affiche les informations d'un Pokémon")
-        .addIntegerOption((option) =>
+        .addStringOption((option) =>
             option
                 .setName("pokemon")
                 .setDescription(`Nom ou numéro du Pokémon`)
@@ -96,7 +96,7 @@ module.exports = {
             embeds: [
                 pokemonEmbed()
                     .setDescription("⏳ Loading data ...")
-                    .setColor(0xff6800),
+                    .setColor("#ff6800"),
             ],
         });
 
@@ -134,7 +134,6 @@ module.exports = {
                         .setDescription(
                             `**_${pokemonData.categorie}_**\n_\`\`\`${pokemonData.description}\`\`\`_\n`
                         )
-                        .setColor("LUMINOUS_VIVID_PINK")
                         .setColor(pokemonData.color)
                         .setThumbnail(pokemonData.image)
 
