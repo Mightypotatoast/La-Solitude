@@ -48,7 +48,7 @@ module.exports = {
                 ],
                 ephemeral: true,
             });
-        if (!message.guild.me.permissions.has("MANAGE_NICKNAMES"))
+        if (!message.guild.members.me.permissions.has("MANAGE_NICKNAMES"))
             return message.reply({
                 embeds: [
                     errorEmbed().setDescription(
@@ -102,7 +102,7 @@ module.exports = {
                             .setDescription(
                                 `**Le pseudo de ${Target} a été changé** \n\n\`${oldNickname}\` ---> \`${newNickname}\``
                             )
-                            .setColor("GREEN"),
+                            .setColor("Green"),
                     ],
                     ephemeral: true,
                 });
