@@ -110,7 +110,6 @@ module.exports = {
             };
 
             const data = await fetchAPI();
-            console.log(data)
             const attach = new AttachmentBuilder(data.body, {name: "img.png"});
 
             const embed = new EmbedBuilder()
