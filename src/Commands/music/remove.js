@@ -1,7 +1,10 @@
-const { ActionRowBuilder, MessageSelectMenu, SlashCommandBuilder } = require("discord.js");
+const {
+    ActionRowBuilder,
+    SelectMenuBuilder,
+    SlashCommandBuilder,
+} = require("discord.js");
 const { options } = require("snekfetch");
 const { errorEmbed, musicEmbed } = require("../../util/Embeds");
- 
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -37,7 +40,7 @@ module.exports = {
             });
 
             const row = new ActionRowBuilder().addComponents(
-                new MessageSelectMenu()
+                new SelectMenuBuilder()
                     .setCustomId("remove")
                     .setMaxValues(1)
                     .setPlaceholder("Sélectionnez une musique à supprimer")
