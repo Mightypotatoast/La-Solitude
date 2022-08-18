@@ -23,12 +23,12 @@ module.exports = {
                 },
                 {
                     name: 'Type',
-                    value: channel.type,
+                    value: `${channel.type}`,
                     inline: true
                 },
                 {
                     name:'ID',
-                    value: channel.id
+                    value: `${channel.id}`
                 },
                 {
                     name: 'Supprimé le : ',

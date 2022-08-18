@@ -27,20 +27,25 @@ module.exports = {
 
             const ID = Math.floor(Math.random() * 90000) + 10000;
         
-            await guild.channels.create(`ticket-${ID}`, {
-                type: 0,
-                parent: ticketChannels.ticketParentChannel,
-                permissionOverwrites: [
-                    {
-                        id: member.id,
-                        allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "ATTACH_FILES", "ADD_REACTIONS", "EMBED_LINKS", "USE_EXTERNAL_EMOJIS", "READ_MESSAGE_HISTORY"],
-                    },
-                    {
-                        id: guild.roles.everyone,
-                        deny: ["VIEW_CHANNEL", "SEND_MESSAGES", "ATTACH_FILES", "ADD_REACTIONS", "EMBED_LINKS", "USE_EXTERNAL_EMOJIS", "READ_MESSAGE_HISTORY"]
+            await guild.channels.create(
+                {
+                    name: `ticket-${ID}`, 
+                    options: {
+                        type: 0,
+                        parent: ticketChannels.ticketParentChannel,
+                        permissionOverwrites: [
+                            {
+                                id: member.id,
+                                allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "ATTACH_FILES", "ADD_REACTIONS", "EMBED_LINKS", "USE_EXTERNAL_EMOJIS", "READ_MESSAGE_HISTORY"],
+                            },
+                            {
+                                id: guild.roles.everyone,
+                                deny: ["VIEW_CHANNEL", "SEND_MESSAGES", "ATTACH_FILES", "ADD_REACTIONS", "EMBED_LINKS", "USE_EXTERNAL_EMOJIS", "READ_MESSAGE_HISTORY"]
+                            }
+                        ]
                     }
-                ]
-            }).then(async channel => {
+                }
+            ).then(async channel => {
                 await db.create({
                     GuildID: guild.id,
                     MemberID: member.id,
@@ -53,10 +58,10 @@ module.exports = {
         
 
                 const Embed = new EmbedBuilder()
-                    .setAuthor(`🎫 -- ${guild.name} | Système de Ticket -- 🎫`, guild.iconURL({ dynamic: true, format: "png" }))
+                    .setAuthor({name:`🎫 -- ${guild.name} | Système de Ticket -- 🎫`, url: guild.iconURL({ dynamic: true, format: "png" })})
                     .setColor("#0099ff")
                     .setDescription(`Veuillez patienter pour une réponse d'un administrateur, pendant ce temps, vous pouvez en profiter pour décrire votre problème.`)
-                    .setFooter("Les boutons ci-dessous sont réservés aux administrateurs du serveur.")
+                    .setFooter({text:"Les boutons ci-dessous sont réservés aux administrateurs du serveur."})
                     .setTimestamp()
 
                 const row = new ActionRowBuilder().addComponents(
@@ -92,6 +97,7 @@ module.exports = {
             });
             interaction.editReply({ embeds: [successEmbed().setDescription("Le salon de ticket a été créé avec succès")], ephemeral: true });
         } catch (e) {
+            console.log(e);
             interaction.editReply({ embeds: [errorEmbed().setDescription(`Une erreur est survenue lors de la création du salon de ticket.\n\n${e.message}`)], ephemeral: true });
         }
 

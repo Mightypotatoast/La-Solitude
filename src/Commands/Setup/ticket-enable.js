@@ -3,11 +3,12 @@ const {
     EmbedBuilder,
     Client,
     ActionRowBuilder,
-    ButtonBuilder,
+    ButtonBuilder, 
+    SlashCommandBuilder
 } = require("discord.js");
 const { errorEmbed, successEmbed } = require("../../util/Embeds");
 const db = require("../../Models/channels");
-const { SlashCommandBuilder } = require("@discordjs/builders");
+ 
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -27,7 +28,7 @@ module.exports = {
         const Owner = await message.guild.fetchOwner();
         const { guild } = message;
 
-        if (!message.guild.me.permissions.has("MANAGE_GUILD"))
+        if (!message.guild.members.me.permissions.has("MANAGE_GUILD"))
             return message.editReply({
                 embeds: [
                     errorEmbed().setDescription(

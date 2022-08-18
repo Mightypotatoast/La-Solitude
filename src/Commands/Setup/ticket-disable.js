@@ -1,8 +1,8 @@
-const { CommandInteraction, EmbedBuilder, Client } = require("discord.js");
+const { CommandInteraction, EmbedBuilder, Client, SlashCommandBuilder } = require("discord.js");
 const { errorEmbed, successEmbed } = require("../../util/Embeds");
 const db = require("../../Models/channels");
 const ticketDB = require("../../Models/tickets");
-const { SlashCommandBuilder } = require("@discordjs/builders");
+ 
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,7 +21,7 @@ module.exports = {
 
         const Owner = await message.guild.fetchOwner();
 
-        if (!message.guild.me.permissions.has("MANAGE_GUILD"))
+        if (!message.guild.members.me.permissions.has("MANAGE_GUILD"))
             return message.editReply({
                 embeds: [
                     errorEmbed().setDescription(
@@ -99,9 +99,11 @@ module.exports = {
                             });
                     }
 
-                    ticketChannels.forEach(async (channel) => {
-                        message.guild.channels.cache.get(channel).delete();
-                    });
+                    try{
+                        ticketChannels.forEach(async (channel) => {
+                            await message.guild.channels.cache.get(channel).delete();
+                        });
+                    } catch (err) { console.log(channel + "not found"); }
 
                     await ticketDB
                         .find({ GuildID: message.guild.id }, (err, res) => {
