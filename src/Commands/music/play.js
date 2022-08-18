@@ -37,8 +37,6 @@ module.exports = {
         queue = await client.distube.getQueue(message);
         const addedSong = queue.songs.slice(-1)[0];
 
-        console.log(addedSong);
-
         try {
             await message.editReply({
                 embeds: [
