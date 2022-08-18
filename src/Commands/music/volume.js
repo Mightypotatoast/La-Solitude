@@ -19,7 +19,7 @@ module.exports = {
 
     options: [
         {
-            name: "value",
+            name: "pourcentage",
             description: `Par défaut, le volume est à 50%`,
             type: 4,
             required: true,
