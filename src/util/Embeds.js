@@ -1,4 +1,5 @@
 const { EmbedBuilder,} = require("discord.js");
+const OP = require('./OnePieceData.json')
 
 module.exports = {
     
@@ -100,8 +101,30 @@ module.exports = {
             .setColor("#71CF93")
             .setTitle("NOUVEAU SALON DÉFINI")
             .setTimestamp()
-    }
+    },
+//!---------------------- One Piece -------------------------------
     
+    OnePieceEmbed: (member) => {
+        return new EmbedBuilder()
+            .setColor("White")
+            .setAuthor({name: `☠️ ---- PERSONNAGE ONE PIECE DE ${member.toUpperCase()} ---- ☠️`})
+            .addFields(
+                {name: "__Grade :__", value: "...", inline: true},
+                {name: "__Camp :__", value: "...", inline: true},
+                {name: "__Race :__", value: "...", inline: true},
+                {name: "__Région d'origine :__", value: "...", inline: true},
+                {name: "__Force :__", value: "...", inline: true},
+                {name: "__Intelligence :__", value: "...", inline: true},
+                {name: "__Vitesse :__", value: "...", inline: true},
+                {name: "__Haki :__", value: "...", inline: true},
+                {name: "__Fruit du démon :__", value: "..."},
+                {name: "__Prime :__", value: "..."},
+
+            )
+            .setThumbnail(OP.noFruitURL)
+            .setTimestamp()
+            
+}
 //------------------------------------------------------------------   
     
 }
