@@ -76,9 +76,9 @@ module.exports = {
                 });
             }
 
-            const ticketParentChannel = await message.guild.channels.create(
-                "Système de Ticket",
-                {
+            const ticketParentChannel = await message.guild.channels.create({
+                name: "Système de Ticket",
+                options: {
                     type: 4,
                     position: 0,
                     permissionOverwrites: [
@@ -94,11 +94,11 @@ module.exports = {
                         },
                     ],
                 }
-            );
+            });
 
-            const openticketChannel = await message.guild.channels.create(
-                "open-ticket",
-                {
+            const openticketChannel = await message.guild.channels.create({
+                name: "open-ticket",
+                options: {
                     type: 0,
                     parent: ticketParentChannel.id,
                     permissionOverwrites: [
@@ -114,10 +114,10 @@ module.exports = {
                         },
                     ],
                 }
-            );
-            const transcriptChannel = await message.guild.channels.create(
-                "transcript",
-                {
+            });
+            const transcriptChannel = await message.guild.channels.create({
+                name: "transcript",
+                options: {
                     type: 0,
                     parent: ticketParentChannel.id,
                     permissionOverwrites: [
@@ -131,7 +131,7 @@ module.exports = {
                         },
                     ],
                 }
-            );
+            });
 
             res.TicketSystem = {
                 ticketParentChannel: ticketParentChannel.id,
@@ -140,10 +140,10 @@ module.exports = {
             };
 
             const Embed = new EmbedBuilder()
-                .setAuthor(
-                    `🎫 -- ${guild.name} | Système de Ticket -- 🎫`,
-                    guild.iconURL({ dynamic: true, format: "png" })
-                )
+                .setAuthor({
+                    name: `🎫 -- ${guild.name} | Système de Ticket -- 🎫`,
+                    url: guild.iconURL({ dynamic: true, format: "png" })
+                })
                 .setColor("#0099ff")
                 .setDescription(
                     `Ouvrir un ticket pour discuter de l'un des problèmes énumérés par les boutons ci-dessous.`
