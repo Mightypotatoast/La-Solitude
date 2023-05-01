@@ -20,7 +20,7 @@ module.exports = {
             (error, result) => {
                 if (error)
                     return message.reply({
-                        embeds: [errorEmbed.setDescription(`${error}`)],
+                        embeds: [errorEmbed().setDescription(`${error}`)],
                         ephemeral: true,
                     });
 
