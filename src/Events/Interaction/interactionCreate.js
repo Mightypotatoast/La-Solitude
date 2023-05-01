@@ -28,7 +28,7 @@ module.exports = {
                 ephemeral: true,
             });
         }
-        if (interaction.isSelectMenu()) {
+        if (interaction.isStringSelectMenu()) {
             //TODO a modifer/mettre en place un handler pour les SelectMenu
             try {
                 if (interaction.customId !== "remove") return;
