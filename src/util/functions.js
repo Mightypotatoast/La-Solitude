@@ -83,7 +83,7 @@ async function fetchPokemonData(pokemon) {
             indexPokedex: index(pok.pokedex_numbers.find(x => x.pokedex.name === "national").entry_number,3),
             description: (pok.flavor_text_entries.find(x => x.language.name === "fr") === undefined) ? null : pok.flavor_text_entries.find(x => x.language.name === "fr").flavor_text,
             region: (pok.generation === null) ? null : await P.getGenerationByName(pok.generation.name).then((gen) => { return gen.main_region.name }),
-            categorie: pok.genera.find(x => x.language.name === "fr").genus,
+            categorie: (pok.genera.find(x => x.language.name === "fr"))?pok.genera.find(x => x.language.name === "fr").genus : "Undefined",
             isLegendary:pok.is_legendary ,
             isMythical: pok.is_mythical,
             habitat: (pok.habitat === null) ? null : await P.getPokemonHabitatByName(pok.habitat.name).then((hab) => { return hab.names.find(x => x.language.name === "fr").name}),

@@ -134,7 +134,7 @@ module.exports = {
                         .setDescription(
                             `**_${pokemonData.categorie}_**\n_\`\`\`${pokemonData.description}\`\`\`_\n`
                         )
-                        .setColor(pokemonData.color)
+                        .setColor((isNaN(pokemonData.color))? "Aqua" : pokemonData.color)
                         .setThumbnail(pokemonData.image)
 
                         .addFields(
@@ -214,6 +214,7 @@ module.exports = {
                 ],
             });
         } catch (e) {
+            console.log(e)
             message.editReply({
                 embeds: [errorEmbed().setDescription(`\`${e}\``)],
             });
