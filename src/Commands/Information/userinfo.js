@@ -12,7 +12,7 @@ module.exports = {
         );
 
         const userMessage = new EmbedBuilder()
-            .setColor("AQUA")
+            .setColor("Aqua")
             .setAuthor({
                 name: target.user.tag,
                 url: target.user.avatarURL({ dynamic: true, size: 512 })
