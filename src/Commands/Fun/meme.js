@@ -43,11 +43,7 @@ module.exports = {
                 "https://www.reddit.com/r/memes/random/.json"
             ).then((res) => res.json());
 
-            console.log(data);
-
             const [post] = data.data.children;
-
-            console.log(post);
 
 			const permalink = post.data.permalink;
 			const memeUrl = `https://reddit.com${permalink}`;
