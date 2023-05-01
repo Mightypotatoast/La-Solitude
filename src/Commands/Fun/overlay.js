@@ -81,7 +81,7 @@ module.exports = {
      */
 
     async execute(message, client) {
-        try {
+        /*try {
             await message.deferReply().catch(() => {});
 
             let overlay = message.options.getString("overlay");
@@ -125,6 +125,12 @@ module.exports = {
                 ],
                 ephemeral: true,
             });
-        }
+        }*/
+        message.reply({
+            embeds: [
+                errorEmbed().setDescription(`Cette commande n'est plus disponible.`),
+            ],
+            ephemeral: true,
+        });
     },
 };
