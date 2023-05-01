@@ -102,8 +102,8 @@ module.exports = {
         }
         
         await delay(TIMER)                                               //? GRADE
-        OPEmbed.data.fields[0].value = `[${grade.name}]()`
-        OPEmbed.data.fields[1].value = `[${toCapitalize(side)}]()`      //? SIDE
+        OPEmbed.data.fields[0].value = `${grade.name}`
+        OPEmbed.data.fields[1].value = `${toCapitalize(side)}`      //? SIDE
         OPEmbed.data.color = color
         await interaction.editReply({embeds: [OPEmbed]})
     
@@ -151,10 +151,23 @@ module.exports = {
 
 
         await delay(TIMER)                                               //? PRIME
-        let primeStr = Number(prime).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+        let primeStr = "";
         OPEmbed.data.fields[9].name = `__Prime${primeName}__`
-        OPEmbed.data.fields[9].value = `${primeStr} Millions de ¥`
-        await interaction.editReply({embeds: [OPEmbed]})
+
+        if (side == "marine"){
+            let marinePrime = ((prime/100)%5);
+            for (let i = 0; i < marinePrime; i++) {
+                primeStr += "⭐"
+            }
+            OPEmbed.data.fields[9].value = `${primeStr}`;
+        }
+        else {
+            primeStr = Number(prime).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+            OPEmbed.data.fields[9].value = `${primeStr} Millions de ¥`;
+        }
+
+        
+        await interaction.editReply({embeds: [OPEmbed]});
 
     }
 }
