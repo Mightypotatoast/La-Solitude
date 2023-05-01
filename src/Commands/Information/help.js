@@ -23,7 +23,7 @@ module.exports = {
      *
      */
     async execute(message, client) {
-        await message.deferReply();
+        /*await message.deferReply();
 
         const emoji = {
             custom: "✏️",
@@ -145,6 +145,12 @@ module.exports = {
 
         collector.on("end", async (collected, reason) => {
             m.delete();
+        });*/
+        message.reply({
+            embeds: [
+                errorEmbed().setDescription(`Cette commande n'est plus disponible.`),
+            ],
+            ephemeral: true,
         });
     },
 };
