@@ -39,17 +39,31 @@ module.exports = {
         for (let i = 0; i < memeNumber; i++) {
             let messageMeme;
 
-            let data = await fetch(
-                "http://meme-api.herokuapp.com/gimme/memes"
+            let [data] = await fetch(
+                "https://www.reddit.com/r/memes/random/.json"
             ).then((res) => res.json());
 
+            console.log(data);
+
+            const [post] = data.data.children;
+
+            console.log(post);
+
+			const permalink = post.data.permalink;
+			const memeUrl = `https://reddit.com${permalink}`;
+			const memeImage = post.data.url;
+			const memeTitle = post.data.title;
+			const memeUpvotes = post.data.ups;
+			const memeNumComments = post.data.num_comments;
+
+
             let embedReponse = new EmbedBuilder()
-                .setTitle(data.title)
-                .setURL(data.postLink)
-                .setColor("#00D7FF")
-                .setFooter({text: data.ups + " Upvotes"})
+                .setTitle(memeTitle)
+                .setURL(memeUrl)
+                .setColor("Random")
+                .setFooter({text: memeUpvotes + " Upvotes | " + memeNumComments + " Comments" })
                 .setTimestamp()
-                .setImage(data.url);
+                .setImage(memeImage);
             if (i == 0) {
                 messageMeme = await message.reply({
                     embeds: [embedReponse],
