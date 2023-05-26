@@ -1,24 +1,25 @@
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder, SlashCommandBuilder } = require("discord.js");
+ 
 
 module.exports = {
+    data: new SlashCommandBuilder().setName("zap").setDescription("Euuuuh...."),
 
-  name: "zap",
-  description: "Euuuuh....",
-  permission: "ADMINISTRATOR",
-  active: true,
+    async execute(message) {
+        let client = message.client
+        var Kwey = await client.users.fetch("232110364186247168");
 
-  
-  execute(message,client) {
-    var Kwey = client.users.cache.get("232110364186247168")
-    
-    message.reply({embeds :[{
-          color : 0xFF6800 ,
-          title :'**Chignon = Pneu**',
-          description : "",
-          footer : {
-            icon_url: Kwey.avatarURL,
-            text : '© Created by Kweyy'
-          }   
-        }]});
-  }
-}
+        message.reply({
+            embeds: [
+                {
+                    color: 0xff6800,
+                    title: "**Chignon = Pneu**",
+                    description: "",
+                    footer: {
+                        icon_url: Kwey.avatarURL(),
+                        text: "© Created by Kweyy",
+                    },
+                },
+            ],
+        });
+    },
+};

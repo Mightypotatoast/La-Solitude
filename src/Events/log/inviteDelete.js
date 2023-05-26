@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 const config = require('../../config')
 
 
@@ -12,12 +12,23 @@ module.exports = {
         let inviteDate = invite.createdAt
         let inviteExpireDate = invite.expiresAt
 
-        const inviteEmbed = new MessageEmbed()
+        const inviteEmbed = new EmbedBuilder()
             .setTitle("**Une invitation a été suprimée/expirée !**")
             .setColor("#E73C3C")
-            .addField('Channel visé : ', invite.channel.name)
-            .addField("Nombre d'utilisation : ", (invite.uses == null) ? "0" : `${invite.uses}`)
-            .addField('URL', invite.url)
+            .addFields(
+                {
+                    name:'Channel visé : ',
+                    value: invite.channel.name
+                },
+                {
+                    name:"Nombre d'utilisation : ",
+                    value: (invite.uses == null) ? "0" : `${invite.uses}`
+                },
+                {
+                    name: 'URL',
+                    value: invite.url
+                }
+            )
             .setTimestamp()
                     
 

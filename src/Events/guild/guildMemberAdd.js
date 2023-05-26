@@ -75,11 +75,11 @@ module.exports = {
         const avatar = await Canvas.loadImage(buffer);
         ctx.drawImage(avatar, (canvas.width/2)-65 , 20 , 130, 130);
 
-        const CanvasAttachment = new Discord.MessageAttachment(canvas.toBuffer(), 'welcome-image.png');
+        const CanvasAttachment = new Discord.AttachmentBuilder(canvas.toBuffer(), 'welcome-image.png');
 
 
 
-        const Addembed = new Discord.MessageEmbed()
+        const Addembed = new Discord.EmbedBuilder()
             .setTitle("BIENVENUE")
             .setColor(0x00ff00)
             .setDescription(`Bonjour ${member} et bienvenue sur le serveur **${member.guild.name}**. Nous sommes maintenant **${member.guild.memberCount}** sur ce serveur.`)

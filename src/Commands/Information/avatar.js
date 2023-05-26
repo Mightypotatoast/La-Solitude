@@ -1,22 +1,23 @@
-const { ContextMenuInteraction, MessageEmbed } = require("discord.js");
+const { ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder } = require("discord.js");
 
 module.exports = {
-
-    name: "avatar",
-    type: "USER",
-    permission: "ADMINISTRATOR",
-    active:true,
+    data: new ContextMenuCommandBuilder()
+        .setName("avatar")
+        .setType(ApplicationCommandType.User),
 
     async execute(interaction) {
-        
-        const target = await interaction.guild.members.fetch(interaction.targetId);
+        const target = await interaction.guild.members.fetch(
+            interaction.targetId
+        );
 
-        const userMessage = new MessageEmbed()
-            .setAuthor("Avatar de " + target.user.tag, target.user.displayAvatarURL({ format: "png" }))
+        const userMessage = new EmbedBuilder()
+            .setAuthor({
+                name: "Avatar de " + target.user.tag,
+                url: target.user.displayAvatarURL({ format: "png" })
+            })
             .setImage(target.user.avatarURL({ dynamic: true, format: "png" }))
-            .setTimestamp()
-        
-        interaction.reply({embeds : [userMessage], ephemeral : true})
-        
-    }
-}
+            .setTimestamp();
+
+        interaction.reply({ embeds: [userMessage], ephemeral: true });
+    },
+};

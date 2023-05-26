@@ -8,6 +8,8 @@ module.exports = model('Channels', new Schema({
     WelcomeChannelID: String,
     ByeChannelID: String,
     MusicChannelID: String,
+
+    TicketSystem: Object,
     
 }))
 

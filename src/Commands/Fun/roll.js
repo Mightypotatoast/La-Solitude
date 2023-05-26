@@ -1,34 +1,39 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder } = require("discord.js");
+
 module.exports = {
+    data: new SlashCommandBuilder()
+        .setName("roll")
+        .setDescription("Lancer un dé")
+        .addIntegerOption((option) =>
+            option
+                .setName("dice")
+                .setDescription(`Le nombre du dé que tu veux lancer`)
+                .setRequired(false)
+        ),
 
-    name: "roll",
-    description: "Lancer un dé",
-    permission: "ADMINISTRATOR",
-    active : true,
-
-    options: [
-          {
-              name: "dice",
-              description: `Le nombre du dé que tu veux lancer`,
-              type: "STRING",
-              required: false,
-          }
-      ],
     async execute(message) {
-        
-        try{
-            let dice = message.options.getString('dice')
-            if (dice==null) dice = "6";
-            const roll = Math.floor(Math.random() * dice) + 1
-            const embed = new MessageEmbed()
+        try {
+            let dice = message.options.getString("dice");
+            if (dice == null) dice = "6";
+            const roll = Math.floor(Math.random() * dice) + 1;
+            const embed = new EmbedBuilder()
                 .setColor("#FF0000")
-                .setAuthor("Lance un dé", "https://upload.wikimedia.org/wikipedia/commons/5/53/Six_sided_dice.png")
-                .setDescription(`${message.user} lance un dé : ${roll} (0-${dice})`)
+                .setAuthor({
+                    name: "Lance un dé",
+                    iconURL: "https://upload.wikimedia.org/wikipedia/commons/5/53/Six_sided_dice.png"
+                })
+                .setDescription(
+                    `${message.user} lance un dé : ${roll} (1-${dice})`
+                );
 
-            message.reply({embeds: [embed]})
+            message.reply({ embeds: [embed] });
         } catch (error) {
-            console.log(error)
-            message.reply({ embeds: [errorEmbed().setDescription(`${error}`)], ephemeral: true })
+            console.log(error);
+            message.reply({
+                embeds: [errorEmbed().setDescription(`${error}`)],
+                ephemeral: true,
+            });
         }
-    }
-}
+    },
+};

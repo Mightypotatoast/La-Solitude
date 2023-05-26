@@ -1,36 +1,38 @@
-const { MessageActionRow, MessageButton } = require("discord.js");
+const { ActionRowBuilder, ButtonBuilder } = require("discord.js");
 
 module.exports = {
-    
+    //------------------------ Music -------------------------------
+    musicButtonRow: () => {
+        return new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
+                .setLabel("⏮️")
+                .setCustomId(`previous`)
+                .setStyle("Secondary"),
+            new ButtonBuilder()
+                .setLabel("⏯️")
+                .setCustomId(`pause`)
+                .setStyle("Secondary"),
+            new ButtonBuilder()
+                .setLabel("⏭️")
+                .setCustomId(`skip`)
+                .setStyle("Secondary")
+        );
+    },
 
-//------------------------ Music -------------------------------    
-     musicButtonRow: () => {
-        return new MessageActionRow()
-			.addComponents(
-				new MessageButton()
-					.setLabel('⏮️')
-                    .setCustomId(`previous`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setLabel('⏯️')
-                    .setCustomId(`pause`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setLabel('⏩')
-                    .setCustomId(`skip`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setLabel('🔀')
-                    .setCustomId(`shuffle`)
-					.setStyle('SECONDARY'),
-				new MessageButton()
-					.setLabel('🔁')
-                   .setCustomId(`repeat`)
-					.setStyle('SECONDARY'),  
-			)},
-
-//----------------------           -------------------------------
-
-
-
-}
+    musicButtonRow2: () => {
+        return new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
+                .setLabel("🔀")
+                .setCustomId(`shuffle`)
+                .setStyle("Secondary"),
+            new ButtonBuilder()
+                .setLabel("🔁")
+                .setCustomId(`repeat`)
+                .setStyle("Secondary"),
+            new ButtonBuilder()
+                .setLabel("❤️")
+                .setCustomId(`like`)
+                .setStyle("Secondary")
+        );
+    },
+};

@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const config = require('../../config')
 
 
@@ -7,9 +7,11 @@ module.exports = {
     name: 'guildMemberRemove',
     once: false,
 
-    execute(member) {
+    execute(member, client) {
 
-       const exampleEmbed = new MessageEmbed()
+        if(member.id === client.user.id) return;
+        
+        const exampleEmbed = new EmbedBuilder()
 	        .setColor('#ff0000')
 	        .setDescription(`${member} est parti(e). `)
 	        .setTimestamp();

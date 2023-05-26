@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 const config = require('../../config')
 
 module.exports = {
@@ -11,14 +11,30 @@ module.exports = {
         let channelDate = channel.createdAt
         let channelDeleteDate = new Date()
 
-        const channelEmbed = new MessageEmbed()
+        const channelEmbed = new EmbedBuilder()
             .setTitle("**Un channel a été supprimé !**")
             .setColor("#E73C3C")
             .setDescription('**Date de création** : '+`${channelDate.getDate()}/${channelDate.getMonth()+1}/${channelDate.getFullYear()} à ${channelDate.getHours()}:${String(channelDate.getMinutes()).padStart(2, '0')}` )
-            .addField('Nom', `${channel.name}`, true)
-            .addField('Type', channel.type, true)
-            .addField('ID', channel.id)
-            .addField('Supprimé le : ', `${channelDeleteDate.getDate()}/${channelDeleteDate.getMonth()+1}/${channelDeleteDate.getFullYear()} à ${channelDeleteDate.getHours()}:${String(channelDeleteDate.getMinutes()).padStart(2, '0')}`)
+            .addFields(
+                {
+                    name: 'Nom',
+                    value: `${channel.name}`,
+                    inline: true
+                },
+                {
+                    name: 'Type',
+                    value: `${channel.type}`,
+                    inline: true
+                },
+                {
+                    name:'ID',
+                    value: `${channel.id}`
+                },
+                {
+                    name: 'Supprimé le : ',
+                    value: `${channelDeleteDate.getDate()}/${channelDeleteDate.getMonth()+1}/${channelDeleteDate.getFullYear()} à ${channelDeleteDate.getHours()}:${String(channelDeleteDate.getMinutes()).padStart(2, '0')}`
+                }
+            )
             .setTimestamp()
 
         

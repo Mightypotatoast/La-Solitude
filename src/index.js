@@ -1,14 +1,35 @@
-require('dotenv').config();
-const {Client, Collection, MessageEmbed} = require("discord.js");
-const client = new Client({ intents: 32767 });
-const Distube = require('distube')
+require("dotenv").config();
+const Distube = require("distube");
+const fs = require("fs");
+const path = require("node:path");
 
+const { loadEvents } = require("./Handlers/Events")
+const { loadCommands } = require("./Handlers/Commands")
+
+const { Client, GatewayIntentBits, Partials, Collection, EmbedBuilder } = require("discord.js");
+
+const {Guilds, GuildMembers, GuildMessages, GuildVoiceStates} = GatewayIntentBits
+const {User, Message, GuildMember, ThreadMember} = Partials
+
+const client = new Client({ 
+    intents: [Guilds, GuildMembers, GuildMessages, GuildVoiceStates],
+    partials: [User, Message, GuildMember, ThreadMember] 
+});
 
 client.commands = new Collection()
 
-require("./Structures/Events")(client);
-require("./Structures/Commands")(client);
+loadEvents(client);
 
-client.distube = new Distube.default(client, { searchSongs: 0, emitNewSongOnly: true })
-
-client.login(process.env.DISCORD_TOKEN)
+client
+    .login(process.env.DISCORD_TOKEN)
+    .then(()=> {
+        loadCommands(client);
+    })
+    .catch((err) => { console.log(err); });
+        
+    
+    
+client.distube = new Distube.default(client, {
+    searchSongs: 0,
+    emitNewSongOnly: true,
+});

@@ -1,5 +1,16 @@
-const { errorEmbed, musicEmbed} = require("../../util/Embeds")
+const { errorEmbed, musicEmbed } = require("../../util/Embeds");
+const { SlashCommandBuilder } = require("discord.js");
+
 module.exports = {
+    data: new SlashCommandBuilder()
+        .setName("volume")
+        .setDescription("Change le volume de la musique")
+        .addIntegerOption((option) =>
+            option
+                .setName("pourcentage")
+                .setDescription("Par défaut, le volume est à 50%")
+                .setRequired(true)
+        ),
 
     name: "volume",
     description: "Change le volume de la musique",
@@ -12,27 +23,46 @@ module.exports = {
             description: `Par défaut, le volume est à 50%`,
             type: 4,
             required: true,
-        }
+        },
     ],
-  
+
     async execute(message, client) {
-        const queue = client.distube.getQueue(message)
-        if (!queue) return message.reply({ embeds: [errorEmbed().setDescription(`La file d'attente est actuellement vide !`)], ephemeral: true })
+        const queue = client.distube.getQueue(message);
+        if (!queue)
+            return message.reply({
+                embeds: [
+                    errorEmbed().setDescription(
+                        `La file d'attente est actuellement vide !`
+                    ),
+                ],
+                ephemeral: true,
+            });
         try {
-            const volume = message.options.getInteger('value')
-            if (isNaN(volume)) return message.reply({ embeds: [errorEmbed().setDescription(`Vous devez rentrer un nombre valide`)], ephemeral: true })
-            queue.setVolume(volume)
-            
+            const volume = message.options.getInteger("value");
+            if (isNaN(volume))
+                return message.reply({
+                    embeds: [
+                        errorEmbed().setDescription(
+                            `Vous devez rentrer un nombre valide`
+                        ),
+                    ],
+                    ephemeral: true,
+                });
+            queue.setVolume(volume);
+
             message.reply({
                 embeds: [
-                musicEmbed()
-                .setDescription(`${message.user} a défini le volume à \`${volume}%\``)
-                ]
-            })
-
-        } catch (e){
-            console.log(e)
-            message.reply({ embeds: [errorEmbed().setDescription(`${e}`)], ephemeral: true })
+                    musicEmbed().setDescription(
+                        `${message.user} a défini le volume à \`${volume}%\``
+                    ),
+                ],
+            });
+        } catch (e) {
+            console.log(e);
+            message.reply({
+                embeds: [errorEmbed().setDescription(`${e}`)],
+                ephemeral: true,
+            });
         }
-    }
-}
+    },
+};

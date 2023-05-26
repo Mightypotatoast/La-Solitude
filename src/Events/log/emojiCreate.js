@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 const config = require('../../config')
 
 module.exports = {
@@ -10,14 +10,25 @@ module.exports = {
         
         let emojiDate = emoji.createdAt
         
-        const emojiEmbed = new MessageEmbed()
+        const emojiEmbed = new EmbedBuilder()
             .setTitle("**Un émoji a été créé !**")
             .setThumbnail(emoji.url)
             .setColor("#3CE73C")
             .setDescription('**Date** : '+`${emojiDate.getDate()}/${emojiDate.getMonth()+1}/${emojiDate.getFullYear()} à ${emojiDate.getHours()}:${String(emojiDate.getMinutes()).padStart(2, '0')}` )
-            .addField('Nom', `:${emoji.name}:`, true)
-            .addField('Animé ?', (emoji.animated) ? "Oui":"Non")
-            .addField('ID', emoji.id)
+            .addFields(
+                {
+                    name:'Nom',
+                    value: `:${emoji.name}:`,
+                    inline: true
+                },
+                {
+                    name:'Animé ?',
+                    value: (emoji.animated) ? "Oui":"Non"
+                },{
+                    name: 'ID',
+                    value: emoji.id
+                }
+            )
             .setTimestamp()
         
         
