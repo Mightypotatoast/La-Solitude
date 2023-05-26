@@ -1,6 +1,15 @@
 const fs = require("fs");
 
+
+
 const commandsFolder = fs.readdirSync("./src/Commands");
+
+
+try {
+    fs.unlinkSync("./README.md")
+} catch (e) {
+    console.log("no README file found")
+}
 
 fs.appendFile(
     "./README.md",
@@ -20,7 +29,7 @@ for (folder of commandsFolder) {
         .readdirSync(`./src/Commands/${folder}`)
         .filter((file) => file.endsWith(".js"));
     fs.appendFile(
-        "../README.md",
+        "./README.md",
         `\n### ${folder}\n \n | name | Description | \n | :------ | :------ | \n `,
         function (err) {
             if (err) {
@@ -34,7 +43,7 @@ for (folder of commandsFolder) {
         const command = require(`./Commands/${folder}/${file}`);
         //console.info(command);
         fs.appendFile(
-            "../README.md",
+            "./README.md",
             `| \`${command.data.name}\` | \`${command.data.description}\` |\n`,
             function (err) {
                 if (err) {
