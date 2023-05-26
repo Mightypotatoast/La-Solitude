@@ -1,9 +1,9 @@
 const fs = require("fs");
 
-const commandsFolder = fs.readdirSync("./Commands");
+const commandsFolder = fs.readdirSync("./src/Commands");
 
 fs.appendFile(
-    "../README.md",
+    "./README.md",
     `# La Solitude Discord Bot\n\n## Author\n\n-   [@Ayrox](https://github.com/Ayrox)\n\n## Contributors\n\n-   [@Syns369](https://github.com/Syns369)\n-   [@MightyPotatoast](https://github.com/MightyPotatoast)\n\n## Commands\n`,
     
     function (err) {
@@ -17,11 +17,11 @@ fs.appendFile(
 
 for (folder of commandsFolder) {
     const commandFiles = fs
-        .readdirSync(`./Commands/${folder}`)
+        .readdirSync(`./src/Commands/${folder}`)
         .filter((file) => file.endsWith(".js"));
     fs.appendFile(
         "../README.md",
-        `\n## ${folder}\n \n | name | Description | \n | :------ | :------ | \n `,
+        `\n### ${folder}\n \n | name | Description | \n | :------ | :------ | \n `,
         function (err) {
             if (err) {
                 console.log(`${folder} failed to be added to the README.md`);

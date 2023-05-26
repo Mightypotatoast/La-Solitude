@@ -125,3 +125,15 @@ j'ai décidé de créer mon propre bot discord afin de répondre au besoin du se
 | `ticket-disable` | `Désactive le système de tickets.`      |
 | `ticket-enable`  | `Active le système de tickets.`         |
 | `set-nick`       | `Change le pseudo de quelqu'un`         |
+# La Solitude Discord Bot
+
+## Author
+
+-   [@Ayrox](https://github.com/Ayrox)
+
+## Contributors
+
+-   [@Syns369](https://github.com/Syns369)
+-   [@MightyPotatoast](https://github.com/MightyPotatoast)
+
+## Commands
