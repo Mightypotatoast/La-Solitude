@@ -48,7 +48,7 @@
     "nodemon": "^2.0.14",
     "ow": "^1.0.0",
     "pokedex-promise-v2": "^3.3.2",
-    "puppeteer": "^10.4.0",
+    "puppeteer": "^20.4.0",
     "snekfetch": "^4.0.4",
     "tweetnacl": "^1.0.3",
     "utf-8-validate": "^5.0.9",
