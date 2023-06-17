@@ -32,8 +32,7 @@ module.exports = {
 
         try {
             message.deferReply({ ephemeral: false });
-            var refreshTimout =
-                queue.songs[0].duration - queue.songs[0].currentTime;
+            var refreshTimout = 600;
             var count = 0;
             var refreshMessage = setInterval(() => {
                 count++;
@@ -79,7 +78,7 @@ module.exports = {
                     components: [musicButtonRow(), musicButtonRow2()],
                     ephemeral: false,
                 });
-            }, 1000);
+            }, 2000);
         } catch (e) {
             message.editReply({
                 embeds: [errorEmbed().setDescription(`${e}`)],

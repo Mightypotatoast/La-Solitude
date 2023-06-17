@@ -9,7 +9,7 @@ module.exports = {
             option
                 .setName("number")
                 .setDescription("Nombre de musiques à passer")
-                .setRequired(true)
+                .setRequired(false)
         ),
 
     name: "skip",
